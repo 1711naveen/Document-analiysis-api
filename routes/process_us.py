@@ -173,7 +173,6 @@ def highlight_and_correct(doc):
 
         formatted_runs = []
 
-
         for run in para.runs:
             run_text = replace_curly_quotes_with_straight(run.text)
             run_text = insert_thin_space_between_number_and_unit(run_text)
@@ -222,8 +221,7 @@ def highlight_and_correct(doc):
                 new_run.font.color.rgb = color
 
 
-def clean_word(word):
-    # Clean word by removing punctuation and converting to lowercase
+def clean_word1(word):
     return ''.join(filter(str.isalnum, word)).lower()
 
 
@@ -287,7 +285,7 @@ async def process_file(doc_id: int = Query(...)):
         for index, line in enumerate(lines):
             words = line.split()
             for word in words:
-                cleaned = clean_word(word)
+                cleaned = clean_word1(word)
                 if cleaned and not us_dict.check(cleaned):
                     suggestions = us_dict.suggest(cleaned)
                     suggestion_text = (
