@@ -1,0 +1,5 @@
+fastapi
+uvicorn
+python-docx
+num2words
+pyenchant
