@@ -15,12 +15,14 @@ from pathlib import Path
 import logging  
 import roman  # For converting Roman numerals to Arabic numerals
 from roman import fromRoman
-import sys
+
 
 router = APIRouter()
 
 us_dict = enchant.Dict("en_US") #for US english
 # uk_dict = enchant.Dict("en_GB") # for UK english
+
+global_logs = []
 
 century_map = {
     1: "first",
@@ -274,7 +276,7 @@ def use_numerals_with_percent(text, doc_id):
                 log_file.write(f"Line {line_number}: {match.group(0)} -> {modified}\n")
                 return modified
 
-            modified_line = re.sub(r"(\d+)\s?(percent|per cent)", replace_numerical_percent, modified_line, flags=re.IGNORECASE)
+            modified_line = re.sub(r"(\d+)\s?(percent per cent)", replace_numerical_percent, modified_line, flags=re.IGNORECASE)
 
             # Add the modified line to the final text
             modified_text.append(modified_line)
@@ -536,6 +538,56 @@ def format_titles_us_english_with_logging(text, doc_id):
 
 
 
+def process_text_with_logging(text, doc_id):
+    # Units and their full forms
+    units = {
+        "s": "second",
+        "m": "meter",
+        "kg": "kilogram",
+        "A": "ampere",
+        "K": "kelvin",
+        "mol": "mole",
+        "cd": "candela"
+    }
+    
+    # Track used units
+    used_units = set()
+    changes = []  # To log changes
+    
+    # Create the output folder if it doesn't exist
+    output_folder = os.path.join("output", doc_id)
+    os.makedirs(output_folder, exist_ok=True)
+    log_file_path = os.path.join(output_folder, "log.txt")
+    
+    # Function to replace units
+    def replace_unit(match):
+        unit = match.group(0)
+        if unit in used_units:
+            return unit  # Replace with just the unit abbreviation
+        else:
+            used_units.add(unit)
+            full_form = units[unit]
+            changes.append((line_num, full_form, unit))  # Log the change
+            return f"{full_form} ({unit})"  # Replace with full form and abbreviation
+
+    # Create a regex pattern for the units
+    pattern = r'\b(' + '|'.join(re.escape(unit) for unit in units.keys()) + r')\b'
+    
+    # Process each line and track line numbers
+    processed_lines = []
+    for line_num, line in enumerate(text.splitlines(), start=1):
+        processed_line = re.sub(pattern, replace_unit, line)
+        processed_lines.append(processed_line)
+
+    # Write the changes to the log file
+    with open(log_file_path, "w") as log_file:
+        for line_num, full_form, unit in changes:
+            log_file.write(f"Line {line_num}: {full_form} -> {unit}\n")
+    
+    return "\n".join(processed_lines)
+
+
+
 def highlight_and_correct(doc,doc_id):
     chapter_counter = [0] 
     for para in doc.paragraphs:     
@@ -560,6 +612,7 @@ def highlight_and_correct(doc,doc_id):
 
         # para.text = us_english_titles(para.text)
         para.text = format_titles_us_english_with_logging(para.text,doc_id)
+        para.text = process_text_with_logging(para.text,doc_id)
 
         formatted_runs = []
 

@@ -138,6 +138,7 @@ def process_document(file_path, abbreviation_dict, log_path):
 
 
 
+
 def save_processed_document(doc, doc_id, file_name):
     """Save the processed document to the output directory."""
     output_dir = Path(os.getcwd()) / 'output' / str(doc_id)
