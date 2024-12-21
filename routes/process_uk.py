@@ -1,6 +1,7 @@
 import re
 from docx.shared import RGBColor
 from num2words import num2words
+from word2number import w2n
 import enchant
 from fastapi import APIRouter, HTTPException, Depends, Query
 from fastapi.responses import FileResponse
@@ -12,6 +13,9 @@ import mammoth
 from datetime import datetime
 from pathlib import Path
 import logging  
+import roman  # For converting Roman numerals to Arabic numerals
+from roman import fromRoman
+
 
 router = APIRouter()
 
@@ -46,6 +50,17 @@ century_map = {
     25: "twenty-fifth",
 }
 
+
+
+def replace_percent_with_symbol(text):
+    """
+    Replaces 'percent' or 'per cent' with '%' if preceded by a number.
+
+    :param text: The text to process.
+    :return: The modified text.
+    """
+    return re.sub(r"(\d+)\s?(percent|per cent)", r"\1%", text, flags=re.IGNORECASE)
+
 def convert_century(word):
     match = re.match(r"(\d+)(st|nd|rd|th)$", word)
     if match:
@@ -59,6 +74,14 @@ def clean_word(word):
 
 def replace_curly_quotes_with_straight(text):
     return text.replace("“", '"').replace("”", '"').replace("‘", "'").replace("’", "'")
+
+
+
+# def replace_straight_single_quotes_with_curly(text):
+#     text = re.sub(r"(^|\s)'", "‘", text)
+#     text = re.sub(r"'(\s|$)", "’", text)
+#     return text
+
 
 def correct_acronyms(word):
     if re.match(r"([a-z]\.){2,}[a-z]\.?", word):
@@ -93,6 +116,73 @@ def spell_out_number_and_unit(sentence):
         unit_word = unit.lower() if unit.lower()[-1] == 's' else unit.lower() + "s"
         return f"{number_word.capitalize()} {unit_word}{sentence[len(match.group(0)):]}"
     return sentence
+
+
+
+def use_numerals_with_percent(text):
+    """
+    Converts spelled-out numbers with 'percent' or 'per cent' into numerals followed by '%'.
+    """
+    # Convert spelled-out numbers (like "five percent") to numerals with '%'
+    text = re.sub(
+        r"\b(one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|twenty|thirty|forty|fifty|sixty|seventy|eighty|ninety|hundred)\s?(percent|per cent)",
+        lambda m: f"{w2n.word_to_num(m.group(1))}%",
+        text,
+        flags=re.IGNORECASE,
+    )
+    # Replace numeral with 'percent' or 'per cent' to numerals with '%'
+    text = re.sub(r"(\d+)\s?(percent|per cent)", r"\1%", text, flags=re.IGNORECASE)
+    return text
+
+
+
+def correct_chapter_numbering(text, chapter_counter):
+    """
+    Ensures that chapter headings are numbered sequentially using an external counter.
+
+    :param text: The text to process.
+    :param chapter_counter: A list containing the chapter counter as its first element.
+    :return: The modified text.
+    """
+    # Pattern to match chapter headings
+    chapter_pattern = re.compile(r"(?i)\bchapter\s+((?:[IVXLCDM]+)|(?:[a-z]+)|(?:\d+))[:.]?\s")
+
+    def replace_chapter_heading(match):
+        """
+        Replace matched chapter heading with sequential numbering.
+        """
+        chapter_counter[0] += 1  # Increment the shared counter
+        return f"Chapter {chapter_counter[0]}: "
+
+    # Apply the substitution across the text
+    return chapter_pattern.sub(replace_chapter_heading, text)
+
+
+
+
+# uncommet it later for point 
+# def correct_scientific_unit_symbols(text):
+#     """
+#     Removes incorrect plural forms, apostrophes, or periods from scientific unit symbols.
+#     Ensures unit symbols like 'kg', 'm', 'L', etc., are used properly.
+
+#     :param text: The text to process.
+#     :return: The modified text.
+#     """
+#     # List of common scientific unit symbols
+#     units = [
+#         "kg", "g", "mg", "L", "ml", "m", "cm", "mm", "km", "s", "min", "h", "A", 
+#         "mol", "cd", "K", "Pa", "N", "J", "W", "C", "V", "Ω", "Hz", "Bq", "Gy", "Sv", "lx", "lm"
+#     ]
+#     # Create regex pattern for units followed by invalid characters
+#     pattern = r"\b(\d+)\s?(" + "|".join(units) + r")['s.]?\b"
+#     # Replace invalid forms with correct form
+#     return re.sub(pattern, r"\1 \2", text)
+
+
+
+
+
 
 
 def insert_thin_space_between_number_and_unit(text):
@@ -158,8 +248,117 @@ def format_ellipses_in_series(text):
     return text
 
 
-def highlight_and_correct(doc):
+
+def format_chapter_title(text):
+    match = re.match(r"Chapter\s+([\dIVXLCDM]+)[\.:]\s*(.*)", text, re.IGNORECASE)
+    if match:
+        chapter_number = match.group(1)
+        chapter_title = match.group(2).rstrip('.')  # Remove trailing period
+        words = chapter_title.split()
+        formatted_title = " ".join([
+            word.capitalize() if i == 0 or len(word) >= 5 else word.lower()
+            for i, word in enumerate(words)
+        ])
+        return f"{chapter_number}. {formatted_title}"
+    return text
+
+
+
+def uk_english_titles(text):
+    """
+    Formats titles for UK English, ensuring titles do not have dots
+    and are correctly capitalized.
+    """
+    titles = {
+        "mister": "Mr",
+        "doctor": "Dr",
+        "miss": "Miss",
+        "mrs": "Mrs",
+        "ms": "Ms",
+        "professor": "Professor",
+    }
+
+    def replace_title(match):
+        return titles.get(match.group(1).lower(), match.group(1))
+
+    # Regular expression to match titles at word boundaries
+    pattern = r"\b(" + "|".join(titles.keys()) + r")\b"
+    text = re.sub(pattern, replace_title, text, flags=re.IGNORECASE)
+
+    return text
+
+
+import os
+import re
+
+def uk_english_titles_with_logging(text, doc_id):
+    """
+    Formats titles for UK English, ensuring titles do not have dots
+    and are correctly capitalized, and logs changes to a file.
+
+    :param text: The text to process.
+    :param doc_id: The document ID for logging purposes.
+    :return: The modified text.
+    """
+    titles = {
+        "mister": "Mr",
+        "doctor": "Dr",
+        "miss": "Miss",
+        "mrs": "Mrs",
+        "ms": "Ms",
+        "professor": "Professor",
+    }
+
+    # Create output directory if not exists
+    output_dir = f'output/{doc_id}'
+    os.makedirs(output_dir, exist_ok=True)
+
+    # Prepare log file path
+    log_file_path = os.path.join(output_dir, 'log_uk.txt')
+    
+    # List to store changes
+    changes = []
+
+    def replace_title(match):
+        original_title = match.group(1)
+        formatted_title = titles.get(original_title.lower(), original_title)
+        if original_title != formatted_title:
+            changes.append(f"Line {match.start()}: {original_title} -> {formatted_title}")
+        return formatted_title
+
+    # Regular expression to match titles at word boundaries
+    pattern = r"\b(" + "|".join(titles.keys()) + r")\b"
+    updated_text = re.sub(pattern, replace_title, text, flags=re.IGNORECASE)
+
+    # Write changes to log file if any changes were made
+    if changes:
+        with open(log_file_path, 'w', encoding='utf-8') as log_file:
+            log_file.write("\n".join(changes))
+        print(f"Changes written to {log_file_path}")
+    else:
+        print("No changes detected.")
+
+    # Return the updated text
+    return updated_text
+
+
+
+
+
+
+
+def highlight_and_correct(doc,doc_id):
+    chapter_counter = [0] 
     for para in doc.paragraphs:
+        if para.text.strip().startswith("Chapter"):
+            # Update the paragraph text with sequential chapter numbering
+            para.text = correct_chapter_numbering(para.text, chapter_counter)
+
+            # Format the chapter title (optional)
+            formatted_title = format_chapter_title(para.text)
+            para.text = formatted_title
+        
+        
         para.text = format_dates(para.text)
         para.text = spell_out_number_and_unit(para.text)
         para.text = remove_space_between_degree_and_direction(para.text)
@@ -168,11 +367,15 @@ def highlight_and_correct(doc):
         para.text = format_ellipses_in_series(para.text)  # New rule added here
         # para.text = adjust_terminal_punctuation_in_quotes(para.text)
         para.text = correct_possessive_names(para.text)
+        # para.text = correct_scientific_unit_symbols(para.text)
+        para.text = use_numerals_with_percent(para.text)
+        para.text = replace_percent_with_symbol(para.text)
         para.text = remove_concluding_slashes_from_urls(para.text)
         para.text = clean_web_addresses(para.text)
+        
+        para.text = uk_english_titles_with_logging(para.text,doc_id)
 
         formatted_runs = []
-
 
         for run in para.runs:
             run_text = replace_curly_quotes_with_straight(run.text)
@@ -222,9 +425,11 @@ def highlight_and_correct(doc):
                 new_run.font.color.rgb = color
 
 
-def clean_word(word):
-    # Clean word by removing punctuation and converting to lowercase
+def clean_word1(word):
     return ''.join(filter(str.isalnum, word)).lower()
+
+
+
 
 
 # Helper function to extract text from docx file
@@ -237,6 +442,9 @@ def extract_text_from_docx(file_path):
         # logging.error(f"Error extracting text from file: {e}")
         return ""
 
+
+
+
 @router.get("/process_uk")
 async def process_file(doc_id: int = Query(...)):
     try:
@@ -244,50 +452,38 @@ async def process_file(doc_id: int = Query(...)):
         conn = get_db_connection()
         if conn is None:
             raise HTTPException(status_code=500, detail="Database connection error")
+        
         cursor = conn.cursor()
         cursor.execute("SELECT * FROM row_document WHERE row_doc_id = %s", (doc_id,))
-        # query = text('SELECT * FROM row_document WHERE row_doc_id = :doc_id')
-        # result = db.execute(query, {"doc_id": doc_id})
-        # rows = result.fetchall()
-        
         rows = cursor.fetchone()
-        # conn.close()
 
         if not rows:
             raise HTTPException(status_code=404, detail="Document not found")
         
-        # file_path = rows[1]
-        file_path = os.path.join(os.getcwd(),'files',rows[1])
-
+        # File path based on document ID
+        file_path = os.path.join(os.getcwd(), 'files', rows[1])
 
         # Verify the file exists
         if not os.path.exists(file_path):
             raise HTTPException(status_code=404, detail="File not found on server")
         
-        # Log file for wrong word
-        log_filename = "spell_check_log.txt"
-        # async with aiofiles.open(file_path, 'rb') as file:
-        #     buffer = await file.read()
+        # Start time of processing
+        start_time = datetime.now()
 
-        # Extract raw text using Mammoth
+        # Extract raw text using Mammoth (you need your own extract_text_from_docx method)
         file_content = extract_text_from_docx(file_path)
         text = file_content
 
-        # Start time of processing
-        start_time = datetime.now()
-               
-
-        # Prepare log data
+        # Prepare log data for spell checking
         log_data = []
-        log_data.append(f"FileName: {rows[1]}\n")
-        log_data.append(f"Processing started at: {start_time.isoformat()}\n")
+        log_data.append(f"FileName: {rows[1]}\n\n")
         
-        # Split text into lines and process each line
+        # Split text into lines and process each line for spelling errors
         lines = text.split('\n')
         for index, line in enumerate(lines):
             words = line.split()
             for word in words:
-                cleaned = clean_word(word)
+                cleaned = clean_word1(word)
                 if cleaned and not uk_dict.check(cleaned):
                     suggestions = uk_dict.suggest(cleaned)
                     suggestion_text = (
@@ -296,73 +492,74 @@ async def process_file(doc_id: int = Query(...)):
                     )
                     log_data.append(f"Line {index + 1}: {word} ->{suggestion_text}\n")
 
-        # Write log data to file
-        with open(log_filename, "w", encoding="utf-8") as log_file:
-            log_file.writelines(log_data)
-        
+        # End time and time taken
         end_time = datetime.now()
-        
-        # do it leter
-        # time_taken = round(end_time - start_time, 2)  # Time in seconds
-        # log_data = [f"\nAnalysis completed in {time_taken} seconds."]
-        
-        
-        row_doc_name = rows[1]
-        document_name = row_doc_name.replace('.docx', '')
+        time_taken = round((end_time - start_time).total_seconds(), 2)
+        time_log = f"\nStart Time: {start_time}\nEnd Time: {end_time}\nAnalysis completed in {time_taken} seconds.\n\n"
+
+        # Define the log filename based on the document ID and name
+        document_name = rows[1].replace('.docx', '')
         log_filename = f"{document_name}_log_us.txt"
-
         
+        # Define output path for the log file inside a directory based on doc_id
         output_path_file = Path(os.getcwd()) / 'output' / str(doc_id) / log_filename
-        # output_path_file=os.path.join(os.getcwd(),'output',str(doc_id),log_filename)
-        
-    
         dir_path = output_path_file.parent
-        # dir_path = os.path.join(os.getcwd(), 'output', str(doc_id))
-        
-        if not dir_path.exists():
-            dir_path.mkdir(parents=True, exist_ok=True)
-            
-        print(dir_path)
 
-        # Write log data to the log file
-        with open(output_path_file, 'w') as log_file:
-            log_file.write("\n".join(log_data))
+        # Ensure the output directory exists
+        dir_path.mkdir(parents=True, exist_ok=True)
 
-        # Get a database connection
-        if conn is None:
-            raise HTTPException(status_code=500, detail="Database connection error")
-        
+        # Prepend the time log to the existing log data
+        try:
+            # Read existing content of the log file if exists
+            if output_path_file.exists():
+                with open(output_path_file, "r", encoding="utf-8") as log_file:
+                    existing_content = log_file.read()
+                with open(output_path_file, "w", encoding="utf-8") as log_file:
+                    log_file.write(time_log + ''.join(log_data) + existing_content)
+            else:
+                # If the file doesn't exist, create it with the new log data
+                with open(output_path_file, "w", encoding="utf-8") as log_file:
+                    log_file.write(time_log + ''.join(log_data))
 
-        # Check if the document already exists in the database
+        except FileNotFoundError:
+            # If the log file does not exist at all, create a new one
+            with open(output_path_file, "w", encoding="utf-8") as log_file:
+                log_file.write(time_log + ''.join(log_data))
+
+        # Process the document and save it with corrections
+        output_dir = os.path.join("output", str(doc_id))  # Folder based on doc_id
+        os.makedirs(output_dir, exist_ok=True)
+
+        output_path = os.path.join(output_dir, f"processed_{os.path.basename(file_path)}")
+
+        # Process the document (assuming highlight_and_correct is your correction function)
+        doc = docx.Document(file_path)
+        highlight_and_correct(doc,doc_id)
+        doc.save(output_path)
+
+        # Save document metadata to the database if not already processed
         cursor.execute("SELECT final_doc_id FROM final_document WHERE row_doc_id = %s", (doc_id,))
         existing_rows = cursor.fetchall()
-        print(cursor)
 
         if existing_rows:
-            # File already processed
-            print('File already processed in final_document. Skipping insert.')
+            logging.info('File already processed in final_document. Skipping insert.')
         else:
-            # Insert new record if not present
+            # Insert new record into final_document table
             folder_url = f'/output/{doc_id}/'
             cursor.execute(
                 '''INSERT INTO final_document (row_doc_id, user_id, final_doc_size, final_doc_url, status, creation_date)
                 VALUES (%s, %s, %s, %s, %s, NOW())''',
                 (doc_id, rows[1], rows[2], folder_url, rows[7])
             )
-            print('New file processed and inserted into final_document.')
-            
+            logging.info('New file processed and inserted into final_document.')
 
         # Commit changes to the database
         conn.commit()
 
-        output_dir = os.path.join("output", str(doc_id))  # Create directory path based on doc_id
-        os.makedirs(output_dir, exist_ok=True) 
-        output_path = os.path.join(output_dir, f"processed_{os.path.basename(file_path)}")  # Generate output file path
-        doc = docx.Document(file_path)
-        highlight_and_correct(doc)
-        doc.save(output_path)
+        # Log the success message and return the response
         logging.info(f"Processed file stored at: {output_path}")
-        
         return {"success": True, "message": f"File processed and stored at {output_path}"}
+
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+

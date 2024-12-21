@@ -29,10 +29,8 @@ def write_array_to_docx(array, name, doc_id, heading, chapter):
         output_path = os.path.join(os.getcwd(), 'output', doc_id, name)
         os.makedirs(os.path.dirname(output_path), exist_ok=True)
 
-        # Save document
         doc.save(output_path)
 
-        # Log file creation
         log_message = f"File Created: {name}\nPath: {output_path}\nDate and Time: {datetime.now()}\n{'-'*40}\n"
         logging.info(log_message)
 
@@ -81,9 +79,6 @@ async def process_document(doc_id: str):
         updated_figure_array = [figure.replace(":", "", 1) for figure in figure_array]
         updated_table_array = [table.replace(":", "", 1) for table in table_array]
 
-        # print(updated_figure_array)
-        # print(updated_table_array)
-        # Write Tables and Figures to separate .docx files
         write_array_to_docx(updated_table_array, "Table.docx", doc_id, "List of Tables", f"Chapter {chapter}")
         write_array_to_docx(updated_figure_array, "Figure.docx", doc_id, "List of Figures", f"Chapter {chapter}")
 

@@ -1,0 +1,112 @@
+
+Start Time: 2024-12-20 18:15:21.123997
+End Time: 2024-12-20 18:15:39.065866
+Analysis completed in 17.94 seconds.
+
+FileName: ckeck.docx
+
+Line 3: Organisational -> Suggestions: organizational, organization, antinationalist, transnational, antirational
+Line 3: Behaviour: -> Suggestions: behavior
+Line 5: Organisational -> Suggestions: organizational, organization, antinationalist, transnational, antirational
+Line 5: behaviour -> Suggestions: behavior
+Line 5: “helo” -> Suggestions: hole, help, helot, hello, halo, hero, hell, held, helm, he lo, he-lo, Helot
+Line 5: profesional -> Suggestions: professional, profession, processional, professorial, provisional
+Line 5: organisational -> Suggestions: organizational, organization, antinationalist, transnational, antirational
+Line 5: noances -> Suggestions: nuances, annoyances, announces, seances
+Line 5: behaviour -> Suggestions: behavior
+Line 5: organisational -> Suggestions: organizational, organization, antinationalist, transnational, antirational
+Line 5: organisational -> Suggestions: organizational, organization, antinationalist, transnational, antirational
+Line 5: behaviour, -> Suggestions: behavior
+Line 5: organisations. -> Suggestions: organizations, organization
+Line 9: BCE, -> Suggestions: be, bice, bee, ice, ace, bye, Ice
+Line 9: CE. -> Suggestions: Ce, cw, cr, c, e, ice, ace, cen, cue, Ice, cs, ca, ae, ne, re
+Line 11: <http://example.com> -> Suggestions: counterexample
+Line 21: ABC's -> Suggestions: abs, cabs, abas, arcs, ab cs, ab-cs, ABCs
+Line 27: Organisational -> Suggestions: organizational, organization, antinationalist, transnational, antirational
+Line 27: Behaviour -> Suggestions: behavior
+Line 27: U.S.A -> Suggestions: USA, us, Susa, use, usu, Asa, us a
+Line 27: D.N.A -> Suggestions: DNA, and, dona, Edna, ana, Ina, Ana, Una
+Line 29: Organisational -> Suggestions: organizational, organization, antinationalist, transnational, antirational
+Line 29: behaviour -> Suggestions: behavior
+Line 29: organisational -> Suggestions: organizational, organization, antinationalist, transnational, antirational
+Line 29: organisational -> Suggestions: organizational, organization, antinationalist, transnational, antirational
+Line 29: 1960’s -> No suggestions available
+Line 29: 60’s -> No suggestions available
+Line 29: 2070’s -> No suggestions available
+Line 31: Rawls' -> Suggestions: awls, trawls, crawls, drawls, brawls, rails, pawls, bawls, yawls, raw's, r awls, raw ls, raw-ls, scrawl
+Line 33: Aristophanes' -> Suggestions: Aristophanes
+Line 35: 15m -> No suggestions available
+Line 35: 20cm -> No suggestions available
+Line 39: Beverly -> Suggestions: Beverly
+Line 41: organisational -> Suggestions: organizational, organization, antinationalist, transnational, antirational
+Line 41: behaviour -> Suggestions: behavior
+Line 47: organisations -> Suggestions: organizations, organization
+Line 49: organisational -> Suggestions: organizational, organization, antinationalist, transnational, antirational
+Line 51: e.g. -> Suggestions: Eg, eh, e, g, eng, neg, erg, reg, ego, leg, deg, egg, meg, peg, beg
+Line 51: x1, -> Suggestions: x, 1, xi, xu, xv
+Line 51: x2,…,xn. -> Suggestions: Xn
+Line 57: Behaviour -> Suggestions: behavior
+Line 59: behaviour -> Suggestions: behavior
+Line 61: consientiousness -> Suggestions: conscientiousness, contentiousness, consciousnesses, continuousness, conscientious
+Line 61: openess -> Suggestions: openness, oneness, openers, openest, ope ness, ope-ness, propenes, opens
+Line 63: organisational -> Suggestions: organizational, organization, antinationalist, transnational, antirational
+Line 65: decision-making -> Suggestions: decision making, decision-making, decisions
+
+Start Time: 2024-12-20 18:15:03.857082
+End Time: 2024-12-20 18:15:17.535225
+Analysis completed in 13.68 seconds.
+
+FileName: ckeck.docx
+
+Line 3: Organisational -> Suggestions: organizational, organization, antinationalist, transnational, antirational
+Line 3: Behaviour: -> Suggestions: behavior
+Line 5: Organisational -> Suggestions: organizational, organization, antinationalist, transnational, antirational
+Line 5: behaviour -> Suggestions: behavior
+Line 5: “helo” -> Suggestions: hole, help, helot, hello, halo, hero, hell, held, helm, he lo, he-lo, Helot
+Line 5: profesional -> Suggestions: professional, profession, processional, professorial, provisional
+Line 5: organisational -> Suggestions: organizational, organization, antinationalist, transnational, antirational
+Line 5: noances -> Suggestions: nuances, annoyances, announces, seances
+Line 5: behaviour -> Suggestions: behavior
+Line 5: organisational -> Suggestions: organizational, organization, antinationalist, transnational, antirational
+Line 5: organisational -> Suggestions: organizational, organization, antinationalist, transnational, antirational
+Line 5: behaviour, -> Suggestions: behavior
+Line 5: organisations. -> Suggestions: organizations, organization
+Line 9: BCE, -> Suggestions: be, bice, bee, ice, ace, bye, Ice
+Line 9: CE. -> Suggestions: Ce, cw, cr, c, e, ice, ace, cen, cue, Ice, cs, ca, ae, ne, re
+Line 11: <http://example.com> -> Suggestions: counterexample
+Line 21: ABC's -> Suggestions: abs, cabs, abas, arcs, ab cs, ab-cs, ABCs
+Line 27: Organisational -> Suggestions: organizational, organization, antinationalist, transnational, antirational
+Line 27: Behaviour -> Suggestions: behavior
+Line 27: U.S.A -> Suggestions: USA, us, Susa, use, usu, Asa, us a
+Line 27: D.N.A -> Suggestions: DNA, and, dona, Edna, ana, Ina, Ana, Una
+Line 29: Organisational -> Suggestions: organizational, organization, antinationalist, transnational, antirational
+Line 29: behaviour -> Suggestions: behavior
+Line 29: organisational -> Suggestions: organizational, organization, antinationalist, transnational, antirational
+Line 29: organisational -> Suggestions: organizational, organization, antinationalist, transnational, antirational
+Line 29: 1960’s -> No suggestions available
+Line 29: 60’s -> No suggestions available
+Line 29: 2070’s -> No suggestions available
+Line 31: Rawls' -> Suggestions: awls, trawls, crawls, drawls, brawls, rails, pawls, bawls, yawls, raw's, r awls, raw ls, raw-ls, scrawl
+Line 33: Aristophanes' -> Suggestions: Aristophanes
+Line 35: 15m -> No suggestions available
+Line 35: 20cm -> No suggestions available
+Line 39: Beverly -> Suggestions: Beverly
+Line 41: organisational -> Suggestions: organizational, organization, antinationalist, transnational, antirational
+Line 41: behaviour -> Suggestions: behavior
+Line 47: organisations -> Suggestions: organizations, organization
+Line 49: organisational -> Suggestions: organizational, organization, antinationalist, transnational, antirational
+Line 51: e.g. -> Suggestions: Eg, eh, e, g, eng, neg, erg, reg, ego, leg, deg, egg, meg, peg, beg
+Line 51: x1, -> Suggestions: x, 1, xi, xu, xv
+Line 51: x2,…,xn. -> Suggestions: Xn
+Line 57: Behaviour -> Suggestions: behavior
+Line 59: behaviour -> Suggestions: behavior
+Line 61: consientiousness -> Suggestions: conscientiousness, contentiousness, consciousnesses, continuousness, conscientious
+Line 61: openess -> Suggestions: openness, oneness, openers, openest, ope ness, ope-ness, propenes, opens
+Line 63: organisational -> Suggestions: organizational, organization, antinationalist, transnational, antirational
+Line 65: decision-making -> Suggestions: decision making, decision-making, decisions
+Line 1: five percent -> 5%
+Line 1: 5 percent -> 5%
+Line 1: 20 per cent -> 20%
+Line 1: five percent -> 5%
+Line 1: 5 percent -> 5%
+Line 1: 20 per cent -> 20%

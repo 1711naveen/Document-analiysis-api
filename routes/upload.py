@@ -39,8 +39,6 @@ async def upload_file(
     with open(file_path, "wb") as f:
         shutil.copyfileobj(file.file, f)
         
-    print(file)
-
     # Extract metadata from the Word document
     try:
         with ZipFile(file_path, "r") as zip_file:
@@ -54,6 +52,13 @@ async def upload_file(
         raise HTTPException(status_code=400, detail="Invalid .docx structure or missing metadata")
 
 
+    try:
+        total_characters = int(characters) if characters else 0
+    except ValueError:
+        total_characters = 0
+
+    # Calculate units (total_characters / 250, rounded up to nearest integer)
+    units = -(-total_characters // 250)
 
 
     # Extract text using Mammoth
@@ -66,12 +71,6 @@ async def upload_file(
         raise HTTPException(status_code=500, detail="Error extracting text from .docx file")
 
 
-    print("pages")
-    print(pages)
-    print(characters)
-    print(lines)
-    print(word_count)
-
     # Save file metadata to the database
     try:
         connection = get_db_connection()
@@ -79,20 +78,20 @@ async def upload_file(
             # Get admin ID from email
             cursor.execute("SELECT admin_id FROM admins WHERE admin_email = %s", (email,))
             admin_row = cursor.fetchone()
+            print(admin_row)
             if not admin_row:
                 raise HTTPException(status_code=404, detail="Admin not found")
 
             admin_id = admin_row[0]
-            print(admin_id)
 
             # Insert document details into the database
             cursor.execute(
                 """
                 INSERT INTO row_document 
-                (row_doc_name, row_doc_type, row_doc_size, user_id, row_doc_url, status, creation_date)
-                VALUES (%s, %s, %s, %s, %s, %s, NOW())
+                (row_doc_name, row_doc_type, row_doc_size, user_id, row_doc_url, status, creation_date, pages, characters, words)
+                VALUES (%s, %s, %s, %s, %s, %s, NOW(), %s, %s, %s)
                 """,
-                (file.filename, "application/vnd.openxmlformats-officedocument.wordprocessingml.document", file.size, admin_id, f"/files/{file.filename}", "active")
+                (file.filename, "application/vnd.openxmlformats-officedocument.wordprocessingml.document", file.size, admin_id, f"/files/{file.filename}", "active", pages, characters, word_count)
             )
             connection.commit()
 
@@ -114,6 +113,7 @@ async def upload_file(
             "words": word_count,
             "lines": lines,
             "pages": pages,
+            "units": units,
             "doc_id": last_inserted_id,
         }
     )
