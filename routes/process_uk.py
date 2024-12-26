@@ -22,6 +22,17 @@ router = APIRouter()
 # uk_dict = enchant.Dict("en_US") #for US english
 uk_dict = enchant.Dict("en_GB") # for UK english
 
+global_logs = []
+
+def fetch_abbreviation_mappings():
+    """Fetch abbreviation mappings from the database."""
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("SELECT original_word, abbreviated_form FROM abbreviation_mapping")
+    mappings = cursor.fetchall()
+    conn.close()
+    return {row[0]: row[1] for row in mappings}
+
 century_map = {
     1: "first",
     2: "second",
@@ -60,6 +71,7 @@ def replace_percent_with_symbol(text):
     :return: The modified text.
     """
     return re.sub(r"(\d+)\s?(percent|per cent)", r"\1%", text, flags=re.IGNORECASE)
+
 
 def convert_century(word):
     match = re.match(r"(\d+)(st|nd|rd|th)$", word)

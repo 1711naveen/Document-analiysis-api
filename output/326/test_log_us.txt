@@ -1,3 +1,0 @@
-FileName: test.docx
-
-Processing started at: 2024-12-18T15:13:08.788880

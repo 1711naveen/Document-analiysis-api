@@ -55,15 +55,6 @@ def apply_number_abbreviation_rule(text: str) -> str:
     return re.sub(pattern, replace_number, text)
 
 
-
-# def process_document(file_path, abbreviation_dict):
-#     """Process the document to apply rules and mappings."""
-#     doc = docx.Document(file_path)
-#     for para in doc.paragraphs:
-#         para.text = apply_abbreviation_mapping(para.text, abbreviation_dict)
-#         para.text = apply_number_abbreviation_rule(para.text)
-#     return doc
-
 def log_transformations(log_path, transformations):
     """
     Write transformations to a log file.
@@ -76,37 +67,12 @@ def log_transformations(log_path, transformations):
             log_file.write(f"{transformation}\n")
 
 
-# def process_document(file_path, abbreviation_dict, log_path):
-#     """
-#     Process the document to apply rules and mappings while logging changes.
-#     """
-#     doc = docx.Document(file_path)
-#     transformations = []  # To store log details
-    
-#     for line_num, para in enumerate(doc.paragraphs, start=1):
-#         original_text = para.text
-#         updated_text = apply_abbreviation_mapping(original_text, abbreviation_dict)
-#         if original_text != updated_text:
-#             transformations.append(f"Line {line_num}: {original_text} -> {updated_text}")
-
-#         # Apply number abbreviation rule
-#         final_text = apply_number_abbreviation_rule(updated_text)
-#         if updated_text != final_text:
-#             transformations.append(f"Line {line_num}: {updated_text} -> {final_text}")
-
-#         para.text = final_text
-
-#     # Write log file
-#     log_transformations(log_path, transformations)
-#     return doc
-
-
 def process_document(file_path, abbreviation_dict, log_path):
     """
     Process the document to apply rules and mappings while logging changes.
     """
     doc = docx.Document(file_path)
-    transformations = []  # To store log details
+    transformations = []
 
     for line_num, para in enumerate(doc.paragraphs, start=1):
         original_text = para.text
@@ -132,10 +98,7 @@ def process_document(file_path, abbreviation_dict, log_path):
         para.text = updated_line_with_numbers
 
     log_transformations(log_path, transformations)
-
     return doc
-
-
 
 
 
@@ -146,32 +109,6 @@ def save_processed_document(doc, doc_id, file_name):
     output_path = output_dir / f"processed_{file_name}"
     doc.save(output_path)
     return output_path
-
-
-
-# @router.get("/process_file_with_abbreviations")
-# async def process_file_with_abbreviations(doc_id: int = Query(...)):
-#     try:
-#         # Fetch document details
-#         rows = fetch_document_details(doc_id)
-#         file_path = os.path.join(os.getcwd(), 'files', rows[1])
-
-#         if not os.path.exists(file_path):
-#             raise HTTPException(status_code=404, detail="File not found on server")
-
-#         # Fetch abbreviation mappings
-#         abbreviation_dict = fetch_abbreviation_mappings()
-
-#         # Process the document
-#         doc = process_document(file_path, abbreviation_dict)
-
-#         # Save the processed document
-#         output_path = save_processed_document(doc, doc_id, rows[1])
-
-#         return {"success": True, "message": f"File processed and saved at {output_path}"}
-
-#     except Exception as e:
-#         raise HTTPException(status_code=500, detail=str(e))
 
 
 

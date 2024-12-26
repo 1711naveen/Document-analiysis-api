@@ -1,6 +1,0 @@
----- Document Transformation Log ----
-
-1. Abbreviated Words and Number Format changed:
-Line 1: Incorporated -> Inc
-Line 1: Company -> Comp
-Line 1: Number 10 -> No. 10
