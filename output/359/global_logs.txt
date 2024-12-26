@@ -1,0 +1,73 @@
+
+Start Time: 2024-12-26 11:09:21.935677
+End Time: 2024-12-26 11:09:29.968886
+Analysis completed in 8.03 seconds.
+
+
+FileName: Organisational Behaviour.docx
+
+
+Line 4: profesional -> Suggestions: professional, profession, processional, professorial, provisional
+Line 4: center -> Suggestions: centre, enter, centner, censer, canter, renter, tenter, c enter, cen ter, cen-ter, cent er, cent-er, cerement, percent, cent
+Line 4: behavior -> Suggestions: behaviour
+Line 4: noances -> Suggestions: nuances, annoyances, announces, seances
+Line 8: Catalog -> Suggestions: catalo, catalo g, cattalo, Tagalog
+Line 10: color -> Suggestions: colour, colon, col or, col-or, Colo
+Line 14: skillful -> Suggestions: skilful, unskillful, skinful
+Line 24: Behavior -> Suggestions: behaviour
+Line 30: Behavior: -> Suggestions: behaviour
+Line 30: consientiousness -> Suggestions: conscientiousness, contentiousness, consciousnesses, continuousness, conscientious
+Line 30: openess -> Suggestions: openness, oneness, openers, openest, ope ness, ope-ness, propenes, opens
+Line 34: decision-making -> Suggestions: decision making, decision-making, decimalising
+Line 38: intract -> Suggestions: intact, interact, infract, in tract, in-tract, intr act, intr-act, intracity, contract
+Line 40: Tuckman’s -> Suggestions: tuck mans, tuck-mans, Turkomans
+Line 40: development—forming, -> Suggestions: development forming, development-forming, underdevelopment
+Line 40: norming, -> Suggestions: morning, forming, worming, minoring, minor
+Line 40: adjourning—are -> Suggestions: adjourning are, adjourning-are, readjourn
+Line 42: Belbin’s -> Suggestions: bellbirds
+Line 50: decision-making. -> Suggestions: decision making, decision-making, decimalising
+Line 52: Edgar -> Suggestions: Edgar, edger, ed gar, ed-gar
+Line 52: Schein’s -> Suggestions: skeins
+Line 52: artifacts, -> Suggestions: artefacts, artifactual
+Line 64: Maslow’s -> Suggestions: mallows, ma slows, ma-slows, mas lows, mas-lows, slows
+Line 64: self-actualisation. -> Suggestions: self actualisation, self-actualisation, intellectualisation, actualisation, conceptualisation, contextualisation
+Line 66: Herzberg’s -> Suggestions: Heisenberg
+Line 66: Two-Factor -> Suggestions: two factor, two-factor, factor
+Line 66: Herzberg -> Suggestions: Heisenberg
+Line 66: (e.g., -> Suggestions: Eg, eh, e, g, eng, neg, erg, reg, ego, leg, deg, egg, meg, peg, beg
+Line 66: (e.g., -> Suggestions: Eg, eh, e, g, eng, neg, erg, reg, ego, leg, deg, egg, meg, peg, beg
+Line 68: Self-Determination -> Suggestions: self determination, self-determination, predetermination, determination, interdenominational, internationalise
+Line 78: Hersey -> Suggestions: heresy, Hersey, jersey, horsey, kersey, Mersey
+Line 78: Blanchard, -> Suggestions: Blanchard
+Line 84: Lewin’s -> Suggestions: loins, lewis
+Line 86: Kotter’s -> Suggestions: jotters, otters, rotters, totters, cotters, potters, k otters, totterers
+Line 86: 8-Step -> Suggestions: step, 8 step, steep
+Line 86: Kotter -> Suggestions: jotter, otter, rotter, totter, cotter, dotter, potter, hotter, Potter, k otter
+Line 94: achivements, -> Suggestions: achievements, achievement
+Line 94: opportuneties, -> Suggestions: opportunities, opportune ties, opportune-ties, opportunenesses, opportuneness, opportunist, opportune
+Line 98: high-performing -> Suggestions: high performing, high-performing, nonperforming, outperforming, performing
+Line 110: today’s -> Suggestions: today, today's, to days, to-days, today s, Tokays
+Line 110: fast-paced -> Suggestions: fast paced, fast-paced, fastened
+Line 128: Cross-Cultural -> Suggestions: cross cultural, cross-cultural, sociocultural, subcultural, sculptural
+Line 140: Wellbeing -> Suggestions: well being, well-being, bejewelling, welling, belling
+Line 142: wellbeing. -> Suggestions: well being, well-being, bejewelling, welling, belling
+Line 154: Concluzion -> Suggestions: conclusion, conclusive
+Line 156: endeavors -> Suggestions: endeavours, endeavour, endears
+Line 156: thrieve, -> Suggestions: thrive, thieve, shrieve
+Line 158: worklace -> Suggestions: workplace, work lace, work-lace, lacework
+Line 158: esential, -> Suggestions: essential, sentential, sequential, sciential, pestilential
+Line 158: labors -> Suggestions: labours, tabors, laborious
+Line 158: forward-thinking. -> Suggestions: forward thinking, forward-thinking, forwarding
+[convert century] Line 6: 20th -> the twentieth century
+[correct_possessive_names] Line 18: 'others'' -> 'others's'
+[correct_possessive_names] Line 18: 'others'' -> 'others''
+Line 1: s -> seconds (s)
+Line 1: s -> seconds (s)
+Line 1: s -> seconds (s)
+Line 1: s -> seconds (s)
+Line 1: s -> seconds (s)
+Line 1: s -> seconds (s)
+Line 1: s -> seconds (s)
+Line 1: s -> seconds (s)
+Line 1: A -> amperes (a)
+Line 1: s -> seconds (s)
