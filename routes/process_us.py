@@ -383,16 +383,21 @@ def use_numerals_with_percent(text):
     return "\n".join(modified_text)
 
 
-
+def adjust_ratios(text):
+    print("In function")
+    # print(text)
+    print(re.sub(r"(\d)\s*:\s*(\d)", r"\1 : \2", text))
+    return re.sub(r"(\d)\s*:\s*(\d)", r"\1 : \2", text)
 
 def correct_chapter_numbering(text, chapter_counter):
+    # Pattern to match chapter headings
     chapter_pattern = re.compile(r"(?i)\bchapter\s+((?:[IVXLCDM]+)|(?:[a-z]+)|(?:\d+))[:.]?\s")
 
     def replace_chapter_heading(match):
         """
         Replace matched chapter heading with sequential numbering.
         """
-        chapter_counter[0] += 1  #
+        chapter_counter[0] += 1  # Increment the shared counter
         return f"Chapter {chapter_counter[0]}: "
 
     # Apply the substitution across the text
@@ -813,6 +818,15 @@ def format_titles_us_english_with_logging(text, doc_id):
 
 
 def process_text_with_logging(text, doc_id):
+    """
+    Replaces unit abbreviations with their full forms and lowercase abbreviations in parentheses,
+    and logs the changes with the exact format: 'Line X: s -> seconds (s)'.
+    
+    :param text: The input text to process.
+    :param doc_id: Document identifier (for additional context if needed).
+    :return: The processed text with replaced units and updated logs.
+    """
+    # Units and their full forms
     units = {
         "s": "second",
         "m": "meter",
@@ -822,15 +836,19 @@ def process_text_with_logging(text, doc_id):
         "mol": "mole",
         "cd": "candela"
     }
-    used_units = set()
-    global global_logs
 
+    # Track used units
+    used_units = set()
+    global global_logs  # Use global logs to record changes
+
+    # Process each line and track line numbers
     processed_lines = []
     for line_num, line in enumerate(text.splitlines(), start=1):
+        # Function to replace units
         def replace_unit(match):
             unit = match.group(0)
             if unit in used_units:
-                return unit
+                return unit  # Replace with just the unit abbreviation
             else:
                 used_units.add(unit)
                 full_form = units[unit]
@@ -838,32 +856,42 @@ def process_text_with_logging(text, doc_id):
                 if unit != "mol" and not full_form.endswith("s"):
                     full_form += "s"
                 replacement = f"{full_form} ({unit.lower()})"
-                # print(replacement)
                 global_logs.append(
                     f"Line {line_num}: {unit} -> {replacement}"
                 )
 
                 return replacement
+
+        # Create a regex pattern for the units
         pattern = r'\b(' + '|'.join(re.escape(unit) for unit in units.keys()) + r')\b'
         
+        # Replace units in the line
         processed_line = re.sub(pattern, replace_unit, line)
         processed_lines.append(processed_line)
 
+    # Return the processed text
     return "\n".join(processed_lines)
 
 
-def adjust_ratios(text):
-    return re.sub(r"(\d)\s*:\s*(\d)", r"\1 : \2", text)
+
 
 def write_to_log(doc_id):
-    global global_logs
+    """
+    Writes accumulated log messages from the global log array to a file.
+
+    :param doc_id: The document ID used to create the output folder and file.
+    """
+    global global_logs  # Access the global log array
 
     output_dir = os.path.join('output', str(doc_id))
     os.makedirs(output_dir, exist_ok=True)
     log_file_path = os.path.join(output_dir, 'global_logs.txt')
 
+    # Write the global log messages to the file
     with open(log_file_path, 'w', encoding='utf-8') as log_file:
         log_file.write("\n".join(global_logs))
+
+    # Clear the global log array after writing
     global_logs = []
 
 
@@ -872,27 +900,27 @@ def highlight_and_correct(doc, doc_id):
     line_number = 1
     abbreviation_dict = fetch_abbreviation_mappings()
     for para in doc.paragraphs:
-        # print(para.text)
-        # print("break")
+        # Process paragraph-level corrections
         if para.text.strip().startswith("Chapter"):
             para.text = correct_chapter_numbering(para.text, chapter_counter)
             formatted_title = format_chapter_title(para.text)
             para.text = formatted_title 
 
         para.text = adjust_ratios(para.text)
-        # print(para.text)
         para.text = format_dates(para.text, line_number)
-        para.text = spell_out_number_and_unit_with_rules(para.text,line_number)
+        # para.text = spell_out_number_and_unit(para.text,line_number)
+        # para.text = spell_out_number_and_unit_with_rules(para.text,line_number)
         para.text = remove_space_between_degree_and_direction(para.text, line_number)
         para.text = enforce_lowercase_units(para.text, line_number)
         para.text = precede_decimal_with_zero(para.text, line_number)
-        para.text = format_ellipses_in_series(para.text)
+        para.text = format_ellipses_in_series(para.text)  # New rule added here
         para.text = correct_possessive_names(para.text, line_number)
         para.text = use_numerals_with_percent(para.text)
-        # para.text = replace_percent_with_symbol(para.text)
+        para.text = replace_percent_with_symbol(para.text)
         para.text = remove_concluding_slashes_from_urls(para.text, line_number)
         para.text = clean_web_addresses(para.text)
 
+        # Apply the new abbreviation and number abbreviation rules
         para.text = apply_abbreviation_mapping(para.text, abbreviation_dict, line_number)
         para.text = apply_number_abbreviation_rule(para.text, line_number)
 
@@ -907,7 +935,6 @@ def highlight_and_correct(doc, doc_id):
             line_number += 1
 
         para.text = '\n'.join(updated_lines)
-
         formatted_runs = []
         for run in para.runs:
             run_text = replace_curly_quotes_with_straight(run.text)
@@ -921,7 +948,7 @@ def highlight_and_correct(doc, doc_id):
                     punctuation = word[-1]
                     word = word[:-1]
 
-                if (word.startswith('"') and word.endswith('"')) or (word.startswith("'") and word.endswith("'")):
+                if (word.startswith('"') and word.endswith('"')) or (word.startswith("'") and word.endswith('"')):
                     formatted_runs.append((word, None))
                     if i < len(words) - 1:
                         formatted_runs.append((" ", None))
@@ -948,11 +975,14 @@ def highlight_and_correct(doc, doc_id):
                 if i < len(words) - 1:
                     formatted_runs.append((" ", None))
 
+        # Clear paragraph and rebuild runs
         para.clear()
         for text, color in formatted_runs:
             new_run = para.add_run(text)
             if color:
                 new_run.font.color.rgb = color
+
+
 
 
 
