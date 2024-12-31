@@ -1,48 +1,44 @@
-# from fastapi import APIRouter, HTTPException, Depends
-# from pydantic import BaseModel, EmailStr
-# from db_config import get_db_connection
-# import bcrypt
+from fastapi import APIRouter, HTTPException
+from pydantic import BaseModel, EmailStr
+from hashlib import md5
+from db_config import get_db_connection
 
-# router = APIRouter()
+router = APIRouter()
 
-# # Define request model
-# class ChangePasswordRequest(BaseModel):
-#     email: EmailStr
-#     new_password: str
-#     confirm_password: str
+class ChangePasswordRequest(BaseModel):
+    email: EmailStr
+    new_password: str
+    confirm_password: str
 
-# @router.post("/change_password/")
-# async def change_password(request: ChangePasswordRequest):
-#     # Validate passwords
-#     if request.new_password != request.confirm_password:
-#         raise HTTPException(status_code=400, detail="Passwords do not match")
+@router.post("/change-password")
+async def change_password(request: ChangePasswordRequest):
+    email = request.email
+    new_password = request.new_password
+    confirm_password = request.confirm_password
+    if new_password != confirm_password:
+        return {
+            "success": False,
+            "message": "Passwords do not match"
+        }
+    hashed_password = md5(new_password.encode()).hexdigest()
 
-#     # Hash the new password
-#     hashed_password = bcrypt.hashpw(request.new_password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
-
-#     try:
-#         # Get database connection
-#         connection = get_db_connection()
-#         cursor = connection.cursor()
-
-#         # Update password in the database
-#         cursor.execute(
-#             "UPDATE admins SET admin_password = %s WHERE admin_email = %s",
-#             (hashed_password, request.email)
-#         )
-#         connection.commit()
-
-#         if cursor.rowcount == 0:
-#             # No rows updated, email not found
-#             raise HTTPException(status_code=404, detail="Email not found")
-
-#         return {"success": True, "message": "Password changed successfully"}
-
-#     except Exception as e:
-#         print(f"Error updating password: {e}")
-#         raise HTTPException(status_code=500, detail="An error occurred while updating the password")
-
-#     finally:
-#         # Close the connection
-#         cursor.close()
-#         connection.close()
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor(dictionary=True)
+        query = "UPDATE admins SET admin_password = %s WHERE admin_email = %s"
+        cursor.execute(query, (hashed_password, email))
+        conn.commit()
+        if cursor.rowcount == 0:
+            return {
+                "success": False,
+                "message": "Password update failed, email not found"
+            }
+        return {
+            "success": True,
+            "message": "Password changed successfully"
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+    finally:
+        cursor.close()
+        conn.close()

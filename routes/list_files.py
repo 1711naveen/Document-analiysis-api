@@ -6,11 +6,6 @@ router = APIRouter()
 
 @router.get("/list_files/")
 async def list_files(id: str):
-    """
-    Endpoint to list all files in a folder.
-    Parameters:
-        id: Folder ID
-    """
     if not id:
         raise HTTPException(status_code=400, detail="Missing 'id' parameter")
 

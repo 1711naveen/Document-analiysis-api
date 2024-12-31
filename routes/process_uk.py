@@ -13,13 +13,12 @@ import mammoth
 from datetime import datetime
 from pathlib import Path
 import logging  
-import roman  # For converting Roman numerals to Arabic numerals
+import roman
 from roman import fromRoman
 
 router = APIRouter()
 
-# us_dict = enchant.Dict("en_US") #for US english
-uk_dict = enchant.Dict("en_GB") # for UK english
+uk_dict = enchant.DictWithPWL("en_GB","mywords.txt")
 
 global_logs = []
 
@@ -63,13 +62,6 @@ century_map = {
 
 
 def apply_abbreviation_mapping(text, abbreviation_dict, line_number):
-    """
-    Replace words in text based on abbreviation mappings and log changes.
-    :param text: The input text.
-    :param abbreviation_dict: Dictionary of abbreviations.
-    :param line_number: Line number for logging.
-    :return: Updated text with abbreviations applied.
-    """
     global global_logs
     words = text.split()
     updated_text = []
@@ -105,15 +97,7 @@ def apply_number_abbreviation_rule(text, line_number):
 
 # Done
 def replace_percent_with_symbol(text):
-    """
-    Replaces 'percent' or 'per cent' with '%' if preceded by a number and logs the changes.
-    Log messages are stored in a global array and written to a file later.
-    
-    :param text: The text to process.
-    :param doc_id: The document ID used to create the output folder.
-    :return: The modified text.
-    """
-    global global_logs  # Access the global log array
+    global global_logs
 
     modified_text = []
     lines = text.splitlines()
@@ -178,8 +162,11 @@ def convert_century(text, line_number_offset):
 
 
 
+# def clean_word(word):
+#     return word.strip(",.?!:;\"'()[]{}")
+
 def clean_word(word):
-    return word.strip(",.?!:;\"'()[]{}")
+    return word
 
 # Done
 def replace_curly_quotes_with_straight(text):
@@ -267,18 +254,6 @@ def remove_unnecessary_apostrophes(word, line_num):
     return word
 
 
-
-# def spell_out_number_and_unit(sentence):
-#     match = re.match(r"^(\d+)\s+([a-zA-Z]+)", sentence)
-#     if match:
-#         number = int(match.group(1))
-#         unit = match.group(2)
-#         number_word = num2words(number, to="cardinal")
-#         unit_word = unit.lower() if unit.lower()[-1] == 's' else unit.lower() + "s"
-#         return f"{number_word.capitalize()} {unit_word}{sentence[len(match.group(0)):]}"
-#     return sentence
-
-
 # pending not clear
 # Spell out numbers below 10 unless used in conjunction with a unit of measurement in the text(2.15)
 def spell_out_number_and_unit_with_rules(sentence, line_number):
@@ -323,102 +298,139 @@ def spell_out_number_and_unit_with_rules(sentence, line_number):
 
 
 
-# 5% not five percent or 5 percent
+# # 5% not five percent or 5 percent
+# def use_numerals_with_percent(text):
+#     """
+#     Converts spelled-out numbers with 'percent' or 'per cent' into numerals followed by '%'.
+#     Logs the changes (only the changed words) to a global array for writing later.
+
+#     :param text: The text to process.
+#     :param doc_id: The document ID used for logging purposes.
+#     :return: The modified text.
+#     """
+
+#     global global_logs
+
+#     lines = text.splitlines()
+#     modified_text = []
+
+#     for line_number, line in enumerate(lines, 1):
+#         original_line = line
+#         modified_line = line
+
+#         # Convert spelled-out numbers to numerals followed by '%'
+#         def replace_spelled_out_percent(match):
+#             word = match.group(1)
+#             num = w2n.word_to_num(word)
+#             modified = f"{num}%"
+#             # Log the change to the global array
+#             global_logs.append(
+#                 f"[numerals with percent] Line {line_number}: {word} percent -> {modified}"
+#             )
+#             return modified
+
+#         modified_line = re.sub(
+#             r"\b(one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|twenty|thirty|forty|fifty|sixty|seventy|eighty|ninety|hundred)\s?(percent|per cent)",
+#             replace_spelled_out_percent,
+#             modified_line,
+#             flags=re.IGNORECASE,
+#         )
+
+#         def replace_numerical_percent(match):
+#             number = match.group(1)
+#             modified = f"{number}%"
+#             # Log the change to the global array
+#             global_logs.append(
+#                 f"[numerals with percent] Line {line_number}: {match.group(0)} -> {modified}"
+#             )
+#             return modified
+
+#         modified_line = re.sub(
+#             r"(\d+)\s?(percent|per cent)", replace_numerical_percent, modified_line, flags=re.IGNORECASE
+#         )
+
+#         # Add the modified line to the final text
+#         modified_text.append(modified_line)
+
+#     # Return the modified text
+#     return "\n".join(modified_text)
+
+
 def use_numerals_with_percent(text):
-    """
-    Converts spelled-out numbers with 'percent' or 'per cent' into numerals followed by '%'.
-    Logs the changes (only the changed words) to a global array for writing later.
-
-    :param text: The text to process.
-    :param doc_id: The document ID used for logging purposes.
-    :return: The modified text.
-    """
-
-    global global_logs  # Access the global log array
+    global global_logs
 
     lines = text.splitlines()
     modified_text = []
 
     for line_number, line in enumerate(lines, 1):
-        original_line = line  # Keep the original line for comparison
-        modified_line = line  # Start with the original line, apply changes below
+        original_line = line
+        modified_line = line
 
         # Convert spelled-out numbers to numerals followed by '%'
         def replace_spelled_out_percent(match):
             word = match.group(1)
-            num = w2n.word_to_num(word)
-            modified = f"{num}%"
-            # Log the change to the global array
-            global_logs.append(
-                f"[numerals with percent] Line {line_number}: {word} percent -> {modified}"
-            )
-            return modified
+            try:
+                num = w2n.word_to_num(word.lower())
+                modified = f"{num}%"
+                global_logs.append(
+                    f"[numerals with percent] Line {line_number}: '{word} percent' -> '{modified}'"
+                )
+                return modified
+            except ValueError:
+                return match.group(0)
 
         modified_line = re.sub(
-            r"\b(one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|twenty|thirty|forty|fifty|sixty|seventy|eighty|ninety|hundred)\s?(percent|per cent)",
+            r"\b([a-zA-Z\s\-]+)\s?(percent|per cent|percentage)\b",
             replace_spelled_out_percent,
             modified_line,
             flags=re.IGNORECASE,
         )
 
-        # Replace numeral with 'percent' or 'per cent' to numerals with '%'
         def replace_numerical_percent(match):
             number = match.group(1)
             modified = f"{number}%"
-            # Log the change to the global array
             global_logs.append(
-                f"[numerals with percent] Line {line_number}: {match.group(0)} -> {modified}"
+                f"[numerals with percent] Line {line_number}: '{match.group(0)}' -> '{modified}'"
             )
             return modified
 
         modified_line = re.sub(
-            r"(\d+)\s?(percent|per cent)", replace_numerical_percent, modified_line, flags=re.IGNORECASE
+            r"(\d+)\s?(percent|per cent|percentage)\b", replace_numerical_percent, modified_line, flags=re.IGNORECASE
         )
 
-        # Add the modified line to the final text
         modified_text.append(modified_line)
 
-    # Return the modified text
     return "\n".join(modified_text)
 
 
 
 
+def adjust_ratios(text):
+    return re.sub(r"(\d)\s*:\s*(\d)", r"\1 : \2", text)
+
+
+# def correct_chapter_numbering(text, chapter_counter):
+#     chapter_pattern = re.compile(r"(?i)\bchapter\s+((?:[IVXLCDM]+)|(?:[a-z]+)|(?:\d+))[:.]?\s")
+#     def replace_chapter_heading(match):
+#         chapter_counter[0] += 1
+#         return f"Chapter {chapter_counter[0]}: "
+#     return chapter_pattern.sub(replace_chapter_heading, text)
+
 def correct_chapter_numbering(text, chapter_counter):
-    # Pattern to match chapter headings
     chapter_pattern = re.compile(r"(?i)\bchapter\s+((?:[IVXLCDM]+)|(?:[a-z]+)|(?:\d+))[:.]?\s")
-
     def replace_chapter_heading(match):
-        """
-        Replace matched chapter heading with sequential numbering.
-        """
-        chapter_counter[0] += 1  # Increment the shared counter
-        return f"Chapter {chapter_counter[0]}: "
-
-    # Apply the substitution across the text
+        chapter_content = match.group(1)
+        if re.match(r"^[IVXLCDM]+$", chapter_content, re.IGNORECASE):
+            chapter_number = roman.fromRoman(chapter_content.upper())
+        elif re.match(r"^[a-z]+$", chapter_content, re.IGNORECASE):
+            chapter_number = w2n.word_to_num(chapter_content.lower())
+        else:
+            chapter_number = int(chapter_content)
+        return f"Chapter {chapter_number}: "
     return chapter_pattern.sub(replace_chapter_heading, text)
 
 
 
-
-# uncommet it later for point 
-# def correct_scientific_unit_symbols(text):
-#     """
-#     Removes incorrect plural forms, apostrophes, or periods from scientific unit symbols.
-#     Ensures unit symbols like 'kg', 'm', 'L', etc., are used properly.
-
-#     :param text: The text to process.
-#     :return: The modified text.
-#     """
-#     # List of common scientific unit symbols
-#     units = [
-#         "kg", "g", "mg", "L", "ml", "m", "cm", "mm", "km", "s", "min", "h", "A", 
-#         "mol", "cd", "K", "Pa", "N", "J", "W", "C", "V", "Ω", "Hz", "Bq", "Gy", "Sv", "lx", "lm"
-#     ]
-#     # Create regex pattern for units followed by invalid characters
-#     pattern = r"\b(\d+)\s?(" + "|".join(units) + r")['s.]?\b"
-#     # Replace invalid forms with correct form
-#     return re.sub(pattern, r"\1 \2", text)
 
 
 
@@ -511,63 +523,33 @@ def format_dates(text, line_number):
     return text
 
 
-
-# def remove_space_between_degree_and_direction(text):
-# return re.sub(r"(\d+) °\s?(N|S|E|W)\b", r"\1°\2", text)
-
-
 # Done
 # [remove_space_between_degree_and_direction] Line 10: '52 °N' -> '52°N'
 def remove_space_between_degree_and_direction(text, line_number):
-    """
-    Removes the space between the degree symbol and direction (N/S/E/W) and logs the changes.
-    
-    :param text: The input text to process.
-    :param line_number: The line number in the document for logging.
-    :return: The updated text with the space removed.
-    """
-    global global_logs  # Use a global log to record changes
-    
-    # Regular expression to match a degree symbol followed by a space and direction (N/S/E/W)
-    pattern = r"(\d+) °\s?(N|S|E|W)\b"
-    
-    # Use re.sub with a callback function to log the changes
+    global global_logs
+    pattern = r"(\d+) \s*[º°]\s*(N|S|E|W)\b"
     def log_replacement(match):
-        original_text = match.group(0)  # Full match (e.g., "20 °N")
-        updated_text = match.group(1) + "°" + match.group(2)  # Remove the space and combine number + degree + direction
+        original_text = match.group(0)
+        updated_text = match.group(1) + " " + "º" + match.group(2)
         global_logs.append(
             f"[remove_space_between_degree_and_direction] Line {line_number}: '{original_text}' -> '{updated_text}'"
         )
         return updated_text
-    
-    # Apply the replacement using the callback function
     updated_text = re.sub(pattern, log_replacement, text)
-    
     return updated_text
+
 
 
 # Done
 # km not Km; kg not Kg; l not L. (2.9)
 def enforce_lowercase_units(text, line_number):
-    """
-    Enforces lowercase for specific units and logs the changes.
-    
-    - 'K' followed by 'm' or 'g' is converted to 'k' (e.g., '1 K m' becomes '1 k m').
-    - 'L' is converted to lowercase 'l' wherever it appears as a standalone word.
-    - Additional units like 'G', 'M', 'T', 'L' (liter), 'kg', 'mg', 'g', 'h', 'min', 's', 'cm' are handled.
-    
-    :param text: The input text to process.
-    :param line_number: The line number in the document for logging.
-    :return: The updated text with enforced lowercase for applicable units.
-    """
     global global_logs  # Use a global log to record changes
     
-    # Regular expressions for finding and replacing uppercase units
     updated_text = text
     
     # Units to replace: 'K' followed by 'm' or 'g', and standalone 'L'
     unit_patterns = [
-        (r"(\d) K([mg])", 'K', 'k'),  # 'K' -> 'k' for 'kg', 'mg'
+        (r"(\d) K([mgl])", 'K', 'k'),  # 'K' -> 'k' for 'kg', 'mg'
         (r"(\d) G([m])", 'G', 'g'),  # 'G' -> 'g'
         (r"(\d) M([g])", 'M', 'm'),  # 'M' -> 'm'
         (r"(\d) T([g])", 'T', 't'),  # 'T' -> 't'
@@ -609,12 +591,69 @@ def enforce_lowercase_units(text, line_number):
     return updated_text
 
 
+# updated function
+# def enforce_lowercase_units(text, line_number):
+#     global global_logs  # Use a global log to record changes
 
+#     updated_text = text
 
-# def precede_decimal_with_zero(text):
-#     # Matches standalone decimal numbers below 1, e.g., ".75" or " .5", but not parts of larger numbers.
-#     text = re.sub(r"(?<!\d)(?<!\d\.)\.(\d+)", r"0.\1", text)
-#     return text
+#     # Units to replace with proper lowercase formats
+#     unit_patterns = [
+#         # Mass units
+#         (r"(\d)\s?K([g])", 'K', 'k'),  # Replace 'Kg' with 'kg'
+#         (r"(\d)\s?G([g])", 'G', 'g'),  # Replace 'Gg' with 'gg'
+#         (r"(\d)\s?M([g])", 'M', 'm'),  # Replace 'Mg' with 'mg'
+#         (r"(\d)\s?T([g])", 'T', 't'),  # Replace 'Tg' with 'tg'
+
+#         # Volume units
+#         (r"(\d)\s?L\b", 'L', 'l'),  # Replace standalone 'L' with 'l'
+#         (r"(\d)\s?mL", 'L', 'l'),  # Replace 'mL' with 'ml'
+
+#         # Length units
+#         (r"(\d)\s?KM", 'K', 'k'),  # Replace 'KM' with 'km'
+#         (r"(\d)\s?CM", 'C', 'c'),  # Replace 'CM' with 'cm'
+#         (r"(\d)\s?MM", 'M', 'm'),  # Replace 'MM' with 'mm'
+
+#         # Time units
+#         (r"(\d)\s?H\b", 'H', 'h'),  # Replace standalone 'H' with 'h'
+#         (r"(\d)\s?MIN", 'MIN', 'min'),  # Replace 'MIN' with 'min'
+#         (r"(\d)\s?SEC", 'SEC', 's'),  # Replace 'SEC' with 's'
+
+#         # Energy units
+#         (r"(\d)\s?KJ", 'KJ', 'kj'),  # Replace 'KJ' with 'kj'
+#         (r"(\d)\s?MJ", 'MJ', 'mj'),  # Replace 'MJ' with 'mj'
+
+#         # Temperature
+#         (r"(\d)\s?C\b", 'C', '°C'),  # Ensure proper format for Celsius
+#         (r"(\d)\s?F\b", 'F', '°F'),  # Ensure proper format for Fahrenheit
+
+#         # Speed
+#         (r"(\d)\s?KM/H", 'KM/H', 'km/h'),  # Replace 'KM/H' with 'km/h'
+#         (r"(\d)\s?M/S", 'M/S', 'm/s'),  # Replace 'M/S' with 'm/s'
+
+#         # Electrical units
+#         (r"(\d)\s?KV", 'KV', 'kv'),  # Replace 'KV' with 'kv'
+#         (r"(\d)\s?MW", 'MW', 'mw'),  # Replace 'MW' with 'mw'
+
+#         # Pressure units
+#         (r"(\d)\s?PA", 'PA', 'pa'),  # Replace 'PA' with 'pa'
+#         (r"(\d)\s?KPA", 'KPA', 'kpa'),  # Replace 'KPA' with 'kpa'
+#     ]
+
+#     # Process each unit replacement
+#     for pattern, original, updated in unit_patterns:
+#         matches = re.finditer(pattern, updated_text)
+#         for match in matches:
+#             original_text = match.group(0)
+#             corrected_text = re.sub(original, updated, original_text, flags=re.IGNORECASE)
+#             updated_text = updated_text.replace(original_text, corrected_text)
+
+#             # Log the change
+#             global_logs.append(
+#                 f"[enforce_lowercase_units] Line {line_number}: '{original_text}' -> '{corrected_text}'"
+#             )
+
+#     return updated_text
 
 
 
@@ -661,17 +700,7 @@ def adjust_terminal_punctuation_in_quotes(text):
 # Done
 # [correct_possessive_names] Line 31: 'States'' -> 'States's'
 def correct_possessive_names(text, line_number):
-    """
-    Corrects possessive forms for names ending in 's' and logs the changes.
-    
-    - Adds 's for singular possessive forms (e.g., "James" -> "James's").
-    - Retains just the apostrophe for plural possessive forms (e.g., "James'" remains "James'").
-    
-    :param text: The input text to process.
-    :param line_number: The line number in the document for logging.
-    :return: The updated text with corrected possessive names.
-    """
-    global global_logs  # Use a global log to record changes
+    global global_logs
     
     # Regular expression for handling singular possessive names (e.g., James -> James's)
     pattern_singular_possessive = r"\b([A-Za-z]+s)\b(?<!\bs')'"
@@ -712,35 +741,26 @@ def correct_possessive_names(text, line_number):
 # Done
 # http://www.PHi.com/authorguidelines not http://www.PHi.com/authorguidelines/
 def remove_concluding_slashes_from_urls(text, line_number):
-    """
-    Removes concluding slashes from URLs (except when followed by other characters, like periods) and logs the changes.
+    global global_logs
     
-    :param text: The input text to process.
-    :param line_number: The line number in the document for logging.
-    :return: The updated text with concluding slashes removed from URLs.
-    """
-    global global_logs  # Use a global log to record changes
-    
-    # Regular expression for matching URLs ending with a slash
     pattern = r"(https?://[^\s/]+(?:/[^\s/]+)*)/"
     matches = re.finditer(pattern, text)
     updated_text = text
     
-    # Process and log changes for each URL
     for match in matches:
-        original_text = match.group(0)  # The original URL (e.g., "https://example.com/")
+        original_text = match.group(0)
         updated_text_url = match.group(1)  # URL without the concluding slash (e.g., "https://example.com")
         updated_text = updated_text.replace(original_text, updated_text_url)
         
         # Log the change
         global_logs.append(
             f"[remove_concluding_slashes_from_urls] Line {line_number}: '{original_text}' -> '{updated_text_url}'"
-        )
-    
+        )    
     return updated_text
 
 
-
+# Check out this link: <https://example.com> for more details.
+# Check out this link: https://example.com for more details.
 def clean_web_addresses(text):
     return re.sub(r"<(https?://[^\s<>]+)>", r"\1", text)
 
@@ -756,12 +776,13 @@ def format_chapter_title(text):
     match = re.match(r"Chapter\s+([\dIVXLCDM]+)[\.:]\s*(.*)", text, re.IGNORECASE)
     if match:
         chapter_number = match.group(1)
-        chapter_title = match.group(2).rstrip('.')  # Remove trailing period
+        chapter_title = match.group(2).rstrip('.')
         words = chapter_title.split()
         formatted_title = " ".join([
-            word.capitalize() if i == 0 or len(word) >= 5 else word.lower()
+            word.capitalize() if i == 0 or len(word) >= 4 else word.lower()
             for i, word in enumerate(words)
         ])
+        print(formatted_title)
         return f"{chapter_number}. {formatted_title}"
     return text
 
@@ -769,17 +790,8 @@ def format_chapter_title(text):
 
 
 def format_titles_us_english_with_logging(text, doc_id):
-    """
-    Formats titles in US English and logs changes to a global array for writing later.
-
-    :param text: The text to process.
-    :param doc_id: The document ID for logging purposes.
-    :return: The modified text.
-    """
-
     global global_logs  # Access the global log array
 
-    # Titles to be replaced
     titles = {
         "doctor": "Dr.",
         "mister": "Mr.",
@@ -792,7 +804,6 @@ def format_titles_us_english_with_logging(text, doc_id):
         "saint": "St",
     }    
     
-    # Process each line and check for title changes
     lines = text.splitlines()
     updated_lines = []
 
@@ -811,17 +822,8 @@ def format_titles_us_english_with_logging(text, doc_id):
     return "\n".join(updated_lines)
 
 
-
-def process_text_with_logging(text, doc_id):
-    """
-    Replaces unit abbreviations with their full forms and lowercase abbreviations in parentheses,
-    and logs the changes with the exact format: 'Line X: s -> seconds (s)'.
-    
-    :param text: The input text to process.
-    :param doc_id: Document identifier (for additional context if needed).
-    :return: The processed text with replaced units and updated logs.
-    """
-    # Units and their full forms
+# s -> seconds(s)
+def units_with_bracket(text, doc_id):
     units = {
         "s": "second",
         "m": "meter",
@@ -832,11 +834,9 @@ def process_text_with_logging(text, doc_id):
         "cd": "candela"
     }
 
-    # Track used units
     used_units = set()
-    global global_logs  # Use global logs to record changes
+    global global_logs
 
-    # Process each line and track line numbers
     processed_lines = []
     for line_num, line in enumerate(text.splitlines(), start=1):
         # Function to replace units
@@ -867,26 +867,41 @@ def process_text_with_logging(text, doc_id):
     # Return the processed text
     return "\n".join(processed_lines)
 
+import re
+
+def correct_scientific_unit_symbols(text):
+    units = {
+        "j": "J",
+        "hz": "Hz",
+        "w": "W",
+        "n": "N",
+        "joule": "J",
+        "hertz": "Hz",
+        "watt": "W",
+        "newton": "N"
+    }
+
+    def process_unit(match):
+        unit = match.group(0).lower()
+        return units.get(unit, match.group(0))
+    
+    pattern = r"\b(?:" + "|".join(units.keys()) + r")\b"
+    updated_text = re.sub(pattern, process_unit, text, flags=re.IGNORECASE)
+    return updated_text
+
 
 
 
 def write_to_log(doc_id):
-    """
-    Writes accumulated log messages from the global log array to a file.
-
-    :param doc_id: The document ID used to create the output folder and file.
-    """
-    global global_logs  # Access the global log array
+    global global_logs
 
     output_dir = os.path.join('output', str(doc_id))
     os.makedirs(output_dir, exist_ok=True)
     log_file_path = os.path.join(output_dir, 'global_logs.txt')
 
-    # Write the global log messages to the file
     with open(log_file_path, 'w', encoding='utf-8') as log_file:
         log_file.write("\n".join(global_logs))
 
-    # Clear the global log array after writing
     global_logs = []
 
 
@@ -900,54 +915,51 @@ def highlight_and_correct(doc, doc_id):
             para.text = correct_chapter_numbering(para.text, chapter_counter)
             formatted_title = format_chapter_title(para.text)
             para.text = formatted_title 
-
+        
+        para.text = correct_scientific_unit_symbols(para.text)
+        para.text = adjust_ratios(para.text)
         para.text = format_dates(para.text, line_number)
-        # para.text = spell_out_number_and_unit(para.text,line_number)
         # para.text = spell_out_number_and_unit_with_rules(para.text,line_number)
         para.text = remove_space_between_degree_and_direction(para.text, line_number)
         para.text = enforce_lowercase_units(para.text, line_number)
         para.text = precede_decimal_with_zero(para.text, line_number)
-        para.text = format_ellipses_in_series(para.text)  # New rule added here
-        para.text = correct_possessive_names(para.text, line_number)
+        para.text = format_ellipses_in_series(para.text)
+        # para.text = correct_possessive_names(para.text, line_number) #not woking
         para.text = use_numerals_with_percent(para.text)
-        para.text = replace_percent_with_symbol(para.text)
+        # para.text = replace_percent_with_symbol(para.text)
         para.text = remove_concluding_slashes_from_urls(para.text, line_number)
         para.text = clean_web_addresses(para.text)
 
-        # Apply the new abbreviation and number abbreviation rules
+        # # Apply the new abbreviation and number abbreviation rules
         para.text = apply_abbreviation_mapping(para.text, abbreviation_dict, line_number)
         para.text = apply_number_abbreviation_rule(para.text, line_number)
 
         para.text = format_titles_us_english_with_logging(para.text, doc_id)
-        para.text = process_text_with_logging(para.text, doc_id)
+        para.text = units_with_bracket(para.text, doc_id)
 
-        # Process line-by-line corrections within the paragraph
         lines = para.text.split('\n')
         updated_lines = []
         for line in lines:
-            # Apply corrections that rely on line number
             corrected_line = convert_century(line, line_number)
             updated_lines.append(corrected_line)
-            line_number += 1  # Increment for each line
+            line_number += 1
 
-        # Join updated lines back into paragraph text
         para.text = '\n'.join(updated_lines)
-
-        # Process word-by-word corrections
         formatted_runs = []
         for run in para.runs:
             run_text = replace_curly_quotes_with_straight(run.text)
             run_text = insert_thin_space_between_number_and_unit(run_text, line_number)
+            
             words = run_text.split()
             for i, word in enumerate(words):
                 original_word = word
                 punctuation = ""
 
-                if word[-1] in ",.?!:;\"'()[]{}":
+                if word[-1] in ",.?!;\"'()[]{}":
                     punctuation = word[-1]
                     word = word[:-1]
 
-                if word.startswith('"') or word.startswith("'") or word.endswith('"') or word.endswith("'"):
+                if (word.startswith('"') and word.endswith('"')) or (word.startswith("'") and word.endswith('"')):
                     formatted_runs.append((word, None))
                     if i < len(words) - 1:
                         formatted_runs.append((" ", None))
@@ -984,8 +996,12 @@ def highlight_and_correct(doc, doc_id):
 
 
 
+
+
 def clean_word1(word):
     return ''.join(filter(str.isalnum, word)).lower()
+
+
 
 
 

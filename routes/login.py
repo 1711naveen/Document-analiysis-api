@@ -1,60 +1,100 @@
-# from fastapi import APIRouter, HTTPException, Depends
-# from pydantic import BaseModel
-# from sqlalchemy import create_engine, text
-# from hashlib import md5
-# import jwt
-# import os
+from fastapi import APIRouter, HTTPException
+from pydantic import BaseModel
+from hashlib import md5
+import jwt
+import os
+from db_config import get_db_connection
 
-# # Define the APIRouter
-# router = APIRouter()
+router = APIRouter()
 
-# # Environment variables (fallback to defaults for simplicity)
-# JWT_SECRET = os.getenv("JWT_SECRET", "naveen")
-# DB_URL = os.getenv("DATABASE_URL", "sqlite:///./test.db")  # Update with your DB URL
+JWT_SECRET = os.getenv("JWT_SECRET", "naveen")
 
-# def get_db_connection():
-#     engine = create_engine(DB_URL)
-#     connection = engine.connect()
-#     return connection
-
-# # Request model for parsing input
-# class LoginRequest(BaseModel):
-#     email: str
-#     password: str
+class LoginRequest(BaseModel):
+    email: str
+    password: str
 
 # @router.post("/login")
 # async def login(request: LoginRequest):
 #     email = request.email
 #     password = request.password
 #     hashed_password = md5(password.encode()).hexdigest()
+#     print(hashed_password)
 
 #     try:
-#         # Connect to the database
-#         db = get_db_connection()
-#         query = text(
-#             'SELECT * FROM admins WHERE admin_email = :email AND admin_password = :password AND status = 1'
-#         )
-#         result = db.execute(query, {"email": email, "password": hashed_password})
-#         rows = result.fetchall()
+#         conn = get_db_connection()
+#         cursor = conn.cursor(dictionary=True)
+        
+#         query = """
+#         SELECT * FROM admins 
+#         WHERE admin_email = %s AND admin_password = %s AND status = 1
+#         """
+#         cursor.execute(query, (email, hashed_password))
+#         result = cursor.fetchone()
+#         print(result)
 
-#         if rows:
-#             admin = rows[0]
+#         cursor.close()
+#         conn.close()
+
+#         if result:
 #             access_token = jwt.encode({"email": email}, JWT_SECRET, algorithm="HS256")
 #             return {
 #                 "success": True,
 #                 "message": "Login successful",
 #                 "accessToken": access_token,
-#                 "name": admin["admin_name"],
-#                 "email": admin["admin_email"]
+#                 "name": result["admin_name"],
+#                 "email": result["admin_email"]
 #             }
 #         else:
-#             raise HTTPException(status_code=401, detail="Invalid credentials")
+#             return {
+#                 "success": False,
+#                 "message": "Invalid credentials"
+#             }
+
 #     except Exception as e:
 #         raise HTTPException(status_code=500, detail=str(e))
-#     finally:
-#         db.close()
 
-# # Example of integrating this router into your main FastAPI app
-# # from fastapi import FastAPI
-# # app = FastAPI()
-# # app.include_router(router, prefix="/api")
+
+
+
+
+@router.post("/login")
+async def login(request: LoginRequest):
+    email = request.email
+    password = request.password
+    hashed_password = md5(password.encode()).hexdigest()
+    print("Hashed password:", hashed_password)
+
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor(dictionary=True)
+        
+        query = """
+        SELECT * FROM admins 
+        WHERE admin_email = %s AND admin_password = %s AND status = 1
+        """
+        print("Query parameters:", email, hashed_password)
+        cursor.execute(query, (email, hashed_password))
+        result = cursor.fetchone()
+        print("Query result:", result)
+
+        cursor.close()
+        conn.close()
+
+        if result:
+            access_token = jwt.encode({"email": email}, JWT_SECRET, algorithm="HS256")
+            return {
+                "success": True,
+                "message": "Login successful",
+                "accessToken": access_token,
+                "name": result["admin_name"],
+                "email": result["admin_email"]
+            }
+        else:
+            return {
+                "success": False,
+                "message": "Invalid credentials"
+            }
+
+    except Exception as e:
+        print("Error:", str(e))
+        raise HTTPException(status_code=500, detail=str(e))
