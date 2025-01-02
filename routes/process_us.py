@@ -175,11 +175,11 @@ def convert_century(text, line_number_offset):
 
 
 
-# def clean_word(word):
-#     return word.strip(",.?!:;\"'()[]{}")
-
 def clean_word(word):
-    return word
+    return word.strip(",.?!:;\"'()[]{}")
+
+# def clean_word(word):
+#     return word
 
 # Done
 def replace_curly_quotes_with_straight(text):
@@ -188,28 +188,6 @@ def replace_curly_quotes_with_straight(text):
 
 
 # Done
-# def correct_acronyms(word, line_number):
-#     """
-#     Removes periods from acronyms and logs the changes with line numbers.
-#     :param word: The word to process.
-#     :param line_number: The line number in the document for logging.
-#     :return: The updated word with corrected acronyms.
-#     """
-#     global global_logs  # Use a global log to record changes
-#     original_word = word  # Store the original word for logging
-
-#     if re.match(r"([a-z]\.){2,}[a-z]\.?", word):
-#         word = word.replace(".", "")
-#     elif re.match(r"([A-Z]\.){2,}[A-Z]\.?", word):
-#         word = word.replace(".", "")
-#     # Log the change if the word was modified
-#     if word != original_word:
-#         global_logs.append(
-#             f"[correct_acronyms] Line {line_number}: '{original_word}' -> '{word}'"
-#         )
-#     return word
-
-
 def correct_acronyms(text, line_number):
     global global_logs
     original_text = text
@@ -289,21 +267,13 @@ def enforce_am_pm(text, line_num):
 # Done
 # [apostrophes change] : 60's -> 1960s 
 def remove_unnecessary_apostrophes(word, line_num):
-    """
-    Removes unnecessary apostrophes from the word and logs the changes.
-    :param word: The word to check and modify.
-    :param line_num: The line number for logging purposes.
-    :return: The modified word.
-    """
-    original_word = word  # Store the original word for comparison
-    global global_logs  # Access the global log array
+    original_word = word
+    global global_logs
     word = re.sub(r"(\d{4})'s\b", r"\1s", word)
     word = re.sub(r"'(\d{2})s\b", r"\1s", word)
     word = re.sub(r"(\d{4}s)'\b", r"\1", word)
     word = re.sub(r"(\d+)'(s|st|nd|rd|th)\b", r"\1\2", word)
     word = re.sub(r"^(\d{2})s\b", r"19\1s", word)
-    
-    # If the word has changed, log the change
     if word != original_word:
         global_logs.append(f"[apostrophes change] Line {line_num}: {original_word} -> {word}")
     
@@ -339,8 +309,6 @@ def use_numerals_with_percent(text):
     for line_number, line in enumerate(lines, 1):
         original_line = line
         modified_line = line
-
-        # Convert spelled-out numbers to numerals followed by '%'
         def replace_spelled_out_percent(match):
             word = match.group(1)
             try:
@@ -417,15 +385,6 @@ def enforce_ie_rule_with_logging(text):
 #     line = re.sub(r'(\betc\.)\.(?=\W)', r'\1', line)
 #     return line
 
-
-# def standardize_etc(line, line_number):
-#     original_line = line
-#     line = re.sub(r'\b(et\.?\s?cetera|etc\.?,?|etc\.?\.?|etc\,?\.?)\b', 'etc.', line, flags=re.IGNORECASE)
-#     line = re.sub(r'(\betc\.)\.(?=\s|$)', r'\1', line)
-#     line = re.sub(r'(\betc\.)\.(?=\W)', r'\1', line)    
-#     return line
-
-
 def standardize_etc(text):
     lines = text.splitlines()
     updated_lines = []
@@ -444,7 +403,6 @@ def adjust_ratios(text):
     return re.sub(r"(\d)\s*:\s*(\d)", r"\1 : \2", text)
 
 
-
 def correct_chapter_numbering(text, chapter_counter):
     chapter_pattern = re.compile(r"(?i)\bchapter\s+((?:[IVXLCDM]+)|(?:[a-z]+)|(?:\d+))[:.]?\s")
     def replace_chapter_heading(match):
@@ -457,8 +415,6 @@ def correct_chapter_numbering(text, chapter_counter):
             chapter_number = int(chapter_content)
         return f"Chapter {chapter_number}: "
     return chapter_pattern.sub(replace_chapter_heading, text)
-
-
 
 
 def enforce_number_spelling_rule(text: str):
@@ -477,20 +433,14 @@ def enforce_number_spelling_rule(text: str):
         def replace_number(match):
             number = match.group()
             if number in num_to_words:
-                # Check if followed by a unit of measurement
                 if re.search(rf"\b{number}\b\s+{units}", sentence):
-                    return number  # Keep the numeral
-                # Check if part of a compound like "five-year-old"
+                    return number
                 if re.search(rf"\b{number}-[a-zA-Z-]+", sentence):
                     return num_to_words[number]  # Spell out
                 return num_to_words[number]  # Spell out
             return number  # Keep numerals >= 10
-
-        # Process the sentence
         updated_sentence = re.sub(r"\b\d+\b", replace_number, sentence)
         updated_sentences.append(updated_sentence)
-
-    # Join sentences back together
     return " ".join(updated_sentences)
 
 
@@ -499,17 +449,10 @@ def enforce_number_spelling_rule(text: str):
 # Done
 # [insert_thin_space_between_number_and_unit] Line 31: '5kg' -> '5 kg'
 def insert_thin_space_between_number_and_unit(text, line_number):
-    """
-    Inserts a thin space between numbers and units in the text and logs the changes.
-    
-    :param text: The input text to process.
-    :param line_number: The line number in the document for logging.
-    :return: The updated text with thin spaces inserted.
-    """
-    global global_logs  # Use a global log to record changes
-    original_text = text  # Store the original text for comparison
+    global global_logs
+    original_text = text
     thin_space = '\u2009'
-
+    
     pattern = r"(\d+)(?=\s?[a-zA-Z]+)(?!\s?°)"
 
     updated_text = text  # Initialize updated text to the original
@@ -518,10 +461,10 @@ def insert_thin_space_between_number_and_unit(text, line_number):
     for match in matches:
         number = match.group(1)  # This is the number
         unit_start = match.end()
-        unit = text[unit_start:].split()[0]  # The unit is the first word after the number
+        unit = text[unit_start:].split()[0] 
         
         original_word = number + unit
-        updated_word = number + thin_space + unit  # Insert thin space between number and unit
+        updated_word = number + thin_space + unit
 
         updated_text = updated_text.replace(original_word, updated_word, 1)
 
