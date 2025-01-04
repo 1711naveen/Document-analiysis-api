@@ -15,7 +15,7 @@ from pathlib import Path
 import logging  
 import roman
 from roman import fromRoman
-
+from urllib.parse import urlparse
 
 router = APIRouter()
 
@@ -347,21 +347,60 @@ def use_numerals_with_percent(text):
 
 
 
+# not working
+# def enforce_eg_rule_with_logging(text):
+#     lines = text.splitlines()
+#     updated_lines = []
+#     for line_number, line in enumerate(lines, start=1):
+#         original_line = line
+#         new_line = re.sub(r'\b(e\.?g\.?\,?\.?|eg\.?|e\.g|e\.g\.,|e\.g\.\,)\b', 'e.g.', line, flags=re.IGNORECASE)
+#         if new_line != line:
+#             global_logs.append(
+#                 f"[e.g. correction] Line {line_number}: {line.strip()} -> {new_line.strip()}"
+#             )
+#         updated_lines.append(new_line)
+#     return "\n".join(updated_lines)
+
 
 def enforce_eg_rule_with_logging(text):
     lines = text.splitlines()
     updated_lines = []
     for line_number, line in enumerate(lines, start=1):
         original_line = line
-        new_line = re.sub(r'\b(e\.?g\.?\,?\.?|eg\.?|e\.g|e\.g\.,|e\.g\.\,)\b', 'e.g.', line, flags=re.IGNORECASE)
+
+        # Step 1: Match "eg" or "e.g." with optional surrounding spaces and punctuation
+        new_line = re.sub(r'\beg\b', 'e.g.', line, flags=re.IGNORECASE)
+        new_line = re.sub(r'\beg,\b', 'e.g.', new_line, flags=re.IGNORECASE)  # Handle "eg,"
+
+        # Step 2: Fix extra periods like `e.g..` or `e.g...,` and ensure proper punctuation
+        new_line = re.sub(r'\.([.,])', r'\1', new_line)  # Removes an extra period before a comma or period
+        new_line = re.sub(r'\.\.+', '.', new_line)  # Ensures only one period after e.g.
+
+        # Step 3: Remove comma if e.g... is followed by it (e.g..., -> e.g.)
+        new_line = re.sub(r'e\.g\.,', 'e.g.', new_line)
+
+        # Log changes if the line is updated
         if new_line != line:
             global_logs.append(
                 f"[e.g. correction] Line {line_number}: {line.strip()} -> {new_line.strip()}"
             )
+        
         updated_lines.append(new_line)
     return "\n".join(updated_lines)
 
 
+# def enforce_ie_rule_with_logging(text):
+#     lines = text.splitlines()
+#     updated_lines = []
+#     for line_number, line in enumerate(lines, start=1):
+#         original_line = line
+#         new_line = re.sub(r'\b(i\.?e\.?\,?\.?|ie\.?|i\.e|i\.e\.,)\b', 'i.e.', line, flags=re.IGNORECASE)
+#         if new_line != line:
+#             global_logs.append(
+#                 f"[i.e. correction] Line {line_number}: {line.strip()} -> {new_line.strip()}"
+#             )
+#         updated_lines.append(new_line)
+#     return "\n".join(updated_lines)
 
 
 def enforce_ie_rule_with_logging(text):
@@ -369,13 +408,27 @@ def enforce_ie_rule_with_logging(text):
     updated_lines = []
     for line_number, line in enumerate(lines, start=1):
         original_line = line
-        new_line = re.sub(r'\b(i\.?e\.?\,?\.?|ie\.?|i\.e|i\.e\.,)\b', 'i.e.', line, flags=re.IGNORECASE)
+
+        # Step 1: Match "ie" or "i.e." with optional surrounding spaces and punctuation
+        new_line = re.sub(r'\bie\b', 'i.e.', line, flags=re.IGNORECASE)  # Handle standalone "ie"
+        new_line = re.sub(r'\bie,\b', 'i.e.', new_line, flags=re.IGNORECASE)  # Handle "ie,"
+
+        # Step 2: Fix extra periods like `i.e..` or `i.e...,` and ensure proper punctuation
+        new_line = re.sub(r'\.([.,])', r'\1', new_line)  # Removes an extra period before a comma or period
+        new_line = re.sub(r'\.\.+', '.', new_line)  # Ensures only one period after i.e.
+
+        # Step 3: Remove comma if i.e... is followed by it (i.e..., -> i.e.)
+        new_line = re.sub(r'i\.e\.,', 'i.e.', new_line)
+
+        # Log changes if the line is updated
         if new_line != line:
             global_logs.append(
                 f"[i.e. correction] Line {line_number}: {line.strip()} -> {new_line.strip()}"
             )
+        
         updated_lines.append(new_line)
     return "\n".join(updated_lines)
+
 
 
 
@@ -930,6 +983,49 @@ def enforce_dnase_rule(text: str):
 def apply_remove_italics_see_rule(text):
     return text.replace('*see*', 'see')
 
+# There is one problem here for project, & document it is not changing and for project & document it is changing
+def replace_ampersand(text):
+    def replacement(match):
+        left, right = match.group(1), match.group(2)
+        # If both words before and after '&' start with capital letters, leave '&' as is
+        if left[0].isupper() and right[0].isupper():
+            return match.group(0)  # Return the original match if both are capitalized
+        return left + ' and ' + right
+    
+    return re.sub(r'(\w+)\s*&\s*(\w+)', replacement, text)
+
+
+def rename_section(text):
+    # Replace all occurrences of the § symbol with 'Section'
+    return re.sub(r'§', 'Section', text)
+
+
+
+def process_url_add_http(text):
+    """
+    Adjusts URLs in the input text based on the given rules:
+    1. If a URL starts with 'www.' but doesn't have 'http://', prepend 'http://'.
+    2. If a URL already starts with 'http://', remove 'http://'.
+
+    Args:
+        text (str): The input text containing URLs.
+
+    Returns:
+        str: The modified text with URLs adjusted.
+    """
+    text = re.sub(r'\bhttp://(www\.\S+)', r'\1', text)
+    text = re.sub(r'\b(www\.\S+)', r'http://\1', text)
+    text = re.sub()
+    return text
+
+
+def process_url_remove_http(url):
+    parsed = urlparse(url)
+    if parsed.scheme == "http" and not (parsed.path or parsed.params or parsed.query or parsed.fragment):
+        # If the scheme is http and there's nothing after the domain, remove the scheme
+        return parsed.netloc
+    return url
+
 
 
 
@@ -943,7 +1039,9 @@ def highlight_and_correct(doc, doc_id):
             para.text = correct_chapter_numbering(para.text, chapter_counter)
             formatted_title = format_chapter_title(para.text)
             para.text = formatted_title
-        
+            
+        para.text = rename_section(para.text)
+        para.text = replace_ampersand(para.text)
         para.text = correct_scientific_unit_symbols(para.text)
         para.text = adjust_ratios(para.text)
         para.text = format_dates(para.text, line_number)
@@ -987,45 +1085,83 @@ def highlight_and_correct(doc, doc_id):
 
         para.text = '\n'.join(updated_lines)
         formatted_runs = []
+        
+        # for run in para.runs:
+        #     run_text = replace_curly_quotes_with_straight(run.text)
+        #     run_text = insert_thin_space_between_number_and_unit(run_text, line_number)
+            
+        #     words = run_text.split()
+        #     for i, word in enumerate(words):
+        #         original_word = word
+        #         punctuation = ""
+
+        #         if word[-1] in ",.?!;\"'()[]{}":
+        #             punctuation = word[-1]
+        #             word = word[:-1]
+
+        #         if (word.startswith('"') and word.endswith('"')) or (word.startswith("'") and word.endswith('"')):
+        #             formatted_runs.append((word, None))
+        #             if i < len(words) - 1:
+        #                 formatted_runs.append((" ", None))
+        #             continue
+
+        #         word = remove_unnecessary_apostrophes(word, line_number)
+
+        #         cleaned_word = clean_word(word)
+        #         corrected_word = cleaned_word
+
+        #         if cleaned_word:
+        #             # corrected_word = correct_acronyms(cleaned_word, line_number)
+        #             # corrected_word = enforce_am_pm(corrected_word, line_number)
+
+        #             if corrected_word != cleaned_word:
+        #                 formatted_runs.append((corrected_word + punctuation, RGBColor(0, 0, 0)))
+        #             elif not us_dict.check(corrected_word.lower()):
+        #                 formatted_runs.append((corrected_word + punctuation, RGBColor(255, 0, 0)))
+        #             else:
+        #                 formatted_runs.append((corrected_word + punctuation, None))
+        #         else:
+        #             formatted_runs.append((original_word + punctuation, None))
+
+        #         if i < len(words) - 1:
+        #             formatted_runs.append((" ", None))
+        
         for run in para.runs:
             run_text = replace_curly_quotes_with_straight(run.text)
             run_text = insert_thin_space_between_number_and_unit(run_text, line_number)
-            
+
             words = run_text.split()
             for i, word in enumerate(words):
                 original_word = word
                 punctuation = ""
 
-                if word[-1] in ",.?!;\"'()[]{}":
+                if word[-1] in ",.?!:;\"'()[]{}":
                     punctuation = word[-1]
                     word = word[:-1]
 
-                if (word.startswith('"') and word.endswith('"')) or (word.startswith("'") and word.endswith('"')):
-                    formatted_runs.append((word, None))
+                if (word.startswith('"') and word.endswith('"')) or (word.startswith("'") and word.endswith("'")):
+                    formatted_runs.append((original_word, None))
                     if i < len(words) - 1:
                         formatted_runs.append((" ", None))
                     continue
 
-                word = remove_unnecessary_apostrophes(word, line_number)
+                if not word.strip():
+                    formatted_runs.append((original_word, None))
+                    if i < len(words) - 1:
+                        formatted_runs.append((" ", None))
+                    continue
 
-                cleaned_word = clean_word(word)
-                corrected_word = cleaned_word
-
-                if cleaned_word:
-                    # corrected_word = correct_acronyms(cleaned_word, line_number)
-                    # corrected_word = enforce_am_pm(corrected_word, line_number)
-
-                    if corrected_word != cleaned_word:
-                        formatted_runs.append((corrected_word + punctuation, RGBColor(0, 0, 0)))
-                    elif not us_dict.check(corrected_word.lower()):
-                        formatted_runs.append((corrected_word + punctuation, RGBColor(255, 0, 0)))
-                    else:
-                        formatted_runs.append((corrected_word + punctuation, None))
+                if not us_dict.check(word.lower()):
+                    # Mark incorrect word in red
+                    formatted_runs.append((original_word, RGBColor(255, 0, 0)))
                 else:
-                    formatted_runs.append((original_word + punctuation, None))
+                    # Keep correct word with no color
+                    formatted_runs.append((original_word, None))
 
+                # Add a space between words
                 if i < len(words) - 1:
                     formatted_runs.append((" ", None))
+
 
         # Clear paragraph and rebuild runs
         para.clear()

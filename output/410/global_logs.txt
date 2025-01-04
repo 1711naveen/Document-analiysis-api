@@ -1,7 +1,7 @@
 
-Start Time: 2024-12-31 15:42:28.629369
-End Time: 2024-12-31 15:42:35.607497
-Analysis completed in 6.98 seconds.
+Start Time: 2025-01-04 11:36:12.649783
+End Time: 2025-01-04 11:36:19.529349
+Analysis completed in 6.88 seconds.
 
 
 FileName: Chapter Testing.docx
@@ -42,9 +42,23 @@ Line 62: ethni, -> Suggestions: ethnic, estonia, yemeni
 Line 64: cross-border -> Suggestions: cross border, cross-border, crossbred
 Line 64: long-lasting -> Suggestions: long lasting, long-lasting, longstanding, lastingness, lasting, gloating
 [insert_thin_space_between_number_and_unit] Line 6: '24fold' -> '24 fold'
+[insert_thin_space_between_number_and_unit] Line 7: '1969to' -> '1969 to'
 [insert_thin_space_between_number_and_unit] Line 7: '1973and' -> '1973 and'
-[insert_thin_space_between_number_and_unit] Line 8: '24kgs' -> '24 kgs'
-[insert_thin_space_between_number_and_unit] Line 8: '10m's.' -> '10 m's.'
-[insert_thin_space_between_number_and_unit] Line 9: '5kg.s.' -> '5 kg.s.'
-[insert_thin_space_between_number_and_unit] Line 10: '10cm' -> '10 cm'
+[insert_thin_space_between_number_and_unit] Line 7: '1980and' -> '1980 and'
+[enforce_lowercase_units] Line 7: '24 kg' -> '24 kg'
+[enforce_lowercase_units] Line 7: '10 m' -> '10 m'
+Line 1: 10 m -> 10 meters (m)
+[unit correction] Doc 410, Line 1: She carried 24 kgs and walked 10 meters (m)'s. -> She carried 24 kg and walked 10 meters (m)'s.
+[insert_thin_space_between_number_and_unit] Line 8: '24kg' -> '24 kg'
+[insert_thin_space_between_number_and_unit] Line 8: '10meters' -> '10 meters'
+[enforce_lowercase_units] Line 8: '5 kg' -> '5 kg'
+Line 1: 5 kg -> 5 kilograms (kg)
+[insert_thin_space_between_number_and_unit] Line 9: '5kilograms' -> '5 kilograms'
+[enforce_lowercase_units] Line 9: '10 cm' -> '10 cm'
+[enforce_lowercase_units] Line 9: '20 cm' -> '20 cm'
+Line 1: 10 cm to 20 cm -> 10 to 20 cm
+[insert_thin_space_between_number_and_unit] Line 10: '10to' -> '10 to'
 [insert_thin_space_between_number_and_unit] Line 10: '20cm' -> '20 cm'
+[e.g. correction] Line 1: This is an example eg or e.g, or e.g.. or eg., and (e.g), or e.g.,. -> This is an example e.g. or e.g, or e.g. or e.g. and (e.g), or e.g,.
+[e.g. correction] Line 1: This is an example ie or i.e, or i.e.. or ie., and (i.e), or i.e.,. -> This is an example ie or i.e, or i.e. or ie, and (i.e), or i.e,.
+[i.e. correction] Line 1: This is an example ie or i.e, or i.e. or ie, and (i.e), or i.e,. -> This is an example i.e. or i.e, or i.e. or i.e, and (i.e), or i.e,.
