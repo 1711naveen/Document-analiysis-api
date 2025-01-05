@@ -15,7 +15,7 @@ from pathlib import Path
 import logging  
 import roman
 from roman import fromRoman
-
+from docx import Document
 
 router = APIRouter()
 
@@ -964,12 +964,31 @@ def enforce_dnase_rule(text: str):
     updated_text = re.sub(pattern, "DNase", text)
     return updated_text
 
+def remove_quotation(text: str):
+     
+         
+    #  remove quotation '
+      para_text = re.sub(r"([A-Z]+)'", r'\1',text)
+      return para_text
+  
+def rimove_and(text:str):
+    # Load the document
+    #doc = Document(file_path)
+    
+    # Regex pattern to match "and" between two capitalized words
+    pattern = r'([A-Z][a-z]+)\s+and\s+([A-Z][a-z]+)'
+    text = re.sub(pattern, r'\1 & \2',text)
+    text = re.sub(pattern, r'\1 & \2',text)
+    return text
+     
 
 def highlight_and_correct(doc, doc_id):
     chapter_counter = [0]
     line_number = 1
     abbreviation_dict = fetch_abbreviation_mappings()
     for para in doc.paragraphs:
+        
+         
         # Process paragraph-level corrections
         # if para.text.strip().startswith("Chapter"):
         #     para.text = correct_chapter_numbering(para.text, chapter_counter)
@@ -1001,6 +1020,8 @@ def highlight_and_correct(doc, doc_id):
         # para.text = replace_fold_phrases(para.text)
         # para.text = correct_preposition_usage(para.text)
         # para.text = correct_unit_spacing(para.text)
+        para.text = rimove_and(para.text)
+        para.text = remove_quotation(para.text)
         para.text = apply_quotation_punctuation_rule(para.text)
         para.text = enforce_dnase_rule(para.text)
         
