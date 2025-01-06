@@ -1,3 +1,4 @@
+from ast import Return
 import re
 from docx.shared import RGBColor
 from num2words import num2words
@@ -980,6 +981,10 @@ def rimove_and(text:str):
     text = re.sub(pattern, r'\1 & \2',text)
     text = re.sub(pattern, r'\1 & \2',text)
     return text
+
+ 
+
+ 
      
 
 def highlight_and_correct(doc, doc_id):
@@ -1020,6 +1025,8 @@ def highlight_and_correct(doc, doc_id):
         # para.text = replace_fold_phrases(para.text)
         # para.text = correct_preposition_usage(para.text)
         # para.text = correct_unit_spacing(para.text)
+         
+        
         para.text = rimove_and(para.text)
         para.text = remove_quotation(para.text)
         para.text = apply_quotation_punctuation_rule(para.text)
