@@ -86,8 +86,8 @@ def apply_number_abbreviation_rule(text, line_number):
     global global_logs
 
     def replace_number(match):
-        word = match.group(1)  # 'Number' or 'number'
-        num = match.group(2)  # The number following it
+        word = match.group(1)
+        num = match.group(2)
         updated_text = f"No. {num}" if word.istitle() else f"no. {num}"
         global_logs.append(f"[apply_number_abbreviation_rule] Line {line_number}: '{match.group(0)}' -> '{updated_text}'")
         return updated_text
@@ -487,8 +487,35 @@ def standardize_etc(text):
     
     return "\n".join(updated_lines)
 
+# def adjust_ratios(text):
+#     return re.sub(r"(\d)\s*:\s*(\d)", r"\1 : \2", text)
+
+
+
 def adjust_ratios(text):
-    return re.sub(r"(\d)\s*:\s*(\d)", r"\1 : \2", text)
+    """
+    Ensures proper formatting of ratios with spaces around the colon (e.g., "1:2" -> "1 : 2").
+
+    Args:
+        text (str): Input text to process.
+
+    Returns:
+        str: Updated text.
+    """
+    global global_logs
+    def process_ratio(match):
+        original = match.group(0)
+        modified = f"{match.group(1)} : {match.group(2)}"
+        if original != modified:
+            line_number = text[:match.start()].count('\n') + 1
+            global_logs.append(
+                f"[adjust_ratios] Line {line_number}: '{original}' -> '{modified}'"
+            )
+        return modified
+    return re.sub(r"(\d)\s*:\s*(\d)", process_ratio, text)
+
+
+
 
 
 def correct_chapter_numbering(text, chapter_counter):
@@ -524,9 +551,9 @@ def enforce_number_spelling_rule(text: str):
                 if re.search(rf"\b{number}\b\s+{units}", sentence):
                     return number
                 if re.search(rf"\b{number}-[a-zA-Z-]+", sentence):
-                    return num_to_words[number]  # Spell out
-                return num_to_words[number]  # Spell out
-            return number  # Keep numerals >= 10
+                    return num_to_words[number]
+                return num_to_words[number]
+            return number
         updated_sentence = re.sub(r"\b\d+\b", replace_number, sentence)
         updated_sentences.append(updated_sentence)
     return " ".join(updated_sentences)
@@ -690,17 +717,20 @@ def enforce_serial_comma(text):
 
         # Add a comma before "and" or "or" in lists
         new_line = re.sub(
-            r'([^,]+), ([^,]+) (and|or) ([^,]+)',  # Match the list structure without the serial comma
-            r'\1, \2, \3 \4',                     # Add the serial comma before "and" or "or"
+            r'([^,]+), ([^,]+) (or) ([^,]+)',
+            r'\1, \2, \3 \4',
             line
         )
-
-        # Log changes if the line is updated
+        # Explicitly handle cases where "or" does not get the serial comma
+        new_line = re.sub(
+            r'([^,]+), ([^,]+) (and) ([^,]+)',
+            r'\1, \2, \3 \4',
+            new_line
+        )
         if new_line != line:
             global_logs.append(f"[Serial comma correction] Line {line_number}: {line.strip()} -> {new_line.strip()}")
         
         updated_lines.append(new_line)
-    
     return "\n".join(updated_lines)
 
 
@@ -752,10 +782,32 @@ def remove_concluding_slashes_from_urls(text, line_number):
     return updated_text
 
 
-# Check out this link: <https://example.com> for more details.
-# Check out this link: https://example.com for more details.
+
+# def clean_web_addresses(text):
+#     return re.sub(r"<(https?://[^\s<>]+)>", r"\1", text)
+
+
 def clean_web_addresses(text):
-    return re.sub(r"<(https?://[^\s<>]+)>", r"\1", text)
+    """
+    Removes angle brackets around web addresses (e.g., "<http://example.com>" -> "http://example.com").
+    Args:
+        text (str): Input text to process.
+    Returns:
+        str: Updated text.
+    """
+    global global_logs
+    def process_web_address(match):
+        original = match.group(0)
+        modified = match.group(1)
+
+        if original != modified:
+            line_number = text[:match.start()].count('\n') + 1
+            global_logs.append(
+                f"[clean_web_addresses] Line {line_number}: '{original}' -> '{modified}'"
+            )
+        return modified
+    return re.sub(r"<(https?://[^\s<>]+)>", process_web_address, text)
+
 
 
 def format_ellipses_in_series(text):
@@ -783,7 +835,7 @@ def format_chapter_title(text):
 
 
 def format_titles_us_english_with_logging(text, doc_id):
-    global global_logs  # Access the global log array
+    global global_logs
 
     titles = {
         "doctor": "Dr.",
@@ -892,12 +944,49 @@ def write_to_log(doc_id):
 
 
 
+# def replace_fold_phrases(text):
+#     def process_fold(match):
+#         num_str = match.group(1)
+#         separator = match.group(2)
+#         if separator != "-":
+#             return match.group(0)
+#         try:
+#             if num_str.isdigit():
+#                 number = int(num_str)
+#             else:
+#                 number = w2n.word_to_num(num_str)
+
+#             if number > 9:
+#                 return f"{number}-fold"
+#             else:
+#                 return f"{num2words(number)}fold"
+#         except ValueError:
+#             return match.group(0)
+#     pattern = r"(\b\w+\b)(-?)fold"
+#     updated_text = re.sub(pattern, process_fold, text)
+#     return updated_text
+
+
+
+
+
 def replace_fold_phrases(text):
+    """
+    Replaces phrases with '-fold' to ensure correct formatting based on the number preceding it.
+    Args:
+        text (str): Input text to process.
+    Returns:
+        str: Updated text.
+    """
+    global global_logs
     def process_fold(match):
+        original = match.group(0)
         num_str = match.group(1)
         separator = match.group(2)
+        
         if separator != "-":
-            return match.group(0)
+            return original
+
         try:
             if num_str.isdigit():
                 number = int(num_str)
@@ -905,26 +994,120 @@ def replace_fold_phrases(text):
                 number = w2n.word_to_num(num_str)
 
             if number > 9:
-                return f"{number}-fold"
+                modified = f"{number}-fold"
             else:
-                return f"{num2words(number)}fold"
+                modified = f"{num2words(number)}fold"
+
+            if original != modified:
+                line_number = text[:match.start()].count('\n') + 1
+                global_logs.append(
+                    f"[replace_fold_phrases] Line {line_number}: '{original}' -> '{modified}'"
+                )
+            return modified
         except ValueError:
-            return match.group(0)
+            return original
+
     pattern = r"(\b\w+\b)(-?)fold"
     updated_text = re.sub(pattern, process_fold, text)
     return updated_text
 
 
 
+
+
+# def correct_preposition_usage(text):
+#     def process_from_to(match):
+#         return f"from {match.group(1)} to {match.group(2)}"
+
+#     def process_between_and(match):
+#         return f"between {match.group(1)} and {match.group(2)}"
+#     text = re.sub(r"from (\d{4})[–-](\d{4})", process_from_to, text)
+#     text = re.sub(r"between (\d{4})[–-](\d{4})", process_between_and, text)
+#     return text
+
+
+
+
 def correct_preposition_usage(text):
+    """
+    Corrects preposition usage for date ranges (e.g., "from 2000-2010" -> "from 2000 to 2010").
+    Args:
+        text (str): Input text to process.
+    Returns:
+        str: Updated text.
+    """
+    global global_logs
+
     def process_from_to(match):
-        return f"from {match.group(1)} to {match.group(2)}"
+        original = match.group(0)
+        modified = f"from {match.group(1)} to {match.group(2)}"
+
+        if original != modified:
+            line_number = text[:match.start()].count('\n') + 1
+            global_logs.append(
+                f"[correct_preposition_usage] Line {line_number}: '{original}' -> '{modified}'"
+            )
+
+        return modified
 
     def process_between_and(match):
-        return f"between {match.group(1)} and {match.group(2)}"
+        original = match.group(0)
+        modified = f"between {match.group(1)} and {match.group(2)}"
+
+        if original != modified:
+            line_number = text[:match.start()].count('\n') + 1
+            global_logs.append(
+                f"[correct_preposition_usage] Line {line_number}: '{original}' -> '{modified}'"
+            )
+        return modified
+
     text = re.sub(r"from (\d{4})[–-](\d{4})", process_from_to, text)
     text = re.sub(r"between (\d{4})[–-](\d{4})", process_between_and, text)
     return text
+
+
+
+
+
+# def correct_scientific_unit_symbols(text):
+#     """
+#     Ensures proper capitalization of units derived from proper names (e.g., J, Hz, W, N) only when preceded by a number.
+
+#     Args:
+#         text (str): Input text to process.
+
+#     Returns:
+#         str: Updated text.
+#     """
+#     units = {
+#         "j": "J",
+#         "hz": "Hz",
+#         "w": "W",
+#         "n": "N",
+#         "pa": "Pa",
+#         "v": "V",
+#         "a": "A",
+#         "c": "C",
+#         "lm": "lm",
+#         "lx": "lx",
+#         "t": "T",
+#         "ohm": "Ω",
+#         "s": "S",
+#         "k": "K",
+#         "cd": "cd",
+#         "mol": "mol",
+#         "rad": "rad",
+#         "sr": "sr"
+#     }
+
+#     def process_unit(match):
+#         unit = match.group(2).lower()  # Capture the unit (second group)
+#         return f"{match.group(1)}{units.get(unit, match.group(2))}"  # Replace with capitalized unit if in dictionary
+
+#     # Regex to match a number followed by optional space and a unit
+#     pattern = r"\b(\d+\s*)(%s)\b" % "|".join(re.escape(unit) for unit in units.keys())
+#     updated_text = re.sub(pattern, process_unit, text, flags=re.IGNORECASE)
+#     return updated_text
 
 
 
@@ -938,6 +1121,8 @@ def correct_scientific_unit_symbols(text):
     Returns:
         str: Updated text.
     """
+    global global_logs
+
     units = {
         "j": "J",
         "hz": "Hz",
@@ -960,21 +1145,104 @@ def correct_scientific_unit_symbols(text):
     }
 
     def process_unit(match):
+        original = match.group(0)
         unit = match.group(2).lower()  # Capture the unit (second group)
-        return f"{match.group(1)}{units.get(unit, match.group(2))}"  # Replace with capitalized unit if in dictionary
+        modified = f"{match.group(1)}{units.get(unit, match.group(2))}"  # Replace with capitalized unit if in dictionary
+
+        if original != modified:
+            line_number = text[:match.start()].count('\n') + 1  # Calculate the line number
+            global_logs.append(
+                f"[correct_scientific_unit_symbols] Line {line_number}: '{original}' -> '{modified}'"
+            )
+
+        return modified
 
     # Regex to match a number followed by optional space and a unit
     pattern = r"\b(\d+\s*)(%s)\b" % "|".join(re.escape(unit) for unit in units.keys())
     updated_text = re.sub(pattern, process_unit, text, flags=re.IGNORECASE)
-
     return updated_text
 
 
 
 
+# def remove_quotation(text: str):
+#     #  remove quotation '
+#       para_text = re.sub(r"([A-Z]+)'", r'\1',text)
+#       return para_text
+
+
+def remove_quotation(text: str):
+    """
+    Removes single quotation marks (') following capitalized words.
+    Args:
+        text (str): Input text to process.
+    Returns:
+        str: Updated text.
+    """
+    global global_logs
+
+    pattern = r"([A-Z]+)'"
+
+    def process_quotation_removal(match):
+        original = match.group(0)
+        modified = f"{match.group(1)}"
+
+        if original != modified:
+            line_number = text[:match.start()].count('\n') + 1
+            global_logs.append(
+                f"[remove_quotation] Line {line_number}: '{original}' -> '{modified}'"
+            )
+        return modified
+    para_text = re.sub(pattern, process_quotation_removal, text)
+    return para_text
+
+
+
+
+
+
+# def remove_and(text:str):
+#     # Load the document
+#     #doc = Document(file_path)
+#     # Regex pattern to match "and" between two capitalized words
+#     pattern = r'([A-Z][a-z]+)\s+and\s+([A-Z][a-z]+)'
+#     text = re.sub(pattern, r'\1 & \2',text)
+#     text = re.sub(pattern, r'\1 & \2',text)
+#     return text
+
+
+
+def remove_and(text: str):
+    """
+    Replaces 'and' between two capitalized words with an ampersand (&).
+    Args:
+        text (str): Input text to process.
+    Returns:
+        str: Updated text.
+    """
+    global global_logs
+
+    # Regex pattern to match "and" between two capitalized words
+    pattern = r'([A-Z][a-z]+)\s+and\s+([A-Z][a-z]+)'
+
+    def process_and_replacement(match):
+        original = match.group(0)
+        modified = f"{match.group(1)} & {match.group(2)}"
+
+        if original != modified:
+            line_number = text[:match.start()].count('\n') + 1
+            global_logs.append(
+                f"[remove_and] Line {line_number}: '{original}' -> '{modified}'"
+            )
+        return modified
+    text = re.sub(pattern, process_and_replacement, text)
+    return text
+
+
+
 
 def correct_units_in_ranges_with_logging(text, doc_id):
-    global global_logs  # Access the global log array
+    global global_logs
 
     # List of valid unit symbols
     unit_symbols = ['cm', 'm', 'kg', 's', 'A', 'K', 'mol', 'cd', '%']
@@ -1018,13 +1286,42 @@ def correct_units_in_ranges_with_logging(text, doc_id):
 
 
 
+# def correct_unit_spacing(text):
+#     units = ["Hz", "KHz", "MHz", "GHz", "kB", "MB", "GB", "TB"]
+#     pattern = r"(\d+)\s+(" + "|".join(units) + r")"    
+#     # Replace spaces between numbers and units with no space
+#     corrected_text = re.sub(pattern, r"\1\2", text)
+#     return corrected_text
+
+
+
+
 def correct_unit_spacing(text):
+    """
+    Corrects spacing between numbers and units (e.g., "100 MB" -> "100MB").
+    Args:
+        text (str): Input text to process.
+    Returns:
+        str: Updated text.
+    """
+    global global_logs
+
     units = ["Hz", "KHz", "MHz", "GHz", "kB", "MB", "GB", "TB"]
     pattern = r"(\d+)\s+(" + "|".join(units) + r")"
-    
-    # Replace spaces between numbers and units with no space
-    corrected_text = re.sub(pattern, r"\1\2", text)
+
+    def process_spacing(match):
+        original = match.group(0)
+        modified = f"{match.group(1)}{match.group(2)}"
+
+        if original != modified:
+            line_number = text[:match.start()].count('\n') + 1
+            global_logs.append(
+                f"[correct_unit_spacing] Line {line_number}: '{original}' -> '{modified}'"
+            )
+        return modified
+    corrected_text = re.sub(pattern, process_spacing, text)
     return corrected_text
+
 
 
 
@@ -1044,15 +1341,30 @@ def apply_remove_italics_see_rule(text):
     return text.replace('*see*', 'see')
 
 # There is one problem here for project, & document it is not changing and for project & document it is changing
+# def replace_ampersand(text):
+#     def replacement(match):
+#         left, right = match.group(1), match.group(2)
+#         if left[0].isupper() and right[0].isupper():
+#             return match.group(0)
+#         return left + ' and ' + right    
+#     return re.sub(r'(\w+)\s*&\s*(\w+)', replacement, text)
+
+
 def replace_ampersand(text):
+    global global_logs
     def replacement(match):
         left, right = match.group(1), match.group(2)
-        # If both words before and after '&' start with capital letters, leave '&' as is
+        original = match.group(0)
+        line_number = text[:match.start()].count('\n') + 1
         if left[0].isupper() and right[0].isupper():
-            return match.group(0)  # Return the original match if both are capitalized
-        return left + ' and ' + right
-    
-    return re.sub(r'(\w+)\s*&\s*(\w+)', replacement, text)
+            return original
+
+        modified = left + ' and ' + right
+        global_logs.append(
+            f"[replace_ampersand] Line {line_number}: '{original}' -> '{modified}'"
+        )
+        return modified
+    return re.sub(r'(?m)(\w+)\s*&\s*(\w+)', replacement, text)
 
 
 def rename_section(text):
@@ -1075,7 +1387,7 @@ def process_url_add_http(text):
     """
     text = re.sub(r'\bhttp://(www\.\S+)', r'\1', text)
     text = re.sub(r'\b(www\.\S+)', r'http://\1', text)
-    text = re.sub()
+    # text = re.sub()
     return text
 
 
@@ -1109,7 +1421,7 @@ def highlight_and_correct(doc, doc_id):
         para.text = remove_space_between_degree_and_direction(para.text, line_number)
         para.text = enforce_lowercase_units(para.text, line_number)
         para.text = precede_decimal_with_zero(para.text, line_number)
-        para.text = format_ellipses_in_series(para.text)
+        para.text = format_ellipses_in_series(para.text) # not added in log
         para.text = correct_possessive_names(para.text, line_number)
         para.text = use_numerals_with_percent(para.text)
         para.text = remove_concluding_slashes_from_urls(para.text, line_number)
@@ -1125,6 +1437,10 @@ def highlight_and_correct(doc, doc_id):
         para.text = replace_fold_phrases(para.text)
         para.text = correct_preposition_usage(para.text)
         para.text = correct_unit_spacing(para.text)
+        
+        para.text = remove_and(para.text)
+        para.text = remove_quotation(para.text)
+        
         para.text = apply_quotation_punctuation_rule(para.text)
         para.text = enforce_dnase_rule(para.text)
         
@@ -1367,5 +1683,7 @@ async def process_file(doc_id: int = Query(...)):
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
 
 

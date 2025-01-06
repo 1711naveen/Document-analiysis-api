@@ -264,3 +264,7 @@ oceania
 indian
 syrian
 yemeni
+e.g.
+i.e.
+Udemy
+udemy
