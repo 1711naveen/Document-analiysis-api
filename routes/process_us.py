@@ -346,20 +346,32 @@ def use_numerals_with_percent(text):
 
 
 
-
-# not working
 # def enforce_eg_rule_with_logging(text):
 #     lines = text.splitlines()
 #     updated_lines = []
 #     for line_number, line in enumerate(lines, start=1):
 #         original_line = line
-#         new_line = re.sub(r'\b(e\.?g\.?\,?\.?|eg\.?|e\.g|e\.g\.,|e\.g\.\,)\b', 'e.g.', line, flags=re.IGNORECASE)
+
+#         # Step 1: Match "eg" or "e.g." with optional surrounding spaces and punctuation
+#         new_line = re.sub(r'\beg\b', 'e.g.', line, flags=re.IGNORECASE)
+#         new_line = re.sub(r'\beg,\b', 'e.g.', new_line, flags=re.IGNORECASE)  # Handle "eg,"
+
+#         # Step 2: Fix extra periods like `e.g..` or `e.g...,` and ensure proper punctuation
+#         new_line = re.sub(r'\.([.,])', r'\1', new_line)  # Removes an extra period before a comma or period
+#         new_line = re.sub(r'\.\.+', '.', new_line)  # Ensures only one period after e.g.
+
+#         # Step 3: Remove comma if e.g... is followed by it (e.g..., -> e.g.)
+#         new_line = re.sub(r'e\.g\.,', 'e.g.', new_line)
+
+#         # Log changes if the line is updated
 #         if new_line != line:
 #             global_logs.append(
 #                 f"[e.g. correction] Line {line_number}: {line.strip()} -> {new_line.strip()}"
 #             )
+        
 #         updated_lines.append(new_line)
 #     return "\n".join(updated_lines)
+
 
 
 def enforce_eg_rule_with_logging(text):
@@ -379,6 +391,9 @@ def enforce_eg_rule_with_logging(text):
         # Step 3: Remove comma if e.g... is followed by it (e.g..., -> e.g.)
         new_line = re.sub(r'e\.g\.,', 'e.g.', new_line)
 
+        # Step 4: Change e.g, to e.g.
+        new_line = re.sub(r'e\.g,', 'e.g.', new_line)
+
         # Log changes if the line is updated
         if new_line != line:
             global_logs.append(
@@ -389,18 +404,6 @@ def enforce_eg_rule_with_logging(text):
     return "\n".join(updated_lines)
 
 
-# def enforce_ie_rule_with_logging(text):
-#     lines = text.splitlines()
-#     updated_lines = []
-#     for line_number, line in enumerate(lines, start=1):
-#         original_line = line
-#         new_line = re.sub(r'\b(i\.?e\.?\,?\.?|ie\.?|i\.e|i\.e\.,)\b', 'i.e.', line, flags=re.IGNORECASE)
-#         if new_line != line:
-#             global_logs.append(
-#                 f"[i.e. correction] Line {line_number}: {line.strip()} -> {new_line.strip()}"
-#             )
-#         updated_lines.append(new_line)
-#     return "\n".join(updated_lines)
 
 
 def enforce_ie_rule_with_logging(text):
@@ -419,6 +422,9 @@ def enforce_ie_rule_with_logging(text):
 
         # Step 3: Remove comma if i.e... is followed by it (i.e..., -> i.e.)
         new_line = re.sub(r'i\.e\.,', 'i.e.', new_line)
+        
+        # Step 4: Change i.e, to i.e.
+        new_line = re.sub(r'i\.e,', 'i.e.', new_line)
 
         # Log changes if the line is updated
         if new_line != line:
@@ -438,19 +444,48 @@ def enforce_ie_rule_with_logging(text):
 #     line = re.sub(r'(\betc\.)\.(?=\W)', r'\1', line)
 #     return line
 
+# def standardize_etc(text):
+#     lines = text.splitlines()
+#     updated_lines = []
+#     pattern = r'\b(e\.?tc|e\.t\.c|e\.t\.c\.|et\.?\s?c|et\s?c|etc\.?|etc|et cetera|etcetera|Etc\.?|Etc|‘and etc\.’|et\.?\s?cetera|etc\.?,?|etc\.?\.?|etc\,?\.?)\b'
+#     for line_number, line in enumerate(lines, start=1):
+#         original_line = line
+#         new_line = re.sub(pattern, 'etc.', line, flags=re.IGNORECASE)
+#         if new_line != line:
+#             global_logs.append(f"[etc. correction] Line {line_number}: {line.strip()} -> {new_line.strip()}")
+#         updated_lines.append(new_line)
+#     return "\n".join(updated_lines)
+
+
 def standardize_etc(text):
     lines = text.splitlines()
     updated_lines = []
     pattern = r'\b(e\.?tc|e\.t\.c|e\.t\.c\.|et\.?\s?c|et\s?c|etc\.?|etc|et cetera|etcetera|Etc\.?|Etc|‘and etc\.’|et\.?\s?cetera|etc\.?,?|etc\.?\.?|etc\,?\.?)\b'
+    
     for line_number, line in enumerate(lines, start=1):
         original_line = line
+        
+        # Replace all matches of "etc." variations with "etc."
         new_line = re.sub(pattern, 'etc.', line, flags=re.IGNORECASE)
+        
+        # Explicitly replace "etc.." with "etc."
+        new_line = re.sub(r'etc\.\.+', 'etc.', new_line)
+        
+        # Explicitly replace "etc.." with "etc."
+        new_line = re.sub(r'etc\.\.+', 'etc.', new_line)
+        
+        # Explicitly replace "etc.," with "etc."
+        new_line = re.sub(r'etc\.,', 'etc.', new_line)
+
+        # Log changes if the line is updated
         if new_line != line:
             global_logs.append(f"[etc. correction] Line {line_number}: {line.strip()} -> {new_line.strip()}")
+        
         updated_lines.append(new_line)
+        
+        
+    
     return "\n".join(updated_lines)
-
-
 
 def adjust_ratios(text):
     return re.sub(r"(\d)\s*:\s*(\d)", r"\1 : \2", text)
@@ -642,6 +677,31 @@ def adjust_terminal_punctuation_in_quotes(text):
         text
     )
     return text
+
+
+
+
+def enforce_serial_comma(text):
+    lines = text.splitlines()
+    updated_lines = []
+
+    for line_number, line in enumerate(lines, start=1):
+        original_line = line
+
+        # Add a comma before "and" or "or" in lists
+        new_line = re.sub(
+            r'([^,]+), ([^,]+) (and|or) ([^,]+)',  # Match the list structure without the serial comma
+            r'\1, \2, \3 \4',                     # Add the serial comma before "and" or "or"
+            line
+        )
+
+        # Log changes if the line is updated
+        if new_line != line:
+            global_logs.append(f"[Serial comma correction] Line {line_number}: {line.strip()} -> {new_line.strip()}")
+        
+        updated_lines.append(new_line)
+    
+    return "\n".join(updated_lines)
 
 
 
@@ -1073,8 +1133,12 @@ def highlight_and_correct(doc, doc_id):
         
         para.text = enforce_eg_rule_with_logging(para.text)
         para.text = enforce_ie_rule_with_logging(para.text)
-        para.text = standardize_etc(para.text)
+        para.text = enforce_serial_comma(para.text)
         para.text = apply_remove_italics_see_rule(para.text)
+        
+        para.text = standardize_etc(para.text)
+        para.text = process_url_add_http(para.text)
+        para.text = process_url_remove_http(para.text)
         
         lines = para.text.split('\n')
         updated_lines = []
