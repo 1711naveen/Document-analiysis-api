@@ -1,7 +1,7 @@
 
-Start Time: 2025-01-06 11:18:29.815384
-End Time: 2025-01-06 11:18:33.672438
-Analysis completed in 3.86 seconds.
+Start Time: 2025-01-09 14:42:26.915012
+End Time: 2025-01-09 14:42:31.659297
+Analysis completed in 4.74 seconds.
 
 
 FileName: Chapter Testing.docx
@@ -24,19 +24,19 @@ Line 38: kg.s. -> Suggestions: kg, ks, gs, kegs, kos, k gs, kg s, laos, togo
 Line 50: MODRN -> Suggestions: morn, modern, mourn, Modred, oman, jordan, sudan
 Line 52: interational -> Suggestions: international, International, interrogational, interpretational, interjectional
 Line 52: dominnce, -> Suggestions: dominance, dominie, dominica
-Line 62: INTERNATION -> Suggestions: inter nation, inter-nation, internat ion, internat-ion, international, International, internalization, interlunation
-Line 62: WAFARE -> Suggestions: warfare, wayfarer, freeware, Ware, ware, qatar
-Line 78: Chaptr -> Suggestions: chapter, chap tr, chap-tr, chapiter, chad, haiti
-Line 78: Regonal -> Suggestions: regnal, regional, Reginald
-Line 80: ABC's -> Suggestions: abs, cabs, abas, arcs, ab cs, ab-cs, ABCs, asia, laos, gabon, cocos
-Line 80: War-era -> Suggestions: war era, war-era, ware, Ware, warfare, wagerer, aruba
-Line 82: ethni, -> Suggestions: ethnic, estonia, yemeni
-Line 84: cross-border -> Suggestions: cross border, cross-border, crossbred
-Line 84: long-lasting -> Suggestions: long lasting, long-lasting, longstanding, lastingness, lasting, gloating
-[insert_thin_space_between_number_and_unit] Line 5: '5days' -> '5 days'
-[insert_thin_space_between_number_and_unit] Line 5: '5year' -> '5 year'
+Line 60: ther -> Suggestions: rhet, thee, the, ter, her, there, ether, their, other, therm, Uther, sher, tier, thar, then, togo, peru, niger, chad
+Line 60: 6g -> Suggestions: 6, g, lg, cg, dg, mg, pg, hg, kg, Eg, Ag, Mg, Pg, Hg, togo
+Line 60: 8km -> Suggestions: km, 8 km, guam
+Line 66: INTERNATION -> Suggestions: inter nation, inter-nation, internat ion, internat-ion, international, International, internalization, interlunation
+Line 66: WAFARE -> Suggestions: warfare, wayfarer, freeware, Ware, ware, qatar
+Line 82: Chaptr -> Suggestions: chapter, chap tr, chap-tr, chapiter, chad, haiti
+Line 82: Regonal -> Suggestions: regnal, regional, Reginald
+Line 84: ABC's -> Suggestions: abs, cabs, abas, arcs, ab cs, ab-cs, ABCs, asia, laos, gabon, cocos
+Line 84: War-era -> Suggestions: war era, war-era, ware, Ware, warfare, wagerer, aruba
+Line 86: ethni, -> Suggestions: ethnic, estonia, yemeni
+Line 88: cross-border -> Suggestions: cross border, cross-border, crossbred
+Line 88: long-lasting -> Suggestions: long lasting, long-lasting, longstanding, lastingness, lasting, gloating
 [insert_thin_space_between_number_and_unit] Line 6: '24fold' -> '24 fold'
-[insert_thin_space_between_number_and_unit] Line 7: '2tree' -> '2 tree'
 [insert_thin_space_between_number_and_unit] Line 15: '5kg' -> '5 kg'
 [insert_thin_space_between_number_and_unit] Line 17: '1973and' -> '1973 and'
 [insert_thin_space_between_number_and_unit] Line 18: '24kgs' -> '24 kgs'
@@ -44,3 +44,8 @@ Line 84: long-lasting -> Suggestions: long lasting, long-lasting, longstanding, 
 [insert_thin_space_between_number_and_unit] Line 21: '5kg.s.' -> '5 kg.s.'
 [insert_thin_space_between_number_and_unit] Line 22: '10cm' -> '10 cm'
 [insert_thin_space_between_number_and_unit] Line 22: '20cm' -> '20 cm'
+[insert_thin_space_between_number_and_unit] Line 32: '5kg' -> '5 kg'
+[insert_thin_space_between_number_and_unit] Line 33: '235men' -> '235 men'
+[insert_thin_space_between_number_and_unit] Line 33: '6g' -> '6 g'
+[insert_thin_space_between_number_and_unit] Line 33: '8km' -> '8 km'
+[insert_thin_space_between_number_and_unit] Line 33: '78km' -> '78 km'

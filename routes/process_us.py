@@ -982,9 +982,35 @@ def rimove_and(text:str):
     text = re.sub(pattern, r'\1 & \2',text)
     return text
 
- 
+# Function to convert numbers to words (1 to 10)
+def number_to_word(num):
+    num_dict = {
+        1: 'One', 2: 'Two', 3: 'Three', 4: 'Four', 5: 'Five',
+        6: 'Six', 7: 'Seven', 8: 'Eight', 9: 'Nine', 10: 'Ten'
+    }
+    return num_dict.get(num, str(num))  # Return the number as word if it's in the dictionary, else return the number itself
+
+# Function to convert words to numbers
+def word_to_number(word):
+    word_dict = {
+        'one': 1, 'two': 2, 'three': 3, 'four': 4, 'five': 5,
+        'six':6, 'seven':7, 'eight':8, 'nine':9, 'ten':10 
+    }
+    return word_dict.get(word.lower(), word)  # Return the number if it's in the dictionary, else return the word itself
+
+# Function to process text and replace words with numbers, and numbers with words
+def convert_text(text):
+    
+    # Convert numbers to words
+    text = re.sub(r'\b([1-9]|10)\b', lambda match: number_to_word(int(match.group(0))), text)
+    # Convert words to numbers
+    text = re.sub(r'\b(one|two|three|four|five|six|seven|eight|nine|ten)\s*(kg|m|cm|g|l)\b', 
+    lambda match: str(word_to_number(match.group(1))) + ' ' + match.group(2), 
+    text, flags=re.IGNORECASE)  # Added flags=re.IGNORECASE to handle uppercase
+    return text
 
  
+
      
 
 def highlight_and_correct(doc, doc_id):
@@ -1025,7 +1051,7 @@ def highlight_and_correct(doc, doc_id):
         # para.text = replace_fold_phrases(para.text)
         # para.text = correct_preposition_usage(para.text)
         # para.text = correct_unit_spacing(para.text)
-         
+        para.text = convert_text(para.text)  
         
         para.text = rimove_and(para.text)
         para.text = remove_quotation(para.text)
