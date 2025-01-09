@@ -858,8 +858,6 @@ def write_to_log(doc_id):
 
 
 
-
-
 def replace_fold_phrases(text):
     def process_fold(match):
         num_str = match.group(1)
@@ -1040,9 +1038,7 @@ def apply_quotation_punctuation_rule(text: str):
             global_logs.append(
                 f"[apply_quotation_punctuation_rule] Line {line_number}: '{original}' -> '{modified}'"
             )
-
         return modified
-
     updated_text = re.sub(pattern, process_quotation_punctuation, text)
     return updated_text
 
@@ -1094,7 +1090,7 @@ def replace_ampersand(text):
         left, right = match.group(1), match.group(2)
         # If both words before and after '&' start with capital letters, leave '&' as is
         if left[0].isupper() and right[0].isupper():
-            return match.group(0)  # Return the original match if both are capitalized
+            return match.group(0)
         return left + ' and ' + right
     
     return re.sub(r'(\w+)\s*&\s*(\w+)', replacement, text)
@@ -1103,6 +1099,25 @@ def replace_ampersand(text):
 def rename_section(text):
     # Replace all occurrences of the § symbol with 'Section'
     return re.sub(r'§', 'Section', text)
+
+
+
+# def process_url_add_http(text):
+#     """
+#     Adjusts URLs in the input text based on the given rules:
+#     1. If a URL starts with 'www.' but doesn't have 'http://', prepend 'http://'.
+#     2. If a URL already starts with 'http://', remove 'http://'.
+
+#     Args:
+#         text (str): The input text containing URLs.
+
+#     Returns:
+#         str: The modified text with URLs adjusted.
+#     """
+#     text = re.sub(r'\bhttp://(www\.\S+)', r'\1', text)
+#     text = re.sub(r'\b(www\.\S+)', r'http://\1', text)
+#     return text
+
 
 
 
@@ -1118,19 +1133,69 @@ def process_url_add_http(text):
     Returns:
         str: The modified text with URLs adjusted.
     """
-    text = re.sub(r'\bhttp://(www\.\S+)', r'\1', text)
-    text = re.sub(r'\b(www\.\S+)', r'http://\1', text)
+    global global_logs
+
+    def add_http_prefix(match):
+        original = match.group(0)
+        modified = f"http://{match.group(1)}"
+
+        if original != modified:
+            line_number = text[:match.start()].count('\n') + 1
+            global_logs.append(
+                f"[process_url_add_http] Line {line_number}: '{original}' -> '{modified}'"
+            )
+
+        return modified
+
+    def remove_http_prefix(match):
+        original = match.group(0)
+        modified = match.group(1)
+
+        if original != modified:
+            line_number = text[:match.start()].count('\n') + 1  # Calculate the line number
+            global_logs.append(
+                f"[process_url_add_http] Line {line_number}: '{original}' -> '{modified}'"
+            )
+
+        return modified
+
+    text = re.sub(r"\bhttp://(www\.\S+)", remove_http_prefix, text)
+    text = re.sub(r"\b(www\.\S+)", add_http_prefix, text)
     return text
 
 
+
+# def process_url_remove_http(url):
+#     parsed = urlparse(url)
+#     if parsed.scheme == "http" and not (parsed.path or parsed.params or parsed.query or parsed.fragment):
+#         return parsed.netloc
+#     return url
+
+
+
 def process_url_remove_http(url):
+    """
+    Removes 'http://' from a URL if there is no path, parameters, query, or fragment.
+    Args:
+        url (str): The input URL to process.
+    Returns:
+        str: The modified URL with 'http://' removed if applicable.
+    """
+    global global_logs
+
     parsed = urlparse(url)
+    original = url
+
     if parsed.scheme == "http" and not (parsed.path or parsed.params or parsed.query or parsed.fragment):
-        # If the scheme is http and there's nothing after the domain, remove the scheme
-        return parsed.netloc
+        modified = parsed.netloc
+
+        if original != modified:
+            line_number = 1
+            global_logs.append(
+                f"[process_url_remove_http] Line {line_number}: '{original}' -> '{modified}'"
+            )
+        return modified
     return url
-
-
 
 
 
@@ -1415,40 +1480,5 @@ async def process_file(doc_id: int = Query(...)):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-
-
-
-
-# 474. Ones and Zeroes
-# Medium
-# Topics
-# Companies
-# You are given an array of binary strings strs and two integers m and n.
-
-# Return the size of the largest subset of strs such that there are at most m 0's and n 1's in the subset.
-
-# A set x is a subset of a set y if all elements of x are also elements of y.
-
- 
-
-# Example 1:
-
-# Input: strs = ["10","0001","111001","1","0"], m = 5, n = 3
-# Output: 4
-# Explanation: The largest subset with at most 5 0's and 3 1's is {"10", "0001", "1", "0"}, so the answer is 4.
-# Other valid but smaller subsets include {"0001", "1"} and {"10", "1", "0"}.
-# {"111001"} is an invalid subset because it contains 4 1's, greater than the maximum of 3.
-# Example 2:
-
-# Input: strs = ["10","0","1"], m = 1, n = 1
-# Output: 2
-# Explanation: The largest subset is {"0", "1"}, so the answer is 2.
-
-
-class Solution {
-    public int findMaxForm(String[] strs, int m, int n) {
-        
-    }
-}
 
 

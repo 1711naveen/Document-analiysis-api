@@ -1,0 +1,14 @@
+
+Start Time: 2025-01-07 14:31:23.208031
+End Time: 2025-01-07 14:31:24.502946
+Analysis completed in 1.29 seconds.
+
+
+FileName: testing.docx
+
+
+Line 0: naveen -> Suggestions: nave en, nave-en, nave, Ravenna
+Line 0: yadav -> Suggestions: Davy, japan, palau, sudan, qatar
+Line 2: Vick -> Suggestions: vice, sick, nick, rick, tick, lick, dick, mick, pick, hick, kick, wick, Nick, Rick, Dick, niue, fiji
+[replace_ampersand] Line 1: 'naveen & yadav' -> 'naveen and yadav'
+[remove_and] Line 1: 'John and Vick' -> 'John & Vick'
