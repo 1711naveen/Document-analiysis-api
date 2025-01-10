@@ -1,7 +1,7 @@
 
-Start Time: 2025-01-09 11:35:23.837942
-End Time: 2025-01-09 11:35:29.250573
-Analysis completed in 5.41 seconds.
+Start Time: 2025-01-09 16:32:58.634370
+End Time: 2025-01-09 16:33:05.738956
+Analysis completed in 7.1 seconds.
 
 
 FileName: testing.docx
@@ -49,4 +49,14 @@ Line 54: priori", -> Suggestions: prior, priors, priory, prior i, Prior, prion
 [insert_thin_space_between_number_and_unit] Line 19: '10cm,' -> '10 cm,'
 [insert_thin_space_between_number_and_unit] Line 19: '3s.' -> '3 s.'
 [insert_thin_space_between_number_and_unit] Line 20: '10kgs.' -> '10 kgs.'
+[process_symbols_in_doc] Line 23: 'The new SuperWidget® is revolutionizing the tech industry. Customers have praised the SuperWidget® for its innovative design and ease of use.' -> 'The new SuperWidget® is revolutionizing the tech industry. Customers have praised the SuperWidget for its innovative design and ease of use.'
+[process_symbols_in_doc] Line 25: '1 000' -> '1000'
+[process_symbols_in_doc] Line 26: '30,000,000' -> '30 000 000'
+[process_symbols_in_doc] Line 27: '78,000' -> '78 000'
 [convert_decimal_to_baseline] Line 30: '7·8  8·9' -> '7.8  8.9'
+[process_symbols_in_doc] Line 31: '1,000' -> '1 000'
+[process_symbols_in_doc] Line 31: '1 000' -> '1000'
+[process_symbols_in_doc] Line 32: '20,000' -> '20 000'
+[process_symbols_in_doc] Line 33: '300,000' -> '300 000'
+[process_symbols_in_doc] Line 34: '500,000,000' -> '500 000 000'
+[process_symbols_in_doc] Line 35: '567,888,555,777' -> '567 888 555 777'

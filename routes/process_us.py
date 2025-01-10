@@ -1588,7 +1588,7 @@ def process_url_remove_http(url):
 
 
 
-def process_symbols(text, line_number, symbols=["®", "™", "©", "℗", "℠"]):
+def process_symbols_mark(text, line_number, symbols=["®", "™", "©", "℗", "℠"]):
     """
     Ensures symbols like ®, ™, etc., appear only the first time in the text.
     Updates the global_log with changes, including line number, original text, and updated text.
@@ -1750,8 +1750,7 @@ def convert_decimal_to_baseline(paragraph_text, line_number):
     changes = []
     global global_logs
     # Regular expression to find '•' between numbers
-    pattern = r'(?<=\d)\xB7(?=\d)'  # Matches '•' only when surrounded by numbers
-    
+    pattern = r'(?<=\d)\xB7(?=\d)'
 
     # Find all occurrences of '•' that are between digits and replace with '.'
     matches = re.findall(pattern, paragraph_text)
@@ -1767,12 +1766,57 @@ def convert_decimal_to_baseline(paragraph_text, line_number):
     return updated_text if changes else paragraph_text
 
 
-def inspect_characters_in_paragraph(paragraph_text, line_number):
-    # print("hello")
-    print(f"Inspecting line {line_number}:")
-    for char in paragraph_text:
-        print(f"Character: '{char}' -> Hex: {hex(ord(char))}")
-    return paragraph_text
+
+# Function to convert numbers to words (1 to 10)
+def number_to_word(num):
+    num_dict = {
+        1: 'One', 2: 'Two', 3: 'Three', 4: 'Four', 5: 'Five',
+        6: 'Six', 7: 'Seven', 8: 'Eight', 9: 'Nine', 10: 'Ten'
+    }
+    return num_dict.get(num, str(num))
+
+
+# Function to convert words to numbers
+def word_to_number(word):
+    word_dict = {
+        'one': 1, 'two': 2, 'three': 3, 'four': 4, 'five': 5,
+        'six':6, 'seven':7, 'eight':8, 'nine':9, 'ten':10 
+    }
+    return word_dict.get(word.lower(), word)
+
+
+# Function to process text and replace words with numbers, and numbers with words
+def convert_text(text):
+    
+    text = re.sub(r'\b([1-9]|10)\b', lambda match: number_to_word(int(match.group(0))), text)
+    text = re.sub(r'\b(one|two|three|four|five|six|seven|eight|nine|ten)\s*(kg|m|cm|g|l)\b', 
+    lambda match: str(word_to_number(match.group(1))) + ' ' + match.group(2), text, flags=re.IGNORECASE)
+    return text
+
+
+def adjust_punctuation_style_using_paragraph_text(text, para_runs):
+    """
+    Analyze `text` to detect italicized or bold characters followed by punctuation
+    and ensure the punctuation inherits the appropriate style (italic or bold).
+    """
+    for i in range(len(para_runs) - 1):
+        current_run = para_runs[i]
+        next_run = para_runs[i + 1]
+
+        # Check if current run ends with italicized text
+        if current_run.text and current_run.italic:
+            last_char = current_run.text[-1]
+            if next_run.text and next_run.text[0] in ".,!?\"'()":
+                next_run.italic = True
+        
+        elif current_run.text and current_run.bold:
+            last_char = current_run.text[-1]
+            if next_run.text and next_run.text[0] in ".,!?\"”'()":
+                next_run.bold = True
+    
+    # Return updated text after style adjustments
+    return text
+
  
 
 def highlight_and_correct(doc, doc_id):
@@ -1788,12 +1832,11 @@ def highlight_and_correct(doc, doc_id):
             formatted_title = format_chapter_title(para.text)
             para.text = formatted_title
             
-        # para.text = process_symbols(para.text, line_number)
-        # para.text = remove_commas_from_numbers(para.text, line_number)
-        # para.text = remove_spaces_from_four_digit_numbers(para.text, line_number)
-        # para.text = set_latinisms_to_roman_in_runs(para.text,line_number)
-        # para.text = convert_decimal_to_baseline(para.text,line_number)
-        para.text = inspect_characters_in_paragraph(para.text,line_number)
+        para.text = process_symbols_mark(para.text, line_number)
+        para.text = remove_commas_from_numbers(para.text, line_number)
+        para.text = remove_spaces_from_four_digit_numbers(para.text, line_number)
+        para.text = set_latinisms_to_roman_in_runs(para.text,line_number)
+        para.text = convert_decimal_to_baseline(para.text,line_number)
         
         # para.text = rename_section(para.text)
         # para.text = replace_ampersand(para.text)
@@ -1823,6 +1866,7 @@ def highlight_and_correct(doc, doc_id):
         
         # para.text = remove_and(para.text)
         # para.text = remove_quotation(para.text)
+        para.text = convert_text(para.text)
         
         # para.text = apply_quotation_punctuation_rule(para.text)
         # para.text = enforce_dnase_rule(para.text)
