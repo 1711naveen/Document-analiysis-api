@@ -1,4 +1,4 @@
-from ast import Return
+# from ast import Return
 import re
 from docx.shared import RGBColor
 from num2words import num2words
@@ -975,7 +975,7 @@ def remove_quotation(text: str):
 def rimove_and(text:str):
     # Load the document
     #doc = Document(file_path)
-    
+     
     # Regex pattern to match "and" between two capitalized words
     pattern = r'([A-Z][a-z]+)\s+and\s+([A-Z][a-z]+)'
     text = re.sub(pattern, r'\1 & \2',text)
@@ -1008,10 +1008,10 @@ def convert_text(text):
     lambda match: str(word_to_number(match.group(1))) + ' ' + match.group(2), 
     text, flags=re.IGNORECASE)  # Added flags=re.IGNORECASE to handle uppercase
     return text
-
+ 
  
 
-     
+
 
 def highlight_and_correct(doc, doc_id):
     chapter_counter = [0]
@@ -1051,7 +1051,7 @@ def highlight_and_correct(doc, doc_id):
         # para.text = replace_fold_phrases(para.text)
         # para.text = correct_preposition_usage(para.text)
         # para.text = correct_unit_spacing(para.text)
-        para.text = convert_text(para.text)  
+        # para.text = convert_text(para.text)  
         
         para.text = rimove_and(para.text)
         para.text = remove_quotation(para.text)
