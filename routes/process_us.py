@@ -62,7 +62,6 @@ century_map = {
     25: "twenty-fifth",
 }
 
-
 def apply_abbreviation_mapping(text, abbreviation_dict, line_number):
     global global_logs
     words = text.split()
@@ -187,7 +186,6 @@ def replace_curly_quotes_with_straight(text):
 
     
     
-import re
 
 def replace_straight_quotes_with_curly(text):
     # Replace straight double quotes with opening and closing curly quotes
@@ -295,25 +293,6 @@ def remove_unnecessary_apostrophes(word, line_num):
         global_logs.append(f"[apostrophes change] Line {line_num}: {original_word} -> {word}")
     
     return word
-
-
-# pending not clear
-# Spell out numbers below 10 unless used in conjunction with a unit of measurement in the text(2.15)
-# def spell_out_number_and_unit_with_rules(sentence, line_number):
-#     global global_logs
-#     original_sentence = sentence
-#     unit_pattern = r"(\d+)\s+([a-zA-Z]+)"
-#     number_pattern = r"\b(\d+)\b"
-#     contains_unit = bool(re.search(unit_pattern, sentence))
-#     if contains_unit:
-#         sentence = re.sub(r"(\d+)\s+([a-zA-Z]+)", lambda m: f"{m.group(1)} {m.group(2)}", sentence)
-#     else:
-#         sentence = re.sub(number_pattern, lambda m: num2words(int(m.group(0)), to="cardinal") if int(m.group(0)) < 10 else m.group(0), sentence)
-#     if bool(re.search(r"\b[a-zA-Z]+\b", sentence)) and bool(re.search(r"\b\d+\b", sentence)):
-#         sentence = re.sub(r"\b([a-zA-Z]+)\b", lambda m: str(num2words(m.group(0), to="cardinal")) if m.group(0).isdigit() else m.group(0), sentence)
-#     if sentence != original_sentence:
-#         global_logs.append(f"[spell_out_number_and_unit_with_rules] Line {line_number}: '{original_sentence}' -> '{sentence}'")
-#     return sentence
 
 
 # Not working
@@ -949,7 +928,7 @@ def units_with_bracket(text, doc_id):
 
 
 
-def correct_scientific_units_with_logging(text, doc_id):
+def correct_scientific_units_with_logging(text):
     global global_logs
     unit_symbols = ['kg', 'm', 's', 'A', 'K', 'mol', 'cd', 'Hz', 'N', 'Pa', 'J', 'W', 'C', 'V', 'F', 'Ω', 'ohm', 'S', 'T', 'H', 'lm', 'lx', 'Bq', 'Gy', 'Sv', 'kat']
     pattern = rf"\b(\d+)\s*({'|'.join(re.escape(unit) for unit in unit_symbols)})\s*(s|'s|\.s)?\b"
@@ -960,14 +939,7 @@ def correct_scientific_units_with_logging(text, doc_id):
         original_line = line
         changes = []
         new_line = re.sub(pattern, lambda m: f"{m.group(1)} {m.group(2)}", line)
-        
-        # if new_line != line:
-        #     global_logs.append(
-        #         f"[unit correction] Doc {doc_id}, Line {line_number}: {line.strip()} -> {new_line.strip()}"
-        #     )
-        #     line = new_line
-        # updated_lines.append(line)
-        
+                
         if new_line != line:
             for match in re.finditer(pattern, line):
                 original = match.group(0)
@@ -977,7 +949,7 @@ def correct_scientific_units_with_logging(text, doc_id):
 
             if changes:
                 global_logs.append(
-                    f"[unit correction] Doc {doc_id}, Line {line_number}: {', '.join(changes)}"
+                    f"[unit correction] Line {line_number}: {', '.join(changes)}"
                 )
 
         updated_lines.append(new_line)
@@ -1300,7 +1272,7 @@ def remove_and(text: str):
 
 
 
-def correct_units_in_ranges_with_logging(text, doc_id):
+def correct_units_in_ranges_with_logging(text):
     global global_logs
 
     # List of valid unit symbols
@@ -1617,40 +1589,6 @@ def process_symbols_mark(text, line_number, symbols=["®", "™", "©", "℗", "
     return text
 
 
-# def process_symbols(text, line_number, symbols=["®", "™", "©", "℗", "℠"]):
-#     """
-#     Ensures symbols like ®, ™, etc., appear only the first time in the text.
-#     Updates the global_log with specific symbol changes, including line number and changes made.
-#     """
-#     original_text = text
-#     symbol_set = set()
-#     changes = []
-
-#     for symbol in symbols:
-#         occurrences = list(re.finditer(re.escape(symbol), text))
-#         if occurrences:
-#             first_occurrence = occurrences[0].start()
-#             # Replace all occurrences after the first one
-#             updated_text = (
-#                 text[:first_occurrence + 1]
-#                 + re.sub(re.escape(symbol), "", text[first_occurrence + 1:])
-#             )
-
-#             # Detect changes and log only the symbol changes
-#             if text != updated_text:
-#                 text = updated_text
-#                 changes.append(symbol)
-
-#     # Log individual changes
-#     for symbol in changes:
-#         global_log.append({
-#             'line_number': line_number,
-#             'original_symbol': symbol,
-#             'updated_symbol': ""  # Symbol was removed
-#         })
-
-#     return text  # Return the updated text
-
 
 
 def remove_commas_from_numbers(text, line_number):
@@ -1709,7 +1647,7 @@ def remove_spaces_from_four_digit_numbers(text, line_number):
             f"[process_symbols_in_doc] Line {line_number}: '{original}' -> '{updated}'"
         )
 
-    return text  
+    return text
 
 
 
@@ -1817,26 +1755,93 @@ def adjust_punctuation_style_using_paragraph_text(text, para_runs):
     # Return updated text after style adjustments
     return text
 
+# Dictionary to convert word numbers to integer values
+word_to_num = {
+    'zero': 0, 'one': 1, 'two': 2, 'three': 3, 'four': 4, 'five': 5,
+    'six': 6, 'seven': 7, 'eight': 8, 'nine': 9, 'ten': 10, 'eleven': 11,
+    'twelve': 12, 'thirteen': 13, 'fourteen': 14, 'fifteen': 15, 'sixteen': 16,
+    'seventeen': 17, 'eighteen': 18, 'nineteen': 19, 'twenty': 20, 'twenty-one': 21,
+    'twenty-two': 22, 'twenty-three': 23, 'twenty-four': 24, 'twenty-five': 25,
+    'twenty-six': 26, 'twenty-seven': 27, 'twenty-eight': 28, 'twenty-nine': 29,
+    'thirty': 30, 'thirty-one': 31, 'thirty-two': 32, 'thirty-three': 33,
+    'thirty-four': 34, 'thirty-five': 35, 'thirty-six': 36, 'thirty-seven': 37,
+    'thirty-eight': 38, 'thirty-nine': 39, 'forty': 40, 'forty-one': 41,
+    'forty-two': 42, 'forty-three': 43, 'forty-four': 44, 'forty-five': 45,
+    'forty-six': 46, 'forty-seven': 47, 'forty-eight': 48, 'forty-nine': 49,
+    'fifty': 50, 'fifty-one': 51, 'fifty-two': 52, 'fifty-three': 53,
+    'fifty-four': 54, 'fifty-five': 55, 'fifty-six': 56, 'fifty-seven': 57,
+    'fifty-eight': 58, 'fifty-nine': 59, 'sixty': 60, 'sixty-one': 61,
+    'sixty-two': 62, 'sixty-three': 63, 'sixty-four': 64, 'sixty-five': 65,
+    'sixty-six': 66, 'sixty-seven': 67, 'sixty-eight': 68, 'sixty-nine': 69,
+    'seventy': 70, 'seventy-one': 71, 'seventy-two': 72, 'seventy-three': 73,
+    'seventy-four': 74, 'seventy-five': 75, 'seventy-six': 76, 'seventy-seven': 77,
+    'seventy-eight': 78, 'seventy-nine': 79, 'eighty': 80, 'eighty-one': 81,
+    'eighty-two': 82, 'eighty-three': 83, 'eighty-four': 84, 'eighty-five': 85,
+    'eighty-six': 86, 'eighty-seven': 87, 'eighty-eight': 88, 'eighty-nine': 89,
+    'ninety': 90, 'ninety-one': 91, 'ninety-two': 92, 'ninety-three': 93,
+    'ninety-four': 94, 'ninety-five': 95, 'ninety-six': 96, 'ninety-seven': 97,
+    'ninety-eight': 98, 'ninety-nine': 99, 'hundred': 100
+}
+
+# Reverse dictionary to convert integer values back to words
+num_to_word = {v: k for k, v in word_to_num.items()}
+
+# Function to convert word number to integer
+def word_to_int(word):
+    return word_to_num.get(word.lower(), None)
+
+# Function to convert integer to word
+def int_to_word(num):
+    return num_to_word.get(num, None)
+
+# Regular expression to match "word and word" pattern
+pattern = re.compile(r'(\b\w+\b) and (\b\w+\b)')
+
+# Function to process the string with regex and apply transformations
+def process_string(text):
+    def replace_match(match):
+        word1 = match.group(1)
+        word2 = match.group(2)
+        
+        # Convert words to their numeric values
+        num1 = word_to_int(word1)
+        num2 = word_to_int(word2)
+        
+        # If both numbers are less than 9, return them as word form
+        if (num1 is not None and num1 < 9) and (num2 is not None and num2 < 9):
+            return f"{word1} and {word2}"  # No change if both are < 9
+        
+        # If either number is greater than or equal to 9, convert to numeric form
+        if (num1 is not None and num1 >= 9) or (num2 is not None and num2 >= 9):
+            # Convert both to numeric form
+            num1 = num1 if num1 is not None else word1
+            num2 = num2 if num2 is not None else word2
+            return f"{num1} and {num2}"  # Replace with numeric values
+        
+        return match.group(0)  # Return the match as is if both are < 9
+    
+    # Apply regex substitution with the replace function
+    return pattern.sub(replace_match, text)
  
 
-def highlight_and_correct(doc, doc_id):
+def highlight_and_correct(doc):
     chapter_counter = [0]
     line_number = 1
     abbreviation_dict = fetch_abbreviation_mappings()
     for para in doc.paragraphs:
         
-        para.text = replace_curly_quotes_with_straight(para.text)
+        # para.text = replace_curly_quotes_with_straight(para.text)
         
-        if para.text.strip().startswith("Chapter"):
-            para.text = correct_chapter_numbering(para.text, chapter_counter)
-            formatted_title = format_chapter_title(para.text)
-            para.text = formatted_title
+        # if para.text.strip().startswith("Chapter"):
+        #     para.text = correct_chapter_numbering(para.text, chapter_counter)
+        #     formatted_title = format_chapter_title(para.text)
+        #     para.text = formatted_title
             
-        para.text = process_symbols_mark(para.text, line_number)
-        para.text = remove_commas_from_numbers(para.text, line_number)
-        para.text = remove_spaces_from_four_digit_numbers(para.text, line_number)
-        para.text = set_latinisms_to_roman_in_runs(para.text,line_number)
-        para.text = convert_decimal_to_baseline(para.text,line_number)
+        # para.text = process_symbols_mark(para.text, line_number)
+        # para.text = remove_commas_from_numbers(para.text, line_number)
+        # para.text = remove_spaces_from_four_digit_numbers(para.text, line_number)
+        # para.text = set_latinisms_to_roman_in_runs(para.text,line_number)
+        # para.text = convert_decimal_to_baseline(para.text,line_number)
         
         # para.text = rename_section(para.text)
         # para.text = replace_ampersand(para.text)
@@ -1856,17 +1861,17 @@ def highlight_and_correct(doc, doc_id):
         # para.text = apply_abbreviation_mapping(para.text, abbreviation_dict, line_number)
         # para.text = apply_number_abbreviation_rule(para.text, line_number)
 
-        # para.text = format_titles_us_english_with_logging(para.text, doc_id)
-        # para.text = units_with_bracket(para.text, doc_id)
+        # para.text = format_titles_us_english_with_logging(para.text)
+        # para.text = units_with_bracket(para.text)
         # para.text = correct_units_in_ranges_with_logging(para.text,line_number)#check
-        # para.text = correct_scientific_units_with_logging(para.text,doc_id)
+        # para.text = correct_scientific_units_with_logging(para.text)
         # para.text = replace_fold_phrases(para.text)
         # para.text = correct_preposition_usage(para.text)
         # para.text = correct_unit_spacing(para.text)
         
         # para.text = remove_and(para.text)
         # para.text = remove_quotation(para.text)
-        para.text = convert_text(para.text)
+        # para.text = convert_text(para.text)
         
         # para.text = apply_quotation_punctuation_rule(para.text)
         # para.text = enforce_dnase_rule(para.text)
@@ -1878,6 +1883,7 @@ def highlight_and_correct(doc, doc_id):
         # para.text = enforce_ie_rule_with_logging(para.text)
         # para.text = enforce_serial_comma(para.text)
         # para.text = apply_remove_italics_see_rule(para.text)
+        # para.text = process_string(para.text)
         
         # para.text = standardize_etc(para.text)
         # para.text = process_url_add_http(para.text)
@@ -2086,7 +2092,7 @@ async def process_file(doc_id: int = Query(...)):
         output_path = os.path.join(output_dir, f"processed_{os.path.basename(file_path)}")
 
         doc = docx.Document(file_path)
-        highlight_and_correct(doc,doc_id)
+        highlight_and_correct(doc)
         doc.save(output_path)
 
         cursor.execute("SELECT final_doc_id FROM final_document WHERE row_doc_id = %s", (doc_id,))
