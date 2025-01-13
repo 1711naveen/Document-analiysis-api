@@ -95,90 +95,94 @@ def apply_number_abbreviation_rule(text, line_number):
     return re.sub(pattern, replace_number, text)
 
 
-def apply_numerals_rule(text):
-    def text_to_num(match):
-        try:
-            return str(w2n.word_to_num(match.group(0)))
-        except ValueError:
-            return match.group(0)
-    text = re.sub(r'\b(\w+ and a half|\w+ and \w+/\w+)\b', text_to_num, text)
-    text = re.sub(r'\b(\w+-\w+/\w+)\b', text_to_num, text)
-    text = re.sub(r'\b(\w+) years? old\b', text_to_num, text)
-    text = re.sub(r'\b(\w+ (first|second|third|fourth|fifth|sixth|seventh|eighth|ninth|tenth|eleventh|twelfth))\b', text_to_num, text)
-    return text
 
 # Done
-def replace_percent_with_symbol(text):
-    global global_logs
+# def convert_century(text, line_number_offset):
+#     """
+#     Converts century notation like '21st' to 'the twenty-first century'
+#     and logs the changes with line numbers.
+    
+#     :param text: The entire text to process, possibly spanning multiple lines.
+#     :param line_number_offset: The starting line number for this chunk of text.
+#     :return: The updated text with century notations converted.
+#     """
+#     global global_logs  # Global log to record changes
+#     lines = text.split('\n')  # Split text into individual lines
+#     updated_lines = []
 
-    modified_text = []
-    lines = text.splitlines()
+#     for index, line in enumerate(lines):
+#         words = line.split()  # Split line into words
+#         for i, word in enumerate(words):
+#             match = re.match(r"(\d+)(st|nd|rd|th)$", word)  # Match century notation
+#             if match:
+#                 num = int(match.group(1))
+#                 if num in century_map:
+#                     # Original and converted word
+#                     original_word = match.group(0)
+#                     converted_word = f"the {century_map[num]} century"
+                    
+#                     # Log the change with the actual line number
+#                     global_logs.append(
+#                         f"[convert century] Line {line_number_offset + index}: {original_word} -> {converted_word}"
+#                     )
+                    
+#                     # Replace the word in the line
+#                     words[i] = converted_word
+        
+#         # Rebuild the updated line
+#         updated_lines.append(' '.join(words))
 
-    for line_number, line in enumerate(lines, 1):
-        # Find matches for numbers followed by 'percent' or 'per cent'
-        matches = re.findall(r"(\d+)\s?(percent|per cent)", line, flags=re.IGNORECASE)
-
-        # If there are matches, replace them and store the change in the global log
-        if matches:
-            for match in matches:
-                original_text = f"{match[0]} {match[1]}"
-                modified_text_line = line.replace(original_text, f"{match[0]}%")
-                global_logs.append(
-                    f"[replace_percent_with_symbol] Line {line_number}: {original_text} -> {match[0]}%"
-                )
-                line = modified_text_line  # Update the line after the change
-
-        modified_text.append(line)  # Add the modified line to the final text
-
-    return "\n".join(modified_text)
+#     # Return the updated text with all lines rebuilt
+#     return '\n'.join(updated_lines)
 
 
-# Done
-def convert_century(text, line_number_offset):
+
+def convert_century(paragraph, line_number_offset):
     """
     Converts century notation like '21st' to 'the twenty-first century'
-    and logs the changes with line numbers.
-    
-    :param text: The entire text to process, possibly spanning multiple lines.
-    :param line_number_offset: The starting line number for this chunk of text.
-    :return: The updated text with century notations converted.
+    in a paragraph's runs, preserving formatting, and logs the changes with line numbers.
+
+    :param paragraph: The paragraph object containing runs.
+    :param line_number_offset: The starting line number for this paragraph.
     """
     global global_logs  # Global log to record changes
-    lines = text.split('\n')  # Split text into individual lines
-    updated_lines = []
+    century_map = {
+        1: "first", 2: "second", 3: "third", 4: "fourth", 5: "fifth",
+        6: "sixth", 7: "seventh", 8: "eighth", 9: "ninth", 10: "tenth",
+        11: "eleventh", 12: "twelfth", 13: "thirteenth", 14: "fourteenth",
+        15: "fifteenth", 16: "sixteenth", 17: "seventeenth", 18: "eighteenth",
+        19: "nineteenth", 20: "twentieth", 21: "twenty-first",
+        22: "twenty-second", 23: "twenty-third", 24: "twenty-fourth",
+        25: "twenty-fifth"  # Add more as needed
+    }
 
-    for index, line in enumerate(lines):
-        words = line.split()  # Split line into words
+    for run in paragraph.runs:
+        words = run.text.split()
         for i, word in enumerate(words):
             match = re.match(r"(\d+)(st|nd|rd|th)$", word)  # Match century notation
             if match:
                 num = int(match.group(1))
                 if num in century_map:
-                    # Original and converted word
                     original_word = match.group(0)
                     converted_word = f"the {century_map[num]} century"
                     
                     # Log the change with the actual line number
                     global_logs.append(
-                        f"[convert century] Line {line_number_offset + index}: {original_word} -> {converted_word}"
+                        f"[convert century] Line {line_number_offset}: {original_word} -> {converted_word}"
                     )
                     
-                    # Replace the word in the line
+                    # Replace the word in the run
                     words[i] = converted_word
         
-        # Rebuild the updated line
-        updated_lines.append(' '.join(words))
-
-    # Return the updated text with all lines rebuilt
-    return '\n'.join(updated_lines)
+        # Update the run's text while preserving formatting
+        run.text = ' '.join(words)
 
 
 
 def clean_word(word):
     return word.strip(",.?!:;\"'()[]{}")
 
-# def clean_word(word):
-#     return word
+
 
 # Done
 def replace_curly_quotes_with_straight(text):
@@ -187,112 +191,231 @@ def replace_curly_quotes_with_straight(text):
     
     
 
-def replace_straight_quotes_with_curly(text):
-    # Replace straight double quotes with opening and closing curly quotes
-    text = re.sub(r'(^|[\s([{])"', r'\1“', text)  # Opening double quotes
-    text = re.sub(r'"', r'”', text)  # Closing double quotes
+# def replace_straight_quotes_with_curly(text):
+#     # Replace straight double quotes with opening and closing curly quotes
+#     text = re.sub(r'(^|[\s([{])"', r'\1“', text)  # Opening double quotes
+#     text = re.sub(r'"', r'”', text)  # Closing double quotes
     
-    # Replace straight single quotes with opening and closing curly quotes
-    text = re.sub(r"(^|[\s([{])'", r'\1‘', text)  # Opening single quotes
-    text = re.sub(r"'", r'’', text)  # Closing single quotes
+#     # Replace straight single quotes with opening and closing curly quotes
+#     text = re.sub(r"(^|[\s([{])'", r'\1‘', text)  # Opening single quotes
+#     text = re.sub(r"'", r'’', text)  # Closing single quotes
     
-    text = re.sub(r"([a-zA-Z]+)'([a-zA-Z]+)", r"\1‘\2", text)  # Curly starting single quote after word
+#     text = re.sub(r"([a-zA-Z]+)'([a-zA-Z]+)", r"\1‘\2", text)  # Curly starting single quote after word
     
-    return text
+#     return text
 
 
-
-# Done
-def correct_acronyms(text, line_number):
-    global global_logs
-    original_text = text
-    words = text.split()
-    corrected_words = []
-    for word in words:
-        original_word = word
-        if re.match(r"([a-z]\.){2,}[a-z]\.?", word):
-            word = word.replace(".", "")
-        elif re.match(r"([A-Z]\.){2,}[A-Z]\.?", word):
-            word = word.replace(".", "")
-        if word != original_word:
-            global_logs.append(
-                f"[correct_acronyms] Line {line_number}: '{original_word}' -> '{word}'"
-            )
-        corrected_words.append(word)
-    corrected_text = " ".join(corrected_words)
-    return corrected_text
-
-
-# Done
-# def enforce_am_pm(word, line_num):
-#     word_lower = word.lower()
-#     global global_logs
-#     if word_lower in {"am", "a.m", "pm", "p.m"}:
-#         if "a" in word_lower:
-#             corrected_word = "a.m."
-#             global_logs.append(f"[am pm change] Line {line_num}: {word} -> {corrected_word}")
-#             return corrected_word
-#         elif "p" in word_lower:
-#             corrected_word = "p.m."
-#             global_logs.append(f"[am pm change] Line {line_num}: {word} -> {corrected_word}")
-#             return corrected_word
-#     return word
-
-
-def enforce_am_pm(text, line_num):
+def replace_straight_quotes_with_curly(paragraph):
     """
-    Ensures consistent formatting for 'am' and 'pm' in the entire paragraph and logs changes.
-    :param text: The paragraph text to process.
+    Replaces straight quotes with curly quotes in a paragraph's runs while preserving formatting.
+    
+    :param paragraph: The paragraph object containing runs.
+    """
+    for run in paragraph.runs:
+        text = run.text
+
+        # Replace straight double quotes with opening and closing curly quotes
+        text = re.sub(r'(^|[\s([{])"', r'\1“', text)  # Opening double quotes
+        text = re.sub(r'"', r'”', text)  # Closing double quotes
+
+        # Replace straight single quotes with opening and closing curly quotes
+        text = re.sub(r"(^|[\s([{])'", r'\1‘', text)  # Opening single quotes
+        text = re.sub(r"'", r'’', text)  # Closing single quotes
+
+        # Handle curly starting single quotes within words
+        text = re.sub(r"([a-zA-Z]+)'([a-zA-Z]+)", r"\1‘\2", text)
+
+        # Update the run's text while preserving formatting
+        run.text = text
+
+
+
+
+
+# Done
+# def correct_acronyms(text, line_number):
+#     global global_logs
+#     original_text = text
+#     words = text.split()
+#     corrected_words = []
+#     for word in words:
+#         original_word = word
+#         if re.match(r"([a-z]\.){2,}[a-z]\.?", word):
+#             word = word.replace(".", "")
+#         elif re.match(r"([A-Z]\.){2,}[A-Z]\.?", word):
+#             word = word.replace(".", "")
+#         if word != original_word:
+#             global_logs.append(
+#                 f"[correct_acronyms] Line {line_number}: '{original_word}' -> '{word}'"
+#             )
+#         corrected_words.append(word)
+#     corrected_text = " ".join(corrected_words)
+#     return corrected_text
+
+def correct_acronyms_in_runs(paragraph, line_number):
+    """
+    Corrects acronyms in a paragraph's runs, preserving formatting, and logs changes with line numbers.
+    
+    :param paragraph: The paragraph object containing runs.
+    :param line_number: Line number for logging.
+    """
+    global global_logs
+    for run in paragraph.runs:
+        original_text = run.text
+        words = original_text.split()
+        corrected_words = []
+        
+        for word in words:
+            original_word = word
+            if re.match(r"([a-z]\.){2,}[a-z]\.?", word):  # Matches lowercase acronyms
+                word = word.replace(".", "")
+            elif re.match(r"([A-Z]\.){2,}[A-Z]\.?", word):  # Matches uppercase acronyms
+                word = word.replace(".", "")
+            
+            if word != original_word:
+                global_logs.append(
+                    f"[correct_acronyms] Line {line_number}: '{original_word}' -> '{word}'"
+                )
+            
+            corrected_words.append(word)
+        
+        # Update the run's text while preserving formatting
+        run.text = " ".join(corrected_words)
+
+
+
+# def enforce_am_pm(text, line_num):
+#     """
+#     Ensures consistent formatting for 'am' and 'pm' in the entire paragraph and logs changes.
+#     :param text: The paragraph text to process.
+#     :param line_num: The line number in the document for logging.
+#     :return: The updated text with corrected 'am' and 'pm' formats.
+#     """
+#     global global_logs  # Use a global log to record changes
+#     original_text = text  # Store the original text for comparison
+#     words = text.split()  # Split the paragraph into words
+
+#     corrected_words = []
+#     for word in words:
+#         original_word = word  # Store the original word for logging
+#         word_lower = word.lower()  # Convert word to lowercase for comparison
+
+#         # Check and correct 'am' or 'pm' formats
+#         if word_lower in {"am", "a.m", "pm", "p.m"}:
+#             if "a" in word_lower:
+#                 corrected_word = "a.m."
+#             elif "p" in word_lower:
+#                 corrected_word = "p.m."
+            
+#             # Log the change if the word was modified
+#             if corrected_word != original_word:
+#                 global_logs.append(
+#                     f"[am pm change] Line {line_num}: '{original_word}' -> '{corrected_word}'"
+#                 )
+#         else:
+#             corrected_word = word  # Keep the word unchanged if no match
+
+#         corrected_words.append(corrected_word)  # Add the corrected word to the list
+
+#     # Join the corrected words to form the updated paragraph
+#     corrected_text = " ".join(corrected_words)
+
+#     return corrected_text
+
+
+def enforce_am_pm(paragraph, line_num):
+    """
+    Ensures consistent formatting for 'am' and 'pm' in the entire paragraph's runs, preserving formatting, and logs changes.
+    
+    :param paragraph: The paragraph object containing runs.
     :param line_num: The line number in the document for logging.
-    :return: The updated text with corrected 'am' and 'pm' formats.
     """
     global global_logs  # Use a global log to record changes
-    original_text = text  # Store the original text for comparison
-    words = text.split()  # Split the paragraph into words
+    
+    for run in paragraph.runs:
+        original_text = run.text  # Store the original text of the run
+        words = original_text.split()  # Split the run text into words
 
-    corrected_words = []
-    for word in words:
-        original_word = word  # Store the original word for logging
-        word_lower = word.lower()  # Convert word to lowercase for comparison
+        corrected_words = []
+        for word in words:
+            original_word = word  # Store the original word for logging
+            word_lower = word.lower()  # Convert word to lowercase for comparison
 
-        # Check and correct 'am' or 'pm' formats
-        if word_lower in {"am", "a.m", "pm", "p.m"}:
-            if "a" in word_lower:
-                corrected_word = "a.m."
-            elif "p" in word_lower:
-                corrected_word = "p.m."
-            
-            # Log the change if the word was modified
-            if corrected_word != original_word:
-                global_logs.append(
-                    f"[am pm change] Line {line_num}: '{original_word}' -> '{corrected_word}'"
-                )
-        else:
-            corrected_word = word  # Keep the word unchanged if no match
+            # Check and correct 'am' or 'pm' formats
+            if word_lower in {"am", "a.m", "pm", "p.m"}:
+                if "a" in word_lower:
+                    corrected_word = "a.m."
+                elif "p" in word_lower:
+                    corrected_word = "p.m."
+                
+                # Log the change if the word was modified
+                if corrected_word != original_word:
+                    global_logs.append(
+                        f"[am pm change] Line {line_num}: '{original_word}' -> '{corrected_word}'"
+                    )
+            else:
+                corrected_word = word  # Keep the word unchanged if no match
 
-        corrected_words.append(corrected_word)  # Add the corrected word to the list
+            corrected_words.append(corrected_word)  # Add the corrected word to the list
 
-    # Join the corrected words to form the updated paragraph
-    corrected_text = " ".join(corrected_words)
-
-    return corrected_text
+        # Update the run's text while preserving formatting
+        run.text = " ".join(corrected_words)
 
 
 
 # Done
 # [apostrophes change] : 60's -> 1960s 
-def remove_unnecessary_apostrophes(word, line_num):
-    original_word = word
-    global global_logs
-    word = re.sub(r"(\d{4})'s\b", r"\1s", word)
-    word = re.sub(r"'(\d{2})s\b", r"\1s", word)
-    word = re.sub(r"(\d{4}s)'\b", r"\1", word)
-    word = re.sub(r"(\d+)'(s|st|nd|rd|th)\b", r"\1\2", word)
-    word = re.sub(r"^(\d{2})s\b", r"19\1s", word)
-    if word != original_word:
-        global_logs.append(f"[apostrophes change] Line {line_num}: {original_word} -> {word}")
+# def remove_unnecessary_apostrophes(word, line_num):
+#     original_word = word
+#     global global_logs
+#     word = re.sub(r"(\d{4})'s\b", r"\1s", word)
+#     word = re.sub(r"'(\d{2})s\b", r"\1s", word)
+#     word = re.sub(r"(\d{4}s)'\b", r"\1", word)
+#     word = re.sub(r"(\d+)'(s|st|nd|rd|th)\b", r"\1\2", word)
+#     word = re.sub(r"^(\d{2})s\b", r"19\1s", word)
+#     if word != original_word:
+#         global_logs.append(f"[apostrophes change] Line {line_num}: {original_word} -> {word}")
     
-    return word
+#     return word
+
+
+def remove_unnecessary_apostrophes(paragraph, line_num):
+    """
+    Removes unnecessary apostrophes in a paragraph's runs, preserving formatting, and logs changes.
+    
+    :param paragraph: The paragraph object containing runs.
+    :param line_num: The line number in the document for logging.
+    """
+    global global_logs  # Use a global log to record changes
+    
+    for run in paragraph.runs:
+        original_text = run.text  # Store the original text of the run
+        words = original_text.split()  # Split the run text into words
+        corrected_words = []
+
+        for word in words:
+            original_word = word  # Store the original word for logging
+
+            # Apply regex transformations to remove unnecessary apostrophes
+            word = re.sub(r"(\d{4})'s\b", r"\1s", word)  # Handle '1980's' -> '1980s'
+            word = re.sub(r"'(\d{2})s\b", r"\1s", word)  # Handle '70's' -> '70s'
+            word = re.sub(r"(\d{4}s)'\b", r"\1", word)  # Handle '1980s'' -> '1980s'
+            word = re.sub(r"(\d+)'(s|st|nd|rd|th)\b", r"\1\2", word)  # Handle '1980'th -> '1980th'
+            word = re.sub(r"^(\d{2})s\b", r"19\1s", word)  # Handle '80s' -> '1980s'
+
+            # Log the change if the word was modified
+            if word != original_word:
+                global_logs.append(
+                    f"[apostrophes change] Line {line_num}: {original_word} -> {word}"
+                )
+
+            corrected_words.append(word)
+
+        # Update the run's text while preserving formatting
+        run.text = " ".join(corrected_words)
+
+
+
 
 
 # Not working
@@ -321,19 +444,70 @@ def spell_out_number_and_unit_with_rules(sentence, line_number):
 
 
 
-def use_numerals_with_percent(text):
-    global global_logs
+# def use_numerals_with_percent(text):
+#     global global_logs
 
-    lines = text.splitlines()
-    modified_text = []
+#     lines = text.splitlines()
+#     modified_text = []
 
-    for line_number, line in enumerate(lines, 1):
-        original_line = line
-        modified_line = line
+#     for line_number, line in enumerate(lines, 1):
+#         original_line = line
+#         modified_line = line
+#         def replace_spelled_out_percent(match):
+#             word = match.group(1)
+#             try:
+#                 num = w2n.word_to_num(word.lower())
+#                 modified = f"{num}%"
+#                 global_logs.append(
+#                     f"[numerals with percent] Line {line_number}: '{word} percent' -> '{modified}'"
+#                 )
+#                 return modified
+#             except ValueError:
+#                 return match.group(0)
+
+#         modified_line = re.sub(
+#             r"\b([a-zA-Z\s\-]+)\s?(percent|per cent|percentage)\b",
+#             replace_spelled_out_percent,
+#             modified_line,
+#             flags=re.IGNORECASE,
+#         )
+
+#         def replace_numerical_percent(match):
+#             number = match.group(1)
+#             modified = f"{number}%"
+#             global_logs.append(
+#                 f"[numerals with percent] Line {line_number}: '{match.group(0)}' -> '{modified}'"
+#             )
+#             return modified
+
+#         modified_line = re.sub(
+#             r"(\d+)\s?(percent|per cent|percentage)\b", replace_numerical_percent, modified_line, flags=re.IGNORECASE
+#         )
+
+#         modified_text.append(modified_line)
+
+#     return "\n".join(modified_text)
+
+
+def use_numerals_with_percent(paragraph, line_number):
+    """
+    Ensures percentages are represented as numerals followed by '%' in a paragraph's runs, preserving formatting.
+    Logs changes.
+    
+    :param paragraph: The paragraph object containing runs.
+    :param line_number: The line number in the document for logging.
+    """
+    global global_logs  # Use a global log to record changes
+
+    for run in paragraph.runs:
+        original_text = run.text  # Store the original text of the run
+        corrected_text = original_text
+
+        # Replace spelled-out percentages with numeral equivalents
         def replace_spelled_out_percent(match):
             word = match.group(1)
             try:
-                num = w2n.word_to_num(word.lower())
+                num = w2n.word_to_num(word.lower())  # Convert word to number
                 modified = f"{num}%"
                 global_logs.append(
                     f"[numerals with percent] Line {line_number}: '{word} percent' -> '{modified}'"
@@ -342,13 +516,14 @@ def use_numerals_with_percent(text):
             except ValueError:
                 return match.group(0)
 
-        modified_line = re.sub(
+        corrected_text = re.sub(
             r"\b([a-zA-Z\s\-]+)\s?(percent|per cent|percentage)\b",
             replace_spelled_out_percent,
-            modified_line,
+            corrected_text,
             flags=re.IGNORECASE,
         )
 
+        # Replace numerical percentages with a consistent '%'
         def replace_numerical_percent(match):
             number = match.group(1)
             modified = f"{number}%"
@@ -357,13 +532,16 @@ def use_numerals_with_percent(text):
             )
             return modified
 
-        modified_line = re.sub(
-            r"(\d+)\s?(percent|per cent|percentage)\b", replace_numerical_percent, modified_line, flags=re.IGNORECASE
+        corrected_text = re.sub(
+            r"(\d+)\s?(percent|per cent|percentage)\b",
+            replace_numerical_percent,
+            corrected_text,
+            flags=re.IGNORECASE,
         )
 
-        modified_text.append(modified_line)
+        # Update the run's text while preserving formatting
+        run.text = corrected_text
 
-    return "\n".join(modified_text)
 
 
 
@@ -384,6 +562,9 @@ def use_numerals_with_percent(text):
 #         # Step 3: Remove comma if e.g... is followed by it (e.g..., -> e.g.)
 #         new_line = re.sub(r'e\.g\.,', 'e.g.', new_line)
 
+#         # Step 4: Change e.g, to e.g.
+#         new_line = re.sub(r'e\.g,', 'e.g.', new_line)
+
 #         # Log changes if the line is updated
 #         if new_line != line:
 #             global_logs.append(
@@ -394,148 +575,230 @@ def use_numerals_with_percent(text):
 #     return "\n".join(updated_lines)
 
 
+def enforce_eg_rule_with_logging_in_runs(paragraph, line_number):
+    """
+    Ensures consistent usage of 'e.g.' in the paragraph's runs and logs changes,
+    preserving the formatting.
+    
+    :param paragraph: The paragraph object containing runs.
+    :param line_number: The line number in the document for logging.
+    """
+    global global_logs  # Use a global log to record changes
 
-def enforce_eg_rule_with_logging(text):
-    lines = text.splitlines()
-    updated_lines = []
-    for line_number, line in enumerate(lines, start=1):
-        original_line = line
+    for run in paragraph.runs:
+        original_text = run.text  # Store the original text of the run
+        corrected_text = original_text
 
         # Step 1: Match "eg" or "e.g." with optional surrounding spaces and punctuation
-        new_line = re.sub(r'\beg\b', 'e.g.', line, flags=re.IGNORECASE)
-        new_line = re.sub(r'\beg,\b', 'e.g.', new_line, flags=re.IGNORECASE)  # Handle "eg,"
+        corrected_text = re.sub(r'\beg\b', 'e.g.', corrected_text, flags=re.IGNORECASE)
+        corrected_text = re.sub(r'\beg,\b', 'e.g.', corrected_text, flags=re.IGNORECASE)  # Handle "eg,"
 
         # Step 2: Fix extra periods like `e.g..` or `e.g...,` and ensure proper punctuation
-        new_line = re.sub(r'\.([.,])', r'\1', new_line)  # Removes an extra period before a comma or period
-        new_line = re.sub(r'\.\.+', '.', new_line)  # Ensures only one period after e.g.
+        corrected_text = re.sub(r'\.([.,])', r'\1', corrected_text)  # Removes an extra period before a comma or period
+        corrected_text = re.sub(r'\.\.+', '.', corrected_text)  # Ensures only one period after e.g.
 
         # Step 3: Remove comma if e.g... is followed by it (e.g..., -> e.g.)
-        new_line = re.sub(r'e\.g\.,', 'e.g.', new_line)
+        corrected_text = re.sub(r'e\.g\.,', 'e.g.', corrected_text)
 
         # Step 4: Change e.g, to e.g.
-        new_line = re.sub(r'e\.g,', 'e.g.', new_line)
+        corrected_text = re.sub(r'e\.g,', 'e.g.', corrected_text)
 
-        # Log changes if the line is updated
-        if new_line != line:
+        # Log changes if the run's text is updated
+        if corrected_text != original_text:
             global_logs.append(
-                f"[e.g. correction] Line {line_number}: {line.strip()} -> {new_line.strip()}"
+                f"[e.g. correction] Line {line_number}: {original_text.strip()} -> {corrected_text.strip()}"
             )
+
+        # Update the run's text while preserving formatting
+        run.text = corrected_text
+
+
+
+# def enforce_ie_rule_with_logging(text):
+#     lines = text.splitlines()
+#     updated_lines = []
+#     for line_number, line in enumerate(lines, start=1):
+#         original_line = line
+
+#         # Step 1: Match "ie" or "i.e." with optional surrounding spaces and punctuation
+#         new_line = re.sub(r'\bie\b', 'i.e.', line, flags=re.IGNORECASE)  # Handle standalone "ie"
+#         new_line = re.sub(r'\bie,\b', 'i.e.', new_line, flags=re.IGNORECASE)  # Handle "ie,"
+
+#         # Step 2: Fix extra periods like `i.e..` or `i.e...,` and ensure proper punctuation
+#         new_line = re.sub(r'\.([.,])', r'\1', new_line)  # Removes an extra period before a comma or period
+#         new_line = re.sub(r'\.\.+', '.', new_line)  # Ensures only one period after i.e.
+
+#         # Step 3: Remove comma if i.e... is followed by it (i.e..., -> i.e.)
+#         new_line = re.sub(r'i\.e\.,', 'i.e.', new_line)
         
-        updated_lines.append(new_line)
-    return "\n".join(updated_lines)
+#         # Step 4: Change i.e, to i.e.
+#         new_line = re.sub(r'i\.e,', 'i.e.', new_line)
+
+#         # Log changes if the line is updated
+#         if new_line != line:
+#             global_logs.append(
+#                 f"[i.e. correction] Line {line_number}: {line.strip()} -> {new_line.strip()}"
+#             )
+        
+#         updated_lines.append(new_line)
+#     return "\n".join(updated_lines)
 
 
 
+def enforce_ie_rule_with_logging_in_runs(paragraph, line_number):
+    """
+    Ensures consistent usage of 'i.e.' in the paragraph's runs and logs changes,
+    preserving the formatting.
+    
+    :param paragraph: The paragraph object containing runs.
+    :param line_number: The line number in the document for logging.
+    """
+    global global_logs  # Use a global log to record changes
 
-def enforce_ie_rule_with_logging(text):
-    lines = text.splitlines()
-    updated_lines = []
-    for line_number, line in enumerate(lines, start=1):
-        original_line = line
+    for run in paragraph.runs:
+        original_text = run.text  # Store the original text of the run
+        corrected_text = original_text
 
         # Step 1: Match "ie" or "i.e." with optional surrounding spaces and punctuation
-        new_line = re.sub(r'\bie\b', 'i.e.', line, flags=re.IGNORECASE)  # Handle standalone "ie"
-        new_line = re.sub(r'\bie,\b', 'i.e.', new_line, flags=re.IGNORECASE)  # Handle "ie,"
+        corrected_text = re.sub(r'\bie\b', 'i.e.', corrected_text, flags=re.IGNORECASE)  # Handle standalone "ie"
+        corrected_text = re.sub(r'\bie,\b', 'i.e.', corrected_text, flags=re.IGNORECASE)  # Handle "ie,"
 
         # Step 2: Fix extra periods like `i.e..` or `i.e...,` and ensure proper punctuation
-        new_line = re.sub(r'\.([.,])', r'\1', new_line)  # Removes an extra period before a comma or period
-        new_line = re.sub(r'\.\.+', '.', new_line)  # Ensures only one period after i.e.
+        corrected_text = re.sub(r'\.([.,])', r'\1', corrected_text)  # Removes an extra period before a comma or period
+        corrected_text = re.sub(r'\.\.+', '.', corrected_text)  # Ensures only one period after i.e.
 
         # Step 3: Remove comma if i.e... is followed by it (i.e..., -> i.e.)
-        new_line = re.sub(r'i\.e\.,', 'i.e.', new_line)
+        corrected_text = re.sub(r'i\.e\.,', 'i.e.', corrected_text)
         
         # Step 4: Change i.e, to i.e.
-        new_line = re.sub(r'i\.e,', 'i.e.', new_line)
+        corrected_text = re.sub(r'i\.e,', 'i.e.', corrected_text)
 
-        # Log changes if the line is updated
-        if new_line != line:
+        # Log changes if the run's text is updated
+        if corrected_text != original_text:
             global_logs.append(
-                f"[i.e. correction] Line {line_number}: {line.strip()} -> {new_line.strip()}"
+                f"[i.e. correction] Line {line_number}: {original_text.strip()} -> {corrected_text.strip()}"
             )
-        
-        updated_lines.append(new_line)
-    return "\n".join(updated_lines)
+
+        # Update the run's text while preserving formatting
+        run.text = corrected_text
 
 
-
-
-# def standardize_etc(line):
-#     line = re.sub(r'\b(et\.?\s?cetera|etc\.?,?|etc\.?\.?|etc\,?\.?)\b', 'etc.', line, flags=re.IGNORECASE)
-#     line = re.sub(r'(\betc\.)\.(?=\s|$)', r'\1', line)
-#     line = re.sub(r'(\betc\.)\.(?=\W)', r'\1', line)
-#     return line
 
 # def standardize_etc(text):
 #     lines = text.splitlines()
 #     updated_lines = []
 #     pattern = r'\b(e\.?tc|e\.t\.c|e\.t\.c\.|et\.?\s?c|et\s?c|etc\.?|etc|et cetera|etcetera|Etc\.?|Etc|‘and etc\.’|et\.?\s?cetera|etc\.?,?|etc\.?\.?|etc\,?\.?)\b'
+    
 #     for line_number, line in enumerate(lines, start=1):
 #         original_line = line
+        
+#         # Replace all matches of "etc." variations with "etc."
 #         new_line = re.sub(pattern, 'etc.', line, flags=re.IGNORECASE)
+        
+#         # Explicitly replace "etc.." with "etc."
+#         new_line = re.sub(r'etc\.\.+', 'etc.', new_line)
+        
+#         # Explicitly replace "etc.." with "etc."
+#         new_line = re.sub(r'etc\.\.+', 'etc.', new_line)
+        
+#         # Explicitly replace "etc.," with "etc."
+#         new_line = re.sub(r'etc\.,', 'etc.', new_line)
+
+#         # Log changes if the line is updated
 #         if new_line != line:
 #             global_logs.append(f"[etc. correction] Line {line_number}: {line.strip()} -> {new_line.strip()}")
+        
 #         updated_lines.append(new_line)
 #     return "\n".join(updated_lines)
 
 
-def standardize_etc(text):
-    lines = text.splitlines()
-    updated_lines = []
-    pattern = r'\b(e\.?tc|e\.t\.c|e\.t\.c\.|et\.?\s?c|et\s?c|etc\.?|etc|et cetera|etcetera|Etc\.?|Etc|‘and etc\.’|et\.?\s?cetera|etc\.?,?|etc\.?\.?|etc\,?\.?)\b'
+def standardize_etc(paragraph, line_number):
+    """
+    Standardizes all variations of "etc." in the paragraph's runs and logs changes, preserving formatting.
     
-    for line_number, line in enumerate(lines, start=1):
-        original_line = line
-        
+    :param paragraph: The paragraph object containing runs.
+    :param line_number: The line number in the document for logging.
+    """
+    global global_logs  # Use a global log to record changes
+
+    # Define the pattern for matching various "etc." variations
+    pattern = r'\b(e\.?tc|e\.t\.c|e\.t\.c\.|et\.?\s?c|et\s?c|etc\.?|etc|et cetera|etcetera|Etc\.?|Etc|‘and etc\.’|et\.?\s?cetera|etc\.?,?|etc\.?\.?|etc\,?\.?)\b'
+
+    for run in paragraph.runs:
+        original_text = run.text  # Store the original text of the run
+        corrected_text = original_text
+
         # Replace all matches of "etc." variations with "etc."
-        new_line = re.sub(pattern, 'etc.', line, flags=re.IGNORECASE)
+        corrected_text = re.sub(pattern, 'etc.', corrected_text, flags=re.IGNORECASE)
         
         # Explicitly replace "etc.." with "etc."
-        new_line = re.sub(r'etc\.\.+', 'etc.', new_line)
-        
-        # Explicitly replace "etc.." with "etc."
-        new_line = re.sub(r'etc\.\.+', 'etc.', new_line)
+        corrected_text = re.sub(r'etc\.\.+', 'etc.', corrected_text)
         
         # Explicitly replace "etc.," with "etc."
-        new_line = re.sub(r'etc\.,', 'etc.', new_line)
+        corrected_text = re.sub(r'etc\.,', 'etc.', corrected_text)
 
-        # Log changes if the line is updated
-        if new_line != line:
-            global_logs.append(f"[etc. correction] Line {line_number}: {line.strip()} -> {new_line.strip()}")
-        
-        updated_lines.append(new_line)
-        
-        
-    
-    return "\n".join(updated_lines)
+        # Log changes if the run's text is updated
+        if corrected_text != original_text:
+            global_logs.append(
+                f"[etc. correction] Line {line_number}: {original_text.strip()} -> {corrected_text.strip()}"
+            )
+
+        # Update the run's text while preserving formatting
+        run.text = corrected_text
+
+
+
 
 # def adjust_ratios(text):
-#     return re.sub(r"(\d)\s*:\s*(\d)", r"\1 : \2", text)
+#     """
+#     Ensures proper formatting of ratios with spaces around the colon (e.g., "1:2" -> "1 : 2").
+
+#     Args:
+#         text (str): Input text to process.
+
+#     Returns:
+#         str: Updated text.
+#     """
+#     global global_logs
+#     def process_ratio(match):
+#         original = match.group(0)
+#         modified = f"{match.group(1)} : {match.group(2)}"
+#         if original != modified:
+#             line_number = text[:match.start()].count('\n') + 1
+#             global_logs.append(
+#                 f"[adjust_ratios] Line {line_number}: '{original}' -> '{modified}'"
+#             )
+#         return modified
+#     return re.sub(r"(\d)\s*:\s*(\d)", process_ratio, text)
 
 
 
-def adjust_ratios(text):
+def adjust_ratios(paragraph, line_number):
     """
-    Ensures proper formatting of ratios with spaces around the colon (e.g., "1:2" -> "1 : 2").
+    Ensures proper formatting of ratios with spaces around the colon (e.g., "1:2" -> "1 : 2") in the paragraph's runs
+    and logs changes, preserving formatting.
 
     Args:
-        text (str): Input text to process.
-
-    Returns:
-        str: Updated text.
+        paragraph: The paragraph object containing runs.
+        line_number: The line number in the document for logging.
     """
     global global_logs
+
     def process_ratio(match):
         original = match.group(0)
         modified = f"{match.group(1)} : {match.group(2)}"
         if original != modified:
-            line_number = text[:match.start()].count('\n') + 1
             global_logs.append(
                 f"[adjust_ratios] Line {line_number}: '{original}' -> '{modified}'"
             )
         return modified
-    return re.sub(r"(\d)\s*:\s*(\d)", process_ratio, text)
 
-
+    for run in paragraph.runs:
+        original_text = run.text  # Store the original text of the run
+        corrected_text = original_text
+        corrected_text = re.sub(r"(\d)\s*:\s*(\d)", process_ratio, corrected_text)
+        if corrected_text != original_text:
+            run.text = corrected_text
 
 
 
@@ -553,77 +816,209 @@ def correct_chapter_numbering(text, chapter_counter):
     return chapter_pattern.sub(replace_chapter_heading, text)
 
 
-def enforce_number_spelling_rule(text: str):
+
+# def enforce_number_spelling_rule(text: str):
+#     num_to_words = {
+#         "1": "one", "2": "two", "3": "three", "4": "four", "5": "five",
+#         "6": "six", "7": "seven", "8": "eight", "9": "nine"
+#     }
+#     units = r"(kg|g|mg|cm|mm|km|m|l|ml|%)"
+#     sentences = re.split(r"(?<=[.!?])\s+", text)
+#     updated_sentences = []
+#     for sentence in sentences:
+#         numbers = re.findall(r"\b\d+\b", sentence)
+#         if any(int(num) >= 10 for num in numbers) and any(int(num) < 10 for num in numbers):
+#             updated_sentences.append(sentence)
+#             continue
+#         def replace_number(match):
+#             number = match.group()
+#             if number in num_to_words:
+#                 if re.search(rf"\b{number}\b\s+{units}", sentence):
+#                     return number
+#                 if re.search(rf"\b{number}-[a-zA-Z-]+", sentence):
+#                     return num_to_words[number]
+#                 return num_to_words[number]
+#             return number
+#         updated_sentence = re.sub(r"\b\d+\b", replace_number, sentence)
+#         updated_sentences.append(updated_sentence)
+#     return " ".join(updated_sentences)
+
+
+
+def enforce_number_spelling_rule(paragraph, line_number):
+    """
+    Enforces a rule that numbers less than 10 are written as words, and logs the changes.
+    This function processes each run of text in the paragraph to preserve formatting.
+
+    :param paragraph: The paragraph object to process.
+    :param line_number: The line number in the document for logging.
+    """
+    global global_logs
+
     num_to_words = {
         "1": "one", "2": "two", "3": "three", "4": "four", "5": "five",
         "6": "six", "7": "seven", "8": "eight", "9": "nine"
     }
+
     units = r"(kg|g|mg|cm|mm|km|m|l|ml|%)"
-    sentences = re.split(r"(?<=[.!?])\s+", text)
-    updated_sentences = []
-    for sentence in sentences:
-        numbers = re.findall(r"\b\d+\b", sentence)
-        if any(int(num) >= 10 for num in numbers) and any(int(num) < 10 for num in numbers):
-            updated_sentences.append(sentence)
-            continue
-        def replace_number(match):
-            number = match.group()
-            if number in num_to_words:
-                if re.search(rf"\b{number}\b\s+{units}", sentence):
-                    return number
-                if re.search(rf"\b{number}-[a-zA-Z-]+", sentence):
-                    return num_to_words[number]
+
+    def replace_number(match, sentence):
+        number = match.group()
+        if number in num_to_words:
+            if re.search(rf"\b{number}\b\s+{units}", sentence):
+                return number
+            if re.search(rf"\b{number}-[a-zA-Z-]+", sentence):
                 return num_to_words[number]
-            return number
-        updated_sentence = re.sub(r"\b\d+\b", replace_number, sentence)
-        updated_sentences.append(updated_sentence)
-    return " ".join(updated_sentences)
+            return num_to_words[number]
+        return number
+
+    # Iterate through each run in the paragraph
+    for run in paragraph.runs:
+        original_text = run.text
+        updated_text = original_text
+        
+        # Split the text of the run into sentences for processing
+        sentences = re.split(r"(?<=[.!?])\s+", original_text)
+        updated_sentences = []
+
+        for sentence in sentences:
+            numbers = re.findall(r"\b\d+\b", sentence)
+            if any(int(num) >= 10 for num in numbers) and any(int(num) < 10 for num in numbers):
+                updated_sentences.append(sentence)
+                continue
+            
+            updated_sentence = re.sub(r"\b\d+\b", lambda match: replace_number(match, sentence), sentence)
+            updated_sentences.append(updated_sentence)
+
+        # Join the updated sentences back together
+        updated_text = " ".join(updated_sentences)
+
+        # If the text was modified, update the run and log the change
+        if updated_text != original_text:
+            global_logs.append(
+                f"[number spelling] Line {line_number}: '{original_text.strip()}' -> '{updated_text.strip()}'"
+            )
+            run.text = updated_text
 
 
 
 
 # Done
 # [insert_thin_space_between_number_and_unit] Line 31: '5kg' -> '5 kg'
-def insert_thin_space_between_number_and_unit(text, line_number):
-    global global_logs
-    original_text = text
-    thin_space = '\u2009'
+# def insert_thin_space_between_number_and_unit(text, line_number):
+#     global global_logs
+#     original_text = text
+#     thin_space = '\u2009'
     
-    pattern = r"(\d+)(?=\s?[a-zA-Z]+)(?!\s?°)"
+#     pattern = r"(\d+)(?=\s?[a-zA-Z]+)(?!\s?°)"
 
-    updated_text = text  # Initialize updated text to the original
+#     updated_text = text  # Initialize updated text to the original
 
-    matches = re.finditer(pattern, text)
-    for match in matches:
-        number = match.group(1)  # This is the number
-        unit_start = match.end()
-        unit = text[unit_start:].split()[0] 
+#     matches = re.finditer(pattern, text)
+#     for match in matches:
+#         number = match.group(1)  # This is the number
+#         unit_start = match.end()
+#         unit = text[unit_start:].split()[0] 
         
-        original_word = number + unit
-        updated_word = number + thin_space + unit
+#         original_word = number + unit
+#         updated_word = number + thin_space + unit
 
-        updated_text = updated_text.replace(original_word, updated_word, 1)
+#         updated_text = updated_text.replace(original_word, updated_word, 1)
 
-        global_logs.append(
-            f"[insert_thin_space_between_number_and_unit] Line {line_number}: '{original_word}' -> '{updated_word}'"
-        )
-    return updated_text
-
-
+#         global_logs.append(
+#             f"[insert_thin_space_between_number_and_unit] Line {line_number}: '{original_word}' -> '{updated_word}'"
+#         )
+#     return updated_text
 
 
-# def format_dates(text):
-#     text = re.sub(r"\b(\d+)\s?(BCE|CE)\b", lambda m: f"{m.group(1)} {m.group(2).lower()}", text)
-#     text = re.sub(r"\b(AD|BC)\.\b", r"\1 ", text)
-#     text = re.sub(r"(\d+)\s?(BCE|CE|AD|BC)\b", r"\1 \2", text)
-#     return text
+def insert_thin_space_between_number_and_unit(paragraph, line_number):
+    """
+    Inserts a thin space between numbers and units in a Word document paragraph,
+    preserving the formatting (bold, italic, etc.) of the original text and logging the changes.
+
+    :param paragraph: The paragraph object to process.
+    :param line_number: The line number in the document for logging.
+    """
+    global global_logs
+    thin_space = '\u2009'  # Unicode for thin space
+    
+    # Define the pattern to match numbers followed by units (e.g., "12kg", "5cm")
+    pattern = r"(\d+)(?=\s?[a-zA-Z]+)(?!\s?°)"  # Matching number and unit but excluding degrees (°)
+
+    # Iterate through each run in the paragraph
+    for run in paragraph.runs:
+        original_text = run.text
+        updated_text = original_text
+        
+        matches = re.finditer(pattern, original_text)
+        for match in matches:
+            number = match.group(1)  # This is the number
+            unit_start = match.end()
+            unit = original_text[unit_start:].split()[0]  # Extract the unit that follows the number
+            
+            original_word = number + unit
+            updated_word = number + thin_space + unit
+
+            # Replace the original word with the updated word (insert thin space)
+            updated_text = updated_text.replace(original_word, updated_word, 1)
+
+            # Log the change if a modification occurs
+            global_logs.append(
+                f"[insert_thin_space_between_number_and_unit] Line {line_number}: '{original_word}' -> '{updated_word}'"
+            )
+        
+        # If the text has been modified, update the run's text
+        if updated_text != original_text:
+            run.text = updated_text
+
+
 
 
 # Done
 # [format_dates] Line 5: '386 BCE' -> '386 bce'
-def format_dates(text, line_number):
+# def format_dates(text, line_number):
+#     global global_logs
+
+#     def log_and_replace(pattern, replacement, text):
+#         def replacer(match):
+#             original = match.group(0)
+#             updated = replacement(match)
+#             if original != updated:
+#                 global_logs.append(
+#                     f"[format_dates] Line {line_number}: '{original}' -> '{updated}'"
+#                 )
+#             return updated
+#         return re.sub(pattern, replacer, text)
+#     text = log_and_replace(
+#         r"\b(\d+)\s?(BCE|CE)\b",
+#         lambda m: f"{m.group(1)} {m.group(2).lower()}",
+#         text
+#     )
+#     text = log_and_replace(
+#         r"\b(AD|BC)\.\b",
+#         lambda m: f"{m.group(1)} ",
+#         text
+#     )
+#     text = log_and_replace(
+#         r"(\d+)\s?(BCE|CE|AD|BC)\b",
+#         lambda m: f"{m.group(1)} {m.group(2)}",
+#         text
+#     )
+#     return text
+
+
+
+def format_dates(paragraph, line_number):
+    """
+    Formats dates (e.g., 'AD 2025', 'BCE 500') in a Word document paragraph, ensuring proper formatting
+    and logs any changes made. This function modifies text while preserving the paragraph's formatting.
+    
+    :param paragraph: The paragraph object to process.
+    :param line_number: The line number in the document for logging.
+    """
     global global_logs
 
+    # Define the helper function for logging and replacing text
     def log_and_replace(pattern, replacement, text):
         def replacer(match):
             original = match.group(0)
@@ -634,29 +1029,64 @@ def format_dates(text, line_number):
                 )
             return updated
         return re.sub(pattern, replacer, text)
-    text = log_and_replace(
-        r"\b(\d+)\s?(BCE|CE)\b",
-        lambda m: f"{m.group(1)} {m.group(2).lower()}",
-        text
-    )
-    text = log_and_replace(
-        r"\b(AD|BC)\.\b",
-        lambda m: f"{m.group(1)} ",
-        text
-    )
-    text = log_and_replace(
-        r"(\d+)\s?(BCE|CE|AD|BC)\b",
-        lambda m: f"{m.group(1)} {m.group(2)}",
-        text
-    )
-    return text
+
+    # Iterate through each run in the paragraph
+    for run in paragraph.runs:
+        original_text = run.text
+        updated_text = original_text
+
+        # Apply date formatting rules with logging
+        updated_text = log_and_replace(
+            r"\b(\d+)\s?(BCE|CE)\b",
+            lambda m: f"{m.group(1)} {m.group(2).lower()}",
+            updated_text
+        )
+        updated_text = log_and_replace(
+            r"\b(AD|BC)\.\b",
+            lambda m: f"{m.group(1)} ",
+            updated_text
+        )
+        updated_text = log_and_replace(
+            r"(\d+)\s?(BCE|CE|AD|BC)\b",
+            lambda m: f"{m.group(1)} {m.group(2)}",
+            updated_text
+        )
+
+        # If the text was modified, update the run's text
+        if updated_text != original_text:
+            run.text = updated_text
+
+
 
 
 # Done
 # [remove_space_between_degree_and_direction] Line 10: '52 °N' -> '52°N'
-def remove_space_between_degree_and_direction(text, line_number):
+# def remove_space_between_degree_and_direction(text, line_number):
+#     global global_logs
+#     pattern = r"(\d+) \s*[º°]\s*(N|S|E|W)\b"
+#     def log_replacement(match):
+#         original_text = match.group(0)
+#         updated_text = match.group(1) + "º" + match.group(2)
+#         global_logs.append(
+#             f"[remove_space_between_degree_and_direction] Line {line_number}: '{original_text}' -> '{updated_text}'"
+#         )
+#         return updated_text
+#     updated_text = re.sub(pattern, log_replacement, text)
+#     return updated_text
+
+
+
+def remove_space_between_degree_and_direction(paragraph, line_number):
+    """
+    Removes the space between the degree symbol and direction (e.g., "30 ° N" -> "30ºN")
+    while preserving the formatting in the paragraph (e.g., bold, italics) and logs changes.
+
+    :param paragraph: The paragraph object to process.
+    :param line_number: The line number in the document for logging.
+    """
     global global_logs
-    pattern = r"(\d+) \s*[º°]\s*(N|S|E|W)\b"
+
+    # Define the helper function for logging and replacing text
     def log_replacement(match):
         original_text = match.group(0)
         updated_text = match.group(1) + "º" + match.group(2)
@@ -664,15 +1094,64 @@ def remove_space_between_degree_and_direction(text, line_number):
             f"[remove_space_between_degree_and_direction] Line {line_number}: '{original_text}' -> '{updated_text}'"
         )
         return updated_text
-    updated_text = re.sub(pattern, log_replacement, text)
-    return updated_text
+
+    # Iterate through each run in the paragraph
+    for run in paragraph.runs:
+        original_text = run.text
+        updated_text = original_text
+
+        # Apply the space removal rule with logging
+        updated_text = re.sub(r"(\d+) \s*[º°]\s*(N|S|E|W)\b", log_replacement, updated_text)
+
+        # If the text was modified, update the run's text
+        if updated_text != original_text:
+            run.text = updated_text
 
 
 
 # Done
 # km not Km; kg not Kg; l not L. (2.9)
-def enforce_lowercase_units(text, line_number):
+# def enforce_lowercase_units(text, line_number):
+#     global global_logs
+#     unit_patterns = [
+#         (r"(\d+)\s*(K)(m|g|l)", 'K', 'k'),
+#         (r"(\d+)\s*(G)(m)", 'G', 'g'),
+#         (r"(\d+)\s*(M)(g)", 'M', 'm'),
+#         (r"(\d+)\s*(T)(g)", 'T', 't'),
+#         (r"(\d+)\s*(L)\b", 'L', 'l'),
+#         (r"(\d+)\s*(M)\b", 'M', 'm'),
+#         (r"(\d+)\s*(kg|mg|g|cm|m|km|l|s|h|min)", r"\1 \2", None)
+#     ]
+#     updated_text = text
+#     for pattern, original, updated in unit_patterns:
+#         matches = re.finditer(pattern, updated_text)
+#         for match in matches:
+#             original_text = match.group(0)
+#             if updated is not None:
+#                 updated_text = updated_text.replace(original_text, original_text.replace(original, updated))
+#                 global_logs.append(
+#                     f"[enforce_lowercase_units] Line {line_number}: '{original_text}' -> '{original_text.replace(original, updated)}'"
+#                 )
+#             else:
+#                 updated_text = updated_text.replace(original_text, f"{match.group(1)} {match.group(2)}")
+#                 global_logs.append(
+#                     f"[enforce_lowercase_units] Line {line_number}: '{original_text}' -> '{match.group(1)} {match.group(2)}'"
+#                 )
+#     return updated_text
+
+
+
+def enforce_lowercase_units_in_runs(paragraph, line_number):
+    """
+    Enforces lowercase formatting for units (e.g., "Kg" -> "kg") and ensures proper spacing between numbers and units.
+    Also logs changes.
+
+    :param paragraph: The paragraph object to process.
+    :param line_number: The line number in the document for logging.
+    """
     global global_logs
+
+    # Define unit patterns and their conversions
     unit_patterns = [
         (r"(\d+)\s*(K)(m|g|l)", 'K', 'k'),
         (r"(\d+)\s*(G)(m)", 'G', 'g'),
@@ -682,22 +1161,44 @@ def enforce_lowercase_units(text, line_number):
         (r"(\d+)\s*(M)\b", 'M', 'm'),
         (r"(\d+)\s*(kg|mg|g|cm|m|km|l|s|h|min)", r"\1 \2", None)
     ]
-    updated_text = text
-    for pattern, original, updated in unit_patterns:
-        matches = re.finditer(pattern, updated_text)
-        for match in matches:
-            original_text = match.group(0)
-            if updated is not None:
-                updated_text = updated_text.replace(original_text, original_text.replace(original, updated))
-                global_logs.append(
-                    f"[enforce_lowercase_units] Line {line_number}: '{original_text}' -> '{original_text.replace(original, updated)}'"
-                )
-            else:
-                updated_text = updated_text.replace(original_text, f"{match.group(1)} {match.group(2)}")
-                global_logs.append(
-                    f"[enforce_lowercase_units] Line {line_number}: '{original_text}' -> '{match.group(1)} {match.group(2)}'"
-                )
+    
+    # Iterate through each run in the paragraph
+    for run in paragraph.runs:
+        original_text = run.text
+        updated_text = original_text
+
+        # Apply the unit patterns and enforce lowercase units
+        for pattern, original, updated in unit_patterns:
+            updated_text = re.sub(pattern, lambda match: process_match(match, original, updated, line_number), updated_text)
+
+        # If the text was modified, update the run's text
+        if updated_text != original_text:
+            run.text = updated_text
+
+def process_match(match, original, updated, line_number):
+    """
+    Handles the replacement of units with lowercase versions, logging the changes.
+
+    :param match: The match object found by the regular expression.
+    :param original: The original unit to be replaced.
+    :param updated: The updated lowercase unit.
+    :param line_number: The line number in the document for logging.
+    :return: The updated text after applying the change.
+    """
+    original_text = match.group(0)
+    if updated is not None:
+        updated_text = original_text.replace(original, updated)
+        global_logs.append(
+            f"[enforce_lowercase_units] Line {line_number}: '{original_text}' -> '{updated_text}'"
+        )
+    else:
+        updated_text = f"{match.group(1)} {match.group(2)}"
+        global_logs.append(
+            f"[enforce_lowercase_units] Line {line_number}: '{original_text}' -> '{updated_text}'"
+        )
     return updated_text
+
+
 
 
 # Done
