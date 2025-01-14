@@ -252,7 +252,7 @@ def replace_straight_quotes_with_curly(paragraph):
 #     corrected_text = " ".join(corrected_words)
 #     return corrected_text
 
-def correct_acronyms_in_runs(paragraph, line_number):
+def correct_acronyms(paragraph, line_number):
     """
     Corrects acronyms in a paragraph's runs, preserving formatting, and logs changes with line numbers.
     
@@ -575,7 +575,7 @@ def use_numerals_with_percent(paragraph, line_number):
 #     return "\n".join(updated_lines)
 
 
-def enforce_eg_rule_with_logging_in_runs(paragraph, line_number):
+def enforce_eg_rule_with_logging(paragraph, line_number):
     """
     Ensures consistent usage of 'e.g.' in the paragraph's runs and logs changes,
     preserving the formatting.
@@ -645,7 +645,7 @@ def enforce_eg_rule_with_logging_in_runs(paragraph, line_number):
 
 
 
-def enforce_ie_rule_with_logging_in_runs(paragraph, line_number):
+def enforce_ie_rule_with_logging(paragraph, line_number):
     """
     Ensures consistent usage of 'i.e.' in the paragraph's runs and logs changes,
     preserving the formatting.
@@ -1141,7 +1141,7 @@ def remove_space_between_degree_and_direction(paragraph, line_number):
 
 
 
-def enforce_lowercase_units_in_runs(paragraph, line_number):
+def enforce_lowercase_units(paragraph, line_number):
     """
     Enforces lowercase formatting for units (e.g., "Kg" -> "kg") and ensures proper spacing between numbers and units.
     Also logs changes.
@@ -1203,61 +1203,189 @@ def process_match(match, original, updated, line_number):
 
 # Done
 # [precede_decimal_with_zero] Line 22: '.76' -> '0.76'
-def precede_decimal_with_zero(text, line_number):
-    global global_logs
+# def precede_decimal_with_zero(text, line_number):
+#     global global_logs
+#     pattern = r"(?<!\d)(?<!\d\.)\.(\d+)"
+#     def log_replacement(match):
+#         original_text = match.group(0)
+#         updated_text = "0." + match.group(1)
+#         global_logs.append(
+#             f"[precede_decimal_with_zero] Line {line_number}: '{original_text}' -> '{updated_text}'"
+#         )
+#         return updated_text
+#     updated_text = re.sub(pattern, log_replacement, text)
+#     return updated_text
+
+
+def precede_decimal_with_zero(text, line_number, global_logs):
+    """
+    Ensures that decimals are properly formatted by preceding them with a zero if needed.
+    Logs changes where applicable.
+
+    :param text: The text to process.
+    :param line_number: The line number for logging.
+    :param global_logs: A list to store the logs of changes.
+    :return: The updated text with proper decimal formatting.
+    """
+    # Define the pattern for detecting decimals without a leading zero
     pattern = r"(?<!\d)(?<!\d\.)\.(\d+)"
+
+    # Function to handle replacement and logging
     def log_replacement(match):
         original_text = match.group(0)
         updated_text = "0." + match.group(1)
+
+        # Log the replacement
         global_logs.append(
             f"[precede_decimal_with_zero] Line {line_number}: '{original_text}' -> '{updated_text}'"
         )
         return updated_text
+
+    # Apply the pattern and replace decimals in the text
     updated_text = re.sub(pattern, log_replacement, text)
+
     return updated_text
 
 
+
 # Done
-def adjust_terminal_punctuation_in_quotes(text):
-    text = re.sub(
-        r"([‘“])([^’”]*[?!])([’”])\.",
-        r"\1\2\3",
+# def adjust_terminal_punctuation_in_quotes(text):
+#     text = re.sub(
+#         r"([‘“])([^’”]*[?!])([’”])\.",
+#         r"\1\2\3",
+#         text
+#     )
+#     return text
+
+
+
+def adjust_terminal_punctuation_in_quotes(text, line_number, global_logs):
+    """
+    Adjusts the punctuation inside quotes by removing the extra period after question marks or exclamation marks.
+    Logs changes where applicable.
+
+    :param text: The text to process.
+    :param line_number: The line number for logging.
+    :param global_logs: A list to store the logs of changes.
+    :return: The updated text with correct punctuation in quotes.
+    """
+    # Define the pattern to match quotes with terminal punctuation
+    pattern = r"([‘“])([^’”]*[?!])([’”])\."
+
+    # Function to handle replacement and logging
+    def log_replacement(match):
+        original_text = match.group(0)
+        updated_text = f"{match.group(1)}{match.group(2)}{match.group(3)}"
+
+        # Log the replacement
+        global_logs.append(
+            f"[adjust_terminal_punctuation_in_quotes] Line {line_number}: '{original_text}' -> '{updated_text}'"
+        )
+        return updated_text
+
+    # Apply the pattern and replace unnecessary periods in quotes
+    updated_text = re.sub(pattern, log_replacement, text)
+
+    return updated_text
+
+
+
+# def enforce_serial_comma(text):
+#     lines = text.splitlines()
+#     updated_lines = []
+
+#     for line_number, line in enumerate(lines, start=1):
+#         original_line = line
+
+#         # Add a comma before "and" or "or" in lists
+#         new_line = re.sub(
+#             r'([^,]+), ([^,]+) (or) ([^,]+)',
+#             r'\1, \2, \3 \4',
+#             line
+#         )
+#         # Explicitly handle cases where "or" does not get the serial comma
+#         new_line = re.sub(
+#             r'([^,]+), ([^,]+) (and) ([^,]+)',
+#             r'\1, \2, \3 \4',
+#             new_line
+#         )
+#         if new_line != line:
+#             global_logs.append(f"[Serial comma correction] Line {line_number}: {line.strip()} -> {new_line.strip()}")
+        
+#         updated_lines.append(new_line)
+#     return "\n".join(updated_lines)
+
+
+
+def enforce_serial_comma(text, line_number, global_logs):
+    """
+    Adds a serial comma before "and" or "or" in lists, where necessary.
+    Logs the changes where applicable.
+
+    :param text: The text to process.
+    :param line_number: The line number for logging.
+    :param global_logs: A list to store the logs of changes.
+    :return: The updated text with the serial comma applied.
+    """
+    # Define the pattern for adding serial commas before 'and' or 'or' in lists
+    new_line = re.sub(
+        r'([^,]+), ([^,]+) (or) ([^,]+)',
+        r'\1, \2, \3 \4',
         text
     )
-    return text
+
+    # Explicitly handle cases for 'and'
+    new_line = re.sub(
+        r'([^,]+), ([^,]+) (and) ([^,]+)',
+        r'\1, \2, \3 \4',
+        new_line
+    )
+
+    # Log changes if there were any replacements
+    if new_line != text:
+        global_logs.append(f"[Serial comma correction] Line {line_number}: {text.strip()} -> {new_line.strip()}")
+    
+    return new_line
 
 
 
-
-def enforce_serial_comma(text):
-    lines = text.splitlines()
-    updated_lines = []
-
-    for line_number, line in enumerate(lines, start=1):
-        original_line = line
-
-        # Add a comma before "and" or "or" in lists
-        new_line = re.sub(
-            r'([^,]+), ([^,]+) (or) ([^,]+)',
-            r'\1, \2, \3 \4',
-            line
-        )
-        # Explicitly handle cases where "or" does not get the serial comma
-        new_line = re.sub(
-            r'([^,]+), ([^,]+) (and) ([^,]+)',
-            r'\1, \2, \3 \4',
-            new_line
-        )
-        if new_line != line:
-            global_logs.append(f"[Serial comma correction] Line {line_number}: {line.strip()} -> {new_line.strip()}")
-        
-        updated_lines.append(new_line)
-    return "\n".join(updated_lines)
+# def correct_possessive_names(text, line_number):
+#     global global_logs
+#     pattern_singular_possessive = r"\b([A-Za-z]+s)\b(?<!\bs')'"
+#     matches_singular = re.finditer(pattern_singular_possessive, text)
+#     updated_text = text
+    
+#     for match in matches_singular:
+#         original_text = match.group(0)
+#         updated_text_singular = match.group(1)[:-1] + "'s"
+#         updated_text = updated_text.replace(original_text, updated_text_singular)
+#         global_logs.append(
+#             f"[correct_possessive_names] Line {line_number}: '{original_text}' -> '{updated_text_singular}'"
+#         )
+#     pattern_plural_possessive = r"\b([A-Za-z]+s)'\b"
+#     matches_plural = re.finditer(pattern_plural_possessive, updated_text)
+#     for match in matches_plural:
+#         original_text = match.group(0)
+#         updated_text_plural = match.group(1) + "'"
+#         updated_text = updated_text.replace(original_text, updated_text_plural)
+#         global_logs.append(
+#             f"[correct_possessive_names] Line {line_number}: '{original_text}' -> '{updated_text_plural}'"
+#         )
+#     return updated_text
 
 
 
-def correct_possessive_names(text, line_number):
-    global global_logs
+def correct_possessive_names(text, line_number, global_logs):
+    """
+    Corrects possessive forms of names. Ensures the correct format of possessive ('s) for singular and plural names.
+    Logs changes where applicable.
+
+    :param text: The text to process.
+    :param line_number: The line number for logging.
+    :param global_logs: A list to store the logs of changes.
+    :return: The updated text with possessive names corrected.
+    """
+    # Handle singular possessive (e.g., "James'" to "James's")
     pattern_singular_possessive = r"\b([A-Za-z]+s)\b(?<!\bs')'"
     matches_singular = re.finditer(pattern_singular_possessive, text)
     updated_text = text
@@ -1269,6 +1397,8 @@ def correct_possessive_names(text, line_number):
         global_logs.append(
             f"[correct_possessive_names] Line {line_number}: '{original_text}' -> '{updated_text_singular}'"
         )
+    
+    # Handle plural possessive (e.g., "James's" to "James'")
     pattern_plural_possessive = r"\b([A-Za-z]+s)'\b"
     matches_plural = re.finditer(pattern_plural_possessive, updated_text)
     for match in matches_plural:
@@ -1278,45 +1408,104 @@ def correct_possessive_names(text, line_number):
         global_logs.append(
             f"[correct_possessive_names] Line {line_number}: '{original_text}' -> '{updated_text_plural}'"
         )
+    
     return updated_text
+
 
 
 
 
 # Done
 # http://www.PHi.com/authorguidelines not http://www.PHi.com/authorguidelines/
-def remove_concluding_slashes_from_urls(text, line_number):
-    global global_logs
+# def remove_concluding_slashes_from_urls(text, line_number):
+#     global global_logs
+#     pattern = r"(https?://[^\s/]+(?:/[^\s/]+)*)/"
+#     matches = re.finditer(pattern, text)
+#     updated_text = text
+    
+#     for match in matches:
+#         original_text = match.group(0)
+#         updated_text_url = match.group(1)  # URL without the concluding slash (e.g., "https://example.com")
+#         updated_text = updated_text.replace(original_text, updated_text_url)
+        
+#         # Log the change
+#         global_logs.append(
+#             f"[remove_concluding_slashes_from_urls] Line {line_number}: '{original_text}' -> '{updated_text_url}'"
+#         )    
+#     return updated_text
+
+
+
+
+def remove_concluding_slashes_from_urls(text, line_number, global_logs):
+    """
+    Removes concluding slashes from URLs. Ensures that URLs do not have a slash at the end.
+    Logs changes where applicable.
+
+    :param text: The text to process.
+    :param line_number: The line number for logging.
+    :param global_logs: A list to store the logs of changes.
+    :return: The updated text with concluding slashes removed from URLs.
+    """
+    # Regex pattern to match URLs ending with a slash
     pattern = r"(https?://[^\s/]+(?:/[^\s/]+)*)/"
+    
+    # Find all matches of the pattern in the text
     matches = re.finditer(pattern, text)
-    updated_text = text
+    updated_text = text  # Initialize updated text as the original text
     
     for match in matches:
-        original_text = match.group(0)
+        original_text = match.group(0)  # Original URL with the concluding slash
         updated_text_url = match.group(1)  # URL without the concluding slash (e.g., "https://example.com")
+        
+        # Replace the original URL with the updated one
         updated_text = updated_text.replace(original_text, updated_text_url)
         
         # Log the change
         global_logs.append(
             f"[remove_concluding_slashes_from_urls] Line {line_number}: '{original_text}' -> '{updated_text_url}'"
-        )    
+        )
+    
     return updated_text
 
 
 
+
+
 # def clean_web_addresses(text):
-#     return re.sub(r"<(https?://[^\s<>]+)>", r"\1", text)
+#     """
+#     Removes angle brackets around web addresses (e.g., "<http://example.com>" -> "http://example.com").
+#     Args:
+#         text (str): Input text to process.
+#     Returns:
+#         str: Updated text.
+#     """
+#     global global_logs
+#     def process_web_address(match):
+#         original = match.group(0)
+#         modified = match.group(1)
+
+#         if original != modified:
+#             line_number = text[:match.start()].count('\n') + 1
+#             global_logs.append(
+#                 f"[clean_web_addresses] Line {line_number}: '{original}' -> '{modified}'"
+#             )
+#         return modified
+#     return re.sub(r"<(https?://[^\s<>]+)>", process_web_address, text)
 
 
-def clean_web_addresses(text):
+
+def clean_web_addresses(text, global_logs):
     """
     Removes angle brackets around web addresses (e.g., "<http://example.com>" -> "http://example.com").
+    
     Args:
         text (str): Input text to process.
+        global_logs (list): List to store the log of changes.
+
     Returns:
-        str: Updated text.
+        str: Updated text with cleaned web addresses.
     """
-    global global_logs
     def process_web_address(match):
         original = match.group(0)
         modified = match.group(1)
@@ -1327,19 +1516,78 @@ def clean_web_addresses(text):
                 f"[clean_web_addresses] Line {line_number}: '{original}' -> '{modified}'"
             )
         return modified
+
     return re.sub(r"<(https?://[^\s<>]+)>", process_web_address, text)
 
 
 
-def format_ellipses_in_series(text):
-    # Matches series like "x1, x2, ..., xn" and ensures the ellipsis has a comma and space after it.
-    text = re.sub(r"(\w+),\s*(\w+),\s*\.\.\.\s*(\w+)", r"\1, \2, …, \3", text)
-    return text
+
+# def format_ellipses_in_series(text):
+#     # Matches series like "x1, x2, ..., xn" and ensures the ellipsis has a comma and space after it.
+#     text = re.sub(r"(\w+),\s*(\w+),\s*\.\.\.\s*(\w+)", r"\1, \2, …, \3", text)
+#     return text
 
 
 
-def format_chapter_title(text):
+def format_ellipses_in_series(text, global_logs, line_number):
+    """
+    Matches series like "x1, x2, ..., xn" and ensures the ellipsis has a comma and space after it,
+    and logs the changes made.
+
+    Args:
+        text (str): Input text to process.
+        global_logs (list): List to store the log of changes.
+        line_number (int): The line number of the current text.
+
+    Returns:
+        str: Updated text with correctly formatted ellipses in series.
+    """
+    def log_replacement(match):
+        original_text = match.group(0)
+        updated_text = f"{match.group(1)}, {match.group(2)}, …, {match.group(3)}"
+        if original_text != updated_text:
+            global_logs.append(
+                f"[format_ellipses_in_series] Line {line_number}: '{original_text}' -> '{updated_text}'"
+            )
+        return updated_text
+
+    return re.sub(r"(\w+),\s*(\w+),\s*\.\.\.\s*(\w+)", log_replacement, text)
+
+
+
+
+
+
+# def format_chapter_title(text):
+#     match = re.match(r"Chapter\s+([\dIVXLCDM]+)[\.:]\s*(.*)", text, re.IGNORECASE)
+#     if match:
+#         chapter_number = match.group(1)
+#         chapter_title = match.group(2).rstrip('.')
+#         words = chapter_title.split()
+#         formatted_title = " ".join([
+#             word.capitalize() if i == 0 or len(word) >= 4 else word.lower()
+#             for i, word in enumerate(words)
+#         ])
+#         # print(formatted_title)
+#         return f"{chapter_number}. {formatted_title}"
+#     return text
+
+
+def format_chapter_title(text, global_logs, line_number):
+    """
+    Formats chapter titles by ensuring the proper format for the chapter number and title,
+    and logs the changes made.
+
+    Args:
+        text (str): Input text to process.
+        global_logs (list): List to store the log of changes.
+        line_number (int): The line number of the current text.
+
+    Returns:
+        str: Updated text with the correctly formatted chapter title.
+    """
     match = re.match(r"Chapter\s+([\dIVXLCDM]+)[\.:]\s*(.*)", text, re.IGNORECASE)
+    
     if match:
         chapter_number = match.group(1)
         chapter_title = match.group(2).rstrip('.')
@@ -1348,11 +1596,91 @@ def format_chapter_title(text):
             word.capitalize() if i == 0 or len(word) >= 4 else word.lower()
             for i, word in enumerate(words)
         ])
-        # print(formatted_title)
-        return f"{chapter_number}. {formatted_title}"
+        updated_text = f"{chapter_number}. {formatted_title}"
+
+        # Log the change
+        if updated_text != text:
+            global_logs.append(
+                f"[format_chapter_title] Line {line_number}: '{text.strip()}' -> '{updated_text.strip()}'"
+            )
+        
+        return updated_text
+    
     return text
 
 
+
+# def format_titles_us_english_with_logging(text, doc_id):
+#     global global_logs
+
+#     titles = {
+#         "doctor": "Dr.",
+#         "mister": "Mr.",
+#         "misses": "Mrs.",
+#         "miss": "Miss.",
+#         "ms": "Ms.",
+#         "professor": "Professor",
+#         "sir": "Sir",
+#         "madam": "Madam",
+#         "saint": "St",
+#     }    
+    
+#     lines = text.splitlines()
+#     updated_lines = []
+
+#     for line_number, line in enumerate(lines, start=1):
+#         original_line = line
+#         for title, replacement in titles.items():
+#             # Replace case-insensitive title with formatted title
+#             new_line = re.sub(rf"\b{title}\b", replacement, line, flags=re.IGNORECASE)
+#             if new_line != line:
+#                 # Log the change to the global array
+#                 global_logs.append(f"[shorten title] Line {line_number}: {title} -> {replacement}")
+#                 line = new_line
+#         updated_lines.append(line)
+
+#     # Return the updated text
+#     return "\n".join(updated_lines)
+
+
+# def units_with_bracket(text, doc_id):
+#     units = {
+#         "s": "second",
+#         "m": "meter",
+#         "kg": "kilogram",
+#         "A": "ampere",
+#         "K": "kelvin",
+#         "mol": "mole",
+#         "cd": "candela"
+#     }
+
+#     used_units = set()
+#     global global_logs
+
+#     processed_lines = []
+#     for line_num, line in enumerate(text.splitlines(), start=1):
+#         def replace_unit(match):
+#             number = match.group(1)
+#             unit = match.group(2)
+            
+#             if unit in used_units:
+#                 return match.group(0)
+#             else:
+#                 used_units.add(unit)
+#                 full_form = units[unit]
+
+#                 if unit != "mol" and not full_form.endswith("s"):
+#                     full_form += "s"
+#                 replacement = f"{number} {full_form} ({unit.lower()})"
+#                 global_logs.append(
+#                     f"Line {line_num}: {match.group(0)} -> {replacement}"
+#                 )
+
+#                 return replacement
+#         pattern = r'\b(\d+)\s*(%s)\b' % '|'.join(re.escape(unit) for unit in units.keys())
+#         processed_line = re.sub(pattern, replace_unit, line)
+#         processed_lines.append(processed_line)
+#     return "\n".join(processed_lines)
 
 
 def format_titles_us_english_with_logging(text, doc_id):
@@ -1368,8 +1696,8 @@ def format_titles_us_english_with_logging(text, doc_id):
         "sir": "Sir",
         "madam": "Madam",
         "saint": "St",
-    }    
-    
+    }
+
     lines = text.splitlines()
     updated_lines = []
 
@@ -1380,7 +1708,7 @@ def format_titles_us_english_with_logging(text, doc_id):
             new_line = re.sub(rf"\b{title}\b", replacement, line, flags=re.IGNORECASE)
             if new_line != line:
                 # Log the change to the global array
-                global_logs.append(f"[shorten title] Line {line_number}: {title} -> {replacement}")
+                global_logs.append(f"[shorten title] Line {line_number}: '{title}' -> '{replacement}'")
                 line = new_line
         updated_lines.append(line)
 
@@ -1418,7 +1746,7 @@ def units_with_bracket(text, doc_id):
                     full_form += "s"
                 replacement = f"{number} {full_form} ({unit.lower()})"
                 global_logs.append(
-                    f"Line {line_num}: {match.group(0)} -> {replacement}"
+                    f"Line {line_num}: '{match.group(0)}' -> '{replacement}'"
                 )
 
                 return replacement
@@ -1429,10 +1757,43 @@ def units_with_bracket(text, doc_id):
 
 
 
+
+# def correct_scientific_units_with_logging(text):
+#     global global_logs
+#     unit_symbols = ['kg', 'm', 's', 'A', 'K', 'mol', 'cd', 'Hz', 'N', 'Pa', 'J', 'W', 'C', 'V', 'F', 'Ω', 'ohm', 'S', 'T', 'H', 'lm', 'lx', 'Bq', 'Gy', 'Sv', 'kat']
+#     pattern = rf"\b(\d+)\s*({'|'.join(re.escape(unit) for unit in unit_symbols)})\s*(s|'s|\.s)?\b"
+#     lines = text.splitlines()
+#     updated_lines = []
+    
+#     for line_number, line in enumerate(lines, start=1):
+#         original_line = line
+#         changes = []
+#         new_line = re.sub(pattern, lambda m: f"{m.group(1)} {m.group(2)}", line)
+                
+#         if new_line != line:
+#             for match in re.finditer(pattern, line):
+#                 original = match.group(0)
+#                 corrected = f"{match.group(1)} {match.group(2)}"
+#                 if original != corrected:
+#                     changes.append(f"'{original}' -> '{corrected}'")
+
+#             if changes:
+#                 global_logs.append(
+#                     f"[unit correction] Line {line_number}: {', '.join(changes)}"
+#                 )
+
+#         updated_lines.append(new_line)
+        
+#     return "\n".join(updated_lines)
+
+
+
+
 def correct_scientific_units_with_logging(text):
     global global_logs
     unit_symbols = ['kg', 'm', 's', 'A', 'K', 'mol', 'cd', 'Hz', 'N', 'Pa', 'J', 'W', 'C', 'V', 'F', 'Ω', 'ohm', 'S', 'T', 'H', 'lm', 'lx', 'Bq', 'Gy', 'Sv', 'kat']
     pattern = rf"\b(\d+)\s*({'|'.join(re.escape(unit) for unit in unit_symbols)})\s*(s|'s|\.s)?\b"
+    
     lines = text.splitlines()
     updated_lines = []
     
@@ -1440,8 +1801,9 @@ def correct_scientific_units_with_logging(text):
         original_line = line
         changes = []
         new_line = re.sub(pattern, lambda m: f"{m.group(1)} {m.group(2)}", line)
-                
+        
         if new_line != line:
+            # Log all unit corrections in the line
             for match in re.finditer(pattern, line):
                 original = match.group(0)
                 corrected = f"{match.group(1)} {match.group(2)}"
@@ -1476,12 +1838,24 @@ def write_to_log(doc_id):
 
 
 
+# twofold not two-fold hyphenate with numeral for numbers greater than nine, e.g. 10-fold. 
 # def replace_fold_phrases(text):
+#     """
+#     Replaces phrases with '-fold' to ensure correct formatting based on the number preceding it.
+#     Args:
+#         text (str): Input text to process.
+#     Returns:
+#         str: Updated text.
+#     """
+#     global global_logs
 #     def process_fold(match):
+#         original = match.group(0)
 #         num_str = match.group(1)
 #         separator = match.group(2)
+        
 #         if separator != "-":
-#             return match.group(0)
+#             return original
+
 #         try:
 #             if num_str.isdigit():
 #                 number = int(num_str)
@@ -1489,19 +1863,24 @@ def write_to_log(doc_id):
 #                 number = w2n.word_to_num(num_str)
 
 #             if number > 9:
-#                 return f"{number}-fold"
+#                 modified = f"{number}-fold"
 #             else:
-#                 return f"{num2words(number)}fold"
+#                 modified = f"{num2words(number)}fold"
+
+#             if original != modified:
+#                 line_number = text[:match.start()].count('\n') + 1
+#                 global_logs.append(
+#                     f"[replace_fold_phrases] Line {line_number}: '{original}' -> '{modified}'"
+#                 )
+#             return modified
 #         except ValueError:
-#             return match.group(0)
+#             return original
+
 #     pattern = r"(\b\w+\b)(-?)fold"
 #     updated_text = re.sub(pattern, process_fold, text)
 #     return updated_text
 
 
-
-
-# twofold not two-fold hyphenate with numeral for numbers greater than nine, e.g. 10-fold. 
 def replace_fold_phrases(text):
     """
     Replaces phrases with '-fold' to ensure correct formatting based on the number preceding it.
@@ -1511,6 +1890,7 @@ def replace_fold_phrases(text):
         str: Updated text.
     """
     global global_logs
+    
     def process_fold(match):
         original = match.group(0)
         num_str = match.group(1)
@@ -1530,6 +1910,7 @@ def replace_fold_phrases(text):
             else:
                 modified = f"{num2words(number)}fold"
 
+            # Log the change if modified
             if original != modified:
                 line_number = text[:match.start()].count('\n') + 1
                 global_logs.append(
@@ -1546,17 +1927,42 @@ def replace_fold_phrases(text):
 
 
 
-
 # def correct_preposition_usage(text):
+#     """
+#     Corrects preposition usage for date ranges (e.g., "from 2000-2010" -> "from 2000 to 2010").
+#     Args:
+#         text (str): Input text to process.
+#     Returns:
+#         str: Updated text.
+#     """
+#     global global_logs
+
 #     def process_from_to(match):
-#         return f"from {match.group(1)} to {match.group(2)}"
+#         original = match.group(0)
+#         modified = f"from {match.group(1)} to {match.group(2)}"
+
+#         if original != modified:
+#             line_number = text[:match.start()].count('\n') + 1
+#             global_logs.append(
+#                 f"[correct_preposition_usage] Line {line_number}: '{original}' -> '{modified}'"
+#             )
+
+#         return modified
 
 #     def process_between_and(match):
-#         return f"between {match.group(1)} and {match.group(2)}"
+#         original = match.group(0)
+#         modified = f"between {match.group(1)} and {match.group(2)}"
+
+#         if original != modified:
+#             line_number = text[:match.start()].count('\n') + 1
+#             global_logs.append(
+#                 f"[correct_preposition_usage] Line {line_number}: '{original}' -> '{modified}'"
+#             )
+#         return modified
+
 #     text = re.sub(r"from (\d{4})[–-](\d{4})", process_from_to, text)
 #     text = re.sub(r"between (\d{4})[–-](\d{4})", process_between_and, text)
 #     return text
-
 
 
 
@@ -1593,9 +1999,14 @@ def correct_preposition_usage(text):
             )
         return modified
 
+    # Correct 'from-to' date ranges
     text = re.sub(r"from (\d{4})[–-](\d{4})", process_from_to, text)
+
+    # Correct 'between-and' date ranges
     text = re.sub(r"between (\d{4})[–-](\d{4})", process_between_and, text)
+
     return text
+
 
 
 
@@ -1611,6 +2022,8 @@ def correct_preposition_usage(text):
 #     Returns:
 #         str: Updated text.
 #     """
+#     global global_logs
+
 #     units = {
 #         "j": "J",
 #         "hz": "Hz",
@@ -1633,8 +2046,17 @@ def correct_preposition_usage(text):
 #     }
 
 #     def process_unit(match):
+#         original = match.group(0)
 #         unit = match.group(2).lower()  # Capture the unit (second group)
-#         return f"{match.group(1)}{units.get(unit, match.group(2))}"  # Replace with capitalized unit if in dictionary
+#         modified = f"{match.group(1)}{units.get(unit, match.group(2))}"  # Replace with capitalized unit if in dictionary
+
+#         if original != modified:
+#             line_number = text[:match.start()].count('\n') + 1  # Calculate the line number
+#             global_logs.append(
+#                 f"[correct_scientific_unit_symbols] Line {line_number}: '{original}' -> '{modified}'"
+#             )
+
+#         return modified
 
 #     # Regex to match a number followed by optional space and a unit
 #     pattern = r"\b(\d+\s*)(%s)\b" % "|".join(re.escape(unit) for unit in units.keys())
@@ -1655,6 +2077,7 @@ def correct_scientific_unit_symbols(text):
     """
     global global_logs
 
+    # Dictionary of units with proper capitalization
     units = {
         "j": "J",
         "hz": "Hz",
@@ -1698,9 +2121,30 @@ def correct_scientific_unit_symbols(text):
 
 
 # def remove_quotation(text: str):
-#     #  remove quotation '
-#       para_text = re.sub(r"([A-Z]+)'", r'\1',text)
-#       return para_text
+#     """
+#     Removes single quotation marks (') following capitalized words.
+#     Args:
+#         text (str): Input text to process.
+#     Returns:
+#         str: Updated text.
+#     """
+#     global global_logs
+
+#     pattern = r"([A-Z]+)'"
+
+#     def process_quotation_removal(match):
+#         original = match.group(0)
+#         modified = f"{match.group(1)}"
+
+#         if original != modified:
+#             line_number = text[:match.start()].count('\n') + 1
+#             global_logs.append(
+#                 f"[remove_quotation] Line {line_number}: '{original}' -> '{modified}'"
+#             )
+#         return modified
+#     para_text = re.sub(pattern, process_quotation_removal, text)
+#     return para_text
+
 
 
 def remove_quotation(text: str):
@@ -1725,23 +2169,37 @@ def remove_quotation(text: str):
                 f"[remove_quotation] Line {line_number}: '{original}' -> '{modified}'"
             )
         return modified
+
     para_text = re.sub(pattern, process_quotation_removal, text)
     return para_text
 
 
 
+# def remove_and(text: str):
+#     """
+#     Replaces 'and' between two capitalized words with an ampersand (&).
+#     Args:
+#         text (str): Input text to process.
+#     Returns:
+#         str: Updated text.
+#     """
+#     global global_logs
 
-
-
-# def remove_and(text:str):
-#     # Load the document
-#     #doc = Document(file_path)
 #     # Regex pattern to match "and" between two capitalized words
 #     pattern = r'([A-Z][a-z]+)\s+and\s+([A-Z][a-z]+)'
-#     text = re.sub(pattern, r'\1 & \2',text)
-#     text = re.sub(pattern, r'\1 & \2',text)
-#     return text
 
+#     def process_and_replacement(match):
+#         original = match.group(0)
+#         modified = f"{match.group(1)} & {match.group(2)}"
+
+#         if original != modified:
+#             line_number = text[:match.start()].count('\n') + 1
+#             global_logs.append(
+#                 f"[remove_and] Line {line_number}: '{original}' -> '{modified}'"
+#             )
+#         return modified
+#     text = re.sub(pattern, process_and_replacement, text)
+#     return text
 
 
 def remove_and(text: str):
@@ -1767,9 +2225,52 @@ def remove_and(text: str):
                 f"[remove_and] Line {line_number}: '{original}' -> '{modified}'"
             )
         return modified
+
     text = re.sub(pattern, process_and_replacement, text)
     return text
 
+
+
+# def correct_units_in_ranges_with_logging(text):
+#     global global_logs
+
+#     # List of valid unit symbols
+#     unit_symbols = ['cm', 'm', 'kg', 's', 'A', 'K', 'mol', 'cd', '%']
+
+#     # Regex patterns
+#     range_pattern = rf"\b(\d+)\s*({'|'.join(re.escape(unit) for unit in unit_symbols)})\s*(to|-|–|—)\s*(\d+)\s*\2\b"
+#     thin_space_pattern = rf"\b(\d+)\s+({'|'.join(re.escape(unit) for unit in unit_symbols)})\b"
+
+#     lines = text.splitlines()
+#     updated_lines = []
+
+#     for line_number, line in enumerate(lines, start=1):
+#         original_line = line
+
+#         # Correct repeated units in ranges
+#         new_line = re.sub(
+#             range_pattern,
+#             lambda m: f"{m.group(1)} {m.group(3)} {m.group(4)} {m.group(2)}",
+#             line
+#         )
+
+#         # Add thin space between value and unit (except %)
+#         new_line = re.sub(
+#             thin_space_pattern,
+#             lambda m: f"{m.group(1)} {m.group(2)}" if m.group(2) != "%" else f"{m.group(1)}{m.group(2)}",
+#             new_line
+#         )
+
+#         # Log changes if any
+#         if new_line != line:
+#             change_details = f"{line.strip()} -> {new_line.strip()}"
+#             global_logs.append(f"Line {line_number}: {change_details}")
+#             line = new_line
+
+#         updated_lines.append(line)
+
+#     # Return the updated text
+#     return "\n".join(updated_lines)
 
 
 
@@ -1805,8 +2306,8 @@ def correct_units_in_ranges_with_logging(text):
 
         # Log changes if any
         if new_line != line:
-            change_details = f"{line.strip()} -> {new_line.strip()}"
-            global_logs.append(f"Line {line_number}: {change_details}")
+            change_details = f"'{line.strip()}' -> '{new_line.strip()}'"
+            global_logs.append(f"[correct_units_in_ranges_with_logging] Line {line_number}: {change_details}")
             line = new_line
 
         updated_lines.append(line)
@@ -1817,15 +2318,31 @@ def correct_units_in_ranges_with_logging(text):
 
 
 
-
 # def correct_unit_spacing(text):
+#     """
+#     Corrects spacing between numbers and units (e.g., "100 MB" -> "100MB").
+#     Args:
+#         text (str): Input text to process.
+#     Returns:
+#         str: Updated text.
+#     """
+#     global global_logs
+
 #     units = ["Hz", "KHz", "MHz", "GHz", "kB", "MB", "GB", "TB"]
-#     pattern = r"(\d+)\s+(" + "|".join(units) + r")"    
-#     # Replace spaces between numbers and units with no space
-#     corrected_text = re.sub(pattern, r"\1\2", text)
+#     pattern = r"(\d+)\s+(" + "|".join(units) + r")"
+
+#     def process_spacing(match):
+#         original = match.group(0)
+#         modified = f"{match.group(1)}{match.group(2)}"
+
+#         if original != modified:
+#             line_number = text[:match.start()].count('\n') + 1
+#             global_logs.append(
+#                 f"[correct_unit_spacing] Line {line_number}: '{original}' -> '{modified}'"
+#             )
+#         return modified
+#     corrected_text = re.sub(pattern, process_spacing, text)
 #     return corrected_text
-
-
 
 
 def correct_unit_spacing(text):
@@ -1851,16 +2368,37 @@ def correct_unit_spacing(text):
                 f"[correct_unit_spacing] Line {line_number}: '{original}' -> '{modified}'"
             )
         return modified
+
     corrected_text = re.sub(pattern, process_spacing, text)
     return corrected_text
 
 
 
-
 # def apply_quotation_punctuation_rule(text: str):
+#     """
+#     Adjusts the placement of punctuation marks within single quotes.
+#     Args:
+#         text (str): Input text to process.
+#     Returns:
+#         str: Updated text.
+#     """
+#     global global_logs
+
 #     pattern = r"‘(.*?)’([!?])"
-#     updated_text = re.sub(pattern, r"‘\1\2’", text)
+
+#     def process_quotation_punctuation(match):
+#         original = match.group(0)
+#         modified = f"‘{match.group(1)}{match.group(2)}’"
+
+#         if original != modified:
+#             line_number = text[:match.start()].count('\n') + 1
+#             global_logs.append(
+#                 f"[apply_quotation_punctuation_rule] Line {line_number}: '{original}' -> '{modified}'"
+#             )
+#         return modified
+#     updated_text = re.sub(pattern, process_quotation_punctuation, text)
 #     return updated_text
+
 
 
 def apply_quotation_punctuation_rule(text: str):
@@ -1885,14 +2423,36 @@ def apply_quotation_punctuation_rule(text: str):
                 f"[apply_quotation_punctuation_rule] Line {line_number}: '{original}' -> '{modified}'"
             )
         return modified
+
     updated_text = re.sub(pattern, process_quotation_punctuation, text)
     return updated_text
 
 
 
 # def enforce_dnase_rule(text: str):
+#     """
+#     Enforces the correct capitalization for 'DNase'.
+#     Args:
+#         text (str): Input text to process.
+#     Returns:
+#         str: Updated text.
+#     """
+#     global global_logs
+
 #     pattern = r"\bDNAse\b"
-#     updated_text = re.sub(pattern, "DNase", text)
+
+#     def process_dnase_replacement(match):
+#         original = match.group(0)
+#         modified = "DNase"
+
+#         if original != modified:
+#             line_number = text[:match.start()].count('\n') + 1
+#             global_logs.append(
+#                 f"[enforce_dnase_rule] Line {line_number}: '{original}' -> '{modified}'"
+#             )
+#         return modified
+
+#     updated_text = re.sub(pattern, process_dnase_replacement, text)
 #     return updated_text
 
 
@@ -1925,41 +2485,119 @@ def enforce_dnase_rule(text: str):
 
 
 
-def apply_remove_italics_see_rule(text):
-    return text.replace('*see*', 'see')
+
+# def apply_remove_italics_see_rule(text):
+#     return text.replace('*see*', 'see')
 
 
 
-# There is one problem here for project, & document it is not changing and for project & document it is changing
+def apply_remove_italics_see_rule(text: str):
+    """
+    Replaces the italics formatting for the word 'see' with plain text.
+    Args:
+        text (str): Input text to process.
+    Returns:
+        str: Updated text.
+    """
+    global global_logs
+
+    pattern = r"\*see\*"
+
+    def process_see_replacement(match):
+        original = match.group(0)
+        modified = "see"
+
+        if original != modified:
+            line_number = text[:match.start()].count('\n') + 1
+            global_logs.append(
+                f"[apply_remove_italics_see_rule] Line {line_number}: '{original}' -> '{modified}'"
+            )
+        return modified
+
+    updated_text = re.sub(pattern, process_see_replacement, text)
+    return updated_text
+
+
+
 # def replace_ampersand(text):
+#     global global_logs
 #     def replacement(match):
 #         left, right = match.group(1), match.group(2)
+#         original = match.group(0)
+#         line_number = text[:match.start()].count('\n') + 1
 #         if left[0].isupper() and right[0].isupper():
-#             return match.group(0)
-#         return left + ' and ' + right    
-#     return re.sub(r'(\w+)\s*&\s*(\w+)', replacement, text)
+#             return original
+
+#         modified = left + ' and ' + right
+#         global_logs.append(
+#             f"[replace_ampersand] Line {line_number}: '{original}' -> '{modified}'"
+#         )
+#         return modified
+#     return re.sub(r'(?m)(\w+)\s*&\s*(\w+)', replacement, text)
+
 
 
 def replace_ampersand(text):
+    """
+    Replaces ampersands (&) with 'and' between two words, unless both words start with capital letters.
+    Args:
+        text (str): Input text to process.
+    Returns:
+        str: Updated text.
+    """
     global global_logs
+
     def replacement(match):
         left, right = match.group(1), match.group(2)
         original = match.group(0)
         line_number = text[:match.start()].count('\n') + 1
+        
+        # Check if both left and right words start with capital letters
         if left[0].isupper() and right[0].isupper():
             return original
 
+        # Replace & with 'and'
         modified = left + ' and ' + right
+        
+        # Log the change
         global_logs.append(
             f"[replace_ampersand] Line {line_number}: '{original}' -> '{modified}'"
         )
         return modified
+
+    # Regex to match and replace ampersands
     return re.sub(r'(?m)(\w+)\s*&\s*(\w+)', replacement, text)
 
 
+
+# def rename_section(text):
+#     # Replace all occurrences of the § symbol with 'Section'
+#     return re.sub(r'§', 'Section', text)
+
+
+
 def rename_section(text):
-    # Replace all occurrences of the § symbol with 'Section'
-    return re.sub(r'§', 'Section', text)
+    """
+    Replaces all occurrences of the § symbol with 'Section' and logs the changes.
+    Args:
+        text (str): Input text to process.
+    Returns:
+        str: Updated text.
+    """
+    global global_logs
+    pattern = r'§'
+    def replacement(match):
+        original = match.group(0)
+        modified = 'Section'
+        line_number = text[:match.start()].count('\n') + 1
+
+        # Log the change
+        global_logs.append(
+            f"[rename_section] Line {line_number}: '{original}' -> '{modified}'"
+        )
+        return modified
+    return re.sub(pattern, replacement, text)
+
 
 
 
@@ -1975,10 +2613,36 @@ def rename_section(text):
 #     Returns:
 #         str: The modified text with URLs adjusted.
 #     """
-#     text = re.sub(r'\bhttp://(www\.\S+)', r'\1', text)
-#     text = re.sub(r'\b(www\.\S+)', r'http://\1', text)
-#     # text = re.sub()
+#     global global_logs
+
+#     def add_http_prefix(match):
+#         original = match.group(0)
+#         modified = f"http://{match.group(1)}"
+
+#         if original != modified:
+#             line_number = text[:match.start()].count('\n') + 1
+#             global_logs.append(
+#                 f"[process_url_add_http] Line {line_number}: '{original}' -> '{modified}'"
+#             )
+
+#         return modified
+
+#     def remove_http_prefix(match):
+#         original = match.group(0)
+#         modified = match.group(1)
+
+#         if original != modified:
+#             line_number = text[:match.start()].count('\n') + 1  # Calculate the line number
+#             global_logs.append(
+#                 f"[process_url_add_http] Line {line_number}: '{original}' -> '{modified}'"
+#             )
+
+#         return modified
+
+#     text = re.sub(r"\bhttp://(www\.\S+)", remove_http_prefix, text)
+#     text = re.sub(r"\b(www\.\S+)", add_http_prefix, text)
 #     return text
+
 
 
 def process_url_add_http(text):
@@ -2019,45 +2683,100 @@ def process_url_add_http(text):
 
         return modified
 
+    # Replace URLs by removing 'http://' or adding 'http://' as necessary
     text = re.sub(r"\bhttp://(www\.\S+)", remove_http_prefix, text)
     text = re.sub(r"\b(www\.\S+)", add_http_prefix, text)
+    
     return text
 
 
 
 
 # def process_url_remove_http(url):
+#     """
+#     Removes 'http://' from a URL if there is no path, parameters, query, or fragment.
+#     Args:
+#         url (str): The input URL to process.
+#     Returns:
+#         str: The modified URL with 'http://' removed if applicable.
+#     """
+#     global global_logs
+
 #     parsed = urlparse(url)
+#     original = url
+
 #     if parsed.scheme == "http" and not (parsed.path or parsed.params or parsed.query or parsed.fragment):
-#         # If the scheme is http and there's nothing after the domain, remove the scheme
-#         return parsed.netloc
+#         modified = parsed.netloc
+
+#         if original != modified:
+#             line_number = 1
+#             global_logs.append(
+#                 f"[process_url_remove_http] Line {line_number}: '{original}' -> '{modified}'"
+#             )
+#         return modified
 #     return url
 
 
 
-def process_url_remove_http(url):
+
+def process_url_remove_http(text):
     """
-    Removes 'http://' from a URL if there is no path, parameters, query, or fragment.
+    Removes 'http://' from a URL if , or fragment.
     Args:
-        url (str): The input URL to process.
+        text (str): The input text containing URLs.
     Returns:
-        str: The modified URL with 'http://' removed if applicable.
+        str: The modified text with 'http://' removed from URLs if applicable.
     """
     global global_logs
 
-    parsed = urlparse(url)
-    original = url
+    def remove_http_prefix(match):
+        original = match.group(0)
+        url = match.group(1)
+        
+        parsed = urlparse(url)
 
-    if parsed.scheme == "http" and not (parsed.path or parsed.params or parsed.query or parsed.fragment):
-        modified = parsed.netloc
+        if parsed.scheme == "http" and not (parsed.path or parsed.params or parsed.query or parsed.fragment):
+            modified = parsed.netloc
 
-        if original != modified:
-            line_number = 1
-            global_logs.append(
-                f"[process_url_remove_http] Line {line_number}: '{original}' -> '{modified}'"
-            )
-        return modified
-    return url
+            if original != modified:
+                line_number = text[:match.start()].count('\n') + 1
+                global_logs.append(
+                    f"[process_url_remove_http] Line {line_number}: '{original}' -> '{modified}'"
+                )
+            return modified
+        return original
+    pattern = r"\bhttp://([^\s]+)\b"
+    updated_text = re.sub(pattern, remove_http_prefix, text)    
+    return updated_text
+
+
+
+# def process_symbols_mark(text, line_number, symbols=["®", "™", "©", "℗", "℠"]):
+#     """
+#     Ensures symbols like ®, ™, etc., appear only the first time in the text.
+#     Updates the global_log with changes, including line number, original text, and updated text.
+#     """
+#     original_text = text
+#     symbol_set = set()
+#     global global_logs
+    
+#     for symbol in symbols:
+#         occurrences = list(re.finditer(re.escape(symbol), text))
+#         if occurrences:
+#             first_occurrence = occurrences[0].start()
+#             # Replace all occurrences after the first one
+#             text = (
+#                 text[:first_occurrence + 1]
+#                 + re.sub(re.escape(symbol), "", text[first_occurrence + 1:])
+#             )
+#             symbol_set.add(symbol)
+
+#     # Log changes if the text was modified
+#     if original_text != text:
+#         global_logs.append(
+#             f"[process_symbols_in_doc] Line {line_number}: '{original_text}' -> '{text}'"
+#         )
+#     return text
 
 
 
@@ -2065,13 +2784,23 @@ def process_symbols_mark(text, line_number, symbols=["®", "™", "©", "℗", "
     """
     Ensures symbols like ®, ™, etc., appear only the first time in the text.
     Updates the global_log with changes, including line number, original text, and updated text.
+    
+    Args:
+        text (str): Input text to process.
+        line_number (int): The line number where the change occurred.
+        symbols (list): List of symbols to be processed (default includes common trademarks and copyright symbols).
+    
+    Returns:
+        str: Updated text with duplicate symbols removed after the first occurrence.
     """
-    original_text = text
-    symbol_set = set()
     global global_logs
     
+    original_text = text
+    symbol_set = set()
+
     for symbol in symbols:
         occurrences = list(re.finditer(re.escape(symbol), text))
+        
         if occurrences:
             first_occurrence = occurrences[0].start()
             # Replace all occurrences after the first one
@@ -2084,77 +2813,167 @@ def process_symbols_mark(text, line_number, symbols=["®", "™", "©", "℗", "
     # Log changes if the text was modified
     if original_text != text:
         global_logs.append(
-            f"[process_symbols_in_doc] Line {line_number}: '{original_text}' -> '{text}'"
-        )
-
+            f"[process_symbols_mark] Line {line_number}: '{original_text.strip()}' -> '{text.strip()}'"
+        )    
     return text
 
 
+# def remove_commas_from_numbers(text, line_number):
+#     """
+#     Removes commas from numerical values in the text.
+#     Updates the global_log with the specific changes, including line number and changes made.
+#     """
+#     original_text = text
+#     changes = []
+#     global global_logs
 
+#     pattern = r'\b\d{1,3}(,\d{3})+\b'
 
-def remove_commas_from_numbers(text, line_number):
+#     def replacer(match):
+#         original_number = match.group(0)
+#         updated_number = original_number.replace(",", " ")
+#         changes.append((original_number, updated_number))
+#         return updated_number
+
+#     # Replace numbers with commas in the text
+#     text = re.sub(pattern, replacer, text)
+
+#     # Log individual changes
+#     for original, updated in changes:
+#         global_logs.append(
+#             f"[process_symbols_in_doc] Line {line_number}: '{original}' -> '{updated}'"
+#         )
+#     return text
+
+def remove_commas_from_numbers(runs, line_number):
     """
-    Removes commas from numerical values in the text.
+    Removes commas from numerical values in the runs of a paragraph.
     Updates the global_log with the specific changes, including line number and changes made.
     """
-    original_text = text
-    changes = []
+    import re
+
     global global_logs
+    changes = []
 
     # Regex to match numbers with commas (e.g., 1,000 or 20,000)
     pattern = r'\b\d{1,3}(,\d{3})+\b'
 
-    def replacer(match):
-        original_number = match.group(0)  # Match the original number
-        updated_number = original_number.replace(",", " ")  # Remove commas
-        changes.append((original_number, updated_number))  # Log the change
-        return updated_number
+    # Iterate through runs to handle text while preserving formatting
+    for run in runs:
+        original_text = run.text
 
-    # Replace numbers with commas in the text
-    text = re.sub(pattern, replacer, text)
+        # Function to replace matched patterns while logging changes
+        def replacer(match):
+            original_number = match.group(0)  # Match the original number
+            updated_number = original_number.replace(",", "")  # Remove commas
+            changes.append((original_number, updated_number))  # Log the change
+            return updated_number
+
+        # Replace numbers with commas in the current run
+        updated_text = re.sub(pattern, replacer, original_text)
+
+        # If the text was modified, update the run text
+        if original_text != updated_text:
+            run.text = updated_text
 
     # Log individual changes
     for original, updated in changes:
         global_logs.append(
-            f"[process_symbols_in_doc] Line {line_number}: '{original}' -> '{updated}'"
+            f"[remove_commas_from_numbers] Line {line_number}: '{original}' -> '{updated}'"
         )
 
-    return text
 
 
 
+# def remove_spaces_from_four_digit_numbers(text, line_number):
+#     """
+#     Removes spaces from four-digit numerals in the text.
+#     Updates the global_log with specific changes, including line number and changes made.
+#     """
+#     original_text = text
+#     changes = []
+#     global global_logs
 
-def remove_spaces_from_four_digit_numbers(text, line_number):
+#     pattern = r'\b\d\s\d{3}\b'
+
+#     def replacer(match):
+#         original_number = match.group(0)  # Match the original number
+#         updated_number = original_number.replace(" ", "")  # Remove spaces
+#         changes.append((original_number, updated_number))  # Log the change
+#         return updated_number
+
+#     text = re.sub(pattern, replacer, text)
+
+#     for original, updated in changes:
+#         global_logs.append(
+#             f"[process_symbols_in_doc] Line {line_number}: '{original}' -> '{updated}'"
+#         )
+#     return text
+
+def remove_spaces_from_four_digit_numbers(runs, line_number):
     """
-    Removes spaces from four-digit numerals in the text.
+    Removes spaces from four-digit numerals in the text of runs.
     Updates the global_log with specific changes, including line number and changes made.
     """
-    original_text = text
-    changes = []
+    import re
+
     global global_logs
+    changes = []
 
     pattern = r'\b\d\s\d{3}\b'
 
-    def replacer(match):
-        original_number = match.group(0)  # Match the original number
-        updated_number = original_number.replace(" ", "")  # Remove spaces
-        changes.append((original_number, updated_number))  # Log the change
-        return updated_number
+    for run in runs:
+        original_text = run.text
+        
+        def replacer(match):
+            original_number = match.group(0)  # Match the original number
+            updated_number = original_number.replace(" ", "")  # Remove spaces
+            changes.append((original_number, updated_number))  # Log the change
+            return updated_number
 
-    text = re.sub(pattern, replacer, text)
+        # Replace the text in the current run while keeping its formatting
+        updated_text = re.sub(pattern, replacer, original_text)
+        run.text = updated_text
 
     for original, updated in changes:
         global_logs.append(
             f"[process_symbols_in_doc] Line {line_number}: '{original}' -> '{updated}'"
         )
 
-    return text
+    return runs
 
 
 
-def set_latinisms_to_roman_in_runs(paragraph_text, line_number, latinisms=None):
+# def set_latinisms_to_roman_in_runs(paragraph_text, line_number, latinisms=None):
+#     """
+#     Converts specific Latinisms from italic to roman text in a string of text.
+#     Logs changes to the global_log, including line number and original italicized Latinism.
+#     """
+#     if latinisms is None:
+#         latinisms = [
+#             "i.e.", "e.g.", "via", "vice versa", "etc.", "a posteriori", 
+#             "a priori", "et al.", "cf.", "c."
+#         ]
+    
+#     changes = []
+#     global global_logs
+
+#     # Process the text, and for each Latinism, replace its italics if needed
+#     for lat in latinisms:
+#         if lat in paragraph_text:
+#             changes.append(lat)  # Log the Latinism that was changed
+
+#     # for changed in changes:
+#     #     global_logs.append(
+#     #         f"[process_symbols_in_doc] Line {line_number}: '{changed}' -> '{changed}'"
+#     #     )
+
+#     return paragraph_text
+
+
+def set_latinisms_to_roman_in_runs(runs, line_number, latinisms=None):
     """
-    Converts specific Latinisms from italic to roman text in a string of text.
+    Converts specific Latinisms from italic to roman text in runs.
     Logs changes to the global_log, including line number and original italicized Latinism.
     """
     if latinisms is None:
@@ -2166,46 +2985,82 @@ def set_latinisms_to_roman_in_runs(paragraph_text, line_number, latinisms=None):
     changes = []
     global global_logs
 
-    # Process the text, and for each Latinism, replace its italics if needed
-    for lat in latinisms:
-        if lat in paragraph_text:
-            changes.append(lat)  # Log the Latinism that was changed
+    # Process each run to replace italics for specified Latinisms
+    for run in runs:
+        for lat in latinisms:
+            if lat in run.text:
+                if run.italic:  # Check if the text is italic
+                    run.italic = False  # Set to roman (non-italic)
+                    changes.append(lat)  # Log the Latinism that was changed
 
-    # for changed in changes:
-    #     global_logs.append(
-    #         f"[process_symbols_in_doc] Line {line_number}: '{changed}' -> '{changed}'"
-    #     )
+    for changed in changes:
+        global_logs.append(
+            f"[process_symbols_in_doc] Line {line_number}: '{changed}' changed from italic to roman"
+        )
 
-    return paragraph_text 
+    return runs
 
 
 
-def convert_decimal_to_baseline(paragraph_text, line_number):
+
+# def convert_decimal_to_baseline(paragraph_text, line_number):
+#     """
+#     Converts any non-standard decimal separator (•) to a standard decimal point (.)
+#     only when both sides are numeric.
+#     Logs the changes to the global_log, including line number and the change.
+#     """
+#     changes = []
+#     global global_logs
+#     # Regular expression to find '•' between numbers
+#     pattern = r'(?<=\d)\xB7(?=\d)'
+
+#     # Find all occurrences of '•' that are between digits and replace with '.'
+#     matches = re.findall(pattern, paragraph_text)
+#     if matches:
+#         original_text = paragraph_text
+#         updated_text = re.sub(pattern, '.', paragraph_text)  # Replace '•' with '.'
+#         changes.append((original_text, updated_text))
+
+#     for original, updated in changes:
+#         global_logs.append(
+#             f"[convert_decimal_to_baseline] Line {line_number}: '{original}' -> '{updated}'"
+#         )
+#     return updated_text if changes else paragraph_text
+
+
+def convert_decimal_to_baseline(runs, line_number):
     """
     Converts any non-standard decimal separator (•) to a standard decimal point (.)
     only when both sides are numeric.
     Logs the changes to the global_log, including line number and the change.
     """
+    import re
+
     changes = []
     global global_logs
     # Regular expression to find '•' between numbers
     pattern = r'(?<=\d)\xB7(?=\d)'
 
-    # Find all occurrences of '•' that are between digits and replace with '.'
-    matches = re.findall(pattern, paragraph_text)
-    if matches:
-        original_text = paragraph_text
-        updated_text = re.sub(pattern, '.', paragraph_text)  # Replace '•' with '.'
-        changes.append((original_text, updated_text))
+    for run in runs:
+        original_text = run.text
+
+        # Replace '•' with '.' only when between digits
+        updated_text = re.sub(pattern, '.', original_text)
+
+        if original_text != updated_text:
+            run.text = updated_text
+            changes.append((original_text, updated_text))
 
     for original, updated in changes:
         global_logs.append(
             f"[convert_decimal_to_baseline] Line {line_number}: '{original}' -> '{updated}'"
         )
-    return updated_text if changes else paragraph_text
+
+    return runs
 
 
 
+# change later
 # Function to convert numbers to words (1 to 10)
 def number_to_word(num):
     num_dict = {
@@ -2214,7 +3069,7 @@ def number_to_word(num):
     }
     return num_dict.get(num, str(num))
 
-
+# change later
 # Function to convert words to numbers
 def word_to_number(word):
     word_dict = {
@@ -2223,7 +3078,7 @@ def word_to_number(word):
     }
     return word_dict.get(word.lower(), word)
 
-
+# change later
 # Function to process text and replace words with numbers, and numbers with words
 def convert_text(text):
     
@@ -2233,9 +3088,35 @@ def convert_text(text):
     return text
 
 
-def adjust_punctuation_style_using_paragraph_text(text, para_runs):
+
+# def adjust_punctuation_style_using_paragraph_text(text, para_runs):
+#     """
+#     Analyze `text` to detect italicized or bold characters followed by punctuation
+#     and ensure the punctuation inherits the appropriate style (italic or bold).
+#     """
+#     for i in range(len(para_runs) - 1):
+#         current_run = para_runs[i]
+#         next_run = para_runs[i + 1]
+
+#         # Check if current run ends with italicized text
+#         if current_run.text and current_run.italic:
+#             last_char = current_run.text[-1]
+#             if next_run.text and next_run.text[0] in ".,!?\"'()":
+#                 next_run.italic = True
+        
+#         elif current_run.text and current_run.bold:
+#             last_char = current_run.text[-1]
+#             if next_run.text and next_run.text[0] in ".,!?\"”'()":
+#                 next_run.bold = True
+    
+#     # Return updated text after style adjustments
+#     return text
+
+
+
+def adjust_punctuation_style_using_paragraph_text(para_runs):
     """
-    Analyze `text` to detect italicized or bold characters followed by punctuation
+    Analyze `para_runs` to detect italicized or bold characters followed by punctuation
     and ensure the punctuation inherits the appropriate style (italic or bold).
     """
     for i in range(len(para_runs) - 1):
@@ -2248,13 +3129,17 @@ def adjust_punctuation_style_using_paragraph_text(text, para_runs):
             if next_run.text and next_run.text[0] in ".,!?\"'()":
                 next_run.italic = True
         
+        # Check if current run ends with bold text
         elif current_run.text and current_run.bold:
             last_char = current_run.text[-1]
             if next_run.text and next_run.text[0] in ".,!?\"”'()":
                 next_run.bold = True
-    
-    # Return updated text after style adjustments
-    return text
+
+    # Return updated runs after style adjustments
+    return para_runs
+
+
+
 
 # Dictionary to convert word numbers to integer values
 word_to_num = {
@@ -2325,164 +3210,119 @@ def process_string(text):
     return pattern.sub(replace_match, text)
  
 
+
 def highlight_and_correct(doc):
     chapter_counter = [0]
     line_number = 1
     abbreviation_dict = fetch_abbreviation_mappings()
     for para in doc.paragraphs:
         
-        # para.text = replace_curly_quotes_with_straight(para.text)
-        
+        # replace_curly_quotes_with_straight(para.runs)
+
         # if para.text.strip().startswith("Chapter"):
         #     para.text = correct_chapter_numbering(para.text, chapter_counter)
         #     formatted_title = format_chapter_title(para.text)
         #     para.text = formatted_title
-            
-        # para.text = process_symbols_mark(para.text, line_number)
-        # para.text = remove_commas_from_numbers(para.text, line_number)
-        # para.text = remove_spaces_from_four_digit_numbers(para.text, line_number)
-        # para.text = set_latinisms_to_roman_in_runs(para.text,line_number)
-        # para.text = convert_decimal_to_baseline(para.text,line_number)
-        
-        # para.text = rename_section(para.text)
-        # para.text = replace_ampersand(para.text)
-        # para.text = correct_scientific_unit_symbols(para.text)
-        # para.text = adjust_ratios(para.text)
-        # para.text = format_dates(para.text, line_number)
-        # # para.text = spell_out_number_and_unit_with_rules(para.text,line_number)
-        # para.text = remove_space_between_degree_and_direction(para.text, line_number)
-        # para.text = enforce_lowercase_units(para.text, line_number)
-        # para.text = precede_decimal_with_zero(para.text, line_number)
-        # para.text = format_ellipses_in_series(para.text) # not added in log and not working
-        # para.text = correct_possessive_names(para.text, line_number)
-        # para.text = use_numerals_with_percent(para.text)
-        # para.text = remove_concluding_slashes_from_urls(para.text, line_number)
-        # para.text = clean_web_addresses(para.text)
 
-        # para.text = apply_abbreviation_mapping(para.text, abbreviation_dict, line_number)
-        # para.text = apply_number_abbreviation_rule(para.text, line_number)
+        # process_symbols_mark(para.runs, line_number)
+        remove_commas_from_numbers(para.runs, line_number)
+        # remove_spaces_from_four_digit_numbers(para.runs, line_number)
+        # set_latinisms_to_roman_in_runs(para.runs, line_number)
+        # convert_decimal_to_baseline(para.runs, line_number)
 
-        # para.text = format_titles_us_english_with_logging(para.text)
-        # para.text = units_with_bracket(para.text)
-        # para.text = correct_units_in_ranges_with_logging(para.text,line_number)#check
-        # para.text = correct_scientific_units_with_logging(para.text)
-        # para.text = replace_fold_phrases(para.text)
-        # para.text = correct_preposition_usage(para.text)
-        # para.text = correct_unit_spacing(para.text)
-        
-        # para.text = remove_and(para.text)
-        # para.text = remove_quotation(para.text)
-        # para.text = convert_text(para.text)
-        
-        # para.text = apply_quotation_punctuation_rule(para.text)
-        # para.text = enforce_dnase_rule(para.text)
-        
-        # para.text = correct_acronyms(para.text, line_number)
-        # para.text = enforce_am_pm(para.text, line_number)
-        
-        # para.text = enforce_eg_rule_with_logging(para.text)
-        # para.text = enforce_ie_rule_with_logging(para.text)
-        # para.text = enforce_serial_comma(para.text)
-        # para.text = apply_remove_italics_see_rule(para.text)
-        # para.text = process_string(para.text)
-        
-        # para.text = standardize_etc(para.text)
-        # para.text = process_url_add_http(para.text)
-        # para.text = process_url_remove_http(para.text)
-        
-        lines = para.text.split('\n')
-        updated_lines = []
-        for line in lines:
-            corrected_line = convert_century(line, line_number)
-            updated_lines.append(corrected_line)
-            line_number += 1
+        # rename_section(para.runs)
+        # replace_ampersand(para.runs)
+        # correct_scientific_unit_symbols(para.runs)
+        # adjust_ratios(para.runs)
+        # format_dates(para.runs, line_number)
+        # spell_out_number_and_unit_with_rules(para.runs, line_number)
+        # remove_space_between_degree_and_direction(para.runs, line_number)
+        # enforce_lowercase_units(para.runs, line_number)
+        # precede_decimal_with_zero(para.runs, line_number)
+        # format_ellipses_in_series(para.runs) # not added in log and not working
+        # correct_possessive_names(para.runs, line_number)
+        # use_numerals_with_percent(para.runs)
+        # remove_concluding_slashes_from_urls(para.runs, line_number)
+        # clean_web_addresses(para.runs)
 
-        para.text = '\n'.join(updated_lines)
-        formatted_runs = []
-        
+        # apply_abbreviation_mapping(para.runs, abbreviation_dict, line_number)
+        # apply_number_abbreviation_rule(para.runs, line_number)
+
+        # format_titles_us_english_with_logging(para.runs)
+        # units_with_bracket(para.runs)
+        # correct_units_in_ranges_with_logging(para.runs, line_number)
+        # correct_scientific_units_with_logging(para.runs)
+        # replace_fold_phrases(para.runs)
+        # correct_preposition_usage(para.runs)
+        # correct_unit_spacing(para.runs)
+
+        # remove_and(para.runs)
+        # remove_quotation(para.runs)
+        # convert_text(para.runs)
+
+        # apply_quotation_punctuation_rule(para.runs)
+        # enforce_dnase_rule(para.runs)
+
+        # correct_acronyms(para.runs, line_number)
+        # enforce_am_pm(para.runs, line_number)
+
+        # enforce_eg_rule_with_logging(para.runs)
+        # enforce_ie_rule_with_logging(para.runs)
+        # enforce_serial_comma(para.runs)
+        # apply_remove_italics_see_rule(para.runs)
+        # process_string(para.runs)
+
+        # standardize_etc(para.runs)
+        # process_url_add_http(para.runs)
+        # process_url_remove_http(para.runs)
+
+        # lines = para.text.split('\n')
+        # updated_lines = []
+        # for line in lines:
+        #     corrected_line = convert_century(line, line_number)
+        #     updated_lines.append(corrected_line)
+        #     line_number += 1
+
+        # para.text = '\n'.join(updated_lines)
+        # formatted_runs = []        
         # for run in para.runs:
-        #     run_text = replace_curly_quotes_with_straight(run.text)
-        #     run_text = insert_thin_space_between_number_and_unit(run_text, line_number)
-            
+        #     run_text = insert_thin_space_between_number_and_unit(run.text, line_number)
+
         #     words = run_text.split()
         #     for i, word in enumerate(words):
         #         original_word = word
         #         punctuation = ""
 
-        #         if word[-1] in ",.?!;\"'()[]{}":
+        #         if word[-1] in ",.?!:;\"'()[]{}":
         #             punctuation = word[-1]
         #             word = word[:-1]
 
-        #         if (word.startswith('"') and word.endswith('"')) or (word.startswith("'") and word.endswith('"')):
-        #             formatted_runs.append((word, None))
+        #         if (word.startswith('"') and word.endswith('"')) or (word.startswith("'") and word.endswith("'")):
+        #             formatted_runs.append((original_word, None))
         #             if i < len(words) - 1:
         #                 formatted_runs.append((" ", None))
         #             continue
 
-        #         word = remove_unnecessary_apostrophes(word, line_number)
+        #         if not word.strip():
+        #             formatted_runs.append((original_word, None))
+        #             if i < len(words) - 1:
+        #                 formatted_runs.append((" ", None))
+        #             continue
 
-        #         cleaned_word = clean_word(word)
-        #         corrected_word = cleaned_word
-
-        #         if cleaned_word:
-        #             # corrected_word = correct_acronyms(cleaned_word, line_number)
-        #             # corrected_word = enforce_am_pm(corrected_word, line_number)
-
-        #             if corrected_word != cleaned_word:
-        #                 formatted_runs.append((corrected_word + punctuation, RGBColor(0, 0, 0)))
-        #             elif not us_dict.check(corrected_word.lower()):
-        #                 formatted_runs.append((corrected_word + punctuation, RGBColor(255, 0, 0)))
-        #             else:
-        #                 formatted_runs.append((corrected_word + punctuation, None))
+        #         if not us_dict.check(word.lower()):
+        #             formatted_runs.append((original_word, RGBColor(255, 0, 0)))
         #         else:
-        #             formatted_runs.append((original_word + punctuation, None))
+        #             formatted_runs.append((original_word, None))
 
         #         if i < len(words) - 1:
         #             formatted_runs.append((" ", None))
-        
-        for run in para.runs:
-            # run_text = replace_curly_quotes_with_straight(run.text)
-            run_text = insert_thin_space_between_number_and_unit(run.text, line_number)
+        # para.clear()
 
-            words = run_text.split()
-            for i, word in enumerate(words):
-                original_word = word
-                punctuation = ""
-
-                if word[-1] in ",.?!:;\"'()[]{}":
-                    punctuation = word[-1]
-                    word = word[:-1]
-
-                if (word.startswith('"') and word.endswith('"')) or (word.startswith("'") and word.endswith("'")):
-                    formatted_runs.append((original_word, None))
-                    if i < len(words) - 1:
-                        formatted_runs.append((" ", None))
-                    continue
-
-                if not word.strip():
-                    formatted_runs.append((original_word, None))
-                    if i < len(words) - 1:
-                        formatted_runs.append((" ", None))
-                    continue
-
-                if not us_dict.check(word.lower()):
-                    # Mark incorrect word in red
-                    formatted_runs.append((original_word, RGBColor(255, 0, 0)))
-                else:
-                    formatted_runs.append((original_word, None))
-
-                if i < len(words) - 1:
-                    formatted_runs.append((" ", None))
-                    
-
-        # Clear paragraph and rebuild runs
-        para.clear()
-        
-        for text, color in formatted_runs:
-            adjusted_text = replace_straight_quotes_with_curly(text)
-            new_run = para.add_run(adjusted_text)
-            if color:
-                new_run.font.color.rgb = color
+        # for text, color in formatted_runs:
+        #     adjusted_text = replace_straight_quotes_with_curly(text)
+        #     new_run = para.add_run(adjusted_text)
+        #     if color:
+        #         new_run.font.color.rgb = color
 
 
 
