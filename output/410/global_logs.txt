@@ -1,35 +1,35 @@
 
-Start Time: 2025-01-04 11:36:12.649783
-End Time: 2025-01-04 11:36:19.529349
-Analysis completed in 6.88 seconds.
+Start Time: 2025-01-16 19:14:12.404544
+End Time: 2025-01-16 19:14:22.538900
+Analysis completed in 10.13 seconds.
 
 
 FileName: Chapter Testing.docx
 
 
-Line 2: Ther -> Suggestions: rhet, thee, the, ter, her, there, ether, their, other, therm, Uther, sher, tier, thar, then, togo, peru, niger, chad
+Line 2: Ther -> Suggestions: rhet, thee, the, ter, her, there, ether, their, other, therm, Uther, sher, tier, thar, then, togo, peru, i.e., niger, chad
 Line 2: Develpment -> Suggestions: development, envelopment, devolvement
 Line 4: tehnical -> Suggestions: technical, Alicante
-Line 4: (IITs), -> Suggestions: its, sits, nits, tits, dits, gits, pits, hits, bits, fits, kits, wits, zits, i its, ii ts, iran, iraq, laos, haiti, niue, fiji
-Line 4: (IISc), -> Suggestions: disc, misc, fisc, Wisc, ii sc, ii-sc, iran, iraq, niue, fiji
-Line 4: (IIMs), -> Suggestions: isms, sims, aims, rims, dims, hims, Sims, ii ms, ii-ms, imams, iran, iraq, laos, niue, fiji
+Line 4: (IITs), -> Suggestions: its, sits, nits, tits, dits, gits, pits, hits, bits, fits, kits, wits, zits, i its, ii ts, iran, iraq, i.e., laos, haiti, niue, fiji
+Line 4: (IISc), -> Suggestions: disc, misc, fisc, Wisc, ii sc, ii-sc, iran, iraq, i.e., niue, fiji
+Line 4: (IIMs), -> Suggestions: isms, sims, aims, rims, dims, hims, Sims, ii ms, ii-ms, imams, iran, iraq, i.e., laos, niue, fiji
 Line 4: transfrmation -> Suggestions: transformation, Transfiguration, transfiguration, transmigration, transmutation
 Line 8: 11-fold -> Suggestions: fold
 Line 8: 24fold -> Suggestions: fold
-Line 12: kgs -> Suggestions: kg, ks, gs, kegs, kos, k gs, kg s, laos, togo
-Line 14: kg.s. -> Suggestions: kg, ks, gs, kegs, kos, k gs, kg s, laos, togo
-Line 22: eg -> Suggestions: Eg, eh, e, g, eng, neg, erg, reg, ego, leg, deg, egg, meg, peg, beg, egypt, peru, togo
-Line 22: e.g, -> Suggestions: Eg, eh, e, g, eng, neg, erg, reg, ego, leg, deg, egg, meg, peg, beg, egypt, peru, togo
-Line 22: e.g.. -> Suggestions: Eg, eh, e, g, eng, neg, erg, reg, ego, leg, deg, egg, meg, peg, beg, egypt, peru, togo
-Line 22: eg., -> Suggestions: Eg, eh, e, g, eng, neg, erg, reg, ego, leg, deg, egg, meg, peg, beg, egypt, peru, togo
-Line 22: (e.g), -> Suggestions: Eg, eh, e, g, eng, neg, erg, reg, ego, leg, deg, egg, meg, peg, beg, egypt, peru, togo
-Line 22: e.g.,. -> Suggestions: Eg, eh, e, g, eng, neg, erg, reg, ego, leg, deg, egg, meg, peg, beg, egypt, peru, togo
-Line 24: ie -> Suggestions: IE, ai, i, e, ire, tie, lie, ice, die, gie, pie, hie, fie, vie, Lie, niue
-Line 24: i.e, -> Suggestions: IE, ai, i, e, ire, tie, lie, ice, die, gie, pie, hie, fie, vie, Lie, niue
-Line 24: i.e.. -> Suggestions: IE, ai, i, e, ire, tie, lie, ice, die, gie, pie, hie, fie, vie, Lie, niue
-Line 24: ie., -> Suggestions: IE, ai, i, e, ire, tie, lie, ice, die, gie, pie, hie, fie, vie, Lie, niue
-Line 24: (i.e), -> Suggestions: IE, ai, i, e, ire, tie, lie, ice, die, gie, pie, hie, fie, vie, Lie, niue
-Line 24: i.e.,. -> Suggestions: IE, ai, i, e, ire, tie, lie, ice, die, gie, pie, hie, fie, vie, Lie, niue
+Line 12: kgs -> Suggestions: kg, ks, gs, kegs, kos, k gs, kg s, laos, e.g., togo
+Line 14: kg.s. -> Suggestions: kg, ks, gs, kegs, kos, k gs, kg s, laos, e.g., togo
+Line 22: eg -> Suggestions: Eg, eh, e, g, eng, neg, erg, reg, ego, leg, deg, egg, meg, peg, beg, e.g.
+Line 22: e.g, -> Suggestions: Eg, eh, e, g, eng, neg, erg, reg, ego, leg, deg, egg, meg, peg, beg, e.g.
+Line 22: e.g.. -> Suggestions: Eg, eh, e, g, eng, neg, erg, reg, ego, leg, deg, egg, meg, peg, beg, e.g.
+Line 22: eg., -> Suggestions: Eg, eh, e, g, eng, neg, erg, reg, ego, leg, deg, egg, meg, peg, beg, e.g.
+Line 22: (e.g), -> Suggestions: Eg, eh, e, g, eng, neg, erg, reg, ego, leg, deg, egg, meg, peg, beg, e.g.
+Line 22: e.g.,. -> Suggestions: Eg, eh, e, g, eng, neg, erg, reg, ego, leg, deg, egg, meg, peg, beg, e.g.
+Line 24: ie -> Suggestions: IE, ai, i, e, ire, tie, lie, ice, die, gie, pie, hie, fie, vie, Lie, i.e., niue
+Line 24: i.e, -> Suggestions: IE, ai, i, e, ire, tie, lie, ice, die, gie, pie, hie, fie, vie, Lie, i.e., niue
+Line 24: i.e.. -> Suggestions: IE, ai, i, e, ire, tie, lie, ice, die, gie, pie, hie, fie, vie, Lie, i.e., niue
+Line 24: ie., -> Suggestions: IE, ai, i, e, ire, tie, lie, ice, die, gie, pie, hie, fie, vie, Lie, i.e., niue
+Line 24: (i.e), -> Suggestions: IE, ai, i, e, ire, tie, lie, ice, die, gie, pie, hie, fie, vie, Lie, i.e., niue
+Line 24: i.e.,. -> Suggestions: IE, ai, i, e, ire, tie, lie, ice, die, gie, pie, hie, fie, vie, Lie, i.e., niue
 Line 30: MODRN -> Suggestions: morn, modern, mourn, Modred, oman, jordan, sudan
 Line 32: interational -> Suggestions: international, International, interrogational, interpretational, interjectional
 Line 32: dominnce, -> Suggestions: dominance, dominie, dominica
@@ -41,24 +41,17 @@ Line 60: War-era -> Suggestions: war era, war-era, ware, Ware, warfare, wagerer,
 Line 62: ethni, -> Suggestions: ethnic, estonia, yemeni
 Line 64: cross-border -> Suggestions: cross border, cross-border, crossbred
 Line 64: long-lasting -> Suggestions: long lasting, long-lasting, longstanding, lastingness, lasting, gloating
+[replace_dashes_with_logging] Line 2: '—' -> '–'
+[replace_dashes_with_logging] Line 3: '), Indian Institutes of Management (IIMs), and National Institutes of Technology (NITs) have not only redefined the educational landscape but have also emerged as pivotal players in the socio-economic ' -> '), Indian Institutes of Management (IIMs), and National Institutes of Technology (NITs) have not only redefined the educational landscape but have also emerged as pivotal players in the socio–economic '
+[replace_dashes_with_logging] Line 5: 'Two-fold five-fold ten-fold 11-fold 24fold' -> 'Two–fold five–fold ten–fold 11–fold 24fold'
 [insert_thin_space_between_number_and_unit] Line 6: '24fold' -> '24 fold'
-[insert_thin_space_between_number_and_unit] Line 7: '1969to' -> '1969 to'
+[replace_dashes_with_logging] Line 6: 'This is a two-fold approach from 1969–1973 and ' -> 'This is a two–fold approach from 1969–1973 and '
 [insert_thin_space_between_number_and_unit] Line 7: '1973and' -> '1973 and'
-[insert_thin_space_between_number_and_unit] Line 7: '1980and' -> '1980 and'
-[enforce_lowercase_units] Line 7: '24 kg' -> '24 kg'
-[enforce_lowercase_units] Line 7: '10 m' -> '10 m'
-Line 1: 10 m -> 10 meters (m)
-[unit correction] Doc 410, Line 1: She carried 24 kgs and walked 10 meters (m)'s. -> She carried 24 kg and walked 10 meters (m)'s.
-[insert_thin_space_between_number_and_unit] Line 8: '24kg' -> '24 kg'
-[insert_thin_space_between_number_and_unit] Line 8: '10meters' -> '10 meters'
-[enforce_lowercase_units] Line 8: '5 kg' -> '5 kg'
-Line 1: 5 kg -> 5 kilograms (kg)
-[insert_thin_space_between_number_and_unit] Line 9: '5kilograms' -> '5 kilograms'
-[enforce_lowercase_units] Line 9: '10 cm' -> '10 cm'
-[enforce_lowercase_units] Line 9: '20 cm' -> '20 cm'
-Line 1: 10 cm to 20 cm -> 10 to 20 cm
-[insert_thin_space_between_number_and_unit] Line 10: '10to' -> '10 to'
+[insert_thin_space_between_number_and_unit] Line 8: '24kgs' -> '24 kgs'
+[insert_thin_space_between_number_and_unit] Line 8: '10m's.' -> '10 m's.'
+[insert_thin_space_between_number_and_unit] Line 9: '5kg.s.' -> '5 kg.s.'
+[insert_thin_space_between_number_and_unit] Line 10: '10cm' -> '10 cm'
 [insert_thin_space_between_number_and_unit] Line 10: '20cm' -> '20 cm'
-[e.g. correction] Line 1: This is an example eg or e.g, or e.g.. or eg., and (e.g), or e.g.,. -> This is an example e.g. or e.g, or e.g. or e.g. and (e.g), or e.g,.
-[e.g. correction] Line 1: This is an example ie or i.e, or i.e.. or ie., and (i.e), or i.e.,. -> This is an example ie or i.e, or i.e. or ie, and (i.e), or i.e,.
-[i.e. correction] Line 1: This is an example ie or i.e, or i.e. or ie, and (i.e), or i.e,. -> This is an example i.e. or i.e, or i.e. or i.e, and (i.e), or i.e,.
+[replace_dashes_with_logging] Line 31: 'Proxy wars, where major powers support opposing factions within a conflict instead of engaging directly, have become a significant factor in destabilizing regions across the globe. These wars often emerge from geopolitical rivalries, with external actors providing financial, military, and logistical support to local groups that align with their interests. Examples such as the Syrian Civil War, the Yemeni conflict, and the Cold War-era conflicts in Southeast Asia and Africa illustrate the devastating effects of proxy wars on regional stability.' -> 'Proxy wars, where major powers support opposing factions within a conflict instead of engaging directly, have become a significant factor in destabilizing regions across the globe. These wars often emerge from geopolitical rivalries, with external actors providing financial, military, and logistical support to local groups that align with their interests. Examples such as the Syrian Civil War, the Yemeni conflict, and the Cold War–era conflicts in Southeast Asia and Africa illustrate the devastating effects of proxy wars on regional stability.'
+[replace_dashes_with_logging] Line 33: 'Proxy wars also destabilize neighboring countries through refugee crises, arms proliferation, and cross-border militant activities ' -> 'Proxy wars also destabilize neighboring countries through refugee crises, arms proliferation, and cross–border militant activities '
+[replace_dashes_with_logging] Line 33: ' these conflicts drag on, they weaken state institutions, hinder development, and leave long-lasting scars on the region. Addressing proxy wars requires coordinated global efforts to prioritize diplomacy over intervention and ensure sustainable peace.' -> ' these conflicts drag on, they weaken state institutions, hinder development, and leave long–lasting scars on the region. Addressing proxy wars requires coordinated global efforts to prioritize diplomacy over intervention and ensure sustainable peace.'

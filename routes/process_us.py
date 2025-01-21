@@ -16,6 +16,14 @@ import logging
 import roman
 from roman import fromRoman
 from urllib.parse import urlparse
+from pydantic import BaseModel
+from datetime import datetime, timedelta
+from jose import JWTError, jwt
+from typing import Dict
+from pydantic import BaseModel, RootModel
+from process_module.punctuation import process_doc_function1
+from process_module.NumberAndScientificUnit import process_doc_function2
+
 
 router = APIRouter()
 
@@ -190,7 +198,7 @@ def replace_curly_quotes_with_straight(text):
 def replace_straight_quotes_with_curly(text):
     # Replace straight double quotes with opening and closing curly quotes
     text = re.sub(r'(^|[\s([{])"', r'\1“', text)  # Opening double quotes
-    text = re.sub(r'"', r'”', text)  # Closing double quotes
+    text = re.sub(r'"', r'”', text)
     
     # Replace straight single quotes with opening and closing curly quotes
     text = re.sub(r"(^|[\s([{])'", r'\1‘', text)  # Opening single quotes
@@ -222,21 +230,6 @@ def correct_acronyms(text, line_number):
     corrected_text = " ".join(corrected_words)
     return corrected_text
 
-
-# Done
-# def enforce_am_pm(word, line_num):
-#     word_lower = word.lower()
-#     global global_logs
-#     if word_lower in {"am", "a.m", "pm", "p.m"}:
-#         if "a" in word_lower:
-#             corrected_word = "a.m."
-#             global_logs.append(f"[am pm change] Line {line_num}: {word} -> {corrected_word}")
-#             return corrected_word
-#         elif "p" in word_lower:
-#             corrected_word = "p.m."
-#             global_logs.append(f"[am pm change] Line {line_num}: {word} -> {corrected_word}")
-#             return corrected_word
-#     return word
 
 
 def enforce_am_pm(text, line_num):
@@ -975,30 +968,6 @@ def write_to_log(doc_id):
 
 
 
-# def replace_fold_phrases(text):
-#     def process_fold(match):
-#         num_str = match.group(1)
-#         separator = match.group(2)
-#         if separator != "-":
-#             return match.group(0)
-#         try:
-#             if num_str.isdigit():
-#                 number = int(num_str)
-#             else:
-#                 number = w2n.word_to_num(num_str)
-
-#             if number > 9:
-#                 return f"{number}-fold"
-#             else:
-#                 return f"{num2words(number)}fold"
-#         except ValueError:
-#             return match.group(0)
-#     pattern = r"(\b\w+\b)(-?)fold"
-#     updated_text = re.sub(pattern, process_fold, text)
-#     return updated_text
-
-
-
 
 # twofold not two-fold hyphenate with numeral for numbers greater than nine, e.g. 10-fold. 
 def replace_fold_phrases(text):
@@ -1097,48 +1066,6 @@ def correct_preposition_usage(text):
     return text
 
 
-
-
-
-# def correct_scientific_unit_symbols(text):
-#     """
-#     Ensures proper capitalization of units derived from proper names (e.g., J, Hz, W, N) only when preceded by a number.
-
-#     Args:
-#         text (str): Input text to process.
-
-#     Returns:
-#         str: Updated text.
-#     """
-#     units = {
-#         "j": "J",
-#         "hz": "Hz",
-#         "w": "W",
-#         "n": "N",
-#         "pa": "Pa",
-#         "v": "V",
-#         "a": "A",
-#         "c": "C",
-#         "lm": "lm",
-#         "lx": "lx",
-#         "t": "T",
-#         "ohm": "Ω",
-#         "s": "S",
-#         "k": "K",
-#         "cd": "cd",
-#         "mol": "mol",
-#         "rad": "rad",
-#         "sr": "sr"
-#     }
-
-#     def process_unit(match):
-#         unit = match.group(2).lower()  # Capture the unit (second group)
-#         return f"{match.group(1)}{units.get(unit, match.group(2))}"  # Replace with capitalized unit if in dictionary
-
-#     # Regex to match a number followed by optional space and a unit
-#     pattern = r"\b(\d+\s*)(%s)\b" % "|".join(re.escape(unit) for unit in units.keys())
-#     updated_text = re.sub(pattern, process_unit, text, flags=re.IGNORECASE)
-#     return updated_text
 
 
 
@@ -1317,14 +1244,6 @@ def correct_units_in_ranges_with_logging(text):
 
 
 
-# def correct_unit_spacing(text):
-#     units = ["Hz", "KHz", "MHz", "GHz", "kB", "MB", "GB", "TB"]
-#     pattern = r"(\d+)\s+(" + "|".join(units) + r")"    
-#     # Replace spaces between numbers and units with no space
-#     corrected_text = re.sub(pattern, r"\1\2", text)
-#     return corrected_text
-
-
 
 
 def correct_unit_spacing(text):
@@ -1462,23 +1381,6 @@ def rename_section(text):
 
 
 
-# def process_url_add_http(text):
-#     """
-#     Adjusts URLs in the input text based on the given rules:
-#     1. If a URL starts with 'www.' but doesn't have 'http://', prepend 'http://'.
-#     2. If a URL already starts with 'http://', remove 'http://'.
-
-#     Args:
-#         text (str): The input text containing URLs.
-
-#     Returns:
-#         str: The modified text with URLs adjusted.
-#     """
-#     text = re.sub(r'\bhttp://(www\.\S+)', r'\1', text)
-#     text = re.sub(r'\b(www\.\S+)', r'http://\1', text)
-#     # text = re.sub()
-#     return text
-
 
 def process_url_add_http(text):
     """
@@ -1523,14 +1425,6 @@ def process_url_add_http(text):
     return text
 
 
-
-
-# def process_url_remove_http(url):
-#     parsed = urlparse(url)
-#     if parsed.scheme == "http" and not (parsed.path or parsed.params or parsed.query or parsed.fragment):
-#         # If the scheme is http and there's nothing after the domain, remove the scheme
-#         return parsed.netloc
-#     return url
 
 
 
@@ -1602,22 +1496,17 @@ def remove_commas_from_numbers(text, line_number):
 
     # Regex to match numbers with commas (e.g., 1,000 or 20,000)
     pattern = r'\b\d{1,3}(,\d{3})+\b'
-
     def replacer(match):
         original_number = match.group(0)  # Match the original number
         updated_number = original_number.replace(",", " ")  # Remove commas
         changes.append((original_number, updated_number))  # Log the change
         return updated_number
-
-    # Replace numbers with commas in the text
     text = re.sub(pattern, replacer, text)
-
     # Log individual changes
     for original, updated in changes:
         global_logs.append(
             f"[process_symbols_in_doc] Line {line_number}: '{original}' -> '{updated}'"
         )
-
     return text
 
 
@@ -1824,11 +1713,130 @@ def process_string(text):
     return pattern.sub(replace_match, text)
  
 
+ 
+# put space between 
+def format_hyphen_to_en_dash(runs, line_number):
+    """
+    Replace hyphens with en dashes in a Word document paragraph's runs.
+    Adjust spacing based on surrounding context:
+    - Add spaces if there are words on both sides.
+    - Remove spaces if there are numbers on both sides.
+
+    Logs changes to the global 'global_logs' list.
+
+    :param runs: The runs of a paragraph (doc.paragraphs[n].runs)
+    :param line_number: The line number of the paragraph being processed
+    """
+    word_range_pattern = re.compile(r'(\b\w+)\s*-\s*(\w+\b)')
+    number_range_pattern = re.compile(r'(\d+)\s*-\s*(\d+)')
+    
+    for run in runs:
+        if run.text:
+            original_text = run.text
+            # Replace hyphen with en dash and remove spaces for number ranges
+            updated_text = number_range_pattern.sub(r'\1–\2', original_text)
+            # Replace hyphen with en dash and ensure spaces for word ranges
+            updated_text = word_range_pattern.sub(r'\1 – \2', updated_text)
+            
+            if updated_text != original_text:
+                # Log the change
+                global_logs.append(
+                    f"Line {line_number}: '{original_text}' -> '{updated_text}'"
+                )
+                # Update the run text
+                run.text = updated_text
+
+
+def replace_em_with_en(runs, line_number):
+    """
+    Replaces all em dashes (—) with en dashes (–) in the text of a paragraph's runs.    
+    Args:
+        runs: The runs of a paragraph (e.g., `para.runs`).
+        line_number: The line number of the paragraph for context (not used in the function directly).
+    """
+    for run in runs:
+        if '—' in run.text:
+            run.text = run.text.replace('—', '–')
+
+
+
+
+def replace_dashes(runs, line_number):
+    """
+    Replaces em dashes (—) and normal hyphens (-) with en dashes (–) in the text of a paragraph's runs.
+    Logs changes to a global list with details of the modification in the desired format.
+    
+    Args:
+        runs: The runs of a paragraph (e.g., `para.runs`).
+        line_number: The line number of the paragraph for context.
+    """
+    global global_logs
+    for run in runs:
+        original_text = run.text
+        modified_text = run.text.replace('—', '–').replace('-', '–')
+        
+        # If changes are made, update the text and log the change
+        if original_text != modified_text:
+            run.text = modified_text
+            global_logs.append(
+                f"[replace_dashes_with_logging] Line {line_number}: '{original_text}' -> '{modified_text}'"
+            )
+
+
+
+def convert_currency_to_symbols(runs, line_number):
+    """
+    Converts textual currency names (dollar, pound, euro) to symbols ($, £, €) 
+    when preceded by a numerical value in the text of a paragraph's runs.
+    Logs changes to a global list with details of the modification in the desired format.    
+    Args:
+        runs: The runs of a paragraph (e.g., `para.runs`).
+        line_number: The line number of the paragraph for context.
+    """
+    global global_logs
+    currency_patterns = {
+        r'(\b\d+\s*)dollars\b': r'$\1',
+        r'(\b\d+\s*)pounds\b': r'£\1',
+        r'(\b\d+\s*)euros\b': r'€\1'
+    }
+
+    for run in runs:
+        original_text = run.text
+        modified_text = original_text
+        # Apply each currency replacement pattern
+        for pattern, replacement in currency_patterns.items():
+            modified_text = re.sub(pattern, replacement, modified_text, flags=re.IGNORECASE)
+        # If changes are made, update the text and log the change
+        if original_text != modified_text:
+            run.text = modified_text
+            global_logs.append(
+                f"[convert_currency_to_symbols] Line {line_number}: '{original_text}' -> '{modified_text}'"
+            )
+
+
+
+def curly_to_straight(doc):
+    for para in doc.paragraphs:
+        para.text = replace_curly_quotes_with_straight(para.text)
+        
+        
+        
+        
+def staright_to_curly(doc):
+    for para in doc.paragraphs:
+        para.text = replace_straight_quotes_with_curly(para.text)
+
+
+
 def highlight_and_correct(doc):
     chapter_counter = [0]
     line_number = 1
     abbreviation_dict = fetch_abbreviation_mappings()
     for para in doc.paragraphs:
+        
+        replace_dashes(para.runs, line_number)
+        format_hyphen_to_en_dash(para.runs, line_number)
+        convert_currency_to_symbols(para.runs, line_number)
         
         # para.text = replace_curly_quotes_with_straight(para.text)
         
@@ -2001,13 +2009,25 @@ def extract_text_from_docx(file_path):
     except Exception as e:
         # logging.error(f"Error extracting text from file: {e}")
         return ""
+    
 
 
+SECRET_KEY = "Naveen"
+ALGORITHM = "HS256"
+ACCESS_TOKEN_EXPIRE_MINUTES = 60
 
-@router.get("/process_us")
-async def process_file(doc_id: int = Query(...)):
+class TokenRequest(BaseModel):
+    token: str
+    
+    
+    
+
+@router.post("/process_us")
+async def process_file(token_request: TokenRequest, doc_id: int = Query(...)):
     try:
-        # Connect to the database
+        payload = jwt.decode(token_request.token, SECRET_KEY, algorithms=[ALGORITHM])
+        print("Decoded Token Data:", payload)
+        
         conn = get_db_connection()
         if conn is None:
             raise HTTPException(status_code=500, detail="Database connection error")
@@ -2021,21 +2041,16 @@ async def process_file(doc_id: int = Query(...)):
         
         file_path = os.path.join(os.getcwd(), 'files', rows[1])
 
-        # Verify the file exists
         if not os.path.exists(file_path):
             raise HTTPException(status_code=404, detail="File not found on server")
 
-        # Start time of processing
         start_time = datetime.now()
 
-        # Extract raw text using Mammoth (you need your own extract_text_from_docx method)
         file_content = extract_text_from_docx(file_path)
         text = file_content
 
-        # Prepare log data for spell checking
         global_logs.append(f"FileName: {rows[1]}\n\n")
 
-        # Split text into lines and process each line for spelling errors
         lines = text.split('\n')
         for index, line in enumerate(lines):
             words = line.split()
@@ -2049,50 +2064,33 @@ async def process_file(doc_id: int = Query(...)):
                     )
                     global_logs.append(f"Line {index}: {word} ->{suggestion_text}")
 
-        # End time and time taken
         end_time = datetime.now()
         time_taken = round((end_time - start_time).total_seconds(), 2)
         time_log = f"\nStart Time: {start_time}\nEnd Time: {end_time}\nAnalysis completed in {time_taken} seconds.\n\n"
 
-        # Prepend the time log to the existing log data
         global_logs.insert(0, time_log)
 
-        # Define the log filename based on the document ID and name
         document_name = rows[1].replace('.docx', '')
         log_filename = f"log_main.txt"
         
-        # Define output path for the log file inside a directory based on doc_id
         output_path_file = Path(os.getcwd()) / 'output' / str(doc_id) / log_filename
         dir_path = output_path_file.parent
 
-        # Ensure the output directory exists
         dir_path.mkdir(parents=True, exist_ok=True)
-
-        # try:
-        #     # Read existing content of the log file if exists
-        #     if output_path_file.exists():
-        #         with open(output_path_file, "r", encoding="utf-8") as log_file:
-        #             existing_content = log_file.read()
-        #         with open(output_path_file, "w", encoding="utf-8") as log_file:
-        #             log_file.write(''.join(global_logs) + existing_content)
-        #     else:
-        #         # If the file doesn't exist, create it with the new log data
-        #         with open(output_path_file, "w", encoding="utf-8") as log_file:
-        #             log_file.write(''.join(global_logs))
-
-        # except FileNotFoundError:
-        #     # If the log file does not exist at all, create a new one
-        #     with open(output_path_file, "w", encoding="utf-8") as log_file:
-        #         log_file.write(''.join(global_logs))
-
-
+        
         output_dir = os.path.join("output", str(doc_id))
         os.makedirs(output_dir, exist_ok=True)
 
         output_path = os.path.join(output_dir, f"processed_{os.path.basename(file_path)}")
 
         doc = docx.Document(file_path)
-        highlight_and_correct(doc)
+        # highlight_and_correct(doc)
+        curly_to_straight(doc)
+        
+        process_doc_function1(payload, doc, doc_id)
+        process_doc_function2(payload, doc, doc_id)
+        
+        staright_to_curly(doc)
         doc.save(output_path)
 
         cursor.execute("SELECT final_doc_id FROM final_document WHERE row_doc_id = %s", (doc_id,))
@@ -2117,3 +2115,89 @@ async def process_file(doc_id: int = Query(...)):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+
+
+# Models
+# class CheckboxData(BaseModel):
+#     option1: bool
+#     option2: bool
+#     option3: bool
+
+# class CheckboxData(BaseModel):
+#     # Accept a dictionary with integer keys and boolean values
+#     __root__: Dict[int, bool]
+
+class CheckboxData(RootModel[Dict[int, bool]]):
+    """Root model to accept numeric keys with boolean values."""
+
+
+
+class TokenResponse(BaseModel):
+    token: str
+
+class TokenRequest(BaseModel):
+    token: str
+
+
+    
+    
+@router.post("/generate-token", response_model=TokenResponse)
+async def generate_token(checkbox_data: CheckboxData):
+    """
+    API endpoint to generate a JWT token from checkbox data with numeric keys.
+    """
+    try:
+        data = checkbox_data.root
+        to_encode = data.copy()
+
+        expire = datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+        to_encode.update({"exp": expire})
+
+        token = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+        return {"token": token}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error generating token: {str(e)}")
+
+
+
+# Decode and Use Token API
+@router.post("/use-token")
+async def use_token(token_request: TokenRequest):
+    try:
+        # Decode the token
+        payload = jwt.decode(token_request.token, SECRET_KEY, algorithms=[ALGORITHM])
+        return {"message": "Token processed successfully!", "data": payload}
+    except JWTError:
+        raise HTTPException(status_code=401, detail="Invalid or expired token")
+
+
+
+
+
+
+
+
+
+
+
+
+@router.get("/rules", summary="Get all rules", response_description="List of rules")
+def get_rules():
+    conn = get_db_connection()
+    try:
+        # Fetch all rules
+        cursor = conn.cursor()
+        cursor.execute("SELECT id, rule_name FROM rules")
+        rows = cursor.fetchall()
+        print(rows)
+        
+        if not rows:
+            raise HTTPException(status_code=404, detail="No rules found")
+        
+        # Convert rows to a list of dictionaries
+        rules = [{"id": row[0], "rule_name": row[1]} for row in rows]
+        return {"success": True, "data": rules}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+    finally:
+        conn.close()

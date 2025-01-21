@@ -1,7 +1,7 @@
 
-Start Time: 2025-01-10 15:09:54.923931
-End Time: 2025-01-10 15:10:21.421382
-Analysis completed in 26.5 seconds.
+Start Time: 2025-01-16 18:09:39.316634
+End Time: 2025-01-16 18:09:49.104015
+Analysis completed in 9.79 seconds.
 
 
 FileName: Chapter Testing.docx
@@ -41,10 +41,17 @@ Line 60: War-era -> Suggestions: war era, war-era, ware, Ware, warfare, wagerer,
 Line 62: ethni, -> Suggestions: ethnic, estonia, yemeni
 Line 64: cross-border -> Suggestions: cross border, cross-border, crossbred
 Line 64: long-lasting -> Suggestions: long lasting, long-lasting, longstanding, lastingness, lasting, gloating
+[replace_dashes_with_logging] Line 2: '—' -> '–'
+[replace_dashes_with_logging] Line 3: '), Indian Institutes of Management (IIMs), and National Institutes of Technology (NITs) have not only redefined the educational landscape but have also emerged as pivotal players in the socio-economic ' -> '), Indian Institutes of Management (IIMs), and National Institutes of Technology (NITs) have not only redefined the educational landscape but have also emerged as pivotal players in the socio–economic '
+[replace_dashes_with_logging] Line 5: 'Two-fold five-fold ten-fold 11-fold 24fold' -> 'Two–fold five–fold ten–fold 11–fold 24fold'
 [insert_thin_space_between_number_and_unit] Line 6: '24fold' -> '24 fold'
+[replace_dashes_with_logging] Line 6: 'This is a two-fold approach from 1969–1973 and ' -> 'This is a two–fold approach from 1969–1973 and '
 [insert_thin_space_between_number_and_unit] Line 7: '1973and' -> '1973 and'
 [insert_thin_space_between_number_and_unit] Line 8: '24kgs' -> '24 kgs'
 [insert_thin_space_between_number_and_unit] Line 8: '10m's.' -> '10 m's.'
 [insert_thin_space_between_number_and_unit] Line 9: '5kg.s.' -> '5 kg.s.'
 [insert_thin_space_between_number_and_unit] Line 10: '10cm' -> '10 cm'
 [insert_thin_space_between_number_and_unit] Line 10: '20cm' -> '20 cm'
+[replace_dashes_with_logging] Line 31: 'Proxy wars, where major powers support opposing factions within a conflict instead of engaging directly, have become a significant factor in destabilizing regions across the globe. These wars often emerge from geopolitical rivalries, with external actors providing financial, military, and logistical support to local groups that align with their interests. Examples such as the Syrian Civil War, the Yemeni conflict, and the Cold War-era conflicts in Southeast Asia and Africa illustrate the devastating effects of proxy wars on regional stability.' -> 'Proxy wars, where major powers support opposing factions within a conflict instead of engaging directly, have become a significant factor in destabilizing regions across the globe. These wars often emerge from geopolitical rivalries, with external actors providing financial, military, and logistical support to local groups that align with their interests. Examples such as the Syrian Civil War, the Yemeni conflict, and the Cold War–era conflicts in Southeast Asia and Africa illustrate the devastating effects of proxy wars on regional stability.'
+[replace_dashes_with_logging] Line 33: 'Proxy wars also destabilize neighboring countries through refugee crises, arms proliferation, and cross-border militant activities ' -> 'Proxy wars also destabilize neighboring countries through refugee crises, arms proliferation, and cross–border militant activities '
+[replace_dashes_with_logging] Line 33: ' these conflicts drag on, they weaken state institutions, hinder development, and leave long-lasting scars on the region. Addressing proxy wars requires coordinated global efforts to prioritize diplomacy over intervention and ensure sustainable peace.' -> ' these conflicts drag on, they weaken state institutions, hinder development, and leave long–lasting scars on the region. Addressing proxy wars requires coordinated global efforts to prioritize diplomacy over intervention and ensure sustainable peace.'
