@@ -3,9 +3,9 @@ from docx import Document
 import os
 from urllib.parse import urlparse
 
+
 # Global logs to keep track of changes
 global_logs = []
-
 
 
 def clean_web_addresses(text):
@@ -144,14 +144,14 @@ def write_to_log(doc_id):
     
 
 
-def process_doc_function3(payload: dict, doc: Document, doc_id):
+def process_doc_function4(payload: dict, doc: Document, doc_id):
     """
     This function processes the document by converting century notations
     and highlighting specific words.
     """
     line_number = 1
     for para in doc.paragraphs:
-        para.text = remove_url_underlining(para)
+        para.text = remove_url_underlining(para,line_number)
         para.text = clean_web_addresses(para.text)
         para.text = remove_concluding_slashes_from_urls(para.text, line_number)
         para.text = process_url_add_http(para.text)

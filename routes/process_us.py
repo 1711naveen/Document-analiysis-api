@@ -14,7 +14,6 @@ from datetime import datetime
 from pathlib import Path
 import logging  
 import roman
-from roman import fromRoman
 from urllib.parse import urlparse
 from pydantic import BaseModel
 from datetime import datetime, timedelta
@@ -23,6 +22,9 @@ from typing import Dict
 from pydantic import BaseModel, RootModel
 from process_module.punctuation import process_doc_function1
 from process_module.NumberAndScientificUnit import process_doc_function2
+from process_module.hyphen import process_doc_function3
+from process_module.formatting import process_doc_function4
+from process_module.chapters import process_doc_function6
 
 
 router = APIRouter()
@@ -360,33 +362,6 @@ def use_numerals_with_percent(text):
 
 
 
-# def enforce_eg_rule_with_logging(text):
-#     lines = text.splitlines()
-#     updated_lines = []
-#     for line_number, line in enumerate(lines, start=1):
-#         original_line = line
-
-#         # Step 1: Match "eg" or "e.g." with optional surrounding spaces and punctuation
-#         new_line = re.sub(r'\beg\b', 'e.g.', line, flags=re.IGNORECASE)
-#         new_line = re.sub(r'\beg,\b', 'e.g.', new_line, flags=re.IGNORECASE)  # Handle "eg,"
-
-#         # Step 2: Fix extra periods like `e.g..` or `e.g...,` and ensure proper punctuation
-#         new_line = re.sub(r'\.([.,])', r'\1', new_line)  # Removes an extra period before a comma or period
-#         new_line = re.sub(r'\.\.+', '.', new_line)  # Ensures only one period after e.g.
-
-#         # Step 3: Remove comma if e.g... is followed by it (e.g..., -> e.g.)
-#         new_line = re.sub(r'e\.g\.,', 'e.g.', new_line)
-
-#         # Log changes if the line is updated
-#         if new_line != line:
-#             global_logs.append(
-#                 f"[e.g. correction] Line {line_number}: {line.strip()} -> {new_line.strip()}"
-#             )
-        
-#         updated_lines.append(new_line)
-#     return "\n".join(updated_lines)
-
-
 
 def enforce_eg_rule_with_logging(text):
     lines = text.splitlines()
@@ -452,24 +427,6 @@ def enforce_ie_rule_with_logging(text):
 
 
 
-# def standardize_etc(line):
-#     line = re.sub(r'\b(et\.?\s?cetera|etc\.?,?|etc\.?\.?|etc\,?\.?)\b', 'etc.', line, flags=re.IGNORECASE)
-#     line = re.sub(r'(\betc\.)\.(?=\s|$)', r'\1', line)
-#     line = re.sub(r'(\betc\.)\.(?=\W)', r'\1', line)
-#     return line
-
-# def standardize_etc(text):
-#     lines = text.splitlines()
-#     updated_lines = []
-#     pattern = r'\b(e\.?tc|e\.t\.c|e\.t\.c\.|et\.?\s?c|et\s?c|etc\.?|etc|et cetera|etcetera|Etc\.?|Etc|‘and etc\.’|et\.?\s?cetera|etc\.?,?|etc\.?\.?|etc\,?\.?)\b'
-#     for line_number, line in enumerate(lines, start=1):
-#         original_line = line
-#         new_line = re.sub(pattern, 'etc.', line, flags=re.IGNORECASE)
-#         if new_line != line:
-#             global_logs.append(f"[etc. correction] Line {line_number}: {line.strip()} -> {new_line.strip()}")
-#         updated_lines.append(new_line)
-#     return "\n".join(updated_lines)
-
 
 def standardize_etc(text):
     lines = text.splitlines()
@@ -496,10 +453,9 @@ def standardize_etc(text):
             global_logs.append(f"[etc. correction] Line {line_number}: {line.strip()} -> {new_line.strip()}")
         
         updated_lines.append(new_line)
-        
-        
-    
     return "\n".join(updated_lines)
+
+
 
 # def adjust_ratios(text):
 #     return re.sub(r"(\d)\s*:\s*(\d)", r"\1 : \2", text)
@@ -753,7 +709,6 @@ def correct_possessive_names(text, line_number):
     pattern_singular_possessive = r"\b([A-Za-z]+s)\b(?<!\bs')'"
     matches_singular = re.finditer(pattern_singular_possessive, text)
     updated_text = text
-    
     for match in matches_singular:
         original_text = match.group(0)
         updated_text_singular = match.group(1)[:-1] + "'s"
@@ -849,7 +804,6 @@ def format_chapter_title(text):
 
 def format_titles_us_english_with_logging(text, doc_id):
     global global_logs
-
     titles = {
         "doctor": "Dr.",
         "mister": "Mr.",
@@ -861,22 +815,16 @@ def format_titles_us_english_with_logging(text, doc_id):
         "madam": "Madam",
         "saint": "St",
     }    
-    
     lines = text.splitlines()
     updated_lines = []
-
     for line_number, line in enumerate(lines, start=1):
         original_line = line
         for title, replacement in titles.items():
-            # Replace case-insensitive title with formatted title
             new_line = re.sub(rf"\b{title}\b", replacement, line, flags=re.IGNORECASE)
             if new_line != line:
-                # Log the change to the global array
                 global_logs.append(f"[shorten title] Line {line_number}: {title} -> {replacement}")
                 line = new_line
         updated_lines.append(line)
-
-    # Return the updated text
     return "\n".join(updated_lines)
 
 
@@ -890,29 +838,24 @@ def units_with_bracket(text, doc_id):
         "mol": "mole",
         "cd": "candela"
     }
-
     used_units = set()
     global global_logs
-
     processed_lines = []
     for line_num, line in enumerate(text.splitlines(), start=1):
         def replace_unit(match):
             number = match.group(1)
             unit = match.group(2)
-            
             if unit in used_units:
                 return match.group(0)
             else:
                 used_units.add(unit)
                 full_form = units[unit]
-
                 if unit != "mol" and not full_form.endswith("s"):
                     full_form += "s"
                 replacement = f"{number} {full_form} ({unit.lower()})"
                 global_logs.append(
                     f"Line {line_num}: {match.group(0)} -> {replacement}"
                 )
-
                 return replacement
         pattern = r'\b(\d+)\s*(%s)\b' % '|'.join(re.escape(unit) for unit in units.keys())
         processed_line = re.sub(pattern, replace_unit, line)
@@ -1037,30 +980,24 @@ def correct_preposition_usage(text):
         str: Updated text.
     """
     global global_logs
-
     def process_from_to(match):
         original = match.group(0)
         modified = f"from {match.group(1)} to {match.group(2)}"
-
         if original != modified:
             line_number = text[:match.start()].count('\n') + 1
             global_logs.append(
                 f"[correct_preposition_usage] Line {line_number}: '{original}' -> '{modified}'"
             )
-
         return modified
-
     def process_between_and(match):
         original = match.group(0)
         modified = f"between {match.group(1)} and {match.group(2)}"
-
         if original != modified:
             line_number = text[:match.start()].count('\n') + 1
             global_logs.append(
                 f"[correct_preposition_usage] Line {line_number}: '{original}' -> '{modified}'"
             )
         return modified
-
     text = re.sub(r"from (\d{4})[–-](\d{4})", process_from_to, text)
     text = re.sub(r"between (\d{4})[–-](\d{4})", process_between_and, text)
     return text
@@ -1072,15 +1009,12 @@ def correct_preposition_usage(text):
 def correct_scientific_unit_symbols(text):
     """
     Ensures proper capitalization of units derived from proper names (e.g., J, Hz, W, N) only when preceded by a number.
-
     Args:
         text (str): Input text to process.
-
     Returns:
         str: Updated text.
     """
     global global_logs
-
     units = {
         "j": "J",
         "hz": "Hz",
@@ -1101,21 +1035,16 @@ def correct_scientific_unit_symbols(text):
         "rad": "rad",
         "sr": "sr"
     }
-
     def process_unit(match):
         original = match.group(0)
-        unit = match.group(2).lower()  # Capture the unit (second group)
-        modified = f"{match.group(1)}{units.get(unit, match.group(2))}"  # Replace with capitalized unit if in dictionary
-
+        unit = match.group(2).lower()
+        modified = f"{match.group(1)}{units.get(unit, match.group(2))}"
         if original != modified:
-            line_number = text[:match.start()].count('\n') + 1  # Calculate the line number
+            line_number = text[:match.start()].count('\n') + 1
             global_logs.append(
                 f"[correct_scientific_unit_symbols] Line {line_number}: '{original}' -> '{modified}'"
             )
-
         return modified
-
-    # Regex to match a number followed by optional space and a unit
     pattern = r"\b(\d+\s*)(%s)\b" % "|".join(re.escape(unit) for unit in units.keys())
     updated_text = re.sub(pattern, process_unit, text, flags=re.IGNORECASE)
     return updated_text
@@ -1138,9 +1067,7 @@ def remove_quotation(text: str):
         str: Updated text.
     """
     global global_logs
-
     pattern = r"([A-Z]+)'"
-
     def process_quotation_removal(match):
         original = match.group(0)
         modified = f"{match.group(1)}"
@@ -1179,14 +1106,10 @@ def remove_and(text: str):
         str: Updated text.
     """
     global global_logs
-
-    # Regex pattern to match "and" between two capitalized words
     pattern = r'([A-Z][a-z]+)\s+and\s+([A-Z][a-z]+)'
-
     def process_and_replacement(match):
         original = match.group(0)
         modified = f"{match.group(1)} & {match.group(2)}"
-
         if original != modified:
             line_number = text[:match.start()].count('\n') + 1
             global_logs.append(
@@ -1255,14 +1178,11 @@ def correct_unit_spacing(text):
         str: Updated text.
     """
     global global_logs
-
     units = ["Hz", "KHz", "MHz", "GHz", "kB", "MB", "GB", "TB"]
     pattern = r"(\d+)\s+(" + "|".join(units) + r")"
-
     def process_spacing(match):
         original = match.group(0)
         modified = f"{match.group(1)}{match.group(2)}"
-
         if original != modified:
             line_number = text[:match.start()].count('\n') + 1
             global_logs.append(
@@ -1290,13 +1210,10 @@ def apply_quotation_punctuation_rule(text: str):
         str: Updated text.
     """
     global global_logs
-
     pattern = r"‘(.*?)’([!?])"
-
     def process_quotation_punctuation(match):
         original = match.group(0)
         modified = f"‘{match.group(1)}{match.group(2)}’"
-
         if original != modified:
             line_number = text[:match.start()].count('\n') + 1
             global_logs.append(
@@ -1349,15 +1266,6 @@ def apply_remove_italics_see_rule(text):
 
 
 # There is one problem here for project, & document it is not changing and for project & document it is changing
-# def replace_ampersand(text):
-#     def replacement(match):
-#         left, right = match.group(1), match.group(2)
-#         if left[0].isupper() and right[0].isupper():
-#             return match.group(0)
-#         return left + ' and ' + right    
-#     return re.sub(r'(\w+)\s*&\s*(\w+)', replacement, text)
-
-
 def replace_ampersand(text):
     global global_logs
     def replacement(match):
@@ -1550,10 +1458,8 @@ def set_latinisms_to_roman_in_runs(paragraph_text, line_number, latinisms=None):
             "i.e.", "e.g.", "via", "vice versa", "etc.", "a posteriori", 
             "a priori", "et al.", "cf.", "c."
         ]
-    
     changes = []
     global global_logs
-
     # Process the text, and for each Latinism, replace its italics if needed
     for lat in latinisms:
         if lat in paragraph_text:
@@ -1563,7 +1469,6 @@ def set_latinisms_to_roman_in_runs(paragraph_text, line_number, latinisms=None):
     #     global_logs.append(
     #         f"[process_symbols_in_doc] Line {line_number}: '{changed}' -> '{changed}'"
     #     )
-
     return paragraph_text 
 
 
@@ -1614,7 +1519,6 @@ def word_to_number(word):
 
 # Function to process text and replace words with numbers, and numbers with words
 def convert_text(text):
-    
     text = re.sub(r'\b([1-9]|10)\b', lambda match: number_to_word(int(match.group(0))), text)
     text = re.sub(r'\b(one|two|three|four|five|six|seven|eight|nine|ten)\s*(kg|m|cm|g|l)\b', 
     lambda match: str(word_to_number(match.group(1))) + ' ' + match.group(2), text, flags=re.IGNORECASE)
@@ -1691,7 +1595,6 @@ def process_string(text):
     def replace_match(match):
         word1 = match.group(1)
         word2 = match.group(2)
-        
         # Convert words to their numeric values
         num1 = word_to_int(word1)
         num2 = word_to_int(word2)
@@ -1721,15 +1624,12 @@ def format_hyphen_to_en_dash(runs, line_number):
     Adjust spacing based on surrounding context:
     - Add spaces if there are words on both sides.
     - Remove spaces if there are numbers on both sides.
-
     Logs changes to the global 'global_logs' list.
-
     :param runs: The runs of a paragraph (doc.paragraphs[n].runs)
     :param line_number: The line number of the paragraph being processed
     """
     word_range_pattern = re.compile(r'(\b\w+)\s*-\s*(\w+\b)')
     number_range_pattern = re.compile(r'(\d+)\s*-\s*(\d+)')
-    
     for run in runs:
         if run.text:
             original_text = run.text
@@ -1737,7 +1637,6 @@ def format_hyphen_to_en_dash(runs, line_number):
             updated_text = number_range_pattern.sub(r'\1–\2', original_text)
             # Replace hyphen with en dash and ensure spaces for word ranges
             updated_text = word_range_pattern.sub(r'\1 – \2', updated_text)
-            
             if updated_text != original_text:
                 # Log the change
                 global_logs.append(
@@ -1765,7 +1664,6 @@ def replace_dashes(runs, line_number):
     """
     Replaces em dashes (—) and normal hyphens (-) with en dashes (–) in the text of a paragraph's runs.
     Logs changes to a global list with details of the modification in the desired format.
-    
     Args:
         runs: The runs of a paragraph (e.g., `para.runs`).
         line_number: The line number of the paragraph for context.
@@ -1774,8 +1672,6 @@ def replace_dashes(runs, line_number):
     for run in runs:
         original_text = run.text
         modified_text = run.text.replace('—', '–').replace('-', '–')
-        
-        # If changes are made, update the text and log the change
         if original_text != modified_text:
             run.text = modified_text
             global_logs.append(
@@ -1834,124 +1730,140 @@ def highlight_and_correct(doc):
     abbreviation_dict = fetch_abbreviation_mappings()
     for para in doc.paragraphs:
         
-        replace_dashes(para.runs, line_number)
-        format_hyphen_to_en_dash(para.runs, line_number)
-        convert_currency_to_symbols(para.runs, line_number)
-        
-        # para.text = replace_curly_quotes_with_straight(para.text)
-        
+        # replace_dashes(para.runs, line_number)
+        # format_hyphen_to_en_dash(para.runs, line_number)
+        # convert_currency_to_symbols(para.runs, line_number)        
+        # para.text = replace_curly_quotes_with_straight(para.text)        
         # if para.text.strip().startswith("Chapter"):
         #     para.text = correct_chapter_numbering(para.text, chapter_counter)
         #     formatted_title = format_chapter_title(para.text)
-        #     para.text = formatted_title
-            
-        # para.text = process_symbols_mark(para.text, line_number)
-        # para.text = remove_commas_from_numbers(para.text, line_number)
-        # para.text = remove_spaces_from_four_digit_numbers(para.text, line_number)
-        # para.text = set_latinisms_to_roman_in_runs(para.text,line_number)
-        # para.text = convert_decimal_to_baseline(para.text,line_number)
-        
-        # para.text = rename_section(para.text)
-        # para.text = replace_ampersand(para.text)
-        # para.text = correct_scientific_unit_symbols(para.text)
-        # para.text = adjust_ratios(para.text)
-        # para.text = format_dates(para.text, line_number)
+        #     para.text = formatted_title            
+        # para.text = process_symbols_mark(para.text, line_number) done punctattion
+        # para.text = remove_commas_from_numbers(para.text, line_number) done numbers
+        # para.text = remove_spaces_from_four_digit_numbers(para.text, line_number) done numbers
+        # para.text = set_latinisms_to_roman_in_runs(para.text,line_number) done punctattion
+        # para.text = convert_decimal_to_baseline(para.text,line_number) done numbers
+        # para.text = rename_section(para.text) done punctuation
+        # para.text = replace_ampersand(para.text) done punctuation
+        # para.text = correct_scientific_unit_symbols(para.text) done punctuation
+        # para.text = adjust_ratios(para.text) done punctuation
+        # para.text = format_dates(para.text, line_number) done punctuation
         # # para.text = spell_out_number_and_unit_with_rules(para.text,line_number)
-        # para.text = remove_space_between_degree_and_direction(para.text, line_number)
-        # para.text = enforce_lowercase_units(para.text, line_number)
-        # para.text = precede_decimal_with_zero(para.text, line_number)
+        # para.text = remove_space_between_degree_and_direction(para.text, line_number) done punctuation
+        # para.text = enforce_lowercase_units(para.text, line_number) done punctuation
+        # para.text = precede_decimal_with_zero(para.text, line_number) done punctuation
         # para.text = format_ellipses_in_series(para.text) # not added in log and not working
-        # para.text = correct_possessive_names(para.text, line_number)
-        # para.text = use_numerals_with_percent(para.text)
-        # para.text = remove_concluding_slashes_from_urls(para.text, line_number)
-        # para.text = clean_web_addresses(para.text)
-
-        # para.text = apply_abbreviation_mapping(para.text, abbreviation_dict, line_number)
-        # para.text = apply_number_abbreviation_rule(para.text, line_number)
-
-        # para.text = format_titles_us_english_with_logging(para.text)
-        # para.text = units_with_bracket(para.text)
-        # para.text = correct_units_in_ranges_with_logging(para.text,line_number)#check
-        # para.text = correct_scientific_units_with_logging(para.text)
-        # para.text = replace_fold_phrases(para.text)
-        # para.text = correct_preposition_usage(para.text)
-        # para.text = correct_unit_spacing(para.text)
+        # para.text = correct_possessive_names(para.text, line_number) done punctuation
+        # para.text = use_numerals_with_percent(para.text) done punctuation
+        # para.text = remove_concluding_slashes_from_urls(para.text, line_number) done punctuation
+        # para.text = clean_web_addresses(para.text) done punctuation
+        # para.text = apply_abbreviation_mapping(para.text, abbreviation_dict, line_number) done punctuation
+        # para.text = apply_number_abbreviation_rule(para.text, line_number) done punctuation
+        # para.text = format_titles_us_english_with_logging(para.text) done punctuation
+        # para.text = units_with_bracket(para.text) done punctuation
+        # para.text = correct_units_in_ranges_with_logging(para.text,line_number)  done punctuation
+        # para.text = correct_scientific_units_with_logging(para.text)  done punctuation
+        # para.text = replace_fold_phrases(para.text)  done punctuation
+        # para.text = correct_preposition_usage(para.text)  done punctuation
+        # para.text = correct_unit_spacing(para.text)  done punctuation
+        # para.text = remove_and(para.text) done punctuation
+        # para.text = remove_quotation(para.text)  done punctuation
+        # para.text = convert_text(para.text) not done
+        # para.text = apply_quotation_punctuation_rule(para.text) not done
+        # para.text = enforce_dnase_rule(para.text) not done
+        # para.text = correct_acronyms(para.text, line_number)  done punctuation
+        # para.text = enforce_am_pm(para.text, line_number)  done punctuation
+        # para.text = enforce_eg_rule_with_logging(para.text)  done punctuation
+        # para.text = enforce_ie_rule_with_logging(para.text)  done punctuation
+        # para.text = enforce_serial_comma(para.text)  done punctuation
+        # para.text = apply_remove_italics_see_rule(para.text)  done punctuation
+        # para.text = process_string(para.text) not done
+        # para.text = standardize_etc(para.text) done punctuation
+        # para.text = process_url_add_http(para.text) done punctuation
+        # para.text = process_url_remove_http(para.text) done punctuation
         
-        # para.text = remove_and(para.text)
-        # para.text = remove_quotation(para.text)
-        # para.text = convert_text(para.text)
-        
-        # para.text = apply_quotation_punctuation_rule(para.text)
-        # para.text = enforce_dnase_rule(para.text)
-        
-        # para.text = correct_acronyms(para.text, line_number)
-        # para.text = enforce_am_pm(para.text, line_number)
-        
-        # para.text = enforce_eg_rule_with_logging(para.text)
-        # para.text = enforce_ie_rule_with_logging(para.text)
-        # para.text = enforce_serial_comma(para.text)
-        # para.text = apply_remove_italics_see_rule(para.text)
-        # para.text = process_string(para.text)
-        
-        # para.text = standardize_etc(para.text)
-        # para.text = process_url_add_http(para.text)
-        # para.text = process_url_remove_http(para.text)
-        
-        lines = para.text.split('\n')
-        updated_lines = []
-        for line in lines:
-            corrected_line = convert_century(line, line_number)
-            updated_lines.append(corrected_line)
-            line_number += 1
+        # lines = para.text.split('\n')
+        # updated_lines = []
+        # for line in lines:
+        #     corrected_line = convert_century(line, line_number)
+        #     updated_lines.append(corrected_line)
+        #     line_number += 1
 
-        para.text = '\n'.join(updated_lines)
-        formatted_runs = []
-        
-        # for run in para.runs:
-        #     run_text = replace_curly_quotes_with_straight(run.text)
-        #     run_text = insert_thin_space_between_number_and_unit(run_text, line_number)
-            
-        #     words = run_text.split()
-        #     for i, word in enumerate(words):
-        #         original_word = word
-        #         punctuation = ""
-
-        #         if word[-1] in ",.?!;\"'()[]{}":
-        #             punctuation = word[-1]
-        #             word = word[:-1]
-
-        #         if (word.startswith('"') and word.endswith('"')) or (word.startswith("'") and word.endswith('"')):
-        #             formatted_runs.append((word, None))
-        #             if i < len(words) - 1:
-        #                 formatted_runs.append((" ", None))
-        #             continue
-
-        #         word = remove_unnecessary_apostrophes(word, line_number)
-
-        #         cleaned_word = clean_word(word)
-        #         corrected_word = cleaned_word
-
-        #         if cleaned_word:
-        #             # corrected_word = correct_acronyms(cleaned_word, line_number)
-        #             # corrected_word = enforce_am_pm(corrected_word, line_number)
-
-        #             if corrected_word != cleaned_word:
-        #                 formatted_runs.append((corrected_word + punctuation, RGBColor(0, 0, 0)))
-        #             elif not us_dict.check(corrected_word.lower()):
-        #                 formatted_runs.append((corrected_word + punctuation, RGBColor(255, 0, 0)))
-        #             else:
-        #                 formatted_runs.append((corrected_word + punctuation, None))
-        #         else:
-        #             formatted_runs.append((original_word + punctuation, None))
-
-        #         if i < len(words) - 1:
-        #             formatted_runs.append((" ", None))
-        
+        # para.text = '\n'.join(updated_lines)
+#         Subtlety #1: Not giving a fuck does not mean being indifferent; it
+# means being comfortable with being different.
+# Let’s be clear. There’s absolutely nothing admirable or confident about
+# indifference. People who are indifferent are lame and scared. They’re couch
+# potatoes and Internet trolls. In fact, indifferent people often attempt to be
+# indifferent because in reality they give way too many fucks. They give a fuck
+# about what everyone thinks of their hair, so they never bother washing or
+# combing it. They give a fuck about what everyone thinks of their ideas, so
+# they hide behind sarcasm and self-righteous snark. They’re afraid to let
+# anyone get close to them, so they imagine themselves as some special, unique
+# snowflake who has problems that nobody else would ever understand.
+# Indifferent people are afraid of the world and the repercussions of their
+# own choices. That’s why they don’t make any meaningful choices. They hide
+# in a gray, emotionless pit of their own making, self-absorbed and self-pitying,
+# perpetually distracting themselves from this unfortunate thing demanding
+# their time and energy called life.
+# Because here’s a sneaky truth about life. There’s no such thing as not
+# giving a fuck. You must give a fuck about something. It’s part of our biology
+# to always care about something and therefore to always give a fuck.
+# The question, then, is, What do we give a fuck about? What are we
+# choosing to give a fuck about? And how can we not give a fuck about what
+# ultimately does not matter?
+# My mother was recently screwed out of a large chunk of money by a
+# close friend of hers. Had I been indifferent, I would have shrugged my
+# shoulders, sipped my mocha, and downloaded another season of The Wire.
+# Sorry, Mom.
+# But instead, I was indignant. I was pissed off. I said, “No, screw that,
+# Mom. We’re going to lawyer the fuck up and go after this asshole. Why?
+# Because I don’t give a fuck. I will ruin this guy’s life if I have to.”
+# This illustrates the first subtlety of not giving a fuck. When we say,
+# “Damn, watch out, Mark Manson just don’t give a fuck,” we don’t mean that
+# Mark Manson doesn’t care about anything; on the contrary, we mean that
+# Mark Manson doesn’t care about adversity in the face of his goals, he doesn’t
+# care about pissing some people off to do what he feels is right or important or
+# noble. We mean that Mark Manson is the type of guy who would write about
+# himself in third person just because he thought it was the right thing to do. He
+# just doesn’t give a fuck.
+# This is what is so admirable. No, not me, dumbass—the overcoming
+# adversity stuff, the willingness to be different, an outcast, a pariah, all for the
+# sake of one’s own values. The willingness to stare failure in the face and
+# shove your middle finger back at it. The people who don’t give a fuck about
+# adversity or failure or embarrassing themselves or shitting the bed a few
+# times. The people who just laugh and then do what they believe in anyway.
+# Because they know it’s right. They know it’s more important than they are,
+# more important than their own feelings and their own pride and their own
+# ego. They say, “Fuck it,” not to everything in life, but rather to everything
+# unimportant in life. They reserve their fucks for what truly matters. Friends.
+# Family. Purpose. Burritos. And an occasional lawsuit or two. And because of
+# that, because they reserve their fucks for only the big things that matter,
+# people give a fuck about them in return.
+# Because here’s another sneaky little truth about life. You can’t be an
+# important and life-changing presence for some people without also being a
+# joke and an embarrassment to others. You just can’t. Because there’s no such
+# thing as a lack of adversity. It doesn’t exist. The old saying goes that no
+# matter where you go, there you are. Well, the same is true for adversity and
+# failure. No matter where you go, there’s a five-hundred-pound load of shit
+# waiting for you. And that’s perfectly fine. The point isn’t to get away from
+# the shit. The point is to find the shit you enjoy dealing with.
+# Subtlety #2: To not give a fuck about adversity, you must first give a
+# fuck about something more important than adversity.
+# Imagine you’re at a grocery store, and you watch an elderly lady scream
+# at the cashier, berating him for not accepting her thirty-cent coupon. Why
+# does this lady give a fuck? It’s just thirty cents.
+# I’ll tell you why: That lady probably doesn’t have anything better to do
+# with her days than to sit at home cutting out coupons. She’s old and lonely.
+# Her kids are dickheads and never visit. She hasn’t had sex in over thirty
+# years. She can’t fart without extreme lower-back pain. Her pension is on its
+# last legs, and she’s probably going to die in a diaper thinking she’s in Candy
+# Land
+        formatted_runs = []        
         for run in para.runs:
             # run_text = replace_curly_quotes_with_straight(run.text)
-            run_text = insert_thin_space_between_number_and_unit(run.text, line_number)
-
-            words = run_text.split()
+            # run_text = insert_thin_space_between_number_and_unit(run.text, line_number)
+            words = run.text.split()
             for i, word in enumerate(words):
                 original_word = word
                 punctuation = ""
@@ -1981,13 +1893,11 @@ def highlight_and_correct(doc):
                 if i < len(words) - 1:
                     formatted_runs.append((" ", None))
                     
-
-        # Clear paragraph and rebuild runs
         para.clear()
         
         for text, color in formatted_runs:
-            adjusted_text = replace_straight_quotes_with_curly(text)
-            new_run = para.add_run(adjusted_text)
+            # adjusted_text = replace_straight_quotes_with_curly(text)
+            new_run = para.add_run(text)
             if color:
                 new_run.font.color.rgb = color
 
@@ -1995,9 +1905,6 @@ def highlight_and_correct(doc):
 
 def clean_word1(word):
     return ''.join(filter(str.isalnum, word)).lower()
-
-
-
 
 
 # Helper function to extract text from docx file
@@ -2014,13 +1921,12 @@ def extract_text_from_docx(file_path):
 
 SECRET_KEY = "Naveen"
 ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 60
+ACCESS_TOKEN_EXPIRE_MINUTES = 600
+
 
 class TokenRequest(BaseModel):
     token: str
-    
-    
-    
+
 
 @router.post("/process_us")
 async def process_file(token_request: TokenRequest, doc_id: int = Query(...)):
@@ -2084,11 +1990,14 @@ async def process_file(token_request: TokenRequest, doc_id: int = Query(...)):
         output_path = os.path.join(output_dir, f"processed_{os.path.basename(file_path)}")
 
         doc = docx.Document(file_path)
-        # highlight_and_correct(doc)
+        highlight_and_correct(doc)
         curly_to_straight(doc)
         
         process_doc_function1(payload, doc, doc_id)
         process_doc_function2(payload, doc, doc_id)
+        process_doc_function3(payload, doc, doc_id)
+        process_doc_function4(payload, doc, doc_id)
+        process_doc_function6(payload, doc, doc_id)
         
         staright_to_curly(doc)
         doc.save(output_path)
@@ -2117,20 +2026,8 @@ async def process_file(token_request: TokenRequest, doc_id: int = Query(...)):
 
 
 
-# Models
-# class CheckboxData(BaseModel):
-#     option1: bool
-#     option2: bool
-#     option3: bool
-
-# class CheckboxData(BaseModel):
-#     # Accept a dictionary with integer keys and boolean values
-#     __root__: Dict[int, bool]
-
 class CheckboxData(RootModel[Dict[int, bool]]):
     """Root model to accept numeric keys with boolean values."""
-
-
 
 class TokenResponse(BaseModel):
     token: str

@@ -1,0 +1,998 @@
+
+Start Time: 2025-01-22 11:51:59.902959
+End Time: 2025-01-22 12:01:14.133481
+Analysis completed in 554.23 seconds.
+
+
+FileName: Sample Ch 2.docx
+
+
+Line 16: (NLP) -> Suggestions: nip, nap, alp, LPN, nepal, niue, mali
+Line 18: NLP -> Suggestions: nip, nap, alp, LPN, nepal, niue, mali
+Line 22: modelling. -> Suggestions: modeling, model ling, model-ling, Medellin
+Line 22: dfgjskdhf -> No suggestions available
+Line 26: NLP -> Suggestions: nip, nap, alp, LPN, nepal, niue, mali
+Line 26: NLP -> Suggestions: nip, nap, alp, LPN, nepal, niue, mali
+Line 26: NLP -> Suggestions: nip, nap, alp, LPN, nepal, niue, mali
+Line 30: utilised -> Suggestions: utilized, utilize
+Line 30: NLP -> Suggestions: nip, nap, alp, LPN, nepal, niue, mali
+Line 30: NLP -> Suggestions: nip, nap, alp, LPN, nepal, niue, mali
+Line 34: NLP. -> Suggestions: nip, nap, alp, LPN, nepal, niue, mali
+Line 34: NLP. -> Suggestions: nip, nap, alp, LPN, nepal, niue, mali
+Line 34: NLP -> Suggestions: nip, nap, alp, LPN, nepal, niue, mali
+Line 34: NLP -> Suggestions: nip, nap, alp, LPN, nepal, niue, mali
+Line 34: normalisation -> Suggestions: normalization, formalization, malformation, misinformation, sensationalism
+Line 34: lemmatisation. -> Suggestions: solemnization, sensationalism, malversation, emasculation
+Line 34: tokenisation -> Suggestions: dispensation
+Line 34: grammar-based -> Suggestions: grammar based, grammar-based, grammarian
+Line 34: modelling, -> Suggestions: modeling, model ling, model-ling, Medellin
+Line 34: emphasising -> Suggestions: emphasizing, emphasis
+Line 34: co-occurrence. -> Suggestions: co occurrence, co-occurrence, reoccurrence, nonoccurrence, occurrence, concurrence
+Line 38: perceptron -> Suggestions: perception, percept, Percheron
+Line 38: modelling -> Suggestions: modeling, model ling, model-ling, Medellin
+Line 38: perceptrons -> Suggestions: perceptions, perception, peppercorns
+Line 38: gradient-based -> Suggestions: gradient based, gradient-based, gradient
+Line 38: backpropagation. -> Suggestions: back propagation, back-propagation, propagation
+Line 38: hyperparameters -> Suggestions: hyper parameters, hyper-parameters, parameters
+Line 44: Joseph -> Suggestions: Joseph
+Line 44: Weizenbaum -> Suggestions: Weizmann
+Line 44: ELIZA -> Suggestions: Eliza, belize
+Line 44: (Weizenbaum -> Suggestions: Weizmann
+Line 44: rule-based -> Suggestions: rule based, rule-based, freebased
+Line 44: chatbot -> Suggestions: chat bot, chat-bot, catboat
+Line 44: Eugene -> Suggestions: Eugene, europe
+Line 44: Goostman, -> Suggestions: postman
+Line 44: chatbot, -> Suggestions: chat bot, chat-bot, catboat
+Line 44: Turing -> Suggestions: truing, Turing, tiring, turning, touring, turfing, taring, tuning, luring, curing, during, tubing, turkey
+Line 44: Eugene -> Suggestions: Eugene, europe
+Line 44: revolutionised -> Suggestions: revolutionized, revolutionist, revolutionism, revolutionize, devolutionist
+Line 44: (Vaswani -> Suggestions: Aswan, taiwan
+Line 44: ChatGPT, -> Suggestions: chatting
+Line 44: NLP -> Suggestions: nip, nap, alp, LPN, nepal, niue, mali
+Line 50: contextualisation, -> Suggestions: contextualization, contextualist, contextualism, contextualize, conceptualization
+Line 50: curd’and -> Suggestions: curd and, curd-and, lurdan, jordan, sudan
+Line 50: Rahul’. -> Suggestions: Raul, brazil
+Line 50: NLP -> Suggestions: nip, nap, alp, LPN, nepal, niue, mali
+Line 54: Processin -> Suggestions: procession, processing, process in, process-in, processor, process, precession, prosiness
+Line 56: development—they -> Suggestions: development they, development-they, developmental, development
+Line 56: Alister -> Suggestions: lister, glister, blister, a lister, literalist, aerialist, Lister, serialist
+Line 56: Elaine -> Suggestions: Elaine, delaine, Helaine, Blaine, ukraine, belize, spain
+Line 56: Morgan -> Suggestions: Morgan, organ, morgen, m organ, jordan
+Line 60: neurolinguistics, -> Suggestions: sociolinguistics, psycholinguistics, sociolinguistic, metalinguistics
+Line 60: Noam -> Suggestions: noma, moan, nom, norm, roam, loam, foam, no am, no-am, guam
+Line 60: Chomsky -> Suggestions: Chomsky
+Line 60: Steven -> Suggestions: Steven, seven, sweven, st even, st-even, sweden
+Line 60: hypothesise -> Suggestions: hypothesis, hypothesize, hypothesis e, hypotheses
+Line 60: (Jurafsky -> Suggestions: juratory
+Line 60: Vaneechoutte -> No suggestions available
+Line 66: Language-related -> Suggestions: language related, language-related, interlanguage, triangulated
+Line 66: (Tsujii -> Suggestions: jujitsu, Fujitsu
+Line 66: (NLP), -> Suggestions: nip, nap, alp, LPN, nepal, niue, mali
+Line 72: NLP -> Suggestions: nip, nap, alp, LPN, nepal, niue, mali
+Line 72: emphasises -> Suggestions: emphasizes, emphasis's, emphasis es, emphasis-es, emphasis, emphases, emphasize
+Line 78: NLP -> Suggestions: nip, nap, alp, LPN, nepal, niue, mali
+Line 78: modelled -> Suggestions: modeled, model led, model-led, modeler, model, modded, molded
+Line 78: machine-readable -> Suggestions: machine readable, machine-readable, machinable
+Line 78: NLP -> Suggestions: nip, nap, alp, LPN, nepal, niue, mali
+Line 78: NLP-based -> Suggestions: abased
+Line 90: (NLP). -> Suggestions: nip, nap, alp, LPN, nepal, niue, mali
+Line 90: NLP -> Suggestions: nip, nap, alp, LPN, nepal, niue, mali
+Line 90: sentence-level -> Suggestions: sentence level, sentence-level, sentence
+Line 90: word-level -> Suggestions: word level, word-level, wordless
+Line 90: node-to-edge -> Suggestions: knowledge
+Line 90: non-exhaustive -> Suggestions: non exhaustive, non-exhaustive, exhaustiveness, exhaustive, exhaustion
+Line 90: NLP. -> Suggestions: nip, nap, alp, LPN, nepal, niue, mali
+Line 96: Part-of-Speech -> Suggestions: speechmaker
+Line 96: NLP, -> Suggestions: nip, nap, alp, LPN, nepal, niue, mali
+Line 96: Penn -> Suggestions: Penn, pen, penne, penni, penna, penny, peen, pens, pean, pent, peon, pend, peng, Tenn, Venn, peru, benin
+Line 96: Treebank -> Suggestions: tree bank, tree-bank, Treblinka
+Line 98: (NER): -> Suggestions: nee, net, ne, nr, er, near, nerd, ser, ter, nor, der, neg, ger, per, her, niger, peru
+Line 98: real-world -> Suggestions: real world, real-world, dreamworld
+Line 98: organisation, -> Suggestions: organization, organist, sanitation
+Line 98: organisation -> Suggestions: organization, organist, sanitation
+Line 98: ‘NORP’ -> Suggestions: porn, nor, corp, dorp, gorp, norm, Corp, nor p, Nor, norway, niue, nauru, peru, togo
+Line 102: Labelling: -> Suggestions: labeling, la belling, la-belling, label ling, label-ling, belling, glabella, gelling
+Line 104: Hindi, -> Suggestions: Hindi, hind, hinds, hin di, hin-di, hind i, india
+Line 104: मैं -> Suggestions: e, s, i, a, n, r, t, o, l, c, d, u, g, m, p
+Line 104: का -> Suggestions: e, s, i, a, n, r, t, o, l, c, d, u, g, m, p
+Line 104: समर्थन -> No suggestions available
+Line 104: नहीं -> No suggestions available
+Line 104: करता. -> No suggestions available
+Line 104: वे -> Suggestions: e, s, i, a, n, r, t, o, l, c, d, u, g, m, p
+Line 104: भारतीय -> No suggestions available
+Line 104: बीमािरयों -> No suggestions available
+Line 104: के -> Suggestions: e, s, i, a, n, r, t, o, l, c, d, u, g, m, p
+Line 104: िलए -> No suggestions available
+Line 104: कम -> No suggestions available
+Line 104: फंड -> No suggestions available
+Line 104: देते -> No suggestions available
+Line 104: हैं।. -> Suggestions: e, s, i, a, n, r, t, o, l, c, d, u, g, m, p
+Line 110: NLP. -> Suggestions: nip, nap, alp, LPN, nepal, niue, mali
+Line 114: Summarisation: -> Suggestions: summarization, summational, summation
+Line 122: free-flowing -> Suggestions: free flowing, free-flowing, flowering
+Line 122: machine-readable -> Suggestions: machine readable, machine-readable, machinable
+Line 122: PDFs, -> Suggestions: PDF, peru, laos
+Line 122: (OCR) -> Suggestions: OCR, cor, orc, oct, or, cr, roc, scr, oar, our, och, o cr, oman, peru, cocos, togo
+Line 122: datasets -> Suggestions: data sets, data-sets, databases, database, tassets, assets
+Line 122: open-domain -> Suggestions: open domain, open-domain, domaine
+Line 126: misspelt -> Suggestions: misspent, misspell, miss pelt, miss-pelt
+Line 126: deduplication. -> Suggestions: reduplication, de duplication, de-duplication, duplication, quadruplication, conduplicate, supplication
+Line 126: Unicode -> Suggestions: Unicode, uni code, uni-code
+Line 130: Pre-processing. -> Suggestions: reprocessing, p reprocessing, teleprocessing, processioning, processing, prepossessing
+Line 130: normalising -> Suggestions: normalizing, formalizing
+Line 130: lowercasing, -> Suggestions: lower casing, lower-casing, lowercase
+Line 130: stop-word -> Suggestions: stop word, stop-word, Stoppard
+Line 130: lemmatisation, -> Suggestions: solemnization, sensationalism, malversation, emasculation
+Line 130: one-size-fits-all -> No suggestions available
+Line 130: preprocessing -> Suggestions: reprocessing, p reprocessing, teleprocessing, processioning, processing, prepossessing
+Line 130: NLP -> Suggestions: nip, nap, alp, LPN, nepal, niue, mali
+Line 134: NLP -> Suggestions: nip, nap, alp, LPN, nepal, niue, mali
+Line 134: human-readable -> Suggestions: human readable, human-readable, nonrefundable
+Line 134: datasets, -> Suggestions: data sets, data-sets, databases, database, tassets, assets
+Line 134: analyse -> Suggestions: analyses, analyst, analyze, ana lyse, ana-lyse, analysand, analysis
+Line 134: frequency-based -> Suggestions: frequency based, frequency-based, frequency
+Line 134: one-hot -> Suggestions: one hot, one-hot, honeypot, hone
+Line 134: bag-of-words -> Suggestions: backswords
+Line 134: NLP -> Suggestions: nip, nap, alp, LPN, nepal, niue, mali
+Line 134: human-readable -> Suggestions: human readable, human-readable, nonrefundable
+Line 138: NLU -> Suggestions: nu, flu, Blu, Kunlun, niue
+Line 138: NLG, -> Suggestions: lg, neg, nag, alg, nog, Alg, n lg, LNG, niue, niger, mali, e.g., togo
+Line 138: modelling -> Suggestions: modeling, model ling, model-ling, Medellin
+Line 138: words/phrases/characters. -> Suggestions: characterizations
+Line 138: NLP-based -> Suggestions: abased
+Line 138: ‘hidden/latent -> Suggestions: hidden latent, hidden-latent, hiddenite
+Line 138: (LMs). -> Suggestions: lm, ls, ms, elms, lams, alms, ems, lis, rms, oms, lbs, l ms, lm s, laos
+Line 138: (RNN) -> Suggestions: inn, ran, ann, run, Inn, Ann, Rn, RN, iran
+Line 138: (Elman -> Suggestions: leman, elan, el man, el-man, elm an, elm-an, Hellman, bellman, Elma, Anselm, oman
+Line 138: Short-Term -> Suggestions: short term, short-term, shorten
+Line 138: (LSTM), -> Suggestions: LSAT, laos, asia, guam
+Line 138: (GRU) -> Suggestions: grew, gr, grue, guru, grum, grub, rug, gnu, gro, cru, Uru, gr u, peru
+Line 138: (Gers -> Suggestions: Gers, hers, gees, gets, ger, gears, goers, germs, ergs, gars, gens, gels, germ, gems, ger s, peru
+Line 138: Tsujii -> Suggestions: jujitsu, Fujitsu
+Line 138: Cho -> Suggestions: so, chew, chi, ch, co, ho, echo, chon, coho, choc, chou, chop, chow, Echo, och, chad
+Line 138: modelling -> Suggestions: modeling, model ling, model-ling, Medellin
+Line 138: (Vaswani -> Suggestions: Aswan, taiwan
+Line 138: modelled, -> Suggestions: modeled, model led, model-led, modeler, model, modded, molded
+Line 138: facto -> Suggestions: fact, factor, facts, fac to, fac-to, fact o, malta, haiti
+Line 138: today’s -> Suggestions: today, today's, to days, to-days, today s, Tokays
+Line 138: NLP. -> Suggestions: nip, nap, alp, LPN, nepal, niue, mali
+Line 138: LMs -> Suggestions: lm, ls, ms, elms, lams, alms, ems, lis, rms, oms, lbs, l ms, lm s, laos
+Line 142: F1-score -> Suggestions: rescore, score
+Line 142: (macro/micro), -> Suggestions: macro micro, macro-micro, macroeconomic, macrocosmic, macroscopic, macrobiotic
+Line 142: summarisation -> Suggestions: summarization, summational, summation
+Line 142: (BLEU) -> Suggestions: blue, leu, bled, bleb, blew, b leu, peru, i.e., palau
+Line 142: Recall-Oriented -> Suggestions: recall oriented, recall-oriented, reorientated, calorifacient
+Line 142: Gisting -> Suggestions: gusting, girting, listing, misting, gifting, gi sting, gi-sting, insisting, stinging, Gissing, stingily
+Line 142: BERTScore -> Suggestions: outscore
+Line 142: LMs -> Suggestions: lm, ls, ms, elms, lams, alms, ems, lis, rms, oms, lbs, l ms, lm s, laos
+Line 142: entropy-based -> Suggestions: entropy based, entropy-based, entropy
+Line 176: hyperparameters -> Suggestions: hyper parameters, hyper-parameters, parameters
+Line 176: open-source -> Suggestions: open source, open-source, outsource
+Line 176: optimised -> Suggestions: optimized, optimist, optimism
+Line 176: pre-processing -> Suggestions: reprocessing, p reprocessing, teleprocessing, processioning, processing, prepossessing
+Line 190: Greek -> Suggestions: Greek, gree, geek, reek, green, greet, creek, greed, Creek, g reek, gr eek, gr-eek, gree k, greece
+Line 190: morphe, -> Suggestions: morph, morphed, morphs, morph e, Morpheus
+Line 190: Hindi, -> Suggestions: Hindi, hind, hinds, hin di, hin-di, hind i, india
+Line 190: Turkish, -> Suggestions: Turkish, turkey
+Line 190: Hungarian -> Suggestions: Hungarian, hungary, bulgaria
+Line 190: Chinese -> Suggestions: Chinese, chines, chines e, china, chile
+Line 196: Hindi -> Suggestions: Hindi, hind, hinds, hin di, hin-di, hind i, india
+Line 198: Tamil -> Suggestions: Tamil, tail, tamis, ta mil, ta-mil, asia, mali, zambia, gambia, brazil, samoa
+Line 202: मैं -> Suggestions: e, s, i, a, n, r, t, o, l, c, d, u, g, m, p
+Line 202: जाऊंगा -> No suggestions available
+Line 204: நான் -> No suggestions available
+Line 204: ேபாேவன -> No suggestions available
+Line 208: हम -> No suggestions available
+Line 208: जायेंगे -> No suggestions available
+Line 210: நாம் -> No suggestions available
+Line 210: ேபாேவாம -> No suggestions available
+Line 214: तुम -> No suggestions available
+Line 214: जाओगे -> No suggestions available
+Line 216: நீ -> Suggestions: e, s, i, a, n, r, t, o, l, c, d, u, g, m, p
+Line 216: ேபாவாய -> No suggestions available
+Line 220: वह -> No suggestions available
+Line 220: जाएगा -> No suggestions available
+Line 222: அவன் -> No suggestions available
+Line 222: ேபாவான -> No suggestions available
+Line 226: वो -> Suggestions: e, s, i, a, n, r, t, o, l, c, d, u, g, m, p
+Line 226: जाएगी -> No suggestions available
+Line 228: அவள் -> No suggestions available
+Line 228: ேபாவாள -> No suggestions available
+Line 232: morphologically-poor -> Suggestions: morphologically poor, morphologically-poor, morphological
+Line 232: morphologically-rich -> Suggestions: morphologically rich, morphologically-rich, morphological, choreographically
+Line 232: (Hindi -> Suggestions: Hindi, hind, hinds, hin di, hin-di, hind i, india
+Line 232: Tamil). -> Suggestions: Tamil, tail, tamis, ta mil, ta-mil, asia, mali, zambia, gambia, brazil, samoa
+Line 232: Morphologically-rich -> Suggestions: morphologically rich, morphologically-rich, morphological, choreographically
+Line 236: morphologically-poor -> Suggestions: morphologically poor, morphologically-poor, morphological
+Line 236: morphologically-rich -> Suggestions: morphologically rich, morphologically-rich, morphological, choreographically
+Line 236: Hindi, -> Suggestions: Hindi, hind, hinds, hin di, hin-di, hind i, india
+Line 242: -ing -> Suggestions: ING, ign, inf, in, sing, ring, ting, ling, ding, ping, hing, king, wing, zing, Ting, india, iran, iraq, i.e., e.g., niue, niger, congo, china, tonga, togo, fiji
+Line 242: words—these -> Suggestions: words these, words-these, Wordsworth
+Line 242: ‘ing’ -> Suggestions: ING, ign, inf, in, sing, ring, ting, ling, ding, ping, hing, king, wing, zing, Ting, india, iran, iraq, i.e., e.g., niue, niger, congo, china, tonga, togo, fiji
+Line 250: analysed -> Suggestions: analyses, analyzed, analysand
+Line 250: un, -> Suggestions: UN, nu, in, um, u, n, sun, uni, nun, urn, run, tun, dun, gun, mun, iran, oman, guam, sudan, niue, cuba
+Line 250: mis, -> Suggestions: sim, mus, mos, mid, mi, ms, is, miss, mist, miso, mils, misc, mics, Amis, mi's, mali, laos, oman, asia, niue, fiji
+Line 250: intra, -> Suggestions: intr, intro, infra, intr a, entrain, india
+Line 250: ing, -> Suggestions: ING, ign, inf, in, sing, ring, ting, ling, ding, ping, hing, king, wing, zing, Ting, india, iran, iraq, i.e., e.g., niue, niger, congo, china, tonga, togo, fiji
+Line 250: ly, -> Suggestions: l, y, lye, ley, sly, lay, ply, fly, Ely, ls, li, la, ln, lo, ll, libya, laos, italy, mali
+Line 258: Lemmatisation -> Suggestions: solemnization, sensationalism, malversation, emasculation
+Line 278: democratisation -> Suggestions: democratization, demonstration, nondemocratic, antidemocratic, demonetization
+Line 282: democratisation -> Suggestions: democratization, demonstration, nondemocratic, antidemocratic, demonetization
+Line 286: interpol -> Suggestions: Interpol, inter pol, inter-pol
+Line 298: Stemmer -> Suggestions: steamer, stammer, stemmed, st emmer, st-emmer, semester, meristem, emmer, rimester
+Line 298: WordNetLemmatizer -> Suggestions: overdramatize
+Line 302: as-is -> Suggestions: ass, ais, sis, arsis, oasis, apsis, basis, anis, asps, psis, asks, Isis, a sis, as is, as-is, asia
+Line 302: (e.g., -> Suggestions: Eg, eh, e, g, eng, neg, erg, reg, ego, leg, deg, egg, meg, peg, beg, e.g.
+Line 302: pre -> Suggestions: per, ore, pee, pr, pe, re, pere, pres, pare, pret, pore, pred, pure, prem, prep, peru
+Line 302: (e.g., -> Suggestions: Eg, eh, e, g, eng, neg, erg, reg, ego, leg, deg, egg, meg, peg, beg, e.g.
+Line 302: ly -> Suggestions: l, y, lye, ley, sly, lay, ply, fly, Ely, ls, li, la, ln, lo, ll, libya, laos, italy, mali
+Line 308: stemmer -> Suggestions: steamer, stammer, stemmed, st emmer, st-emmer, semester, meristem, emmer, rimester
+Line 308: normalise -> Suggestions: normalize, manorialism
+Line 308: (rule-based) -> Suggestions: rule based, rule-based, freebased
+Line 308: NLP -> Suggestions: nip, nap, alp, LPN, nepal, niue, mali
+Line 308: algorithms—the -> Suggestions: algorithms the, algorithms-the, algorithmic, algorithm
+Line 308: Stemmers. -> Suggestions: steamers, stammers, st emmers, st-emmers, stammerers, semesters, stemmed, steersmen
+Line 312: normalise -> Suggestions: normalize, manorialism
+Line 312: non-meaningful -> Suggestions: non meaningful, non-meaningful, meaningful
+Line 312: ‘len’, -> Suggestions: Len, ken, ln, en, lens, lien, lean, lent, leno, lend, glen, Olen, Glen, enl, lee, laos, iran, i.e., oman, peru, benin, yemen, kenya
+Line 316: Lemmatisation -> Suggestions: solemnization, sensationalism, malversation, emasculation
+Line 318: normalising -> Suggestions: normalizing, formalizing
+Line 318: Lemmatisers -> Suggestions: clematis
+Line 318: normalise -> Suggestions: normalize, manorialism
+Line 318: Lemmatisers -> Suggestions: clematis
+Line 318: stemmers -> Suggestions: steamers, stammers, st emmers, st-emmers, stammerers, semesters, stemmed, steersmen
+Line 318: well-defined -> Suggestions: well defined, well-defined, predefined
+Line 318: lemmatiser -> Suggestions: clematis, Maserati
+Line 318: lemmatisers -> Suggestions: clematis
+Line 318: similar-meaning -> Suggestions: similar meaning, similar-meaning, assimilating
+Line 318: WordNet -> Suggestions: word net, word-net, wordiness
+Line 324: lemmatisation -> Suggestions: solemnization, sensationalism, malversation, emasculation
+Line 324: signal-to-noise -> Suggestions: signalization
+Line 324: vocabulary/lexicon -> Suggestions: vocabulary lexicon, vocabulary-lexicon, vocabulary
+Line 324: NLP, -> Suggestions: nip, nap, alp, LPN, nepal, niue, mali
+Line 324: NER, -> Suggestions: nee, net, ne, nr, er, near, nerd, ser, ter, nor, der, neg, ger, per, her, niger, peru
+Line 324: domain-specific -> Suggestions: domain specific, domain-specific, nonspecific
+Line 324: specialised -> Suggestions: specialized, specialistic, specialism, specialist, specialize
+Line 324: (e.g., -> Suggestions: Eg, eh, e, g, eng, neg, erg, reg, ego, leg, deg, egg, meg, peg, beg, e.g.
+Line 324: AFINN, -> Suggestions: Finn, africa, asia, fiji, china
+Line 324: SentiWordNet, -> Suggestions: sententious
+Line 324: EmoLex, -> Suggestions: emo lex, emo-lex, mole
+Line 324: PropBank) -> Suggestions: prop bank, prop-bank, propman
+Line 324: ‘hangry’. -> Suggestions: angry, hungry, h angry, Hanyang, hungary
+Line 328: Tokenisation -> Suggestions: dispensation
+Line 330: NLP -> Suggestions: nip, nap, alp, LPN, nepal, niue, mali
+Line 330: units/chunks -> Suggestions: units chunks, units-chunks, chunkiness
+Line 330: tokenisation. -> Suggestions: dispensation
+Line 334: S1: -> Suggestions: s, 1, ss, si, st, so, sc, sd, sp, sh, sb, sf, asia
+Line 334: S2: -> Suggestions: s, 2, ss, si, st, so, sc, sd, sp, sh, sb, sf, asia
+Line 334: tokenisation’. -> Suggestions: dispensation
+Line 338: Sentence/Word/Character-Level -> Suggestions: characterless
+Line 338: sentence-level -> Suggestions: sentence level, sentence-level, sentence
+Line 338: tokenisation -> Suggestions: dispensation
+Line 338: tokenisation’.] -> Suggestions: dispensation
+Line 338: whitespace -> Suggestions: white space, white-space, whites pace, whites-pace, spaceship
+Line 338: ‘tokenisation.’]. -> Suggestions: dispensation
+Line 338: ‘tokenisation.’ -> Suggestions: dispensation
+Line 338: tokenised -> Suggestions: tokenism
+Line 338: ‘tokenisation’, -> Suggestions: dispensation
+Line 338: character-level -> Suggestions: character level, character-level, characterless, characterful
+Line 342: N-grams. -> Suggestions: grams, engrams, n grams, grandams, guam
+Line 342: uni-gram, -> Suggestions: uni gram, uni-gram, trigram
+Line 342: tokenisation -> Suggestions: dispensation
+Line 342: neighbouring -> Suggestions: neighboring, neighborliness
+Line 342: n-grams -> Suggestions: grams, engrams, n grams, grandams, guam
+Line 342: word-level -> Suggestions: word level, word-level, wordless
+Line 342: tokenisation’, -> Suggestions: dispensation
+Line 342: ‘tokenisation -> Suggestions: dispensation
+Line 342: <EOS>’], -> Suggestions: Eos, es, os, eons, egos, emos, epos, Leos, Keos, eon, ens, nos, els, cos, eds, laos
+Line 342: <EOS> -> Suggestions: Eos, es, os, eons, egos, emos, epos, Leos, Keos, eon, ens, nos, els, cos, eds, laos
+Line 342: n-gram -> Suggestions: gram, engram, Ingram, Agram, n gram, ramming, guam
+Line 342: n-grams -> Suggestions: grams, engrams, n grams, grandams, guam
+Line 342: data-specific. -> Suggestions: data specific, data-specific, specification
+Line 346: Subword -> Suggestions: sub word, sub-word, suborder
+Line 346: Tokenisation -> Suggestions: dispensation
+Line 348: character-level -> Suggestions: character level, character-level, characterless, characterful
+Line 348: subword -> Suggestions: sub word, sub-word, suborder
+Line 348: ‘Kendall’, -> Suggestions: Kendall, kenya
+Line 348: tokenisation -> Suggestions: dispensation
+Line 348: sub-word -> Suggestions: sub word, sub-word, suborder
+Line 348: tokenisation, -> Suggestions: dispensation
+Line 348: bottom-up -> Suggestions: bottom up, bottom-up, bottom
+Line 348: subword -> Suggestions: sub word, sub-word, suborder
+Line 348: tokenisation -> Suggestions: dispensation
+Line 348: subword -> Suggestions: sub word, sub-word, suborder
+Line 348: occurrence—Byte -> Suggestions: occurrence byte, occurrence-byte, occurrence, nonoccurence
+Line 348: Wordpiece -> Suggestions: workpiece, word piece, word-piece, piecework
+Line 348: Tokenisation. -> Suggestions: dispensation
+Line 352: <H4> -> Suggestions: h, 4, he, hi, ha, hr, ht, ho, hl, hd, hg, hm, hp, hf, chad
+Line 352: (BPE) -> Suggestions: bp, be, pe, bee, bps, ape, ope, bpm, bye, b pe, bp e, BPOE, peru, i.e., niue
+Line 354: (Gage -> Suggestions: Gage, gag, age, gauge, gags, sage, gaga, rage, gate, gale, cage, game, mage, gape, page, gabon, guam, ghana, laos, mali, e.g., niger, niue, togo
+Line 354: encode/compress -> Suggestions: encode compress, encode-compress, compressions, compressed, recompenses
+Line 362: FCBPE -> No suggestions available
+Line 362: Σ(i -> Suggestions: i, si, ii, ai, ti, oi, li, di, gi, mi, pi, hi, bi, vi, ki, asia, mali, niue, fiji
+Line 366: BPE. -> Suggestions: bp, be, pe, bee, bps, ape, ope, bpm, bye, b pe, bp e, BPOE, peru, i.e., niue
+Line 370: (pre-tokenisation): -> Suggestions: presentationism
+Line 374: ‘ok‘. -> Suggestions: OK, och, pk, o, k, oke, oik, oka, oak, wok, os, oi, on, or, oo, oman, laos, togo
+Line 374: ok -> Suggestions: OK, och, pk, o, k, oke, oik, oka, oak, wok, os, oi, on, or, oo, oman, laos, togo
+Line 374: ok -> Suggestions: OK, och, pk, o, k, oke, oik, oka, oak, wok, os, oi, on, or, oo, oman, laos, togo
+Line 374: ok -> Suggestions: OK, och, pk, o, k, oke, oik, oka, oak, wok, os, oi, on, or, oo, oman, laos, togo
+Line 374: ok -> Suggestions: OK, och, pk, o, k, oke, oik, oka, oak, wok, os, oi, on, or, oo, oman, laos, togo
+Line 374: {‘ok’} -> Suggestions: OK, och, pk, o, k, oke, oik, oka, oak, wok, os, oi, on, or, oo, oman, laos, togo
+Line 378: ‘ok‘ -> Suggestions: OK, och, pk, o, k, oke, oik, oka, oak, wok, os, oi, on, or, oo, oman, laos, togo
+Line 378: ‘ok’ -> Suggestions: OK, och, pk, o, k, oke, oik, oka, oak, wok, os, oi, on, or, oo, oman, laos, togo
+Line 378: ‘tok -> Suggestions: to, toke, took, toe, ton, tor, tot, too, tod, tog, tom, top, toy, tow, wok, togo
+Line 378: ‘tok -> Suggestions: to, toke, took, toe, ton, tor, tot, too, tod, tog, tom, top, toy, tow, wok, togo
+Line 378: ‘tok -> Suggestions: to, toke, took, toe, ton, tor, tot, too, tod, tog, tom, top, toy, tow, wok, togo
+Line 378: ‘tok -> Suggestions: to, toke, took, toe, ton, tor, tot, too, tod, tog, tom, top, toy, tow, wok, togo
+Line 378: ‘tok’ -> Suggestions: to, toke, took, toe, ton, tor, tot, too, tod, tog, tom, top, toy, tow, wok, togo
+Line 382: ’ok’, -> Suggestions: OK, och, pk, o, k, oke, oik, oka, oak, wok, os, oi, on, or, oo, oman, laos, togo
+Line 382: ‘tok’, -> Suggestions: to, toke, took, toe, ton, tor, tot, too, tod, tog, tom, top, toy, tow, wok, togo
+Line 382: ‘th’, -> Suggestions: ht, Th, t, h, the, nth, tho, thy, fth, Eth, eh, ts, sh, ti, ta, togo, chad
+Line 386: on-the-fly -> Suggestions: stonefly
+Line 386: subword -> Suggestions: sub word, sub-word, suborder
+Line 386: tokenised -> Suggestions: tokenism
+Line 386: sub-words. -> Suggestions: sub words, sub-words, suborders
+Line 386: subwords -> Suggestions: sub words, sub-words, suborders
+Line 390: subword -> Suggestions: sub word, sub-word, suborder
+Line 390: tokenisation -> Suggestions: dispensation
+Line 390: BPE -> Suggestions: bp, be, pe, bee, bps, ape, ope, bpm, bye, b pe, bp e, BPOE, peru, i.e., niue
+Line 390: WordPiece. -> Suggestions: workpiece, word piece, word-piece, piecework
+Line 390: realised -> Suggestions: realized, released
+Line 390: BPE -> Suggestions: bp, be, pe, bee, bps, ape, ope, bpm, bye, b pe, bp e, BPOE, peru, i.e., niue
+Line 390: WordPiece. -> Suggestions: workpiece, word piece, word-piece, piecework
+Line 398: maxiter -> Suggestions: maxi ter, maxi-ter, taximeter
+Line 402: PREPROCESS(D) -> Suggestions: preprocessed, processed, processor, process's, predecessor
+Line 406: maxiter -> Suggestions: maxi ter, maxi-ter, taximeter
+Line 408: tl -> Suggestions: Tl, t, l, tel, til, btl, el, ts, ti, ta, al, tn, tr, to, ll, togo, italy, mali
+Line 408: (FC -> Suggestions: cf, dc, f, c, fec, fac, Pfc, sc, fa, ac, fr, ft, fo, fl, cc, fiji
+Line 410: tlr -> Suggestions: tr, ter, tar, tor, dlr, Tl, togo, italy, mali, peru, qatar
+Line 410: tl -> Suggestions: Tl, t, l, tel, til, btl, el, ts, ti, ta, al, tn, tr, to, ll, togo, italy, mali
+Line 412: tl:tr -> Suggestions: ultra, togo, malta, qatar
+Line 412: tlr -> Suggestions: tr, ter, tar, tor, dlr, Tl, togo, italy, mali, peru, qatar
+Line 414: tlr -> Suggestions: tr, ter, tar, tor, dlr, Tl, togo, italy, mali, peru, qatar
+Line 430: split(D, -> Suggestions: splits, split, split d, Split, spain
+Line 444: <H4> -> Suggestions: h, 4, he, hi, ha, hr, ht, ho, hl, hd, hg, hm, hp, hf, chad
+Line 444: WordPiece -> Suggestions: workpiece, word piece, word-piece, piecework
+Line 444: Tokeniser -> Suggestions: tokenism
+Line 448: BPE -> Suggestions: bp, be, pe, bee, bps, ape, ope, bpm, bye, b pe, bp e, BPOE, peru, i.e., niue
+Line 448: maximising -> Suggestions: maximizing, maximin
+Line 448: maximise -> Suggestions: maximize, Maximalist
+Line 448: subword’s -> Suggestions: sub words, sub-words, suborders
+Line 448: BPE -> Suggestions: bp, be, pe, bee, bps, ape, ope, bpm, bye, b pe, bp e, BPOE, peru, i.e., niue
+Line 448: WordPiece -> Suggestions: workpiece, word piece, word-piece, piecework
+Line 448: Tokeniser. -> Suggestions: tokenism
+Line 448: BPE -> Suggestions: bp, be, pe, bee, bps, ape, ope, bpm, bye, b pe, bp e, BPOE, peru, i.e., niue
+Line 448: WordPiece -> Suggestions: workpiece, word piece, word-piece, piecework
+Line 452: Σ -> Suggestions: e, s, i, a, n, r, t, o, l, c, d, u, g, m, p
+Line 452: co-occurring -> Suggestions: co occurring, co-occurring, occurring, concurring, incurring, coinsuring
+Line 452: WordPiece -> Suggestions: workpiece, word piece, word-piece, piecework
+Line 452: penalises -> Suggestions: penalizes, penises, pelisses
+Line 456: <H4> -> Suggestions: h, 4, he, hi, ha, hr, ht, ho, hl, hd, hg, hm, hp, hf, chad
+Line 456: SentencePiece -> Suggestions: sentence piece, sentence-piece, centerpiece, sentence, sentience
+Line 456: Tokeniser -> Suggestions: tokenism
+Line 458: tokenisation -> Suggestions: dispensation
+Line 458: Chinese -> Suggestions: Chinese, chines, chines e, china, chile
+Line 458: Japanese, -> Suggestions: Japanese, japan
+Line 458: language-agnostic/space-agnostic -> Suggestions: psychodiagnostics
+Line 458: SentencePiece -> Suggestions: sentence piece, sentence-piece, centerpiece, sentence, sentience
+Line 458: tokeniser -> Suggestions: tokenism
+Line 458: SentencePiece -> Suggestions: sentence piece, sentence-piece, centerpiece, sentence, sentience
+Line 458: tokenisation -> Suggestions: dispensation
+Line 458: SentencePiece -> Suggestions: sentence piece, sentence-piece, centerpiece, sentence, sentience
+Line 458: Unicode -> Suggestions: Unicode, uni code, uni-code
+Line 458: BPE -> Suggestions: bp, be, pe, bee, bps, ape, ope, bpm, bye, b pe, bp e, BPOE, peru, i.e., niue
+Line 458: WordPiece, -> Suggestions: workpiece, word piece, word-piece, piecework
+Line 458: pre-tokenisation -> Suggestions: presentationism
+Line 458: SentencePiece -> Suggestions: sentence piece, sentence-piece, centerpiece, sentence, sentience
+Line 464: rules/grammar -> Suggestions: rules grammar, rules-grammar, reprogrammable
+Line 464: (NP) -> Suggestions: NP, Np, bp, mp, no, n, p, nip, nap, ne, sp, nr, op, cp, nu, nepal, niue
+Line 464: (VP). -> Suggestions: VP, cp, bp, vo, v, p, vs, sp, vi, op, up, mp, pp, hp, vb
+Line 464: neighbourhood -> Suggestions: neighborhood, neighborliness
+Line 464: ‘neighbourhood’ -> Suggestions: neighborhood, neighborliness
+Line 464: neighbourhood’. -> Suggestions: neighborhood, neighborliness
+Line 476: mouseate–cheese-drawer -> No suggestions available
+Line 476: (e.g., -> Suggestions: Eg, eh, e, g, eng, neg, erg, reg, ego, leg, deg, egg, meg, peg, beg, e.g.
+Line 476: realised -> Suggestions: realized, released
+Line 476: transition-based -> Suggestions: transition based, transition-based, transitioned, transposition
+Line 476: graph-based -> Suggestions: graph based, graph-based, paraphrased, phraseograph
+Line 488: connotation/semantics -> Suggestions: connotation semantics, connotation-semantics, conventionalizations
+Line 492: real-world -> Suggestions: real world, real-world, dreamworld
+Line 492: first-order -> Suggestions: first order, first-order, firestorm
+Line 492: parsing—decomposition, -> Suggestions: parsing decomposition, parsing-decomposition, photocomposition
+Line 496: Decompositional -> Suggestions: de compositional, de-compositional, decomposition al, decomposition-al, decomposition, compositional, depositional, decompensation
+Line 496: qualities—being -> Suggestions: qualities being, qualities-being, qualitative
+Line 496: first-order -> Suggestions: first order, first-order, firestorm
+Line 500: ‘money’—dictates -> Suggestions: money dictates, money-dictates, Dictaphones
+Line 500: existence/usage -> Suggestions: existence usage, existence-usage, existence
+Line 500: WordNet -> Suggestions: word net, word-net, wordiness
+Line 504: contextualisation -> Suggestions: contextualization, contextualist, contextualism, contextualize, conceptualization
+Line 504: contextualisation, -> Suggestions: contextualization, contextualist, contextualism, contextualize, conceptualization
+Line 504: analysing -> Suggestions: analyzing, analysis, anginal
+Line 504: (e.g., -> Suggestions: Eg, eh, e, g, eng, neg, erg, reg, ego, leg, deg, egg, meg, peg, beg, e.g.
+Line 504: co-occurrence, -> Suggestions: co occurrence, co-occurrence, reoccurrence, nonoccurrence, occurrence, concurrence
+Line 504: i.e., -> Suggestions: IE, ai, i, e, ire, tie, lie, ice, die, gie, pie, hie, fie, vie, Lie, i.e., niue
+Line 504: co-occurs -> Suggestions: co occurs, co-occurs, occurs, concurs, coccus, cursors
+Line 504: modern-day -> Suggestions: modern day, modern-day, modernity
+Line 504: NLP. -> Suggestions: nip, nap, alp, LPN, nepal, niue, mali
+Line 508: Modelling -> Suggestions: modeling, model ling, model-ling, Medellin
+Line 510: Herbert -> Suggestions: Herbert, herb ert, herb-ert
+Line 510: Clark, -> Suggestions: Clark, cark, lark, clerk, clank, claro, clack, clary, c lark, cl ark, cl-ark, chad, laos
+Line 510: (Clark -> Suggestions: Clark, cark, lark, clerk, clank, claro, clack, clary, c lark, cl ark, cl-ark, chad, laos
+Line 514: co-occurrence -> Suggestions: co occurrence, co-occurrence, reoccurrence, nonoccurrence, occurrence, concurrence
+Line 514: trained/learned, -> Suggestions: trained learned, trained-learned, addlebrained
+Line 514: x1, -> Suggestions: x, 1, xi, xu, xv
+Line 514: x2, -> Suggestions: x, 2, xi, xu, xv
+Line 514: xm, -> Suggestions: cm, x, m, em, xi, am, rm, om, lm, dm, xu, um, gm, mm, pm, oman, guam
+Line 514: 1)thtoken, -> Suggestions: betoken
+Line 514: xm+1 -> Suggestions: XML, oman
+Line 514: i.e., -> Suggestions: IE, ai, i, e, ire, tie, lie, ice, die, gie, pie, hie, fie, vie, Lie, i.e., niue
+Line 514: 1)th -> Suggestions: nth, fth, Eth, Th
+Line 514: vocabulary/lexicon -> Suggestions: vocabulary lexicon, vocabulary-lexicon, vocabulary
+Line 514: 1/N -> Suggestions: 1, n, en, in, an, tn, on, ln, kn, Sn, In, An, Rn, On, Ln, iran, oman
+Line 514: 1)th -> Suggestions: nth, fth, Eth, Th
+Line 518: modelling -> Suggestions: modeling, model ling, model-ling, Medellin
+Line 518: NLP. -> Suggestions: nip, nap, alp, LPN, nepal, niue, mali
+Line 518: layman’s -> Suggestions: layman, layman's, lay mans, lay-mans, layman s, Malayans, Malaysians, manslayer, Malayan
+Line 518: 1)th -> Suggestions: nth, fth, Eth, Th
+Line 518: Sam. -> Suggestions: SAM, cham, mas, Sam, dam, am, same, seam, slam, scam, spam, sham, swam, sem, sim, samoa, guam
+Line 518: (i.e., -> Suggestions: IE, ai, i, e, ire, tie, lie, ice, die, gie, pie, hie, fie, vie, Lie, i.e., niue
+Line 518: modelling -> Suggestions: modeling, model ling, model-ling, Medellin
+Line 522: Bag-of-Word -> Suggestions: backsword
+Line 522: modelling -> Suggestions: modeling, model ling, model-ling, Medellin
+Line 522: favourable -> Suggestions: favorable
+Line 522: connotated -> Suggestions: con notated, con-notated, connotative, annotated, contaminated, connected
+Line 522: i.e., -> Suggestions: IE, ai, i, e, ire, tie, lie, ice, die, gie, pie, hie, fie, vie, Lie, i.e., niue
+Line 522: bag-of-word -> Suggestions: backsword
+Line 532: bag-of-words -> Suggestions: backswords
+Line 532: modelling -> Suggestions: modeling, model ling, model-ling, Medellin
+Line 536: S1: -> Suggestions: s, 1, ss, si, st, so, sc, sd, sp, sh, sb, sf, asia
+Line 536: S2: -> Suggestions: s, 2, ss, si, st, so, sc, sd, sp, sh, sb, sf, asia
+Line 536: S3: -> Suggestions: s, 3, ss, si, st, so, sc, sd, sp, sh, sb, sf, asia
+Line 540: preprocessing -> Suggestions: reprocessing, p reprocessing, teleprocessing, processioning, processing, prepossessing
+Line 540: (lowercasing, -> Suggestions: lower casing, lower-casing, lowercase
+Line 540: lemmatisation -> Suggestions: solemnization, sensationalism, malversation, emasculation
+Line 540: tokenisation, -> Suggestions: dispensation
+Line 540: unigram -> Suggestions: uni gram, uni-gram, trigram
+Line 540: ith -> Suggestions: it, lith, itch, pith, kith, with, Lith, hit, its, nth, fth, Eth, it h, italy, iran, iraq, i.e., haiti, niue, fiji
+Line 544: S1 -> Suggestions: s, 1, ss, si, st, so, sc, sd, sp, sh, sb, sf, asia
+Line 544: ‘yes’—the -> Suggestions: yes the, yes-the, yest he, yest-he, Thyestes, yest, lesotho
+Line 544: ‘no’—the -> Suggestions: note, no the, no-the, not he, not-he, another, niue
+Line 544: S2 -> Suggestions: s, 2, ss, si, st, so, sc, sd, sp, sh, sb, sf, asia
+Line 544: S3 -> Suggestions: s, 3, ss, si, st, so, sc, sd, sp, sh, sb, sf, asia
+Line 548: S1: -> Suggestions: s, 1, ss, si, st, so, sc, sd, sp, sh, sb, sf, asia
+Line 548: S2:v1, -> No suggestions available
+Line 548: S3: -> Suggestions: s, 3, ss, si, st, so, sc, sd, sp, sh, sb, sf, asia
+Line 548: i.e., -> Suggestions: IE, ai, i, e, ire, tie, lie, ice, die, gie, pie, hie, fie, vie, Lie, i.e., niue
+Line 548: S1 -> Suggestions: s, 1, ss, si, st, so, sc, sd, sp, sh, sb, sf, asia
+Line 548: S2 -> Suggestions: s, 2, ss, si, st, so, sc, sd, sp, sh, sb, sf, asia
+Line 548: S3 -> Suggestions: s, 3, ss, si, st, so, sc, sd, sp, sh, sb, sf, asia
+Line 548: bag-of-word -> Suggestions: backsword
+Line 558: Alexander -> Suggestions: Alexander
+Line 558: Bain -> Suggestions: bani, vain, ban, bin, ain, basin, bairn, brain, blain, sain, barn, rain, bait, tain, bail, benin, spain
+Line 558: William -> Suggestions: William, Gilliam
+Line 558: James -> Suggestions: James, hames, jams, sames, names, tames, lames, jades, dames, games, japes, jambs, jakes, jam's, ja mes, japan, laos, samoa, yemen
+Line 558: hypothesised -> Suggestions: hypothesized, hypothesis ed, hypothesis-ed, hypothesis, hypothesize, hypotheses
+Line 558: decision-making. -> Suggestions: decision making, decision-making, decisions
+Line 558: McCulloch, -> Suggestions: McCullough
+Line 558: Walter -> Suggestions: Walter, water, alter, waltzer, welter, waster, salter, waiter, palter, halter, falter, walker, w alter, malta, qatar
+Line 558: Pitts, -> Suggestions: Pitts, putts, pitta, pits, pittas, pitas, pints, mitts, piths, bitts, pit's, pit ts, pit-ts
+Line 558: perceptron. -> Suggestions: perception, percept, Percheron
+Line 558: Rosenblatt, -> Suggestions: Rosenberg
+Line 558: perceptron. -> Suggestions: perception, percept, Percheron
+Line 558: Rosenblatt -> Suggestions: Rosenberg
+Line 558: perceptron -> Suggestions: perception, percept, Percheron
+Line 558: Minsky -> Suggestions: Minsky, min sky, min-sky
+Line 558: Papert -> Suggestions: papery, paper, papers, pa pert, pa-pert, pap ert, pap-ert, paper t, aperture, taper, pert, peru
+Line 562: Perceptron -> Suggestions: perception, percept, Percheron
+Line 564: neighbouring -> Suggestions: neighboring, neighborliness
+Line 564: perceptron, -> Suggestions: perception, percept, Percheron
+Line 570: N-dimensional -> Suggestions: dimensional, n dimensional, dimensionless, declensional, dimension
+Line 570: (x1, -> Suggestions: x, 1, xi, xu, xv
+Line 570: x2, -> Suggestions: x, 2, xi, xu, xv
+Line 570: xN), -> Suggestions: Xn, x, n, en, xi, in, an, tn, on, ln, xu, xv, kn, Sn, In, iran, oman
+Line 570: perceptron -> Suggestions: perception, percept, Percheron
+Line 570: w1x1 -> No suggestions available
+Line 570: w2x2 -> No suggestions available
+Line 570: wnxn, -> Suggestions: WNW, iran, oman, benin
+Line 570: β -> Suggestions: e, s, i, a, n, r, t, o, l, c, d, u, g, m, p
+Line 570: perceptron -> Suggestions: perception, percept, Percheron
+Line 570: (w1, -> Suggestions: w, 1, we, wt, wo, wd, wk, W
+Line 570: w2, -> Suggestions: w, 2, we, wt, wo, wd, wk, W
+Line 570: wN) -> Suggestions: en, w, n, wen, win, wan, awn, won, own, pwn, we, in, an, wt, tn, iran, oman
+Line 570: β -> Suggestions: e, s, i, a, n, r, t, o, l, c, d, u, g, m, p
+Line 572: sgn -> Suggestions: sign, sen, sin, ign, son, sgd, sun, syn, sudan, spain, iran, oman, asia, e.g., togo
+Line 572: (wTx -> Suggestions: wt, wax, wt x, TWX
+Line 572: β) -> Suggestions: e, s, i, a, n, r, t, o, l, c, d, u, g, m, p
+Line 574: sgn(·) -> Suggestions: sign, sen, sin, ign, son, sgd, sun, syn, sudan, spain, iran, oman, asia, e.g., togo
+Line 574: signum -> Suggestions: sign um, sign-um, sign
+Line 578: sgn(·) -> Suggestions: sign, sen, sin, ign, son, sgd, sun, syn, sudan, spain, iran, oman, asia, e.g., togo
+Line 578: boolean -> Suggestions: Boolean, boo lean, boo-lean
+Line 584: Boolean -> Suggestions: Boolean, boo lean, boo-lean
+Line 584: modelling -> Suggestions: modeling, model ling, model-ling, Medellin
+Line 584: perceptron -> Suggestions: perception, percept, Percheron
+Line 584: boolean -> Suggestions: Boolean, boo lean, boo-lean
+Line 584: perceptron -> Suggestions: perception, percept, Percheron
+Line 584: sgn(·) -> Suggestions: sign, sen, sin, ign, son, sgd, sun, syn, sudan, spain, iran, oman, asia, e.g., togo
+Line 584: Boolean -> Suggestions: Boolean, boo lean, boo-lean
+Line 584: x1 -> Suggestions: x, 1, xi, xu, xv
+Line 584: x2, -> Suggestions: x, 2, xi, xu, xv
+Line 588: x1 -> Suggestions: x, 1, xi, xu, xv
+Line 590: x2 -> Suggestions: x, 2, xi, xu, xv
+Line 592: x1 -> Suggestions: x, 1, xi, xu, xv
+Line 592: x2 -> Suggestions: x, 2, xi, xu, xv
+Line 622: x1 -> Suggestions: x, 1, xi, xu, xv
+Line 624: x2 -> Suggestions: x, 2, xi, xu, xv
+Line 626: x1 -> Suggestions: x, 1, xi, xu, xv
+Line 626: x2 -> Suggestions: x, 2, xi, xu, xv
+Line 656: x1 -> Suggestions: x, 1, xi, xu, xv
+Line 658: x2 -> Suggestions: x, 2, xi, xu, xv
+Line 660: x1 -> Suggestions: x, 1, xi, xu, xv
+Line 660: x2 -> Suggestions: x, 2, xi, xu, xv
+Line 690: Boolean -> Suggestions: Boolean, boo lean, boo-lean
+Line 690: perceptron, -> Suggestions: perception, percept, Percheron
+Line 690: w1, -> Suggestions: w, 1, we, wt, wo, wd, wk, W
+Line 690: w2 -> Suggestions: w, 2, we, wt, wo, wd, wk, W
+Line 690: β -> Suggestions: e, s, i, a, n, r, t, o, l, c, d, u, g, m, p
+Line 690: x1 -> Suggestions: x, 1, xi, xu, xv
+Line 690: x2. -> Suggestions: x, 2, xi, xu, xv
+Line 694: sgn′(w1x1 -> No suggestions available
+Line 694: w2x2 -> No suggestions available
+Line 694: β) -> Suggestions: e, s, i, a, n, r, t, o, l, c, d, u, g, m, p
+Line 698: x1, -> Suggestions: x, 1, xi, xu, xv
+Line 698: x2 -> Suggestions: x, 2, xi, xu, xv
+Line 698: sgn’(·) -> Suggestions: sign, sen, sin, ign, son, sgd, sun, syn, sudan, spain, iran, oman, asia, e.g., togo
+Line 706: 2D -> Suggestions: 2, d, 2nd, ed, sd, id, ad, rd, od, cd, dd, pd, hd, bd, yd, chad
+Line 706: boolean -> Suggestions: Boolean, boo lean, boo-lean
+Line 706: (Centre), -> Suggestions: center, centare, centra, cent re, cent-re, centric, centiare, Recent, recent
+Line 710: 2D -> Suggestions: 2, d, 2nd, ed, sd, id, ad, rd, od, cd, dd, pd, hd, bd, yd, chad
+Line 710: x2 -> Suggestions: x, 2, xi, xu, xv
+Line 710: x1 -> Suggestions: x, 1, xi, xu, xv
+Line 710: w1 -> Suggestions: w, 1, we, wt, wo, wd, wk, W
+Line 710: w2 -> Suggestions: w, 2, we, wt, wo, wd, wk, W
+Line 710: β -> Suggestions: e, s, i, a, n, r, t, o, l, c, d, u, g, m, p
+Line 710: perceptron -> Suggestions: perception, percept, Percheron
+Line 710: sgn'(x1 -> No suggestions available
+Line 710: x2 -> Suggestions: x, 2, xi, xu, xv
+Line 710: x1 -> Suggestions: x, 1, xi, xu, xv
+Line 710: x2 -> Suggestions: x, 2, xi, xu, xv
+Line 714: x1 -> Suggestions: x, 1, xi, xu, xv
+Line 716: x2 -> Suggestions: x, 2, xi, xu, xv
+Line 718: x1 -> Suggestions: x, 1, xi, xu, xv
+Line 718: x2 -> Suggestions: x, 2, xi, xu, xv
+Line 720: sgn'(x1 -> No suggestions available
+Line 720: x2 -> Suggestions: x, 2, xi, xu, xv
+Line 722: x1 -> Suggestions: x, 1, xi, xu, xv
+Line 722: x2 -> Suggestions: x, 2, xi, xu, xv
+Line 766: perceptron -> Suggestions: perception, percept, Percheron
+Line 766: sgn'(w1x1 -> No suggestions available
+Line 766: w2x2 -> No suggestions available
+Line 766: β) -> Suggestions: e, s, i, a, n, r, t, o, l, c, d, u, g, m, p
+Line 766: w1 -> Suggestions: w, 1, we, wt, wo, wd, wk, W
+Line 766: w2 -> Suggestions: w, 2, we, wt, wo, wd, wk, W
+Line 766: β -> Suggestions: e, s, i, a, n, r, t, o, l, c, d, u, g, m, p
+Line 766: Boolean -> Suggestions: Boolean, boo lean, boo-lean
+Line 770: Boolean -> Suggestions: Boolean, boo lean, boo-lean
+Line 770: perceptron -> Suggestions: perception, percept, Percheron
+Line 770: 2D -> Suggestions: 2, d, 2nd, ed, sd, id, ad, rd, od, cd, dd, pd, hd, bd, yd, chad
+Line 770: (Centre) -> Suggestions: center, centare, centra, cent re, cent-re, centric, centiare, Recent, recent
+Line 770: x2 -> Suggestions: x, 2, xi, xu, xv
+Line 770: -x1 -> Suggestions: x, 1, xi, xu, xv
+Line 770: w1 -> Suggestions: w, 1, we, wt, wo, wd, wk, W
+Line 770: w2 -> Suggestions: w, 2, we, wt, wo, wd, wk, W
+Line 770: β -> Suggestions: e, s, i, a, n, r, t, o, l, c, d, u, g, m, p
+Line 770: perceptron -> Suggestions: perception, percept, Percheron
+Line 770: sgn′(x1 -> No suggestions available
+Line 770: x2 -> Suggestions: x, 2, xi, xu, xv
+Line 770: x1 -> Suggestions: x, 1, xi, xu, xv
+Line 770: x2 -> Suggestions: x, 2, xi, xu, xv
+Line 774: labelled -> Suggestions: labeled, la belled, la-belled, label led, label-led, belled, glabella, belabored, blabbed
+Line 774: perceptron -> Suggestions: perception, percept, Percheron
+Line 778: Perceptron -> Suggestions: perception, percept, Percheron
+Line 780: generalise -> Suggestions: generalist, generalize, generalissimo, generality, general
+Line 780: perceptron -> Suggestions: perception, percept, Percheron
+Line 780: neuron-like -> Suggestions: neuron like, neuron-like, ironlike
+Line 780: ϕ(·) -> Suggestions: e, s, i, a, n, r, t, o, l, c, d, u, g, m, p
+Line 780: realised -> Suggestions: realized, released
+Line 780: neuron-like -> Suggestions: neuron like, neuron-like, ironlike
+Line 784: wi -> Suggestions: WI, wee, qi, wo, w, i, win, wit, wig, wiz, Twi, we, si, ii, ai, asia, mali, niue, fiji
+Line 784: ith -> Suggestions: it, lith, itch, pith, kith, with, Lith, hit, its, nth, fth, Eth, it h, italy, iran, iraq, i.e., haiti, niue, fiji
+Line 784: ith -> Suggestions: it, lith, itch, pith, kith, with, Lith, hit, its, nth, fth, Eth, it h, italy, iran, iraq, i.e., haiti, niue, fiji
+Line 784: β -> Suggestions: e, s, i, a, n, r, t, o, l, c, d, u, g, m, p
+Line 784: feed-forward -> Suggestions: feed forward, feed-forward, forwarder
+Line 788: feed-forward -> Suggestions: feed forward, feed-forward, forwarder
+Line 788: Perceptron -> Suggestions: perception, percept, Percheron
+Line 788: (MLP), -> Suggestions: ml, mp, map, alp, mop, ml p, mali
+Line 788: neuron-like -> Suggestions: neuron like, neuron-like, ironlike
+Line 788: feed-forward -> Suggestions: feed forward, feed-forward, forwarder
+Line 794: Perceptron. -> Suggestions: perception, percept, Percheron
+Line 800: Boolean -> Suggestions: Boolean, boo lean, boo-lean
+Line 800: MLP -> Suggestions: ml, mp, map, alp, mop, ml p, mali
+Line 800: sgn’(·) -> Suggestions: sign, sen, sin, ign, son, sgd, sun, syn, sudan, spain, iran, oman, asia, e.g., togo
+Line 806: MLP -> Suggestions: ml, mp, map, alp, mop, ml p, mali
+Line 806: perceptrons -> Suggestions: perceptions, perception, peppercorns
+Line 806: modelling -> Suggestions: modeling, model ling, model-ling, Medellin
+Line 806: MLP -> Suggestions: ml, mp, map, alp, mop, ml p, mali
+Line 806: h1(= -> Suggestions: h, 1, he, hi, ha, hr, ht, ho, hl, hd, hg, hm, hp, hf, chad
+Line 806: sgn'(x1 -> No suggestions available
+Line 806: x2 -> Suggestions: x, 2, xi, xu, xv
+Line 806: h2(= -> Suggestions: h, 2, he, hi, ha, hr, ht, ho, hl, hd, hg, hm, hp, hf, chad
+Line 806: sgn'(x1 -> No suggestions available
+Line 806: x2 -> Suggestions: x, 2, xi, xu, xv
+Line 806: h1 -> Suggestions: h, 1, he, hi, ha, hr, ht, ho, hl, hd, hg, hm, hp, hf, chad
+Line 806: h2 -> Suggestions: h, 2, he, hi, ha, hr, ht, ho, hl, hd, hg, hm, hp, hf, chad
+Line 818: x1 -> Suggestions: x, 1, xi, xu, xv
+Line 818: x2 -> Suggestions: x, 2, xi, xu, xv
+Line 820: x1 -> Suggestions: x, 1, xi, xu, xv
+Line 822: x2 -> Suggestions: x, 2, xi, xu, xv
+Line 824: h1 -> Suggestions: h, 1, he, hi, ha, hr, ht, ho, hl, hd, hg, hm, hp, hf, chad
+Line 824: sgn'(x1 -> No suggestions available
+Line 824: x2 -> Suggestions: x, 2, xi, xu, xv
+Line 826: h2 -> Suggestions: h, 2, he, hi, ha, hr, ht, ho, hl, hd, hg, hm, hp, hf, chad
+Line 826: sgn'(x1 -> No suggestions available
+Line 826: x2 -> Suggestions: x, 2, xi, xu, xv
+Line 828: sgn'(h1 -> No suggestions available
+Line 828: h2 -> Suggestions: h, 2, he, hi, ha, hr, ht, ho, hl, hd, hg, hm, hp, hf, chad
+Line 846: sgn'(0 -> Suggestions: sign
+Line 848: sgn'(0 -> Suggestions: sign
+Line 850: sgn'(1 -> Suggestions: sign
+Line 852: sgn'(1 -> Suggestions: sign
+Line 854: sgn'(0 -> Suggestions: sign
+Line 856: sgn'(0 -> Suggestions: sign
+Line 858: sgn'(1 -> Suggestions: sign
+Line 860: sgn'(1 -> Suggestions: sign
+Line 864: sgn'(0 -> Suggestions: sign
+Line 866: sgn'(1 -> Suggestions: sign
+Line 868: sgn'(1 -> Suggestions: sign
+Line 870: sgn'(1 -> Suggestions: sign
+Line 882: Modelling -> Suggestions: modeling, model ling, model-ling, Medellin
+Line 882: boolean -> Suggestions: Boolean, boo lean, boo-lean
+Line 882: Perceptron -> Suggestions: perception, percept, Percheron
+Line 888: N-dimensional -> Suggestions: dimensional, n dimensional, dimensionless, declensional, dimension
+Line 888: {x1, -> Suggestions: x, 1, xi, xu, xv
+Line 888: x2, -> Suggestions: x, 2, xi, xu, xv
+Line 888: xN}) -> Suggestions: Xn, x, n, en, xi, in, an, tn, on, ln, xu, xv, kn, Sn, In, iran, oman
+Line 888: K-dimensional -> Suggestions: dimensional, k dimensional, dimensionless, dimension
+Line 888: {y1, -> Suggestions: y, 1, ye, ya, yr, yo, yd
+Line 888: y2, -> Suggestions: y, 2, ye, ya, yr, yo, yd
+Line 888: yK}. -> Suggestions: y, k, yak, yuk, ye, ya, yr, yo, ck, yd, dk, mk, pk, bk, wk
+Line 888: realised -> Suggestions: realized, released
+Line 892: parametersas -> Suggestions: parameters as, parameters-as, parameters, parameter, tetrameters
+Line 892: perceptron -> Suggestions: perception, percept, Percheron
+Line 896: yk -> Suggestions: y, k, yak, yuk, ye, ya, yr, yo, ck, yd, dk, mk, pk, bk, wk
+Line 900: x1, -> Suggestions: x, 1, xi, xu, xv
+Line 900: x2,…, -> Suggestions: x, 2, xi, xu, xv
+Line 900: xN -> Suggestions: Xn, x, n, en, xi, in, an, tn, on, ln, xu, xv, kn, Sn, In, iran, oman
+Line 900: y1, -> Suggestions: y, 1, ye, ya, yr, yo, yd
+Line 900: y2,…, -> Suggestions: y, 2, ye, ya, yr, yo, yd
+Line 900: yK -> Suggestions: y, k, yak, yuk, ye, ya, yr, yo, ck, yd, dk, mk, pk, bk, wk
+Line 906: sigmoid/logistic -> Suggestions: sigmoid logistic, sigmoid-logistic, syllogistically
+Line 906: σ(·) -> Suggestions: e, s, i, a, n, r, t, o, l, c, d, u, g, m, p
+Line 910: σ'(x) -> Suggestions: x, ex, ix, ax, ox, lx, bx, Ex, Rx
+Line 910: σ(x)(1– -> No suggestions available
+Line 910: σ(x)). -> Suggestions: x, ex, ix, ax, ox, lx, bx, Ex, Rx
+Line 918: zero-centred -> Suggestions: centralized
+Line 918: tanh'(x) -> Suggestions: tanh, tanh x, Tanta, tonga
+Line 918: tanh2(x). -> Suggestions: tanh
+Line 922: Softmax: -> Suggestions: soft max, soft-max, softa
+Line 922: softmax -> Suggestions: soft max, soft-max, softa
+Line 922: well-defined -> Suggestions: well defined, well-defined, predefined
+Line 922: Softmax -> Suggestions: soft max, soft-max, softa
+Line 926: softmax -> Suggestions: soft max, soft-max, softa
+Line 926: e1 -> Suggestions: e, 1, es, ea, en, er, et, el, ed, em, eh, e.g., i.e., peru
+Line 926: e5 -> Suggestions: e, 5, es, ea, en, er, et, el, ed, em, eh, e.g., i.e., peru
+Line 926: e2, -> Suggestions: e, 2, es, ea, en, er, et, el, ed, em, eh, e.g., i.e., peru
+Line 926: [e1/D, -> Suggestions: ed, end, eld, Ede, e.g., peru, chad
+Line 926: e5/D, -> Suggestions: ed, end, eld, Ede, e.g., peru, chad
+Line 926: e2/D] -> Suggestions: ed, end, eld, Ede, e.g., peru, chad
+Line 930: ReLU: -> Suggestions: rule, rely, rel, rel u, velure, peru
+Line 930: ReLU -> Suggestions: rule, rely, rel, rel u, velure, peru
+Line 932: ReLU(x) -> Suggestions: reflux, relax, redux, re lux, re-lux, relume, peru
+Line 932: max(0, -> Suggestions: max, maxi, max 0, mali
+Line 934: ReLU -> Suggestions: rule, rely, rel, rel u, velure, peru
+Line 934: ReLU -> Suggestions: rule, rely, rel, rel u, velure, peru
+Line 938: GELU: -> Suggestions: gel, glue, gels, genu, geld, gel u, Deluge, deluge, luge, peru
+Line 938: GELU -> Suggestions: gel, glue, gels, genu, geld, gel u, Deluge, deluge, luge, peru
+Line 938: Gaussian -> Suggestions: Gaussian, russia
+Line 938: Φ(x) -> Suggestions: x, ex, ix, ax, ox, lx, bx, Ex, Rx
+Line 940: GELU(x) -> Suggestions: deluxe, peru
+Line 940: Φ(x) -> Suggestions: x, ex, ix, ax, ox, lx, bx, Ex, Rx
+Line 942: GELU -> Suggestions: gel, glue, gels, genu, geld, gel u, Deluge, deluge, luge, peru
+Line 942: GELU -> Suggestions: gel, glue, gels, genu, geld, gel u, Deluge, deluge, luge, peru
+Line 942: ReLU. -> Suggestions: rule, rely, rel, rel u, velure, peru
+Line 946: GLU: -> Suggestions: flu, gl, glue, glut, glum, lug, gnu, glt, Blu, gl u, guam, mali, peru, palau, niue
+Line 946: GLU -> Suggestions: flu, gl, glue, glut, glum, lug, gnu, glt, Blu, gl u, guam, mali, peru, palau, niue
+Line 946: parameterised -> Suggestions: parametrized, parameter
+Line 946: sigmodi -> Suggestions: sigmoid, Zsigmondy
+Line 948: GLU(x) -> Suggestions: flux, lux, glue, glut, glum, g lux, guam, niue
+Line 948: σ(wx -> Suggestions: TWX
+Line 950: component-wise -> Suggestions: component wise, component-wise, component
+Line 950: GLU -> Suggestions: flu, gl, glue, glut, glum, lug, gnu, glt, Blu, gl u, guam, mali, peru, palau, niue
+Line 950: emphasise -> Suggestions: emphasis, emphasize, emphasis e, emphases
+Line 950: de-emphasise. -> Suggestions: reemphasis, underemphasis, emphasis
+Line 956: Swish(x) -> Suggestions: swish, swishy, swish x
+Line 956: σ(βx) -> No suggestions available
+Line 958: β -> Suggestions: e, s, i, a, n, r, t, o, l, c, d, u, g, m, p
+Line 958: learnable -> Suggestions: learn able, learn-able, returnable, burnable, bearable, arrangeable
+Line 962: SwiGLU: -> Suggestions: swig
+Line 962: SwiGLU -> Suggestions: swig
+Line 962: Swish-Gated -> Suggestions: swish gated, swish-gated, swished
+Line 962: GLU -> Suggestions: flu, gl, glue, glut, glum, lug, gnu, glt, Blu, gl u, guam, mali, peru, palau, niue
+Line 962: optimisation -> Suggestions: optimization, improvisation, misapplication, misappropriation, imitation
+Line 964: SwiGLU(x) -> Suggestions: swig lux, swig-lux, swigging
+Line 964: Swishβ(wx -> Suggestions: swishy
+Line 968: i.e., -> Suggestions: IE, ai, i, e, ire, tie, lie, ice, die, gie, pie, hie, fie, vie, Lie, i.e., niue
+Line 976: step/iteration -> Suggestions: step iteration, step-iteration, transliteration, sternutation, alliteration, obliteration
+Line 976: E(w). -> Suggestions: o, oo, u, we, eq, e, w, ewe, sew, new, dew, mew, pew, hew, yew, e.g., i.e., peru
+Line 978: Backpropagation -> Suggestions: back propagation, back-propagation, propagation
+Line 980: jth -> Suggestions: nth, fth, Eth, Th
+Line 980: ∇Ej -> Suggestions: egg, eh, e, j, es, ea, en, er, et, el, ed, em, e.g., i.e., peru, fiji
+Line 990: kth -> Suggestions: kt, kith, nth, kph, fth, Eth, kWh, kt h
+Line 990: yk -> Suggestions: y, k, yak, yuk, ye, ya, yr, yo, ck, yd, dk, mk, pk, bk, wk
+Line 990: w.r.t -> Suggestions: ert, wet, wry, wt, rt, wert, writ, wart, wort, wit, wat, art, wot, ort, frt, iran, iraq, peru
+Line 994: wij -> Suggestions: win, wit, wig, wiz, Wii, fiji
+Line 994: wij -> Suggestions: win, wit, wig, wiz, Wii, fiji
+Line 994: ith -> Suggestions: it, lith, itch, pith, kith, with, Lith, hit, its, nth, fth, Eth, it h, italy, iran, iraq, i.e., haiti, niue, fiji
+Line 994: jth -> Suggestions: nth, fth, Eth, Th
+Line 994: wij -> Suggestions: win, wit, wig, wiz, Wii, fiji
+Line 994: ith -> Suggestions: it, lith, itch, pith, kith, with, Lith, hit, its, nth, fth, Eth, it h, italy, iran, iraq, i.e., haiti, niue, fiji
+Line 994: jth -> Suggestions: nth, fth, Eth, Th
+Line 994: wij -> Suggestions: win, wit, wig, wiz, Wii, fiji
+Line 998: backpropagation. -> Suggestions: back propagation, back-propagation, propagation
+Line 1002: backpropagation -> Suggestions: back propagation, back-propagation, propagation
+Line 1002: N-dimensional -> Suggestions: dimensional, n dimensional, dimensionless, declensional, dimension
+Line 1002: (x1, -> Suggestions: x, 1, xi, xu, xv
+Line 1002: x2, -> Suggestions: x, 2, xi, xu, xv
+Line 1002: xN) -> Suggestions: Xn, x, n, en, xi, in, an, tn, on, ln, xu, xv, kn, Sn, In, iran, oman
+Line 1002: K-dimensional -> Suggestions: dimensional, k dimensional, dimensionless, dimension
+Line 1002: (y1, -> Suggestions: y, 1, ye, ya, yr, yo, yd
+Line 1002: y2, -> Suggestions: y, 2, ye, ya, yr, yo, yd
+Line 1002: yK). -> Suggestions: y, k, yak, yuk, ye, ya, yr, yo, ck, yd, dk, mk, pk, bk, wk
+Line 1002: h(x) -> Suggestions: h, x, hex, he, ex, hi, ix, ha, ax, hr, ht, ho, ox, hl, lx, chad
+Line 1002: yk -> Suggestions: y, k, yak, yuk, ye, ya, yr, yo, ck, yd, dk, mk, pk, bk, wk
+Line 1012: yk -> Suggestions: y, k, yak, yuk, ye, ya, yr, yo, ck, yd, dk, mk, pk, bk, wk
+Line 1012: tk -> Suggestions: kt, t, k, ts, ti, ta, tn, tr, to, ck, dk, mk, pk, tb, bk, togo
+Line 1016: backpropagation -> Suggestions: back propagation, back-propagation, propagation
+Line 1034: dataset -> Suggestions: data set, data-set, database, tasset
+Line 1038: <H4> -> Suggestions: h, 4, he, hi, ha, hr, ht, ho, hl, hd, hg, hm, hp, hf, chad
+Line 1040: updation -> Suggestions: inundation
+Line 1044: minima -> Suggestions: minims, minim, minimal, mini ma, mini-ma, minim a, minyanim, maximin, mini, anima, india, dominica, panama
+Line 1044: memory-intensive -> Suggestions: memory intensive, memory-intensive, intensiveness
+Line 1044: optimising -> Suggestions: optimizing, optimist, optimism
+Line 1044: overfit. -> Suggestions: over fit, over-fit, overfill
+Line 1046: optimised. -> Suggestions: optimized, optimist, optimism
+Line 1050: Mini-Batch -> Suggestions: mini batch, mini-batch, minibar
+Line 1052: optimisation -> Suggestions: optimization, improvisation, misapplication, misappropriation, imitation
+Line 1052: optimisation -> Suggestions: optimization, improvisation, misapplication, misappropriation, imitation
+Line 1052: optimising -> Suggestions: optimizing, optimist, optimism
+Line 1052: optimising -> Suggestions: optimizing, optimist, optimism
+Line 1052: optimisation -> Suggestions: optimization, improvisation, misapplication, misappropriation, imitation
+Line 1052: optimisation -> Suggestions: optimization, improvisation, misapplication, misappropriation, imitation
+Line 1052: mini-batching, -> Suggestions: mini batching, mini-batching, chitchatting
+Line 1058: x1 -> Suggestions: x, 1, xi, xu, xv
+Line 1058: x2, -> Suggestions: x, 2, xi, xu, xv
+Line 1058: y1 -> Suggestions: y, 1, ye, ya, yr, yo, yd
+Line 1058: y2, -> Suggestions: y, 2, ye, ya, yr, yo, yd
+Line 1058: utilises -> Suggestions: utilities, utilizes
+Line 1058: b1 -> Suggestions: b, 1, be, bi, br, bl, bd, bu, bp, by, bf, bk, B, cuba
+Line 1058: b2 -> Suggestions: b, 2, be, bi, br, bl, bd, bu, bp, by, bf, bk, B, cuba
+Line 1062: (x1, -> Suggestions: x, 1, xi, xu, xv
+Line 1062: x2) -> Suggestions: x, 2, xi, xu, xv
+Line 1062: (t1, -> Suggestions: t, 1, ts, ti, ta, tn, tr, to, tb, togo
+Line 1062: t2) -> Suggestions: t, 2, ts, ti, ta, tn, tr, to, tb, togo
+Line 1062: η -> Suggestions: e, s, i, a, n, r, t, o, l, c, d, u, g, m, p
+Line 1086: Hyperparameters -> Suggestions: hyper parameters, hyper-parameters, parameters
+Line 1088: dataset -> Suggestions: data set, data-set, database, tasset
+Line 1088: optimised. -> Suggestions: optimized, optimist, optimism
+Line 1088: (i.e., -> Suggestions: IE, ai, i, e, ire, tie, lie, ice, die, gie, pie, hie, fie, vie, Lie, i.e., niue
+Line 1088: dataset -> Suggestions: data set, data-set, database, tasset
+Line 1088: generalisability -> Suggestions: venerability, generality, transferability, unalterability
+Line 1088: dataset. -> Suggestions: data set, data-set, database, tasset
+Line 1090: underfit -> Suggestions: under fit, under-fit, underfund, underbite
+Line 1090: dataset, -> Suggestions: data set, data-set, database, tasset
+Line 1090: overfit -> Suggestions: over fit, over-fit, overfill
+Line 1090: dataset -> Suggestions: data set, data-set, database, tasset
+Line 1090: generalisability. -> Suggestions: venerability, generality, transferability, unalterability
+Line 1092: η, -> Suggestions: e, s, i, a, n, r, t, o, l, c, d, u, g, m, p
+Line 1092: hyperparameters. -> Suggestions: hyper parameters, hyper-parameters, parameters
+Line 1096: <H4> -> Suggestions: h, 4, he, hi, ha, hr, ht, ho, hl, hd, hg, hm, hp, hf, chad
+Line 1098: overfitting -> Suggestions: over fitting, over-fitting, overwriting, overfilling, overfishing, overexciting
+Line 1098: underfitting, -> Suggestions: under fitting, under-fitting, undercutting, underwriting, underfunding, underpainting
+Line 1098: MLP -> Suggestions: ml, mp, map, alp, mop, ml p, mali
+Line 1098: underfitting. -> Suggestions: under fitting, under-fitting, undercutting, underwriting, underfunding, underpainting
+Line 1098: overfit. -> Suggestions: over fit, over-fit, overfill
+Line 1102: <H4> -> Suggestions: h, 4, he, hi, ha, hr, ht, ho, hl, hd, hg, hm, hp, hf, chad
+Line 1104: iterations/steps -> Suggestions: iterations steps, iterations-steps, transliteration, sternutations, consternation, stationmaster
+Line 1108: <H4>Learning -> Suggestions: learning
+Line 1110: η -> Suggestions: e, s, i, a, n, r, t, o, l, c, d, u, g, m, p
+Line 1110: minima -> Suggestions: minims, minim, minimal, mini ma, mini-ma, minim a, minyanim, maximin, mini, anima, india, dominica, panama
+Line 1116: Time-Based -> Suggestions: time based, time-based, seedtime
+Line 1120: Regularisation -> Suggestions: regularization, regulations, regulation, singularization, reregistration
+Line 1122: Regularisation -> Suggestions: regularization, regulations, regulation, singularization, reregistration
+Line 1122: overfitting -> Suggestions: over fitting, over-fitting, overwriting, overfilling, overfishing, overexciting
+Line 1126: overfitting -> Suggestions: over fitting, over-fitting, overwriting, overfilling, overfishing, overexciting
+Line 1126: overfit. -> Suggestions: over fit, over-fit, overfill
+Line 1130: L1 -> Suggestions: l, 1, ls, li, la, ln, lo, ll, lg, lm, lb, lv, laos, mali
+Line 1130: L2 -> Suggestions: l, 2, ls, li, la, ln, lo, ll, lg, lm, lb, lv, laos, mali
+Line 1130: Regularisation: -> Suggestions: regularization, regulations, regulation, singularization, reregistration
+Line 1130: penalising -> Suggestions: penalizing, palingenesis, appealing
+Line 1130: overfitting. -> Suggestions: over fitting, over-fitting, overwriting, overfilling, overfishing, overexciting
+Line 1130: Lp -> Suggestions: LP, pl, lo, l, p, lip, lap, alp, lop, ls, sp, li, la, ln, op, laos, mali
+Line 1130: n-dimensional -> Suggestions: dimensional, n dimensional, dimensionless, declensional, dimension
+Line 1130: L1 -> Suggestions: l, 1, ls, li, la, ln, lo, ll, lg, lm, lb, lv, laos, mali
+Line 1130: L2 -> Suggestions: l, 2, ls, li, la, ln, lo, ll, lg, lm, lb, lv, laos, mali
+Line 1132: minimise -> Suggestions: minimize, miniseries
+Line 1132: E(w) -> Suggestions: o, oo, u, we, eq, e, w, ewe, sew, new, dew, mew, pew, hew, yew, e.g., i.e., peru
+Line 1132: α -> Suggestions: e, s, i, a, n, r, t, o, l, c, d, u, g, m, p
+Line 1132: regularisation -> Suggestions: regularization, regulations, regulation, singularization, reregistration
+Line 1134: L1 -> Suggestions: l, 1, ls, li, la, ln, lo, ll, lg, lm, lb, lv, laos, mali
+Line 1134: L2 -> Suggestions: l, 2, ls, li, la, ln, lo, ll, lg, lm, lb, lv, laos, mali
+Line 1134: regularisation, -> Suggestions: regularization, regulations, regulation, singularization, reregistration
+Line 1134: L1 -> Suggestions: l, 1, ls, li, la, ln, lo, ll, lg, lm, lb, lv, laos, mali
+Line 1134: regularisation -> Suggestions: regularization, regulations, regulation, singularization, reregistration
+Line 1134: L1 -> Suggestions: l, 1, ls, li, la, ln, lo, ll, lg, lm, lb, lv, laos, mali
+Line 1134: regularisation -> Suggestions: regularization, regulations, regulation, singularization, reregistration
+Line 1134: L2 -> Suggestions: l, 2, ls, li, la, ln, lo, ll, lg, lm, lb, lv, laos, mali
+Line 1134: regularisation -> Suggestions: regularization, regulations, regulation, singularization, reregistration
+Line 1138: mini-batch -> Suggestions: mini batch, mini-batch, minibar
+Line 1138: regularisation -> Suggestions: regularization, regulations, regulation, singularization, reregistration
+Line 1138: overfitting -> Suggestions: over fitting, over-fitting, overwriting, overfilling, overfishing, overexciting
+Line 1138: dataset. -> Suggestions: data set, data-set, database, tasset
+Line 1144: derivate -> Suggestions: deriv ate, deriv-ate, derivative, derivation, privateer, deactivate
+Line 1148: E(w) -> Suggestions: o, oo, u, we, eq, e, w, ewe, sew, new, dew, mew, pew, hew, yew, e.g., i.e., peru
+Line 1148: ith -> Suggestions: it, lith, itch, pith, kith, with, Lith, hit, its, nth, fth, Eth, it h, italy, iran, iraq, i.e., haiti, niue, fiji
+Line 1148: w(i), -> Suggestions: WI, wee, qi, wo, w, i, win, wit, wig, wiz, Twi, we, si, ii, ai, asia, mali, niue, fiji
+Line 1148: z(i) -> Suggestions: zee, xi, z, i, zit, zig, zip, Uzi, si, ii, ai, ti, oi, li, di, asia, mali, niue, fiji
+Line 1148: z(i) -> Suggestions: zee, xi, z, i, zit, zig, zip, Uzi, si, ii, ai, ti, oi, li, di, asia, mali, niue, fiji
+Line 1148: h(a(i)), -> Suggestions: hie, ha, hi, ai, hair, hail, haik, Thai, hae, has, hat, had, hag, ham, hap, haiti, mali, chad
+Line 1152: ReLU -> Suggestions: rule, rely, rel, rel u, velure, peru
+Line 1156: initialisation -> Suggestions: initialization, antinationalist, initiation, salinization, initialism
+Line 1162: dataset? -> Suggestions: data set, data-set, database, tasset
+Line 1162: utilise -> Suggestions: utilize
+Line 1166: labelled -> Suggestions: labeled, la belled, la-belled, label led, label-led, belled, glabella, belabored, blabbed
+Line 1166: labelled -> Suggestions: labeled, la belled, la-belled, label led, label-led, belled, glabella, belabored, blabbed
+Line 1166: ith -> Suggestions: it, lith, itch, pith, kith, with, Lith, hit, its, nth, fth, Eth, it h, italy, iran, iraq, i.e., haiti, niue, fiji
+Line 1166: ith -> Suggestions: it, lith, itch, pith, kith, with, Lith, hit, its, nth, fth, Eth, it h, italy, iran, iraq, i.e., haiti, niue, fiji
+Line 1182: Positive/Negative. -> Suggestions: positive negative, positive-negative, positiveness, negativeness, postpositive
+Line 1182: (TP) -> Suggestions: pt, to, t, p, tsp, tip, tap, top, typ, ftp, twp, ts, sp, ti, ta, togo
+Line 1182: truly/correctly -> Suggestions: truly correctly, truly-correctly, incorrectly, correctly
+Line 1186: erroneously/falsely -> Suggestions: erroneously falsely, erroneously-falsely, erroneously
+Line 1186: i.e., -> Suggestions: IE, ai, i, e, ire, tie, lie, ice, die, gie, pie, hie, fie, vie, Lie, i.e., niue
+Line 1186: (FN). -> Suggestions: fm, f, n, fen, fin, fan, fun, en, in, fa, an, fr, ft, tn, fo, fiji, iran, oman
+Line 1190: FN -> Suggestions: fm, f, n, fen, fin, fan, fun, en, in, fa, an, fr, ft, tn, fo, fiji, iran, oman
+Line 1194: ŷ -> Suggestions: e, s, i, a, n, r, t, o, l, c, d, u, g, m, p
+Line 1198: correct/incorrect -> Suggestions: correct incorrect, correct-incorrect, correctional, correctitude, hypercorrection, correction
+Line 1198: ith -> Suggestions: it, lith, itch, pith, kith, with, Lith, hit, its, nth, fth, Eth, it h, italy, iran, iraq, i.e., haiti, niue, fiji
+Line 1198: TP -> Suggestions: pt, to, t, p, tsp, tip, tap, top, typ, ftp, twp, ts, sp, ti, ta, togo
+Line 1198: yi -> Suggestions: ti, yo, y, i, yin, yid, yip, ye, si, ii, ya, ai, yr, oi, li, asia, mali, syria, niue, fiji
+Line 1198: ŷi -> Suggestions: i, si, ii, ai, ti, oi, li, di, gi, mi, pi, hi, bi, vi, ki, asia, mali, syria, fiji
+Line 1198: yi -> Suggestions: ti, yo, y, i, yin, yid, yip, ye, si, ii, ya, ai, yr, oi, li, asia, mali, syria, niue, fiji
+Line 1198: ŷi -> Suggestions: i, si, ii, ai, ti, oi, li, di, gi, mi, pi, hi, bi, vi, ki, asia, mali, syria, fiji
+Line 1198: yi -> Suggestions: ti, yo, y, i, yin, yid, yip, ye, si, ii, ya, ai, yr, oi, li, asia, mali, syria, niue, fiji
+Line 1198: ŷi -> Suggestions: i, si, ii, ai, ti, oi, li, di, gi, mi, pi, hi, bi, vi, ki, asia, mali, syria, fiji
+Line 1198: ŷi -> Suggestions: i, si, ii, ai, ti, oi, li, di, gi, mi, pi, hi, bi, vi, ki, asia, mali, syria, fiji
+Line 1198: ŷi -> Suggestions: i, si, ii, ai, ti, oi, li, di, gi, mi, pi, hi, bi, vi, ki, asia, mali, syria, fiji
+Line 1204: actualised -> Suggestions: actualized, actualize
+Line 1254: ŷ -> Suggestions: e, s, i, a, n, r, t, o, l, c, d, u, g, m, p
+Line 1278: TP -> Suggestions: pt, to, t, p, tsp, tip, tap, top, typ, ftp, twp, ts, sp, ti, ta, togo
+Line 1280: FN -> Suggestions: fm, f, n, fen, fin, fan, fun, en, in, fa, an, fr, ft, tn, fo, fiji, iran, oman
+Line 1284: TP -> Suggestions: pt, to, t, p, tsp, tip, tap, top, typ, ftp, twp, ts, sp, ti, ta, togo
+Line 1290: TP -> Suggestions: pt, to, t, p, tsp, tip, tap, top, typ, ftp, twp, ts, sp, ti, ta, togo
+Line 1292: TP -> Suggestions: pt, to, t, p, tsp, tip, tap, top, typ, ftp, twp, ts, sp, ti, ta, togo
+Line 1294: TP -> Suggestions: pt, to, t, p, tsp, tip, tap, top, typ, ftp, twp, ts, sp, ti, ta, togo
+Line 1296: FN -> Suggestions: fm, f, n, fen, fin, fan, fun, en, in, fa, an, fr, ft, tn, fo, fiji, iran, oman
+Line 1300: (TP), -> Suggestions: pt, to, t, p, tsp, tip, tap, top, typ, ftp, twp, ts, sp, ti, ta, togo
+Line 1300: (FN) -> Suggestions: fm, f, n, fen, fin, fan, fun, en, in, fa, an, fr, ft, tn, fo, fiji, iran, oman
+Line 1300: ŷ -> Suggestions: e, s, i, a, n, r, t, o, l, c, d, u, g, m, p
+Line 1314: (TP) -> Suggestions: pt, to, t, p, tsp, tip, tap, top, typ, ftp, twp, ts, sp, ti, ta, togo
+Line 1316: (FN) -> Suggestions: fm, f, n, fen, fin, fan, fun, en, in, fa, an, fr, ft, tn, fo, fiji, iran, oman
+Line 1326: ŷ -> Suggestions: e, s, i, a, n, r, t, o, l, c, d, u, g, m, p
+Line 1330: actual/expected -> Suggestions: actual expected, actual-expected, expectorated
+Line 1336: safe/positive, -> Suggestions: safe positive, safe-positive, postpositive, prepositive, appositive, diapositive
+Line 1336: FNs. -> Suggestions: fens, fins, fans, ens, ins, ans, fps, Ens, Finns, fiji, laos
+Line 1336: (FN -> Suggestions: fm, f, n, fen, fin, fan, fun, en, in, fa, an, fr, ft, tn, fo, fiji, iran, oman
+Line 1336: tug-of-war, -> Suggestions: Tortuga
+Line 1336: FN -> Suggestions: fm, f, n, fen, fin, fan, fun, en, in, fa, an, fr, ft, tn, fo, fiji, iran, oman
+Line 1336: vice-versa, -> Suggestions: vice versa, vice-versa, reversal
+Line 1336: prioritised -> Suggestions: prioritized, prioritize
+Line 1340: F1 -> Suggestions: f, 1, fa, fr, ft, fo, fl, fm, fp, ff, fiji
+Line 1340: F1 -> Suggestions: f, 1, fa, fr, ft, fo, fl, fm, fp, ff, fiji
+Line 1342: F1 -> Suggestions: f, 1, fa, fr, ft, fo, fl, fm, fp, ff, fiji
+Line 1348: NLP -> Suggestions: nip, nap, alp, LPN, nepal, niue, mali
+Line 1348: NLP -> Suggestions: nip, nap, alp, LPN, nepal, niue, mali
+Line 1348: preprocessing -> Suggestions: reprocessing, p reprocessing, teleprocessing, processioning, processing, prepossessing
+Line 1348: lemmatisation, -> Suggestions: solemnization, sensationalism, malversation, emasculation
+Line 1348: tokenisation. -> Suggestions: dispensation
+Line 1348: word/sentence -> Suggestions: word sentence, word-sentence, sentence
+Line 1350: n-dimensional -> Suggestions: dimensional, n dimensional, dimensionless, declensional, dimension
+Line 1350: NLP, -> Suggestions: nip, nap, alp, LPN, nepal, niue, mali
+Line 1350: perceptrons -> Suggestions: perceptions, perception, peppercorns
+Line 1350: perceptrons -> Suggestions: perceptions, perception, peppercorns
+Line 1350: backpropagation, -> Suggestions: back propagation, back-propagation, propagation
+Line 1350: hyperparameters -> Suggestions: hyper parameters, hyper-parameters, parameters
+Line 1352: n-grams -> Suggestions: grams, engrams, n grams, grandams, guam
+Line 1352: bag-of-words -> Suggestions: backswords
+Line 1360: (NLP -> Suggestions: nip, nap, alp, LPN, nepal, niue, mali
+Line 1360: https://github.com/NiuTrans/ABigSurvey. -> No suggestions available
+Line 1362: NLP: -> Suggestions: nip, nap, alp, LPN, nepal, niue, mali
+Line 1362: https://github.com/keon/awesome-nlp. -> No suggestions available
+Line 1366: Akmajian -> Suggestions: Akkadian
+Line 1368: Mielke, -> Suggestions: Milken
+Line 1368: Sabrina -> Suggestions: Sabrina, syria, syrian, africa
+Line 1368: Open-Vocabulary -> Suggestions: open vocabulary, open-vocabulary, vocabulary
+Line 1368: Tokenization -> Suggestions: autoionization, ionization, atomization
+Line 1368: NLP.” -> Suggestions: nip, nap, alp, LPN, nepal, niue, mali
+Line 1368: arXiv -> Suggestions: ar xiv, ar-xiv, arrive, aruba, asia
+Line 1368: preprint -> Suggestions: reprint, p reprint, printer, printed, printing, preeminent
+Line 1368: arXiv:2112.10508 -> No suggestions available
+Line 1370: Bonan, -> Suggestions: Conan, Honan, bonanza, Bona, bonbon, benin, oman
+Line 1370: pre-trained -> Suggestions: retrained, p retrained, pret rained, pret-rained, restrained, preordained, retrainee, pretreated
+Line 1370: ACM -> Suggestions: cam, ac, am, cm, acme, mac, ace, aim, arm, act, atm, acc, a cm, ac m, asia, laos, guam, mali
+Line 1374: Daniel -> Suggestions: denial, Daniel
+Line 1374: IEEE -> Suggestions: IEEE, i.e.
+Line 1386: Tokenization -> Suggestions: autoionization, ionization, atomization
+Line 1386: Similarityhttps://huggingface.co/spaces/spacy/pipeline-visualizer#en_core_web_lg -> No suggestions available
+Line 1388: https://playground.tensorflow.org/ -> Suggestions: playground
+Line 1390: Descenthttps://uclaacm.github.io/gradient-descent-visualiser/#playground -> No suggestions available
+Line 1398: True/False -> Suggestions: true false, true-false, falsetto
+Line 1400: Lemmatisation -> Suggestions: solemnization, sensationalism, malversation, emasculation
+Line 1400: (True/False) -> Suggestions: true false, true-false, falsetto
+Line 1402: (True/False) -> Suggestions: true false, true-false, falsetto
+Line 1404: SentencePiece -> Suggestions: sentence piece, sentence-piece, centerpiece, sentence, sentience
+Line 1404: pre-tokenised. -> Suggestions: predisposed
+Line 1404: (True/False) -> Suggestions: true false, true-false, falsetto
+Line 1406: (True/False) -> Suggestions: true false, true-false, falsetto
+Line 1408: (True/False) -> Suggestions: true false, true-false, falsetto
+Line 1432: GELU -> Suggestions: gel, glue, gels, genu, geld, gel u, Deluge, deluge, luge, peru
+Line 1440: lemmatisation? -> Suggestions: solemnization, sensationalism, malversation, emasculation
+Line 1442: ReLU -> Suggestions: rule, rely, rel, rel u, velure, peru
+Line 1444: NLP -> Suggestions: nip, nap, alp, LPN, nepal, niue, mali
+Line 1444: tokenisation, -> Suggestions: dispensation
+Line 1444: lemmatisation -> Suggestions: solemnization, sensationalism, malversation, emasculation
+Line 1448: favourite -> Suggestions: favorite, favoritism
+Line 1458: tokenisation -> Suggestions: dispensation
+Line 1460: preprocessing -> Suggestions: reprocessing, p reprocessing, teleprocessing, processioning, processing, prepossessing
+Line 1460: NLP -> Suggestions: nip, nap, alp, LPN, nepal, niue, mali
+Line 1462: three-input -> Suggestions: three input, three-input, threepence
+Line 1462: [w1,w2,w3, -> No suggestions available
+Line 1464: WordNet? -> Suggestions: word net, word-net, wordiness
+Line 1464: WordNet. -> Suggestions: word net, word-net, wordiness
+Line 1466: subword -> Suggestions: sub word, sub-word, suborder
+Line 1466: tokenisation? -> Suggestions: dispensation
+Line 1466: tokenisation -> Suggestions: dispensation
+Line 1468: NLP -> Suggestions: nip, nap, alp, LPN, nepal, niue, mali
+Line 1476: ŷ -> Suggestions: e, s, i, a, n, r, t, o, l, c, d, u, g, m, p
+Line 1476: σ(wTx -> No suggestions available
+Line 1476: σ(z) -> Suggestions: z, oz, dz, Ez, Oz, Hz
+Line 1476: exp(–z)). -> Suggestions: exp, expo, exp z, e.g., egypt
+Line 1484: Akmajian, -> Suggestions: Akkadian
+Line 1484: Demers, -> Suggestions: dimers, deters, demurs, defers, deme rs, deme-rs, redeemers, emersed, denmark, yemen, yemeni
+Line 1484: Harnish, -> Suggestions: garnish, tarnish, varnish, sharpish
+Line 1484: MIT -> Suggestions: MIT, might, meet, nit, mut, mot, mir, mi, mt, it, mite, emit, mist, imit, mint, mali, malta, oman, asia, haiti, niue, fiji
+Line 1484: Press.URL -> Suggestions: pressure, suppress
+Line 1484: https://doi.org/10.7551/mitpress/4252.001.0001 -> No suggestions available
+Line 1486: Heidelberg: -> Suggestions: Heidelberg
+Line 1486: Springer-Verlag. -> Suggestions: klipspringer
+Line 1488: Cho, -> Suggestions: so, chew, chi, ch, co, ho, echo, chon, coho, choc, chou, chop, chow, Echo, och, chad
+Line 1488: Merriënboer, -> Suggestions: merriment
+Line 1488: Gulcehre, -> Suggestions: ulcerate
+Line 1488: Bahdanau, -> Suggestions: bandana, bahamas
+Line 1488: Bougares, -> Suggestions: Bourges
+Line 1488: Schwenk, -> Suggestions: Schwerin
+Line 1488: Bengio, -> Suggestions: Bengali, benin
+Line 1488: RNN -> Suggestions: inn, ran, ann, run, Inn, Ann, Rn, RN, iran
+Line 1488: encoder–decoder -> Suggestions: encoder decoder, encoder-decoder, encoder
+Line 1488: (EMNLP), -> Suggestions: empanel, mali
+Line 1488: 1724–1734).URL -> No suggestions available
+Line 1488: https://aclanthology.org/D14-1179 -> No suggestions available
+Line 1490: Clark, -> Suggestions: Clark, cark, lark, clerk, clank, claro, clack, clary, c lark, cl ark, cl-ark, chad, laos
+Line 1492: Eisenstein, -> Suggestions: Eisenstein
+Line 1492: MIT -> Suggestions: MIT, might, meet, nit, mut, mot, mir, mi, mt, it, mite, emit, mist, imit, mint, mali, malta, oman, asia, haiti, niue, fiji
+Line 1494: Elman, -> Suggestions: leman, elan, el man, el-man, elm an, elm-an, Hellman, bellman, Elma, Anselm, oman
+Line 1494: 179–211.URL -> No suggestions available
+Line 1494: https://www.sciencedirect.com/science/article/pii/036402139090002E -> No suggestions available
+Line 1496: Gage, -> Suggestions: Gage, gag, age, gauge, gags, sage, gaga, rage, gate, gale, cage, game, mage, gape, page, gabon, guam, ghana, laos, mali, e.g., niger, niue, togo
+Line 1498: Gers, -> Suggestions: Gers, hers, gees, gets, ger, gears, goers, germs, ergs, gars, gens, gels, germ, gems, ger s, peru
+Line 1498: Schmidhuber, -> Suggestions: Messerschmidt
+Line 1498: Cummins, -> Suggestions: cumming, Cummings, cumin
+Line 1498: lstm. -> Suggestions: LSAT, laos, asia, guam
+Line 1498: Comput., -> Suggestions: compute, com put, com-put, comp ut, comp-ut, computing

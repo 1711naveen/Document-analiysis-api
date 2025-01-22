@@ -281,6 +281,31 @@ def correct_scientific_unit_symbols(text):
     return updated_text
 
 
+
+def spell_out_number_and_unit_with_rules(sentence, line_number):
+    global global_logs
+    original_words = sentence.split()
+    modified_words = original_words[:]
+    unit_pattern = r"(\d+)\s+([a-zA-Z]+)"
+    number_pattern = r"\b(\d+)\b"
+
+    for i, word in enumerate(original_words):
+        # Handle number followed by unit
+        if re.match(unit_pattern, " ".join(original_words[i:i+2])):
+            continue  # Skip since it's already formatted correctly
+        # Spell out numbers less than 10
+        elif re.match(number_pattern, word):
+            number = int(word)
+            if number < 10:
+                modified_words[i] = num2words(number, to="cardinal")
+    
+    # Log only changes
+    for orig, mod in zip(original_words, modified_words):
+        if orig != mod:
+            global_logs.append(f"[spell_out_number_and_unit_with_rules] Line {line_number}: '{orig}' -> '{mod}'")
+    return " ".join(modified_words)
+
+
 # Done
 # [format_dates] Line 5: '386 BCE' -> '386 bce'
 def format_dates(text, line_number):
@@ -348,8 +373,37 @@ def correct_units_in_ranges_with_logging(text):
             change_details = f"{line.strip()} -> {new_line.strip()}"
             global_logs.append(f"Line {line_number}: {change_details}")
             line = new_line
-
         updated_lines.append(line)
+    return "\n".join(updated_lines)
+
+
+
+def correct_scientific_units_with_logging(text):
+    global global_logs
+    unit_symbols = ['kg', 'm', 's', 'A', 'K', 'mol', 'cd', 'Hz', 'N', 'Pa', 'J', 'W', 'C', 'V', 'F', 'Ω', 'ohm', 'S', 'T', 'H', 'lm', 'lx', 'Bq', 'Gy', 'Sv', 'kat']
+    pattern = rf"\b(\d+)\s*({'|'.join(re.escape(unit) for unit in unit_symbols)})\s*(s|'s|\.s)?\b"
+    lines = text.splitlines()
+    updated_lines = []
+    
+    for line_number, line in enumerate(lines, start=1):
+        original_line = line
+        changes = []
+        new_line = re.sub(pattern, lambda m: f"{m.group(1)} {m.group(2)}", line)
+                
+        if new_line != line:
+            for match in re.finditer(pattern, line):
+                original = match.group(0)
+                corrected = f"{match.group(1)} {match.group(2)}"
+                if original != corrected:
+                    changes.append(f"'{original}' -> '{corrected}'")
+
+            if changes:
+                global_logs.append(
+                    f"[unit correction] Line {line_number}: {', '.join(changes)}"
+                )
+
+        updated_lines.append(new_line)
+        
     return "\n".join(updated_lines)
 
 
@@ -399,17 +453,91 @@ def use_numerals_with_percent(text):
     return "\n".join(modified_text)
 
 
+def correct_preposition_usage(text):
+    """
+    Corrects preposition usage for date ranges (e.g., "from 2000-2010" -> "from 2000 to 2010").
+    Args:
+        text (str): Input text to process.
+    Returns:
+        str: Updated text.
+    """
+    global global_logs
+    def process_from_to(match):
+        original = match.group(0)
+        modified = f"from {match.group(1)} to {match.group(2)}"
+        if original != modified:
+            line_number = text[:match.start()].count('\n') + 1
+            global_logs.append(
+                f"[correct_preposition_usage] Line {line_number}: '{original}' -> '{modified}'"
+            )
+        return modified
+    def process_between_and(match):
+        original = match.group(0)
+        modified = f"between {match.group(1)} and {match.group(2)}"
+        if original != modified:
+            line_number = text[:match.start()].count('\n') + 1
+            global_logs.append(
+                f"[correct_preposition_usage] Line {line_number}: '{original}' -> '{modified}'"
+            )
+        return modified
+    text = re.sub(r"from (\d{4})[–-](\d{4})", process_from_to, text)
+    text = re.sub(r"between (\d{4})[–-](\d{4})", process_between_and, text)
+    return text
 
-# def write_to_log(doc_id):
-#     global global_logs
-#     output_dir = os.path.join('output', str(doc_id))
-#     os.makedirs(output_dir, exist_ok=True)
-#     log_file_path = os.path.join(output_dir, 'global_logs.txt')
 
-#     with open(log_file_path, 'w', encoding='utf-8') as log_file:
-#         log_file.write("\n".join(global_logs))
+def correct_unit_spacing(text):
+    """
+    Corrects spacing between numbers and units (e.g., "100 MB" -> "100MB").
+    Args:
+        text (str): Input text to process.
+    Returns:
+        str: Updated text.
+    """
+    global global_logs
+    units = ["Hz", "KHz", "MHz", "GHz", "kB", "MB", "GB", "TB"]
+    pattern = r"(\d+)\s+(" + "|".join(units) + r")"
+    def process_spacing(match):
+        original = match.group(0)
+        modified = f"{match.group(1)}{match.group(2)}"
+        if original != modified:
+            line_number = text[:match.start()].count('\n') + 1
+            global_logs.append(
+                f"[correct_unit_spacing] Line {line_number}: '{original}' -> '{modified}'"
+            )
+        return modified
+    corrected_text = re.sub(pattern, process_spacing, text)
+    return corrected_text
 
-#     global_logs = []
+
+
+def convert_currency_to_symbols(runs, line_number):
+    """
+    Converts textual currency names (dollar, pound, euro) to symbols ($, £, €) 
+    when preceded by a numerical value in the text of a paragraph's runs.
+    Logs changes to a global list with details of the modification in the desired format.    
+    Args:
+        runs: The runs of a paragraph (e.g., `para.runs`).
+        line_number: The line number of the paragraph for context.
+    """
+    global global_logs
+    currency_patterns = {
+        r'(\b\d+\s*)dollars\b': r'$\1',
+        r'(\b\d+\s*)pounds\b': r'£\1',
+        r'(\b\d+\s*)euros\b': r'€\1'
+    }
+    for run in runs:
+        original_text = run.text
+        modified_text = original_text
+        # Apply each currency replacement pattern
+        for pattern, replacement in currency_patterns.items():
+            modified_text = re.sub(pattern, replacement, modified_text, flags=re.IGNORECASE)
+        # If changes are made, update the text and log the change
+        if original_text != modified_text:
+            run.text = modified_text
+            global_logs.append(
+                f"[convert_currency_to_symbols] Line {line_number}: '{original_text}' -> '{modified_text}'"
+            )
+
 
 
 def write_to_log(doc_id):
@@ -430,6 +558,7 @@ def write_to_log(doc_id):
 def process_doc_function2(payload: dict, doc: Document, doc_id):
     line_number = 1
     for para in doc.paragraphs:
+        convert_currency_to_symbols(para.runs, line_number)
         para.text = remove_unnecessary_apostrophes(para.text, line_number)
         para.text = replace_fold_phrases(para.text)
         para.text = use_numerals_with_percent(para.text)
@@ -442,7 +571,11 @@ def process_doc_function2(payload: dict, doc: Document, doc_id):
         para.text = correct_scientific_unit_symbols(para.text)
         para.text = format_dates(para.text, line_number)
         para.text = format_ellipses_in_series(para.text)
-        para.text = correct_units_in_ranges_with_logging(para.text,line_number)
+        para.text = correct_units_in_ranges_with_logging(para.text)
+        para.text = correct_scientific_units_with_logging(para.text)
+        para.text = correct_preposition_usage(para.text)
+        para.text = correct_unit_spacing(para.text)
+        # para.text = spell_out_number_and_unit_with_rules(para.text,line_number)
         line_number += 1
         
     write_to_log(doc_id)
