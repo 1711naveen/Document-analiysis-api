@@ -1,0 +1,126 @@
+
+Start Time: 2025-01-23 11:04:04.315200
+End Time: 2025-01-23 11:04:37.862474
+Analysis completed in 33.55 seconds.
+
+
+FileName: Organisational Behaviour.docx
+
+
+Line 2: Organisational -> Suggestions: organizational, organization, antinationalist, transnational, antirational
+Line 2: Behaviour: -> Suggestions: behavior
+Line 4: Organisational -> Suggestions: organizational, organization, antinationalist, transnational, antirational
+Line 4: behaviour -> Suggestions: behavior
+Line 4: profesional -> Suggestions: professional, profession, processional, professorial, provisional
+Line 4: organisational -> Suggestions: organizational, organization, antinationalist, transnational, antirational
+Line 4: noances -> Suggestions: nuances, annoyances, announces, seances, france
+Line 4: behaviour -> Suggestions: behavior
+Line 4: organisational -> Suggestions: organizational, organization, antinationalist, transnational, antirational
+Line 4: organisational -> Suggestions: organizational, organization, antinationalist, transnational, antirational
+Line 4: behaviour, -> Suggestions: behavior
+Line 4: organisations. -> Suggestions: organizations, organization
+Line 8: Organisational -> Suggestions: organizational, organization, antinationalist, transnational, antirational
+Line 8: Behaviour -> Suggestions: behavior
+Line 10: Organisational -> Suggestions: organizational, organization, antinationalist, transnational, antirational
+Line 10: behaviour -> Suggestions: behavior
+Line 10: organisational -> Suggestions: organizational, organization, antinationalist, transnational, antirational
+Line 10: organisational -> Suggestions: organizational, organization, antinationalist, transnational, antirational
+Line 12: organisational -> Suggestions: organizational, organization, antinationalist, transnational, antirational
+Line 12: behaviour -> Suggestions: behavior
+Line 18: organisations -> Suggestions: organizations, organization
+Line 20: organisational -> Suggestions: organizational, organization, antinationalist, transnational, antirational
+Line 26: Behaviour -> Suggestions: behavior
+Line 28: behaviour -> Suggestions: behavior
+Line 30: consientiousness -> Suggestions: conscientiousness, contentiousness, consciousnesses, continuousness, conscientious
+Line 30: openess -> Suggestions: openness, oneness, openers, openest, ope ness, ope-ness, propenes, opens
+Line 32: organisational -> Suggestions: organizational, organization, antinationalist, transnational, antirational
+Line 34: decision-making -> Suggestions: decision making, decision-making, decisions
+Line 38: organisational -> Suggestions: organizational, organization, antinationalist, transnational, antirational
+Line 38: behaviour -> Suggestions: behavior
+Line 38: intract -> Suggestions: intact, interact, infract, in tract, in-tract, intr act, intr-act, intracity, contract
+Line 40: Tuckman’s -> Suggestions: tuck mans, tuck-mans, Turkomans
+Line 40: development—forming, -> Suggestions: development forming, development-forming, underdevelopment
+Line 40: norming, -> Suggestions: morning, forming, worming, minoring, minor
+Line 40: adjourning—are -> Suggestions: adjourning are, adjourning-are, readjourn
+Line 40: recognised -> Suggestions: recognized, recognizee
+Line 42: Belbin’s -> Suggestions: bel bins, bel-bins, berlins, belize, belgium, belarus, benin
+Line 46: Organisational -> Suggestions: organizational, organization, antinationalist, transnational, antirational
+Line 48: organisational -> Suggestions: organizational, organization, antinationalist, transnational, antirational
+Line 48: behaviour. -> Suggestions: behavior
+Line 50: Organisational -> Suggestions: organizational, organization, antinationalist, transnational, antirational
+Line 50: decision-making. -> Suggestions: decision making, decision-making, decisions
+Line 52: Organisational -> Suggestions: organizational, organization, antinationalist, transnational, antirational
+Line 52: behaviours -> Suggestions: behaviors, behavior
+Line 52: organisation. -> Suggestions: organization, organist, sanitation
+Line 52: Edgar -> Suggestions: Edgar, edger, ed gar, ed-gar, e.g., niger, qatar
+Line 52: Schein’s -> Suggestions: skeins, china
+Line 52: organisational -> Suggestions: organizational, organization, antinationalist, transnational, antirational
+Line 54: organisational -> Suggestions: organizational, organization, antinationalist, transnational, antirational
+Line 58: Organisational -> Suggestions: organizational, organization, antinationalist, transnational, antirational
+Line 58: Behaviour -> Suggestions: behavior
+Line 64: Maslow’s -> Suggestions: mallows, ma slows, ma-slows, mas lows, mas-lows, slows, malawi
+Line 64: self-actualisation. -> Suggestions: sensationalistic
+Line 66: Herzberg’s -> Suggestions: Heisenberg
+Line 66: Two-Factor -> Suggestions: two factor, two-factor, factor
+Line 66: Herzberg -> Suggestions: Heisenberg
+Line 66: (e.g., -> Suggestions: Eg, eh, e, g, eng, neg, erg, reg, ego, leg, deg, egg, meg, peg, beg, e.g.
+Line 66: (e.g., -> Suggestions: Eg, eh, e, g, eng, neg, erg, reg, ego, leg, deg, egg, meg, peg, beg, e.g.
+Line 68: Self-Determination -> Suggestions: self determination, self-determination, predetermination, determination, interdenominational
+Line 68: emphasises -> Suggestions: emphasizes, emphasis's, emphasis es, emphasis-es, emphasis, emphases, emphasize
+Line 72: organisational -> Suggestions: organizational, organization, antinationalist, transnational, antirational
+Line 72: behaviour -> Suggestions: behavior
+Line 76: organisational -> Suggestions: organizational, organization, antinationalist, transnational, antirational
+Line 78: Hersey -> Suggestions: heresy, Hersey, jersey, horsey, kersey, Mersey
+Line 78: Blanchard, -> Suggestions: Blanchard
+Line 80: Organisational -> Suggestions: organizational, organization, antinationalist, transnational, antirational
+Line 82: Organisations -> Suggestions: organizations, organization
+Line 84: Lewin’s -> Suggestions: loins, lewis, benin
+Line 86: Kotter’s -> Suggestions: jotters, otters, rotters, totters, cotters, potters, k otters, totterers
+Line 86: 8-Step -> Suggestions: step, 8 step, steep
+Line 86: Kotter -> Suggestions: jotter, otter, rotter, totter, cotter, dotter, potter, hotter, Potter, k otter
+Line 86: emphasising -> Suggestions: emphasizing, emphasis
+Line 90: Organisational -> Suggestions: organizational, organization, antinationalist, transnational, antirational
+Line 90: Behaviour -> Suggestions: behavior
+Line 94: organisational -> Suggestions: organizational, organization, antinationalist, transnational, antirational
+Line 94: achivements, -> Suggestions: achievements, achievement
+Line 94: opportuneties, -> Suggestions: opportunities, opportune ties, opportune-ties, opportunenesses, opportuneness, opportunist, opportune
+Line 98: high-performing -> Suggestions: high performing, high-performing, nonperforming, outperforming, performing
+Line 102: Organisational -> Suggestions: organizational, organization, antinationalist, transnational, antirational
+Line 102: behaviour -> Suggestions: behavior
+Line 102: programmes, -> Suggestions: programmed, programmers, programmer, program mes, program-mes, programmables, aerogrammes, programmings, programed
+Line 106: organisations -> Suggestions: organizations, organization
+Line 108: Organisational -> Suggestions: organizational, organization, antinationalist, transnational, antirational
+Line 110: today’s -> Suggestions: today, today's, to days, to-days, today s, Tokays
+Line 110: fast-paced -> Suggestions: fast paced, fast-paced, fastened
+Line 110: organisations -> Suggestions: organizations, organization
+Line 110: globalisation. -> Suggestions: globalization, globalist
+Line 114: Organisational -> Suggestions: organizational, organization, antinationalist, transnational, antirational
+Line 114: Behaviour -> Suggestions: behavior
+Line 126: Globalisation -> Suggestions: globalization, globalist
+Line 126: Organisations -> Suggestions: organizations, organization
+Line 128: Cross-Cultural -> Suggestions: cross cultural, cross-cultural, sociocultural, subcultural, sculptural
+Line 130: organisations, -> Suggestions: organizations, organization
+Line 134: Organisational -> Suggestions: organizational, organization, antinationalist, transnational, antirational
+Line 134: Behaviour -> Suggestions: behavior
+Line 140: Wellbeing -> Suggestions: well being, well-being, welling, belling
+Line 142: Organisations -> Suggestions: organizations, organization
+Line 142: prioritising -> Suggestions: prioritizing, prioritization
+Line 142: wellbeing. -> Suggestions: well being, well-being, welling, belling
+Line 142: counselling -> Suggestions: counseling, counsel ling, counsel-ling, counselorship
+Line 142: programmes. -> Suggestions: programmed, programmers, programmer, program mes, program-mes, programmables, aerogrammes, programmings, programed
+Line 146: organisational -> Suggestions: organizational, organization, antinationalist, transnational, antirational
+Line 148: Personalised -> Suggestions: personalized, personalism, personalize, personality, personated
+Line 150: customised -> Suggestions: customized, customize, accustomed
+Line 150: programmes -> Suggestions: programmed, programmers, programmer, program mes, program-mes, programmables, aerogrammes, programmings, programed
+Line 154: Concluzion -> Suggestions: conclusion, conclusive
+Line 156: Organisational -> Suggestions: organizational, organization, antinationalist, transnational, antirational
+Line 156: behaviour -> Suggestions: behavior
+Line 156: organisational -> Suggestions: organizational, organization, antinationalist, transnational, antirational
+Line 156: behaviour, -> Suggestions: behavior
+Line 156: organisations -> Suggestions: organizations, organization
+Line 156: thrieve, -> Suggestions: thrive, thieve, shrieve
+Line 158: worklace -> Suggestions: workplace, work lace, work-lace, lacework
+Line 158: organisational -> Suggestions: organizational, organization, antinationalist, transnational, antirational
+Line 158: behaviour -> Suggestions: behavior
+Line 158: esential, -> Suggestions: essential, sentential, sequential, sciential, pestilential, senegal
+Line 158: forward-thinking. -> Suggestions: forward thinking, forward-thinking, forwarding

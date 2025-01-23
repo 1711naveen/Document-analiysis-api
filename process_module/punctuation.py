@@ -525,7 +525,45 @@ def insert_thin_space_between_number_and_unit(text, line_number):
         )
     return updated_text
 
+import spacy
+import re
 
+# Load the spaCy model
+nlp = spacy.load("en_core_web_sm")
+
+def process_paragraph(text, line_number):
+    """
+    Processes paragraph text to ensure a comma is added before 'e.g.'
+    if there is no verb between 'e.g.' and the end of the sentence.
+    Args:
+        text (str): The text of the paragraph.
+        line_number (int): Line number for reference (useful for debugging/logging).
+    Returns:
+        str: Updated text with proper comma placement.
+    """
+    doc = nlp(text)
+    updated_sentences = []
+
+    for sentence in doc.sents:  # Split text into sentences
+        sentence_text = sentence.text
+        
+        # Check if 'e.g.' is in the sentence
+        if "e.g." in sentence_text:
+            # Find the position of 'e.g.'
+            eg_start_idx = sentence_text.find("e.g.")
+            after_eg_text = sentence_text[eg_start_idx:]
+            
+            # Process the text after 'e.g.' to look for verbs
+            after_eg_doc = nlp(after_eg_text)
+            has_verb = any(token.pos_ == "VERB" for token in after_eg_doc)
+            
+            if not has_verb:
+                # Add a comma before 'e.g.' if no verb is found
+                sentence_text = re.sub(r"(?<!,)\s+e\.g\.", ", e.g.", sentence_text)
+        
+        updated_sentences.append(sentence_text)
+    updated_text = " ".join(updated_sentences)
+    return updated_text
 
 
 
@@ -567,6 +605,7 @@ def process_doc_function1(payload: dict, doc: Document, doc_id):
         para.text = correct_acronyms(para.text, line_number)
         para.text = enforce_eg_rule_with_logging(para.text)
         para.text = enforce_ie_rule_with_logging(para.text)
+        para.text = process_paragraph(para.text, line_number)
         para.text = apply_remove_italics_see_rule(para.text)
         para.text = standardize_etc(para.text)
         para.text = insert_thin_space_between_number_and_unit(para.text, line_number)

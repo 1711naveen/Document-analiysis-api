@@ -1,0 +1,86 @@
+
+Start Time: 2025-01-22 19:02:28.407464
+End Time: 2025-01-22 19:03:17.890313
+Analysis completed in 49.48 seconds.
+
+
+FileName: doc17.docx
+
+
+Line 0: e.g. -> Suggestions: Eg, eh, e, g, eng, neg, erg, reg, ego, leg, deg, egg, meg, peg, beg, e.g.
+Line 2: e.g. -> Suggestions: Eg, eh, e, g, eng, neg, erg, reg, ego, leg, deg, egg, meg, peg, beg, e.g.
+Line 6: e.g. -> Suggestions: Eg, eh, e, g, eng, neg, erg, reg, ego, leg, deg, egg, meg, peg, beg, e.g.
+Line 6: Eiffel -> Suggestions: Eiffel
+Line 6: Colosseum, -> Suggestions: Colosseum
+Line 8: macarons. -> Suggestions: macrons, macaronis, macaroons, macaroni, macaroon, marocains, maroons, macron
+Line 10: e.g. -> Suggestions: Eg, eh, e, g, eng, neg, erg, reg, ego, leg, deg, egg, meg, peg, beg, e.g.
+Line 10: JavaScript, -> Suggestions: java script, java-script, JavaScript
+Line 14: e.g. -> Suggestions: Eg, eh, e, g, eng, neg, erg, reg, ego, leg, deg, egg, meg, peg, beg, e.g.
+Line 20: e.g. -> Suggestions: Eg, eh, e, g, eng, neg, erg, reg, ego, leg, deg, egg, meg, peg, beg, e.g.
+Line 22: e.g. -> Suggestions: Eg, eh, e, g, eng, neg, erg, reg, ego, leg, deg, egg, meg, peg, beg, e.g.
+Line 22: e.g. -> Suggestions: Eg, eh, e, g, eng, neg, erg, reg, ego, leg, deg, egg, meg, peg, beg, e.g.
+Line 22: long-term -> Suggestions: long term, long-term, longtime
+Line 26: don’t -> Suggestions: font, dint, don, dot, don't, done, dent, dons, dost, doit, dona, dolt, cont, dunt, dong, congo, tonga, togo
+Line 26: Sarah, -> Suggestions: Sarah, saran, surah, samoa, sudan, syria, syrian, iran, iraq, asia, japan, palau, qatar
+Line 26: “We’ve -> Suggestions: wee, eve, weave, we've, wive, wave, were, wove, w eve, peru, sweden, yemen, niue
+Line 30: mid-sentence... -> Suggestions: mid sentence, mid-sentence, sentence, sentience
+Line 36: I’m -> Suggestions: mi, um, om, in, i, m, ism, sim, aim, nim, rim, dim, mim, imp, him, iran, iraq, i.e., oman, asia, guam, niue, fiji
+Line 48: ½ -> Suggestions: e, s, i, a, n, r, t, o, l, c, d, u, g, m, p
+Line 50: ¾ -> Suggestions: e, s, i, a, n, r, t, o, l, c, d, u, g, m, p
+Line 54: ⅔ -> Suggestions: e, s, i, a, n, r, t, o, l, c, d, u, g, m, p
+Line 66: January -> Suggestions: January, vanuatu, hungary
+Line 72: x=5x -> Suggestions: xx, xix
+Line 72: 5x=5 -> No suggestions available
+Line 104: Spelled-out -> Suggestions: spelled out, spelled-out, spellbound
+Line 112: I’ve -> Suggestions: vie, ice, iv, rive, live, dive, give, hive, five, vive, wive, eve, ave, ire, ivy, i.e., niue
+Line 122: BCE. -> Suggestions: be, bice, bee, ice, ace, bye, Ice, i.e., niue
+Line 130: (London: -> Suggestions: London, jordan, congo
+Line 132: Michael -> Suggestions: Michael, israel
+Line 134: Sarah -> Suggestions: Sarah, saran, surah, samoa, sudan, syria, syrian, iran, iraq, asia, japan, palau, qatar
+Line 134: (Boston: -> Suggestions: Boston, boson, bhutan
+Line 136: William -> Suggestions: William, Gilliam
+Line 136: (Chicago: -> Suggestions: Chicago, chic ago, chic-ago, china
+Line 138: 2ⁿᵈ -> No suggestions available
+Line 140: 3ʳᵈ -> No suggestions available
+Line 140: (London: -> Suggestions: London, jordan, congo
+Line 142: Canadian -> Suggestions: Canadian, canada
+Line 144: revenue-to-expense -> Suggestions: superexpensive
+Line 144: Australian -> Suggestions: Australian, australia
+Line 146: Zealand -> Suggestions: Zealand, zeal and, zeal-and, poland, ireland, iceland, thailand, finland
+Line 150: cost-sharing -> Suggestions: cost sharing, cost-sharing, costs haring, costs-haring, costarring
+Line 152: savings-to-expenditure -> Suggestions: expenditure
+Line 158: well-known -> Suggestions: well known, well-known, wellington
+Line 160: high-quality -> Suggestions: high quality, high-quality, coequality
+Line 162: fast-moving -> Suggestions: fast moving, fast-moving, fastening
+Line 164: two-hour -> Suggestions: two hour, two-hour, outwore
+Line 166: ten-year-old -> Suggestions: tenderhearted
+Line 168: state-of-the-art -> Suggestions: softhearted
+Line 170: brightly-lit -> Suggestions: brightly lit, brightly-lit, sprightly
+Line 172: cost-effective -> Suggestions: cost effective, cost-effective, effectiveness, noneffective, effective
+Line 174: last-minute -> Suggestions: last minute, last-minute, minuteness
+Line 176: long-term -> Suggestions: long term, long-term, longtime
+Line 180: well-known -> Suggestions: well known, well-known, wellington
+Line 182: "high-quality"), -> Suggestions: high quality, high-quality, coequality
+Line 184: (e.g., -> Suggestions: Eg, eh, e, g, eng, neg, erg, reg, ego, leg, deg, egg, meg, peg, beg, e.g.
+Line 184: "state-of-the-art" -> Suggestions: softhearted
+Line 184: you'd -> Suggestions: yous, you, yod, oud, you'd, your, loud, y oud, you d, niue, chad, togo
+Line 196: co-own -> Suggestions: crown, clown, co own, co-own, Cookstown, congo, cocos, oman
+Line 206: sub-bundle -> Suggestions: sub bundle, sub-bundle, bundled, bundle
+Line 210: overanalyzing. -> Suggestions: over analyzing, over-analyzing, overanalyze, overgeneralizing, overgrazing
+Line 214: long-estab­lished -> Suggestions: long established, long-established, established
+Line 214: cost-ef­fect­ive­ness -> Suggestions: cost effectiveness, cost-effectiveness, effectiveness, constructiveness, affectiveness, defectiveness
+Line 214: long-term -> Suggestions: long term, long-term, longtime
+Line 220: company’s -> Suggestions: company, company's, company s, companions
+Line 220: strategy—focused -> Suggestions: strategy focused, strategy-focused, stratocumulus
+Line 220: sustainability—has -> Suggestions: sustainability has, sustainability-has, sustainability, unassailability
+Line 220: challenges—namely, -> Suggestions: challenges namely, challenges-namely, changelessly
+Line 220: disruptions—persist. -> Suggestions: disruptions persist, disruptions-persist, disruption
+Line 220: decision—though -> Suggestions: decision though, decision-though, decisions
+Line 220: controversial—has -> Suggestions: controversial has, controversial-has, controversial
+Line 220: well-received -> Suggestions: well received, well-received, received
+Line 224: company’s -> Suggestions: company, company's, company s, companions
+Line 224: well-received -> Suggestions: well received, well-received, received
+Line 228: μm. -> Suggestions: m, em, am, rm, om, lm, cm, dm, um, gm, mm, pm, hm, fm, km, oman, guam
+Line 232: Friday. -> Suggestions: Friday, africa
+Line 238: nm. -> Suggestions: NM, mm, n, m, nim, nom, ne, em, am, nr, rm, no, om, lm, cm, niue, oman, guam
+Line 244: June -> Suggestions: June, jube, jun, jane, rune, jute, tune, lune, dune, junk, juke, Pune, jun e, guinea, guam, brunei, niue, cuba

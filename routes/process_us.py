@@ -1725,9 +1725,7 @@ def staright_to_curly(doc):
 
 
 def highlight_and_correct(doc):
-    chapter_counter = [0]
-    line_number = 1
-    abbreviation_dict = fetch_abbreviation_mappings()
+
     for para in doc.paragraphs:
         
         # replace_dashes(para.runs, line_number)
@@ -1790,75 +1788,7 @@ def highlight_and_correct(doc):
         #     line_number += 1
 
         # para.text = '\n'.join(updated_lines)
-#         Subtlety #1: Not giving a fuck does not mean being indifferent; it
-# means being comfortable with being different.
-# Let’s be clear. There’s absolutely nothing admirable or confident about
-# indifference. People who are indifferent are lame and scared. They’re couch
-# potatoes and Internet trolls. In fact, indifferent people often attempt to be
-# indifferent because in reality they give way too many fucks. They give a fuck
-# about what everyone thinks of their hair, so they never bother washing or
-# combing it. They give a fuck about what everyone thinks of their ideas, so
-# they hide behind sarcasm and self-righteous snark. They’re afraid to let
-# anyone get close to them, so they imagine themselves as some special, unique
-# snowflake who has problems that nobody else would ever understand.
-# Indifferent people are afraid of the world and the repercussions of their
-# own choices. That’s why they don’t make any meaningful choices. They hide
-# in a gray, emotionless pit of their own making, self-absorbed and self-pitying,
-# perpetually distracting themselves from this unfortunate thing demanding
-# their time and energy called life.
-# Because here’s a sneaky truth about life. There’s no such thing as not
-# giving a fuck. You must give a fuck about something. It’s part of our biology
-# to always care about something and therefore to always give a fuck.
-# The question, then, is, What do we give a fuck about? What are we
-# choosing to give a fuck about? And how can we not give a fuck about what
-# ultimately does not matter?
-# My mother was recently screwed out of a large chunk of money by a
-# close friend of hers. Had I been indifferent, I would have shrugged my
-# shoulders, sipped my mocha, and downloaded another season of The Wire.
-# Sorry, Mom.
-# But instead, I was indignant. I was pissed off. I said, “No, screw that,
-# Mom. We’re going to lawyer the fuck up and go after this asshole. Why?
-# Because I don’t give a fuck. I will ruin this guy’s life if I have to.”
-# This illustrates the first subtlety of not giving a fuck. When we say,
-# “Damn, watch out, Mark Manson just don’t give a fuck,” we don’t mean that
-# Mark Manson doesn’t care about anything; on the contrary, we mean that
-# Mark Manson doesn’t care about adversity in the face of his goals, he doesn’t
-# care about pissing some people off to do what he feels is right or important or
-# noble. We mean that Mark Manson is the type of guy who would write about
-# himself in third person just because he thought it was the right thing to do. He
-# just doesn’t give a fuck.
-# This is what is so admirable. No, not me, dumbass—the overcoming
-# adversity stuff, the willingness to be different, an outcast, a pariah, all for the
-# sake of one’s own values. The willingness to stare failure in the face and
-# shove your middle finger back at it. The people who don’t give a fuck about
-# adversity or failure or embarrassing themselves or shitting the bed a few
-# times. The people who just laugh and then do what they believe in anyway.
-# Because they know it’s right. They know it’s more important than they are,
-# more important than their own feelings and their own pride and their own
-# ego. They say, “Fuck it,” not to everything in life, but rather to everything
-# unimportant in life. They reserve their fucks for what truly matters. Friends.
-# Family. Purpose. Burritos. And an occasional lawsuit or two. And because of
-# that, because they reserve their fucks for only the big things that matter,
-# people give a fuck about them in return.
-# Because here’s another sneaky little truth about life. You can’t be an
-# important and life-changing presence for some people without also being a
-# joke and an embarrassment to others. You just can’t. Because there’s no such
-# thing as a lack of adversity. It doesn’t exist. The old saying goes that no
-# matter where you go, there you are. Well, the same is true for adversity and
-# failure. No matter where you go, there’s a five-hundred-pound load of shit
-# waiting for you. And that’s perfectly fine. The point isn’t to get away from
-# the shit. The point is to find the shit you enjoy dealing with.
-# Subtlety #2: To not give a fuck about adversity, you must first give a
-# fuck about something more important than adversity.
-# Imagine you’re at a grocery store, and you watch an elderly lady scream
-# at the cashier, berating him for not accepting her thirty-cent coupon. Why
-# does this lady give a fuck? It’s just thirty cents.
-# I’ll tell you why: That lady probably doesn’t have anything better to do
-# with her days than to sit at home cutting out coupons. She’s old and lonely.
-# Her kids are dickheads and never visit. She hasn’t had sex in over thirty
-# years. She can’t fart without extreme lower-back pain. Her pension is on its
-# last legs, and she’s probably going to die in a diaper thinking she’s in Candy
-# Land
+        
         formatted_runs = []        
         for run in para.runs:
             # run_text = replace_curly_quotes_with_straight(run.text)
@@ -1892,7 +1822,6 @@ def highlight_and_correct(doc):
 
                 if i < len(words) - 1:
                     formatted_runs.append((" ", None))
-                    
         para.clear()
         
         for text, color in formatted_runs:
@@ -1991,15 +1920,15 @@ async def process_file(token_request: TokenRequest, doc_id: int = Query(...)):
 
         doc = docx.Document(file_path)
         highlight_and_correct(doc)
-        curly_to_straight(doc)
+        # curly_to_straight(doc)
         
         process_doc_function1(payload, doc, doc_id)
-        process_doc_function2(payload, doc, doc_id)
-        process_doc_function3(payload, doc, doc_id)
-        process_doc_function4(payload, doc, doc_id)
-        process_doc_function6(payload, doc, doc_id)
+        # process_doc_function2(payload, doc, doc_id)
+        # process_doc_function3(payload, doc, doc_id)
+        # process_doc_function4(payload, doc, doc_id)
+        # process_doc_function6(payload, doc, doc_id)
         
-        staright_to_curly(doc)
+        # staright_to_curly(doc)
         doc.save(output_path)
 
         cursor.execute("SELECT final_doc_id FROM final_document WHERE row_doc_id = %s", (doc_id,))
