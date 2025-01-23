@@ -510,14 +510,17 @@ def correct_unit_spacing(text):
 
 
 
-def convert_currency_to_symbols(runs, line_number):
+def convert_currency_to_symbols(text, line_number):
     """
     Converts textual currency names (dollar, pound, euro) to symbols ($, £, €) 
-    when preceded by a numerical value in the text of a paragraph's runs.
+    when preceded by a numerical value in the text of a paragraph.
     Logs changes to a global list with details of the modification in the desired format.    
     Args:
-        runs: The runs of a paragraph (e.g., `para.runs`).
+        text: The text content of a paragraph.
         line_number: The line number of the paragraph for context.
+
+    Returns:
+        str: The modified text with currency names replaced by symbols.
     """
     global global_logs
     currency_patterns = {
@@ -525,18 +528,21 @@ def convert_currency_to_symbols(runs, line_number):
         r'(\b\d+\s*)pounds\b': r'£\1',
         r'(\b\d+\s*)euros\b': r'€\1'
     }
-    for run in runs:
-        original_text = run.text
-        modified_text = original_text
-        # Apply each currency replacement pattern
-        for pattern, replacement in currency_patterns.items():
-            modified_text = re.sub(pattern, replacement, modified_text, flags=re.IGNORECASE)
-        # If changes are made, update the text and log the change
-        if original_text != modified_text:
-            run.text = modified_text
-            global_logs.append(
-                f"[convert_currency_to_symbols] Line {line_number}: '{original_text}' -> '{modified_text}'"
-            )
+
+    original_text = text
+    modified_text = text
+
+    # Apply each currency replacement pattern
+    for pattern, replacement in currency_patterns.items():
+        modified_text = re.sub(pattern, replacement, modified_text, flags=re.IGNORECASE)
+
+    # If changes are made, log the change
+    if original_text != modified_text:
+        global_logs.append(
+            f"[convert_currency_to_symbols] Line {line_number}: '{original_text}' -> '{modified_text}'"
+        )
+
+    return modified_text
 
 
 
@@ -558,7 +564,7 @@ def write_to_log(doc_id):
 def process_doc_function2(payload: dict, doc: Document, doc_id):
     line_number = 1
     for para in doc.paragraphs:
-        convert_currency_to_symbols(para.runs, line_number)
+        para.text = convert_currency_to_symbols(para.text, line_number)
         para.text = remove_unnecessary_apostrophes(para.text, line_number)
         para.text = replace_fold_phrases(para.text)
         para.text = use_numerals_with_percent(para.text)

@@ -1,7 +1,43 @@
+[convert century] Line 6: 20th -> the twentieth century
+[Serial comma correction] Line 1: Organisational behaviour of color is a multidisciplinary field that examines individual, group, and organisational dynamics. It emerged as a distinct area of study in the early the twentieth century century, evolving from scientific management and human relations movements. Today, OB is a vital component of organisational studies, shaping the way leaders manage teams and achieve goals. -> Organisational behaviour of color is a multidisciplinary field that examines individual, group, and organisational dynamics. It emerged as a distinct area of study in the early the twentieth century century, evolving from scientific management, and human relations movements. Today, OB is a vital component of organisational studies, shaping the way leaders manage teams, and achieve goals.
+[Serial comma correction] Line 1: Personality and Work Behavior: Personality traits, such as consientiousness and openess to experience, play a significant role in determining job suitability and performance. -> Personality and Work Behavior: Personality traits, such as consientiousness, and openess to experience, play a significant role in determining job suitability and performance.
+[remove_and] Line 1: 'Personality and Work' -> 'Personality & Work'
+[Serial comma correction] Line 1: Attitudes and Job Satisfaction: Employees' attitudes towards their job, colleagues, and management can profoundly impact organisational productivity and morale. -> Attitudes and Job Satisfaction: Employees' attitudes towards their job, colleagues, and management can profoundly impact organisational productivity, and morale.
+[correct_possessive_names] Line 17: 'Employees'' -> 'Employee's'
+[remove_and] Line 1: 'Attitudes and Job' -> 'Attitudes & Job'
+[correct_possessive_names] Line 18: 'others'' -> 'other's'
+[Serial comma correction] Line 1: Team Roles and Cohesion: Belbin's team role theory highlights how diverse roles contribute to team success. Cohesive teams tend to be more effective, as members share trust and commitment. -> Team Roles and Cohesion: Belbin's team role theory highlights how diverse roles contribute to team success. Cohesive teams tend to be more effective, as members share trust, and commitment.
+[remove_and] Line 1: 'Roles and Cohesion' -> 'Roles & Cohesion'
+[remove_and] Line 1: 'Conflict and Negotiation' -> 'Conflict & Negotiation'
+[remove_and] Line 1: 'Structure and Culture' -> 'Structure & Culture'
+[Serial comma correction] Line 1: Organisational Structure: Hierarchical, flat, or matrix structures determine the flow of information and decision-making. -> Organisational Structure: Hierarchical, flat, or matrix structures determine the flow of information, and decision-making.
+[remove_and] Line 1: 'Power and Politics' -> 'Power & Politics'
+[Serial comma correction] Line 1: Herzberg's Two-Factor Theory: Herzberg distinguishes between hygiene factors (e.g., salary, working conditions) and motivators (e.g., recognition, responsibility). -> Herzberg's Two-Factor Theory: Herzberg distinguishes between hygiene factors (e.g., salary, working conditions), and motivators (e.g., recognition, responsibility).
+[e.g. correction] Line 1: Herzberg's Two-Factor Theory: Herzberg distinguishes between hygiene factors (e.g., salary, working conditions), and motivators (e.g., recognition, responsibility). -> Herzberg's Two-Factor Theory: Herzberg distinguishes between hygiene factors (e.g. salary, working conditions), and motivators (e.g. recognition, responsibility).
+[Serial comma correction] Line 1: Situational Leadership: According to Hersey and Blanchard, effective leadership adapts to the maturity and competence of team members. -> Situational Leadership: According to Hersey and Blanchard, effective leadership adapts to the maturity, and competence of team members.
+[remove_and] Line 1: 'Hersey and Blanchard' -> 'Hersey & Blanchard'
+[remove_and] Line 1: 'Diversity and Inclusion' -> 'Diversity & Inclusion'
+[Serial comma correction] Line 1: A diverse workforce brings unique perspectives, driving creativity and innovation. OB helps organisations create inclusive environments where all employees feel valued. -> A diverse workforce brings unique perspectives, driving creativity, and innovation. OB helps organisations create inclusive environments where all employees feel valued.
+[remove_and] Line 1: 'Health and Wellbeing' -> 'Health & Wellbeing'
+[remove_and] Line 1: 'Sustainability and Ethical' -> 'Sustainability & Ethical'
+[Serial comma correction] Line 1: As the worklace continues to evolve, the principles of organisational behaviour will remain esential, guiding labors in navigating the complexities of human dynamics and ensuring that organizations remain adaptive, inclusive, and forward-thinking. -> As the worklace continues to evolve, the principles of organisational behaviour will remain esential, guiding labors in navigating the complexities of human dynamics, and ensuring that organizations remain adaptive, inclusive, and forward-thinking.
+[replace_dashes_with_logging] Line 1: 'Perception in the Workplace: The way individuals interpret situations and other's actions can influence decision-making and interpersonal relationships.' -> 'Perception in the Workplace: The way individuals interpret situations and other's actions can influence decision–making and interpersonal relationships.'
+[replace_dashes_with_logging] Line 1: 'Group Formation: Groups often form based on shared goals or interests. Tuckman's stages of group development—forming, storming, norming, performing, and adjourning—are widely recognised in OB studies.' -> 'Group Formation: Groups often form based on shared goals or interests. Tuckman's stages of group development–forming, storming, norming, performing, and adjourning–are widely recognised in OB studies.'
+[replace_dashes_with_logging] Line 1: 'Organisational Structure: Hierarchical, flat, or matrix structures determine the flow of information, and decision-making.' -> 'Organisational Structure: Hierarchical, flat, or matrix structures determine the flow of information, and decision–making.'
+[replace_dashes_with_logging] Line 1: 'Maslow's Hierarchy of Needs: This theory posits that individuals are motivated by a hierarchy of needs, from basic physiological requirements to self-actualisation.' -> 'Maslow's Hierarchy of Needs: This theory posits that individuals are motivated by a hierarchy of needs, from basic physiological requirements to self–actualisation.'
+[replace_dashes_with_logging] Line 1: 'Herzberg's Two-Factor Theory: Herzberg distinguishes between hygiene factors (e.g. salary, working conditions), and motivators (e.g. recognition, responsibility).' -> 'Herzberg's Two–Factor Theory: Herzberg distinguishes between hygiene factors (e.g. salary, working conditions), and motivators (e.g. recognition, responsibility).'
+[replace_dashes_with_logging] Line 1: 'Self-Determination Theory: This modern theory emphasises intrinsic motivation, focusing on autonomy, competence, and relatedness.' -> 'Self–Determination Theory: This modern theory emphasises intrinsic motivation, focusing on autonomy, competence, and relatedness.'
+[replace_dashes_with_logging] Line 1: 'Kotter's 8-Step Change Model: Kotter outlines a detailed approach for managing change, emphasising the importance of vision, communication, and stakeholder engagement.' -> 'Kotter's 8–Step Change Model: Kotter outlines a detailed approach for managing change, emphasising the importance of vision, communication, and stakeholder engagement.'
+[replace_dashes_with_logging] Line 1: 'OB principles help managers build high-performing teams by balancing diverse skills, promoting collaboration, and resolving conflicts effectively.' -> 'OB principles help managers build high–performing teams by balancing diverse skills, promoting collaboration, and resolving conflicts effectively.'
+[replace_dashes_with_logging] Line 1: 'Change management is critical in today's fast-paced world. OB provides tools and frameworks to help organisations adapt smoothly to technological advancements, market shifts, and globalisation.' -> 'Change management is critical in today's fast–paced world. OB provides tools and frameworks to help organisations adapt smoothly to technological advancements, market shifts, and globalisation.'
+[replace_dashes_with_logging] Line 1: '4. Cross-Cultural Issues' -> '4. Cross–Cultural Issues'
+[replace_dashes_with_logging] Line 1: 'As the worklace continues to evolve, the principles of organisational behaviour will remain esential, guiding labors in navigating the complexities of human dynamics, and ensuring that organizations remain adaptive, inclusive, and forward-thinking.' -> 'As the worklace continues to evolve, the principles of organisational behaviour will remain esential, guiding labors in navigating the complexities of human dynamics, and ensuring that organizations remain adaptive, inclusive, and forward–thinking.'
 
-Start Time: 2025-01-23 11:04:04.315200
-End Time: 2025-01-23 11:04:37.862474
-Analysis completed in 33.55 seconds.
+
+
+Start Time: 2025-01-23 12:37:18.458865
+End Time: 2025-01-23 12:38:04.628927
+Analysis completed in 46.17 seconds.
 
 
 FileName: Organisational Behaviour.docx

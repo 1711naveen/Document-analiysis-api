@@ -6,52 +6,56 @@ import os
 global_logs = []
 
 
-def replace_dashes(runs, line_number):
+def replace_dashes(text, line_number):
     """
-    Replaces em dashes (—) and normal hyphens (-) with en dashes (–) in the text of a paragraph's runs.
+    Replaces em dashes (—) and normal hyphens (-) with en dashes (–) in the given text.
     Logs changes to a global list with details of the modification in the desired format.
     Args:
-        runs: The runs of a paragraph (e.g., `para.runs`).
+        text: The text content of a paragraph.
         line_number: The line number of the paragraph for context.
+    Returns:
+        str: The modified text with dashes replaced.
     """
     global global_logs
-    for run in runs:
-        original_text = run.text
-        modified_text = run.text.replace('—', '–').replace('-', '–')
-        if original_text != modified_text:
-            run.text = modified_text
-            global_logs.append(
-                f"[replace_dashes_with_logging] Line {line_number}: '{original_text}' -> '{modified_text}'"
-            )
+    original_text = text
+    modified_text = text.replace('—', '–').replace('-', '–')
+    # If changes are made, log the change
+    if original_text != modified_text:
+        global_logs.append(
+            f"[replace_dashes_with_logging] Line {line_number}: '{original_text}' -> '{modified_text}'"
+        )
+    return modified_text
 
 
 
-def format_hyphen_to_en_dash(runs, line_number):
+def format_hyphen_to_en_dash(text, line_number):
     """
-    Replace hyphens with en dashes in a Word document paragraph's runs.
+    Replace hyphens with en dashes in the given text.
     Adjust spacing based on surrounding context:
     - Add spaces if there are words on both sides.
     - Remove spaces if there are numbers on both sides.
     Logs changes to the global 'global_logs' list.
-    :param runs: The runs of a paragraph (doc.paragraphs[n].runs)
-    :param line_number: The line number of the paragraph being processed
+    Args:
+        text: The text content of a paragraph.
+        line_number: The line number of the paragraph being processed.
+    Returns:
+        str: The modified text with hyphens formatted as en dashes.
     """
+    global global_logs
     word_range_pattern = re.compile(r'(\b\w+)\s*-\s*(\w+\b)')
     number_range_pattern = re.compile(r'(\d+)\s*-\s*(\d+)')
-    for run in runs:
-        if run.text:
-            original_text = run.text
-            # Replace hyphen with en dash and remove spaces for number ranges
-            updated_text = number_range_pattern.sub(r'\1–\2', original_text)
-            # Replace hyphen with en dash and ensure spaces for word ranges
-            updated_text = word_range_pattern.sub(r'\1 – \2', updated_text)
-            if updated_text != original_text:
-                # Log the change
-                global_logs.append(
-                    f"Line {line_number}: '{original_text}' -> '{updated_text}'"
-                )
-                # Update the run text
-                run.text = updated_text
+    original_text = text
+    # Replace hyphen with en dash and remove spaces for number ranges
+    updated_text = number_range_pattern.sub(r'\1–\2', original_text)
+    # Replace hyphen with en dash and ensure spaces for word ranges
+    updated_text = word_range_pattern.sub(r'\1 – \2', updated_text)
+    if updated_text != original_text:
+        # Log the change
+        global_logs.append(
+            f"Line {line_number}: '{original_text}' -> '{updated_text}'"
+        )
+    return updated_text
+
                 
                 
 
@@ -77,7 +81,7 @@ def process_doc_function3(payload: dict, doc: Document, doc_id):
     """
     line_number = 1
     for para in doc.paragraphs:
-        replace_dashes(para.runs, line_number)
+        para.text = replace_dashes(para.text, line_number)
         format_hyphen_to_en_dash(para.runs, line_number)
         
     write_to_log(doc_id)

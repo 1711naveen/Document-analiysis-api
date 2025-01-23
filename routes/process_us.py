@@ -901,7 +901,7 @@ def write_to_log(doc_id):
     os.makedirs(output_dir, exist_ok=True)
     log_file_path = os.path.join(output_dir, 'global_logs.txt')
 
-    with open(log_file_path, 'w', encoding='utf-8') as log_file:
+    with open(log_file_path, 'a', encoding='utf-8') as log_file:
         log_file.write("\n".join(global_logs))
 
     global_logs = []
@@ -1195,10 +1195,6 @@ def correct_unit_spacing(text):
 
 
 
-# def apply_quotation_punctuation_rule(text: str):
-#     pattern = r"‘(.*?)’([!?])"
-#     updated_text = re.sub(pattern, r"‘\1\2’", text)
-#     return updated_text
 
 
 def apply_quotation_punctuation_rule(text: str):
@@ -1724,111 +1720,166 @@ def staright_to_curly(doc):
 
 
 
+# def highlight_and_correct(doc):
+
+#     for para in doc.paragraphs:
+        
+#         # replace_dashes(para.runs, line_number)
+#         # format_hyphen_to_en_dash(para.runs, line_number)
+#         # convert_currency_to_symbols(para.runs, line_number)        
+#         # para.text = replace_curly_quotes_with_straight(para.text)        
+#         # if para.text.strip().startswith("Chapter"):
+#         #     para.text = correct_chapter_numbering(para.text, chapter_counter)
+#         #     formatted_title = format_chapter_title(para.text)
+#         #     para.text = formatted_title            
+#         # para.text = process_symbols_mark(para.text, line_number) done punctattion
+#         # para.text = remove_commas_from_numbers(para.text, line_number) done numbers
+#         # para.text = remove_spaces_from_four_digit_numbers(para.text, line_number) done numbers
+#         # para.text = set_latinisms_to_roman_in_runs(para.text,line_number) done punctattion
+#         # para.text = convert_decimal_to_baseline(para.text,line_number) done numbers
+#         # para.text = rename_section(para.text) done punctuation
+#         # para.text = replace_ampersand(para.text) done punctuation
+#         # para.text = correct_scientific_unit_symbols(para.text) done punctuation
+#         # para.text = adjust_ratios(para.text) done punctuation
+#         # para.text = format_dates(para.text, line_number) done punctuation
+#         # # para.text = spell_out_number_and_unit_with_rules(para.text,line_number)
+#         # para.text = remove_space_between_degree_and_direction(para.text, line_number) done punctuation
+#         # para.text = enforce_lowercase_units(para.text, line_number) done punctuation
+#         # para.text = precede_decimal_with_zero(para.text, line_number) done punctuation
+#         # para.text = format_ellipses_in_series(para.text) # not added in log and not working
+#         # para.text = correct_possessive_names(para.text, line_number) done punctuation
+#         # para.text = use_numerals_with_percent(para.text) done punctuation
+#         # para.text = remove_concluding_slashes_from_urls(para.text, line_number) done punctuation
+#         # para.text = clean_web_addresses(para.text) done punctuation
+#         # para.text = apply_abbreviation_mapping(para.text, abbreviation_dict, line_number) done punctuation
+#         # para.text = apply_number_abbreviation_rule(para.text, line_number) done punctuation
+#         # para.text = format_titles_us_english_with_logging(para.text) done punctuation
+#         # para.text = units_with_bracket(para.text) done punctuation
+#         # para.text = correct_units_in_ranges_with_logging(para.text,line_number)  done punctuation
+#         # para.text = correct_scientific_units_with_logging(para.text)  done punctuation
+#         # para.text = replace_fold_phrases(para.text)  done punctuation
+#         # para.text = correct_preposition_usage(para.text)  done punctuation
+#         # para.text = correct_unit_spacing(para.text)  done punctuation
+#         # para.text = remove_and(para.text) done punctuation
+#         # para.text = remove_quotation(para.text)  done punctuation
+#         # para.text = convert_text(para.text) not done
+#         # para.text = apply_quotation_punctuation_rule(para.text) not done
+#         # para.text = enforce_dnase_rule(para.text) not done
+#         # para.text = correct_acronyms(para.text, line_number)  done punctuation
+#         # para.text = enforce_am_pm(para.text, line_number)  done punctuation
+#         # para.text = enforce_eg_rule_with_logging(para.text)  done punctuation
+#         # para.text = enforce_ie_rule_with_logging(para.text)  done punctuation
+#         # para.text = enforce_serial_comma(para.text)  done punctuation
+#         # para.text = apply_remove_italics_see_rule(para.text)  done punctuation
+#         # para.text = process_string(para.text) not done
+#         # para.text = standardize_etc(para.text) done punctuation
+#         # para.text = process_url_add_http(para.text) done punctuation
+#         # para.text = process_url_remove_http(para.text) done punctuation
+        
+#         # lines = para.text.split('\n')
+#         # updated_lines = []
+#         # for line in lines:
+#         #     corrected_line = convert_century(line, line_number)
+#         #     updated_lines.append(corrected_line)
+#         #     line_number += 1
+
+#         # para.text = '\n'.join(updated_lines)
+        
+#         formatted_runs = []        
+#         for run in para.runs:
+#             # run_text = replace_curly_quotes_with_straight(run.text)
+#             # run_text = insert_thin_space_between_number_and_unit(run.text, line_number)
+#             words = run.text.split()
+#             for i, word in enumerate(words):
+#                 original_word = word
+#                 punctuation = ""
+
+#                 if word[-1] in ",.?!:;\"'()[]{}":
+#                     punctuation = word[-1]
+#                     word = word[:-1]
+
+#                 if (word.startswith('"') and word.endswith('"')) or (word.startswith("'") and word.endswith("'")):
+#                     formatted_runs.append((original_word, None))
+#                     if i < len(words) - 1:
+#                         formatted_runs.append((" ", None))
+#                     continue
+
+#                 if not word.strip():
+#                     formatted_runs.append((original_word, None))
+#                     if i < len(words) - 1:
+#                         formatted_runs.append((" ", None))
+#                     continue
+
+#                 if not us_dict.check(word.lower()):
+#                     # Mark incorrect word in red
+#                     formatted_runs.append((original_word, RGBColor(255, 0, 0)))
+#                 else:
+#                     formatted_runs.append((original_word, None))
+
+#                 if i < len(words) - 1:
+#                     formatted_runs.append((" ", None))
+#         para.clear()
+        
+#         for text, color in formatted_runs:
+#             # adjusted_text = replace_straight_quotes_with_curly(text)
+#             new_run = para.add_run(text)
+#             if color:
+#                 new_run.font.color.rgb = color
+
+
+
+
 def highlight_and_correct(doc):
-
+    """
+    This function highlights incorrectly spelled words in a Word document by changing their font color to red.
+    Words enclosed in single or double quotes are ignored.
+    Args:
+        doc: The Word document object (from python-docx).
+        us_dict: A spell-checking dictionary object (e.g., from the `pyspellchecker` library).
+    """
     for para in doc.paragraphs:
-        
-        # replace_dashes(para.runs, line_number)
-        # format_hyphen_to_en_dash(para.runs, line_number)
-        # convert_currency_to_symbols(para.runs, line_number)        
-        # para.text = replace_curly_quotes_with_straight(para.text)        
-        # if para.text.strip().startswith("Chapter"):
-        #     para.text = correct_chapter_numbering(para.text, chapter_counter)
-        #     formatted_title = format_chapter_title(para.text)
-        #     para.text = formatted_title            
-        # para.text = process_symbols_mark(para.text, line_number) done punctattion
-        # para.text = remove_commas_from_numbers(para.text, line_number) done numbers
-        # para.text = remove_spaces_from_four_digit_numbers(para.text, line_number) done numbers
-        # para.text = set_latinisms_to_roman_in_runs(para.text,line_number) done punctattion
-        # para.text = convert_decimal_to_baseline(para.text,line_number) done numbers
-        # para.text = rename_section(para.text) done punctuation
-        # para.text = replace_ampersand(para.text) done punctuation
-        # para.text = correct_scientific_unit_symbols(para.text) done punctuation
-        # para.text = adjust_ratios(para.text) done punctuation
-        # para.text = format_dates(para.text, line_number) done punctuation
-        # # para.text = spell_out_number_and_unit_with_rules(para.text,line_number)
-        # para.text = remove_space_between_degree_and_direction(para.text, line_number) done punctuation
-        # para.text = enforce_lowercase_units(para.text, line_number) done punctuation
-        # para.text = precede_decimal_with_zero(para.text, line_number) done punctuation
-        # para.text = format_ellipses_in_series(para.text) # not added in log and not working
-        # para.text = correct_possessive_names(para.text, line_number) done punctuation
-        # para.text = use_numerals_with_percent(para.text) done punctuation
-        # para.text = remove_concluding_slashes_from_urls(para.text, line_number) done punctuation
-        # para.text = clean_web_addresses(para.text) done punctuation
-        # para.text = apply_abbreviation_mapping(para.text, abbreviation_dict, line_number) done punctuation
-        # para.text = apply_number_abbreviation_rule(para.text, line_number) done punctuation
-        # para.text = format_titles_us_english_with_logging(para.text) done punctuation
-        # para.text = units_with_bracket(para.text) done punctuation
-        # para.text = correct_units_in_ranges_with_logging(para.text,line_number)  done punctuation
-        # para.text = correct_scientific_units_with_logging(para.text)  done punctuation
-        # para.text = replace_fold_phrases(para.text)  done punctuation
-        # para.text = correct_preposition_usage(para.text)  done punctuation
-        # para.text = correct_unit_spacing(para.text)  done punctuation
-        # para.text = remove_and(para.text) done punctuation
-        # para.text = remove_quotation(para.text)  done punctuation
-        # para.text = convert_text(para.text) not done
-        # para.text = apply_quotation_punctuation_rule(para.text) not done
-        # para.text = enforce_dnase_rule(para.text) not done
-        # para.text = correct_acronyms(para.text, line_number)  done punctuation
-        # para.text = enforce_am_pm(para.text, line_number)  done punctuation
-        # para.text = enforce_eg_rule_with_logging(para.text)  done punctuation
-        # para.text = enforce_ie_rule_with_logging(para.text)  done punctuation
-        # para.text = enforce_serial_comma(para.text)  done punctuation
-        # para.text = apply_remove_italics_see_rule(para.text)  done punctuation
-        # para.text = process_string(para.text) not done
-        # para.text = standardize_etc(para.text) done punctuation
-        # para.text = process_url_add_http(para.text) done punctuation
-        # para.text = process_url_remove_http(para.text) done punctuation
-        
-        # lines = para.text.split('\n')
-        # updated_lines = []
-        # for line in lines:
-        #     corrected_line = convert_century(line, line_number)
-        #     updated_lines.append(corrected_line)
-        #     line_number += 1
+        formatted_runs = []
 
-        # para.text = '\n'.join(updated_lines)
-        
-        formatted_runs = []        
         for run in para.runs:
-            # run_text = replace_curly_quotes_with_straight(run.text)
-            # run_text = insert_thin_space_between_number_and_unit(run.text, line_number)
             words = run.text.split()
             for i, word in enumerate(words):
-                original_word = word
+                original_word = word  # Keep the original word for formatting
                 punctuation = ""
 
+                # Separate trailing punctuation (if any)
                 if word[-1] in ",.?!:;\"'()[]{}":
                     punctuation = word[-1]
                     word = word[:-1]
 
+                # Ignore words fully enclosed in single or double quotes
                 if (word.startswith('"') and word.endswith('"')) or (word.startswith("'") and word.endswith("'")):
                     formatted_runs.append((original_word, None))
-                    if i < len(words) - 1:
-                        formatted_runs.append((" ", None))
-                    continue
-
-                if not word.strip():
+                # Ignore empty words
+                elif not word.strip():
                     formatted_runs.append((original_word, None))
-                    if i < len(words) - 1:
-                        formatted_runs.append((" ", None))
-                    continue
-
-                if not us_dict.check(word.lower()):
-                    # Mark incorrect word in red
-                    formatted_runs.append((original_word, RGBColor(255, 0, 0)))
+                # Check spelling and mark incorrect words in red
+                elif not us_dict.check(word.lower()):
+                    formatted_runs.append((word, RGBColor(255, 0, 0)))  # Highlight misspelled word
                 else:
-                    formatted_runs.append((original_word, None))
+                    formatted_runs.append((word, None))  # Correct word
 
+                # Add punctuation back to the word, if it had any
+                if punctuation:
+                    formatted_runs.append((punctuation, None))
+
+                # Add a space after the word unless it's the last one
                 if i < len(words) - 1:
                     formatted_runs.append((" ", None))
-        para.clear()
-        
+
+        # Clear the paragraph's text and rebuild it with formatted runs
+        para.clear()  # Clear existing paragraph content
+
         for text, color in formatted_runs:
-            # adjusted_text = replace_straight_quotes_with_curly(text)
-            new_run = para.add_run(text)
-            if color:
+            new_run = para.add_run(text)  # Add new text to the paragraph
+            if color:  # If a color is specified, apply it
                 new_run.font.color.rgb = color
+
+
 
 
 
@@ -1919,16 +1970,16 @@ async def process_file(token_request: TokenRequest, doc_id: int = Query(...)):
         output_path = os.path.join(output_dir, f"processed_{os.path.basename(file_path)}")
 
         doc = docx.Document(file_path)
-        highlight_and_correct(doc)
-        # curly_to_straight(doc)
+        curly_to_straight(doc)
         
         process_doc_function1(payload, doc, doc_id)
-        # process_doc_function2(payload, doc, doc_id)
-        # process_doc_function3(payload, doc, doc_id)
-        # process_doc_function4(payload, doc, doc_id)
-        # process_doc_function6(payload, doc, doc_id)
+        process_doc_function2(payload, doc, doc_id)
+        process_doc_function3(payload, doc, doc_id)
+        process_doc_function4(payload, doc, doc_id)
+        process_doc_function6(payload, doc, doc_id)
         
-        # staright_to_curly(doc)
+        highlight_and_correct(doc)
+        staright_to_curly(doc)
         doc.save(output_path)
 
         cursor.execute("SELECT final_doc_id FROM final_document WHERE row_doc_id = %s", (doc_id,))
