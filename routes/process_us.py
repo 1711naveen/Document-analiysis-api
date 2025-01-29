@@ -15,7 +15,6 @@ from pathlib import Path
 import logging  
 import roman
 from urllib.parse import urlparse
-from pydantic import BaseModel
 from datetime import datetime, timedelta
 from jose import JWTError, jwt
 from typing import Dict
@@ -1723,7 +1722,6 @@ def staright_to_curly(doc):
 # def highlight_and_correct(doc):
 
 #     for para in doc.paragraphs:
-        
 #         # replace_dashes(para.runs, line_number)
 #         # format_hyphen_to_en_dash(para.runs, line_number)
 #         # convert_currency_to_symbols(para.runs, line_number)        
@@ -1913,7 +1911,7 @@ async def process_file(token_request: TokenRequest, doc_id: int = Query(...)):
     try:
         payload = jwt.decode(token_request.token, SECRET_KEY, algorithms=[ALGORITHM])
         print("Decoded Token Data:", payload)
-        
+        # global global_logs
         conn = get_db_connection()
         if conn is None:
             raise HTTPException(status_code=500, detail="Database connection error")

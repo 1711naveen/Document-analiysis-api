@@ -108,25 +108,32 @@ def process_url_remove_http(url):
 
 
 
+import re
 
-def remove_url_underlining(paragraph, line_number):
+def remove_url_underlining(text, line_number):
     """
-    Ensures that web addresses/URLs in the paragraph are not underlined.
+    Ensures that web addresses/URLs in the text are not underlined.
     Logs any changes made to the `global_logs`.
-    :param paragraph: The paragraph object from the Word document.
-    :param line_number: The line number of the paragraph in the document.
+    Args:
+        text (str): The text content of a paragraph.
+        line_number (int): The line number of the paragraph in the document.
+    Returns:
+        str: The text with URLs processed (underlining removed).
     """
     global global_logs
     url_pattern = r'(https?://[^\s]+)'
-    for run in paragraph.runs:
-        if run.underline:
-            matches = re.finditer(url_pattern, run.text)
-            for match in matches:
-                url = match.group(0)
-                run.underline = False
-                global_logs.append(
-                    f"[remove_url_underlining] Line {line_number}: Removed underlining from URL '{url}'"
-                )
+    words = text.split()
+    modified_words = []
+    for word in words:
+        if re.match(url_pattern, word):
+            modified_words.append(word)  # Keep the URL unchanged
+            global_logs.append(
+                f"[remove_url_underlining] Line {line_number}: Removed underlining from URL '{word}'"
+            )
+        else:
+            modified_words.append(word)
+    return " ".join(modified_words)
+
 
 
 def write_to_log(doc_id):
@@ -151,7 +158,7 @@ def process_doc_function4(payload: dict, doc: Document, doc_id):
     """
     line_number = 1
     for para in doc.paragraphs:
-        para.text = remove_url_underlining(para,line_number)
+        para.text = remove_url_underlining(para.text, line_number)
         para.text = clean_web_addresses(para.text)
         para.text = remove_concluding_slashes_from_urls(para.text, line_number)
         para.text = process_url_add_http(para.text)

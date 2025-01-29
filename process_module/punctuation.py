@@ -2,6 +2,7 @@ import re
 from docx import Document
 import os
 from db_config import get_db_connection
+from datetime import datetime
 
 
 # Global logs to keep track of changes
@@ -45,7 +46,7 @@ def fetch_abbreviation_mappings():
     conn.close()
     return {row[0]: row[1] for row in mappings}
 
-
+# change long form to shor form abbrevaited form
 def apply_abbreviation_mapping(text, abbreviation_dict, line_number):
     global global_logs
     words = text.split()
@@ -58,7 +59,7 @@ def apply_abbreviation_mapping(text, abbreviation_dict, line_number):
     return ' '.join(updated_text)
 
 
-
+# Converts century notation like '21st' to 'the twenty-first century'
 def convert_century(text, line_number_offset):
     """
     Converts century notation like '21st' to 'the twenty-first century'
@@ -98,7 +99,8 @@ def convert_century(text, line_number_offset):
     return '\n'.join(updated_lines)
 
 
-def set_latinisms_to_roman_in_runs(paragraph_text, line_number, latinisms=None):
+# change italics of latin word to roman
+def set_latinisms_to_roman(paragraph_text, line_number, latinisms=None):
     """
     Converts specific Latinisms from italic to roman text in a string of text.
     Logs changes to the global_log, including line number and original italicized Latinism.
@@ -108,7 +110,6 @@ def set_latinisms_to_roman_in_runs(paragraph_text, line_number, latinisms=None):
             "i.e.", "e.g.", "via", "vice versa", "etc.", "a posteriori", 
             "a priori", "et al.", "cf.", "c."
         ]
-    
     changes = []
     global global_logs
 
@@ -125,6 +126,7 @@ def set_latinisms_to_roman_in_runs(paragraph_text, line_number, latinisms=None):
     return paragraph_text 
 
 
+# make symbols for copyright only once
 def process_symbols_mark(text, line_number, symbols=["®", "™", "©", "℗", "℠"]):
     """
     Ensures symbols like ®, ™, etc., appear only the first time in the text.
@@ -150,15 +152,15 @@ def process_symbols_mark(text, line_number, symbols=["®", "™", "©", "℗", "
         global_logs.append(
             f"[process_symbols_in_doc] Line {line_number}: '{original_text}' -> '{text}'"
         )
-
     return text
 
 
-
+# change italics of see to roman
 def apply_remove_italics_see_rule(text):
     return text.replace('*see*', 'see')
 
 
+# change number to no. if followed by number
 def set_number_to_no(text, line_number):
     """
     Replaces 'Number X' or 'number X' with 'No. X' or 'no. X' and logs changes.
@@ -167,19 +169,18 @@ def set_number_to_no(text, line_number):
     :return: Updated text with number abbreviations applied.
     """
     global global_logs
-
     def replace_number(match):
         word = match.group(1)
         num = match.group(2)
         updated_text = f"No. {num}" if word.istitle() else f"no. {num}"
         global_logs.append(f"[set_number_to_no] Line {line_number}: '{match.group(0)}' -> '{updated_text}'")
         return updated_text
-
     pattern = r'\b(Number|number)\s(\d+)\b'
     return re.sub(pattern, replace_number, text)
 
 
 
+# change long titile before name to short form
 def format_titles_us_english_with_logging(text):
     global global_logs
     titles = {
@@ -192,6 +193,15 @@ def format_titles_us_english_with_logging(text):
         "sir": "Sir",
         "madam": "Madam",
         "saint": "St",
+        "Doctor": "Dr.",
+        "Mister": "Mr.",
+        "Misses": "Mrs.",
+        "Miss": "Miss.",
+        "Ms": "Ms.",
+        "Professor": "Professor",
+        "Sir": "Sir",
+        "Madam": "Madam",
+        "Saint": "St",
     }    
     lines = text.splitlines()
     updated_lines = []
@@ -206,6 +216,9 @@ def format_titles_us_english_with_logging(text):
     return "\n".join(updated_lines)
 
 
+
+# a.m. not AM or am.
+# p.m not PM or pm.
 def enforce_am_pm(text, line_num):
     """
     Ensures consistent formatting for 'am' and 'pm' in the entire paragraph and logs changes.
@@ -238,14 +251,13 @@ def enforce_am_pm(text, line_num):
     return corrected_text
 
 
-
+# apples, pears, and bananas
+# apples, pears, or bananas
 def enforce_serial_comma(text):
     lines = text.splitlines()
     updated_lines = []
-
     for line_number, line in enumerate(lines, start=1):
         original_line = line
-
         # Add a comma before "and" or "or" in lists
         new_line = re.sub(
             r'([^,]+), ([^,]+) (or) ([^,]+)',
@@ -258,19 +270,30 @@ def enforce_serial_comma(text):
             r'\1, \2, \3 \4',
             new_line
         )
-        if new_line != line:
-            global_logs.append(f"[Serial comma correction] Line {line_number}: {line.strip()} -> {new_line.strip()}")
+        # if new_line != line:
+            # Identify the specific parts of text that changed
+            # original_match = re.findall(r'([^,]+), ([^,]+) (or|and) ([^,]+)', line)
+            # new_match = re.findall(r'([^,]+), ([^,]+), (or|and) ([^,]+)', new_line)
+
+            # for orig, new in zip(original_match, new_match):
+            #     if orig != new:
+            #         global_logs.append(
+            #             f"[Serial comma correction] Line {line_number}: '{orig}' -> '{new}'"
+            #         )
         updated_lines.append(new_line)
     return "\n".join(updated_lines)
 
 
 
+
+# Replace all occurrences of the § symbol with 'Section'
 def rename_section(text):
     # Replace all occurrences of the § symbol with 'Section'
     return re.sub(r'§', 'Section', text)
 
 
 # There is one problem here for project, & document it is not changing and for project & document it is changing
+# chnage and to & if in between two word starting with capitals
 def replace_ampersand(text):
     global global_logs
     def replacement(match):
@@ -288,7 +311,7 @@ def replace_ampersand(text):
 
 
 
-
+# changes word like James' to James's
 def correct_possessive_names(text, line_number):
     global global_logs
     pattern_singular_possessive = r"\b([A-Za-z]+s)\b(?<!\bs')'"
@@ -313,9 +336,48 @@ def correct_possessive_names(text, line_number):
     return updated_text
 
 
-def units_with_bracket(text):
+
+# change the unis to short form only first time in full form in brackets
+# def units_with_bracket(text):
+#     units = {
+#         "s": "second",
+#         "m": "meter",
+#         "kg": "kilogram",
+#         "A": "ampere",
+#         "K": "kelvin",
+#         "mol": "mole",
+#         "cd": "candela"
+#     }
+#     used_units = set()
+#     global global_logs
+#     processed_lines = []
+#     for line_num, line in enumerate(text.splitlines(), start=1):
+#         def replace_unit(match):
+#             number = match.group(1)
+#             unit = match.group(2)
+#             if unit in used_units:
+#                 return match.group(0)
+#             else:
+#                 used_units.add(unit)
+#                 full_form = units[unit]
+#                 if unit != "mol" and not full_form.endswith("s"):
+#                     full_form += "s"
+#                 replacement = f"{number} {full_form} ({unit.lower()})"
+#                 global_logs.append(
+#                     f"Line {line_num}: {match.group(0)} -> {replacement}"
+#                 )
+#                 return replacement
+#         pattern = r'\b(\d+)\s*(%s)\b' % '|'.join(re.escape(unit) for unit in units.keys())
+#         processed_line = re.sub(pattern, replace_unit, line)
+#         processed_lines.append(processed_line)
+#     return "\n".join(processed_lines)
+
+
+
+# change the unis to short form only first time in full form in brackets
+def units_with_bracket(text, replaced_units):
     units = {
-        "s": "second",
+        "s": "seconds",
         "m": "meter",
         "kg": "kilogram",
         "A": "ampere",
@@ -323,29 +385,26 @@ def units_with_bracket(text):
         "mol": "mole",
         "cd": "candela"
     }
-    used_units = set()
-    global global_logs
-    processed_lines = []
-    for line_num, line in enumerate(text.splitlines(), start=1):
-        def replace_unit(match):
-            number = match.group(1)
-            unit = match.group(2)
-            if unit in used_units:
-                return match.group(0)
-            else:
-                used_units.add(unit)
-                full_form = units[unit]
-                if unit != "mol" and not full_form.endswith("s"):
-                    full_form += "s"
-                replacement = f"{number} {full_form} ({unit.lower()})"
-                global_logs.append(
-                    f"Line {line_num}: {match.group(0)} -> {replacement}"
-                )
-                return replacement
-        pattern = r'\b(\d+)\s*(%s)\b' % '|'.join(re.escape(unit) for unit in units.keys())
-        processed_line = re.sub(pattern, replace_unit, line)
-        processed_lines.append(processed_line)
-    return "\n".join(processed_lines)
+    
+    # This will keep track of the units we've already replaced
+    # replaced_units = set()
+    
+    # Function to replace the unit the first time it appears
+    def replace(match):
+        number = match.group(1)
+        unit = match.group(2)
+        
+        if unit not in replaced_units:
+            replaced_units.add(unit)
+            full_unit = units.get(unit, unit)
+            print(f"{number} {full_unit} ({unit})")
+            return f"{number} {full_unit} ({unit})"
+        else:
+            print(f"{number} {unit}")
+            return f"{number} {unit}"
+
+    pattern = r"(\d+)\s?([a-zA-Z]+)"
+    return re.sub(pattern, replace, text)
 
 
 def remove_and(text: str):
@@ -415,7 +474,7 @@ def correct_acronyms(text, line_number):
     return corrected_text
 
 
-
+# changes eg to e.g.
 def enforce_eg_rule_with_logging(text):
     lines = text.splitlines()
     updated_lines = []
@@ -511,7 +570,6 @@ def insert_thin_space_between_number_and_unit(text, line_number):
     
     pattern = r"(\d+)(?=\s?[a-zA-Z]+)(?!\s?°)"
     updated_text = text
-
     matches = re.finditer(pattern, text)
     for match in matches:
         number = match.group(1)  # This is the number
@@ -531,23 +589,60 @@ import re
 # Load the spaCy model
 nlp = spacy.load("en_core_web_sm")
 
+
+# def process_paragraph(text, line_number):
+#     """
+#     Processes paragraph text to ensure a comma is added before 'e.g.'
+#     if there is no verb between 'e.g.' and the end of the sentence.
+#     Args:
+#         text (str): The text of the paragraph.
+#         line_number (int): Line number for reference (useful for debugging/logging).
+#     Returns:
+#         str: Updated text with proper comma placement.
+#     """
+#     doc = nlp(text)
+#     updated_sentences = []
+
+#     for sentence in doc.sents:  # Split text into sentences
+#         sentence_text = sentence.text
+        
+#         # Check if 'e.g.' is in the sentence
+#         if "e.g." in sentence_text:
+#             # Find the position of 'e.g.'
+#             eg_start_idx = sentence_text.find("e.g.")
+#             after_eg_text = sentence_text[eg_start_idx:]
+            
+#             # Process the text after 'e.g.' to look for verbs
+#             after_eg_doc = nlp(after_eg_text)
+#             has_verb = any(token.pos_ == "VERB" for token in after_eg_doc)
+            
+#             if not has_verb:
+#                 # Add a comma before 'e.g.' if no verb is found
+#                 sentence_text = re.sub(r"(?<!,)\s+e\.g\.", ", e.g.", sentence_text)
+        
+#         updated_sentences.append(sentence_text)
+#     updated_text = " ".join(updated_sentences)
+#     return updated_text
+
+
 def process_paragraph(text, line_number):
     """
-    Processes paragraph text to ensure a comma is added before 'e.g.'
-    if there is no verb between 'e.g.' and the end of the sentence.
+    Processes paragraph text to:
+    1. Add a comma before 'e.g.' if there is no verb between 'e.g.' and the end of the sentence.
+    2. Add a semicolon before 'i.e.' wherever it appears.
     Args:
         text (str): The text of the paragraph.
         line_number (int): Line number for reference (useful for debugging/logging).
     Returns:
-        str: Updated text with proper comma placement.
+        str: Updated text with proper comma and semicolon placement.
     """
     doc = nlp(text)
     updated_sentences = []
 
     for sentence in doc.sents:  # Split text into sentences
         sentence_text = sentence.text
-        
-        # Check if 'e.g.' is in the sentence
+
+        # Step 1: Handle 'e.g.'
         if "e.g." in sentence_text:
             # Find the position of 'e.g.'
             eg_start_idx = sentence_text.find("e.g.")
@@ -561,11 +656,15 @@ def process_paragraph(text, line_number):
                 # Add a comma before 'e.g.' if no verb is found
                 sentence_text = re.sub(r"(?<!,)\s+e\.g\.", ", e.g.", sentence_text)
         
+        # Step 2: Handle 'i.e.'
+        if "i.e." in sentence_text:
+            # Add a semicolon before 'i.e.' if not already present
+            sentence_text = re.sub(r"(?<!;)\s+i\.e\.", ": i.e.", sentence_text)
+            
         updated_sentences.append(sentence_text)
+
     updated_text = " ".join(updated_sentences)
     return updated_text
-
-
 
 
 def apply_quotation_punctuation_rule(text: str):
@@ -670,6 +769,9 @@ def write_to_log(doc_id):
     with open(log_file_path, 'w', encoding='utf-8') as log_file:
         log_file.write("\n".join(global_logs))
     global_logs = []
+    
+
+
 
 
 
@@ -680,7 +782,7 @@ def process_doc_function1(payload: dict, doc: Document, doc_id):
     """
     line_number = 1
     abbreviation_dict = fetch_abbreviation_mappings()
-    print(payload)
+    
     for para in doc.paragraphs:
         para.text = convert_century(para.text, line_number)
         para.text = process_symbols_mark(para.text, line_number)
@@ -688,7 +790,7 @@ def process_doc_function1(payload: dict, doc: Document, doc_id):
         para.text = set_number_to_no(para.text,line_number)
         para.text = apply_abbreviation_mapping(para.text, abbreviation_dict, line_number)
         para.text = enforce_am_pm(para.text, line_number)
-        para.text = set_latinisms_to_roman_in_runs(para.text, line_number)
+        para.text = set_latinisms_to_roman(para.text, line_number)
         if(payload["2"] == False):
             para.text = rename_section(para.text)
         para.text = replace_ampersand(para.text)
@@ -708,7 +810,6 @@ def process_doc_function1(payload: dict, doc: Document, doc_id):
         para.text = apply_quotation_punctuation_rule(para.text)
         line_number += 1
 
-       
     write_to_log(doc_id)
     
     

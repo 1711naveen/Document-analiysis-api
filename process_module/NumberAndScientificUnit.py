@@ -3,7 +3,7 @@ from docx import Document
 from num2words import num2words
 from word2number import w2n
 import os
-
+from datetime import datetime
 
 global_logs = []
 
@@ -339,11 +339,35 @@ def format_dates(text, line_number):
     return text
 
 
-def format_ellipses_in_series(text):
-    # Matches series like "x1, x2, ..., xn" and ensures the ellipsis has a comma and space after it.
-    text = re.sub(r"(\w+),\s*(\w+),\s*\.\.\.\s*(\w+)", r"\1, \2, …, \3", text)
-    return text
 
+def format_ellipses_in_series(text):
+    """
+    Formats ellipses in a series and ensures proper grammar.
+    1. Ensures ellipses use exactly three dots ('...') with no spaces between them.
+    2. Replaces more than three dots (e.g., '.....') with exactly three dots ('...').
+    3. Removes spaces in improperly spaced ellipses (e.g., '. . .' becomes '...').
+    4. Capitalizes the first word after the ellipses if it starts a new sentence.
+    5. Ensures no period follows the ellipses at the end of an incomplete sentence.
+    """
+
+    # Replace more than three dots with exactly three dots
+    text = re.sub(r"\.{4,}", "...", text)
+
+    # Replace improperly spaced ellipses with '...'
+    text = re.sub(r"\.\s*\.\s*\.", "...", text)
+
+    # Ensure capitalization of the first word after ellipses if it starts a sentence
+    def capitalize_after_ellipsis(match):
+        ellipsis = match.group(1)
+        following_text = match.group(2).strip()
+        # Capitalize the first letter of the following word
+        return f"{ellipsis} {following_text.capitalize()}"
+
+    # Matches ellipses followed by text that starts a new sentence
+    text = re.sub(r"(\.\.\.)(\s+[a-z])", capitalize_after_ellipsis, text)
+    # Ensure no period follows ellipses at the end of an incomplete sentence
+    text = re.sub(r"(\.\.\.)\.", r"\1", text)
+    return text
 
 
 
@@ -546,6 +570,105 @@ def convert_currency_to_symbols(text, line_number):
 
 
 
+
+def process_string_years(input_string):
+    # Define regex patterns for the various date formats
+    date_patterns = [
+        r'\b(\d{1,2})/(\d{1,2})/(\d{4})\b',          # MM/DD/YYYY
+        r'\b(\d{1,2})/(\d{1,2})/(\d{2})\b',          # MM/DD/YY
+        r'\b(\d{4})-(\d{1,2})-(\d{1,2})\b',          # YYYY-MM-DD
+        r'\b(\d{1,2})[.-](\d{1,2})[.-](\d{4})\b',    # MM.DD.YYYY or MM-DD-YYYY
+        r'\b(\d{1,2})[-.](\w{3,})[-.](\d{2})\b',     # DD-MMM-YY
+        r'\b(\w{3,})[. ](\d{1,2}),[ ]?(\d{2,4})\b',  # Jan. 27, 25 or Jan. 27, 2025
+        r'\b(\d{1,2})[ ](\w{3,})[ ](\d{4})\b',       # DD Month YYYY
+        r'\b(\w{3,9})[ ](\d{1,2}),?[ ](\d{2,4})\b',  # Month DD, YYYY or Month DD, YY
+        r'\b(\d{1,2})[ ](\w{3,})-?(\d{2})\b',        # DD Month-YY
+    ]
+    
+    # Define a function to parse and reformat dates
+    def reformat_date(match):
+        try:
+            # Try to parse the date from the matched string
+            original_date = match.group(0)
+            for fmt in [
+                "%m/%d/%Y", "%m/%d/%y", "%Y-%m-%d", "%m.%d.%Y", "%d-%b-%y",
+                "%b. %d, %y", "%b. %d, %Y", "%d %b %Y", "%B %d, %y", "%B %d, %Y",
+                "%d %B %Y", "%d %b-%y"
+            ]:
+                try:
+                    date = datetime.strptime(original_date, fmt)
+                    break
+                except ValueError:
+                    continue
+            else:
+                return original_date  # If no formats match, return the original
+            
+            # Reformat the date
+            if date.year >= 2025:
+                return date.strftime("%B %d, %Y")  # January 16, 2025
+            else:
+                return date.strftime("%m/%d/%Y")  # 12/25/1991
+        except Exception:
+            return match.group(0)  # Return original if parsing fails
+    # Process the input string and reformat dates
+    for pattern in date_patterns:
+        input_string = re.sub(pattern, reformat_date, input_string)
+    return input_string
+
+
+
+def process_string_ratio(input_string):
+    def replace_ratio(match):
+        left_word = match.group(1).strip()
+        right_word = match.group(2).strip()
+        try:
+            # Convert words to numbers using word2number
+            left_num = w2n.word_to_num(left_word)
+            right_num = w2n.word_to_num(right_word)
+            if(left_num > right_num):
+                print(left_num)
+                print(right_num)
+            return f"{left_num} : {right_num}"
+        except ValueError:
+            # If conversion fails, keep the original words
+            return f"{left_word} : {right_word}"
+
+    # Regex to find patterns like 'word : word'
+    pattern = r"(\b[a-zA-Z]+\b)\s*:\s*(\b[a-zA-Z]+\b)"
+    return re.sub(pattern, replace_ratio, input_string)
+
+
+
+# def process_string_ratio(input_string):
+#     def replace_ratio(match):
+#         left_word = match.group(1).strip()
+#         right_word = match.group(2).strip()
+        
+#         # Replace spaces in multi-word numbers with hyphens for proper parsing
+#         left_word_hyphenated = re.sub(r"\b(\w+)\s+(\w+)\b", r"\1-\2", left_word)
+#         right_word_hyphenated = re.sub(r"\b(\w+)\s+(\w+)\b", r"\1-\2", right_word)
+
+#         try:
+#             # Convert words to numbers using word2number
+#             left_num = w2n.word_to_num(left_word_hyphenated.replace('-', ' '))
+#             right_num = w2n.word_to_num(right_word_hyphenated.replace('-', ' '))
+#             return f"{left_num} : {right_num}"
+#         except ValueError:
+#             # If conversion fails, keep the original words
+#             return f"{left_word} : {right_word}"
+
+#     # Regex to find patterns like 'word : word'
+#     pattern = r"(\b[a-zA-Z\s]+\b)\s*:\s*(\b[a-zA-Z\s]+\b)"
+#     return re.sub(pattern, replace_ratio, input_string)
+
+
+def process_text(input_text):
+    # Call process_string to handle date formatting
+    formatted_text = process_string_years(input_text)
+    formatted_text = process_string_ratio(input_text)
+    return formatted_text
+
+
 def write_to_log(doc_id):
     """
     Writes the global logs to a log file. If the file already exists, it appends to it.
@@ -581,6 +704,7 @@ def process_doc_function2(payload: dict, doc: Document, doc_id):
         para.text = correct_scientific_units_with_logging(para.text)
         para.text = correct_preposition_usage(para.text)
         para.text = correct_unit_spacing(para.text)
+        para.text = process_text(para.text)
         # para.text = spell_out_number_and_unit_with_rules(para.text,line_number)
         line_number += 1
         
