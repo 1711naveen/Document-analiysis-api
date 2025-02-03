@@ -1,0 +1,79 @@
+
+Start Time: 2025-02-03 17:01:17.246192
+End Time: 2025-02-03 17:01:19.575045
+Analysis completed in 2.33 seconds.
+
+
+FileName: fortesting.docx
+
+
+Line 4: i.e., -> Suggestions: IE, ai, i, e, ire, tie, lie, ice, die, gie, pie, hie, fie, vie, Lie, i.e., niue
+Line 4: e.g., -> Suggestions: Eg, eh, e, g, eng, neg, erg, reg, ego, leg, deg, egg, meg, peg, beg, e.g.
+Line 16: ce -> Suggestions: Ce, cw, cr, c, e, ice, ace, cen, cue, Ice, cs, ca, ae, ne, re, cuba, chile, chad, i.e., peru, niue
+Line 16: posteriori, -> Suggestions: posterior, posteriors, posterior i, posterity, postrider, periostea, periosteum
+Line 16: priori, -> Suggestions: prior, priors, priory, prior i, Prior, prion
+Start Time: 2025-02-03 17:10:50.693995
+End Time: 2025-02-03 17:10:53.774801
+Analysis completed in 3.08 seconds.
+
+
+FileName: fortesting.docx
+
+
+Line 4: i.e., -> Suggestions: IE, ai, i, e, ire, tie, lie, ice, die, gie, pie, hie, fie, vie, Lie, i.e., niue
+Line 4: e.g., -> Suggestions: Eg, eh, e, g, eng, neg, erg, reg, ego, leg, deg, egg, meg, peg, beg, e.g.
+Line 16: ce -> Suggestions: Ce, cw, cr, c, e, ice, ace, cen, cue, Ice, cs, ca, ae, ne, re, cuba, chile, chad, i.e., peru, niue
+Line 16: posteriori, -> Suggestions: posterior, posteriors, posterior i, posterity, postrider, periostea, periosteum
+Line 16: priori, -> Suggestions: prior, priors, priory, prior i, Prior, prion
+Start Time: 2025-02-03 17:11:19.088122
+End Time: 2025-02-03 17:11:21.838948
+Analysis completed in 2.75 seconds.
+
+
+FileName: fortesting.docx
+
+
+Line 4: i.e., -> Suggestions: IE, ai, i, e, ire, tie, lie, ice, die, gie, pie, hie, fie, vie, Lie, i.e., niue
+Line 4: e.g., -> Suggestions: Eg, eh, e, g, eng, neg, erg, reg, ego, leg, deg, egg, meg, peg, beg, e.g.
+Line 16: ce -> Suggestions: Ce, cw, cr, c, e, ice, ace, cen, cue, Ice, cs, ca, ae, ne, re, cuba, chile, chad, i.e., peru, niue
+Line 16: posteriori, -> Suggestions: posterior, posteriors, posterior i, posterity, postrider, periostea, periosteum
+Line 16: priori, -> Suggestions: prior, priors, priory, prior i, Prior, prion
+Start Time: 2025-02-03 17:12:12.925279
+End Time: 2025-02-03 17:12:15.143140
+Analysis completed in 2.22 seconds.
+
+
+FileName: fortesting.docx
+
+
+Line 4: i.e., -> Suggestions: IE, ai, i, e, ire, tie, lie, ice, die, gie, pie, hie, fie, vie, Lie, i.e., niue
+Line 4: e.g., -> Suggestions: Eg, eh, e, g, eng, neg, erg, reg, ego, leg, deg, egg, meg, peg, beg, e.g.
+Line 16: ce -> Suggestions: Ce, cw, cr, c, e, ice, ace, cen, cue, Ice, cs, ca, ae, ne, re, cuba, chile, chad, i.e., peru, niue
+Line 16: posteriori, -> Suggestions: posterior, posteriors, posterior i, posterity, postrider, periostea, periosteum
+Line 16: priori, -> Suggestions: prior, priors, priory, prior i, Prior, prion
+Start Time: 2025-02-03 17:17:03.454871
+End Time: 2025-02-03 17:17:05.175760
+Analysis completed in 1.72 seconds.
+
+
+FileName: fortesting.docx
+
+
+Line 4: i.e., -> Suggestions: IE, ai, i, e, ire, tie, lie, ice, die, gie, pie, hie, fie, vie, Lie, i.e., niue
+Line 4: e.g., -> Suggestions: Eg, eh, e, g, eng, neg, erg, reg, ego, leg, deg, egg, meg, peg, beg, e.g.
+Line 16: ce -> Suggestions: Ce, cw, cr, c, e, ice, ace, cen, cue, Ice, cs, ca, ae, ne, re, cuba, chile, chad, i.e., peru, niue
+Line 16: posteriori, -> Suggestions: posterior, posteriors, posterior i, posterity, postrider, periostea, periosteum
+Line 16: priori, -> Suggestions: prior, priors, priory, prior i, Prior, prion
+Start Time: 2025-02-03 17:17:44.570528
+End Time: 2025-02-03 17:17:48.845254
+Analysis completed in 4.27 seconds.
+
+
+FileName: fortesting.docx
+
+
+Line 4: i.e., -> Suggestions: IE, ai, i, e, ire, tie, lie, ice, die, gie, pie, hie, fie, vie, Lie, i.e., niue
+Line 4: e.g., -> Suggestions: Eg, eh, e, g, eng, neg, erg, reg, ego, leg, deg, egg, meg, peg, beg, e.g.
+Line 16: ce -> Suggestions: Ce, cw, cr, c, e, ice, ace, cen, cue, Ice, cs, ca, ae, ne, re, cuba, chile, chad, i.e., peru, niue
+Line 16: posteriori, -> Suggestions: posterior, posteriors, posterior i, posterity, postrider, periostea, periosteum
+Line 16: priori, -> Suggestions: prior, priors, priory, prior i, Prior, prion

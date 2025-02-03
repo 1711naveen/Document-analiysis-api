@@ -1,0 +1,28 @@
+[convert century] Line 1: 20th -> the twentieth century
+[set_latinisms_to_roman] Line 3: 'i.e.' -> 'i.e.'
+[set_latinisms_to_roman] Line 3: 'e.g.' -> 'e.g.'
+[set_latinisms_to_roman] Line 3: 'via' -> 'via'
+[e.g. correction] Line 3: 'i.e., e.g., via,' -> 'i.e, e.g. via,'
+[i.e. correction] Line 3: 'i.e, e.g. via,' -> 'i.e. e.g. via,'
+[process_paragraph] Line 3: Added comma before 'e.g.'
+[set_latinisms_to_roman] Line 5: 'etc.' -> 'etc.'
+[set_latinisms_to_roman] Line 5: 'a posteriori' -> 'a posteriori'
+[set_latinisms_to_roman] Line 5: 'a priori' -> 'a priori'
+[set_latinisms_to_roman] Line 5: 'et al.' -> 'et al.'
+[set_latinisms_to_roman] Line 5: 'cf.' -> 'cf.'
+[set_latinisms_to_roman] Line 5: 'c.' -> 'c.'
+[e.g. correction] Line 5: 'versa, etc., a posteriori, a priori, et al., cf., c.' -> 'versa, etc, a posteriori, a priori, et al, cf, c.'
+[etc. correction] Line 5: 'etc' -> 'etc.'
+Start Time: 2025-02-03 12:21:16.902607
+End Time: 2025-02-03 12:21:18.450509
+Analysis completed in 1.55 seconds.
+
+
+FileName: fortesting.docx
+
+
+Line 4: i.e., -> Suggestions: IE, ai, i, e, ire, tie, lie, ice, die, gie, pie, hie, fie, vie, Lie, i.e., niue
+Line 4: e.g., -> Suggestions: Eg, eh, e, g, eng, neg, erg, reg, ego, leg, deg, egg, meg, peg, beg, e.g.
+Line 8: ce -> Suggestions: Ce, cw, cr, c, e, ice, ace, cen, cue, Ice, cs, ca, ae, ne, re, cuba, chile, chad, i.e., peru, niue
+Line 8: posteriori, -> Suggestions: posterior, posteriors, posterior i, posterity, postrider, periostea, periosteum
+Line 8: priori, -> Suggestions: prior, priors, priory, prior i, Prior, prion

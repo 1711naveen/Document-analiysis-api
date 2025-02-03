@@ -8,16 +8,19 @@ from urllib.parse import urlparse
 global_logs = []
 
 
-def clean_web_addresses(text):
+import re
+
+global_logs = []
+
+
+
+def clean_web_addresses(runs):
     """
     Removes angle brackets around web addresses (e.g., "<http://example.com>" -> "http://example.com").
     Args:
-        text (str): Input text to process.
-    Returns:
-        str: Updated text.
+        runs (list): A list of runs (segments of text in the document).
     """
-    global global_logs
-    def process_web_address(match):
+    def process_web_address(match, text):
         original = match.group(0)
         modified = match.group(1)
 
@@ -27,42 +30,49 @@ def clean_web_addresses(text):
                 f"[clean_web_addresses] Line {line_number}: '{original}' -> '{modified}'"
             )
         return modified
-    return re.sub(r"<(https?://[^\s<>]+)>", process_web_address, text)
+
+    for run in runs:
+        # Apply cleaning to each run's text in place
+        run.text = re.sub(r"<(https?://[^\s<>]+)>", lambda match: process_web_address(match, run.text), run.text)
 
 
-    
-    
-def remove_concluding_slashes_from_urls(text, line_number):
-    global global_logs
+
+def remove_concluding_slashes_from_urls(runs, line_number):
+    """
+    Removes the concluding slash from URLs in the runs (e.g., "https://example.com/" -> "https://example.com").
+    Args:
+        runs (list): A list of runs (segments of text in the document).
+        line_number (int): Line number where the change occurs.
+    """
     pattern = r"(https?://[^\s/]+(?:/[^\s/]+)*)/"
-    matches = re.finditer(pattern, text)
-    updated_text = text
     
-    for match in matches:
-        original_text = match.group(0)
-        updated_text_url = match.group(1)  # URL without the concluding slash (e.g., "https://example.com")
-        updated_text = updated_text.replace(original_text, updated_text_url)
+    for run in runs:
+        matches = re.finditer(pattern, run.text)
+        updated_text = run.text
         
-        # Log the change
-        global_logs.append(
-            f"[remove_concluding_slashes_from_urls] Line {line_number}: '{original_text}' -> '{updated_text_url}'"
-        )    
-    return updated_text
+        for match in matches:
+            original_text = match.group(0)
+            updated_text_url = match.group(1)  # URL without the concluding slash (e.g., "https://example.com")
+            updated_text = updated_text.replace(original_text, updated_text_url)
+            
+            # Log the change
+            global_logs.append(
+                f"[remove_concluding_slashes_from_urls] Line {line_number}: '{original_text}' -> '{updated_text_url}'"
+            )
+        # Update the run's text in place
+        run.text = updated_text
 
 
 
-def process_url_add_http(text):
+def process_url_add_http(runs):
     """
     Adjusts URLs in the input text based on the given rules:
     1. If a URL starts with 'www.' but doesn't have 'http://', prepend 'http://'.
     2. If a URL already starts with 'http://', remove 'http://'.
     Args:
-        text (str): The input text containing URLs.
-    Returns:
-        str: The modified text with URLs adjusted.
+        runs (list): A list of runs (segments of text in the document).
     """
-    global global_logs
-    def add_http_prefix(match):
+    def add_http_prefix(match, text):
         original = match.group(0)
         modified = f"http://{match.group(1)}"
         if original != modified:
@@ -71,7 +81,8 @@ def process_url_add_http(text):
                 f"[process_url_add_http] Line {line_number}: '{original}' -> '{modified}'"
             )
         return modified
-    def remove_http_prefix(match):
+
+    def remove_http_prefix(match, text):
         original = match.group(0)
         modified = match.group(1)
         if original != modified:
@@ -80,59 +91,68 @@ def process_url_add_http(text):
                 f"[process_url_add_http] Line {line_number}: '{original}' -> '{modified}'"
             )
         return modified
-    text = re.sub(r"\bhttp://(www\.\S+)", remove_http_prefix, text)
-    text = re.sub(r"\b(www\.\S+)", add_http_prefix, text)
-    return text
+
+    for run in runs:
+        # Apply the changes in place to each run's text
+        run.text = re.sub(r"\bhttp://(www\.\S+)", lambda match: remove_http_prefix(match, run.text), run.text)
+        run.text = re.sub(r"\b(www\.\S+)", lambda match: add_http_prefix(match, run.text), run.text)
 
 
-def process_url_remove_http(url):
+
+def process_url_remove_http(runs):
     """
     Removes 'http://' from a URL if there is no path, parameters, query, or fragment.
     Args:
-        url (str): The input URL to process.
-    Returns:
-        str: The modified URL with 'http://' removed if applicable.
+        runs (list): A list of runs (segments of text in the document).
     """
-    global global_logs
-    parsed = urlparse(url)
-    original = url
-    if parsed.scheme == "http" and not (parsed.path or parsed.params or parsed.query or parsed.fragment):
-        modified = parsed.netloc
-        if original != modified:
-            line_number = 1
-            global_logs.append(
-                f"[process_url_remove_http] Line {line_number}: '{original}' -> '{modified}'"
-            )
-        return modified
-    return url
+    def process_url(match, text):
+        original = match.group(0)
+        parsed = urlparse(original)
+        
+        # Remove 'http://' if there is no path, parameters, query, or fragment
+        if parsed.scheme == "http" and not (parsed.path or parsed.params or parsed.query or parsed.fragment):
+            modified = parsed.netloc
+            if original != modified:
+                line_number = text[:match.start()].count('\n') + 1
+                global_logs.append(
+                    f"[process_url_remove_http] Line {line_number}: '{original}' -> '{modified}'"
+                )
+            return modified
+        return original
+
+    for run in runs:
+        # Apply the changes in place to each run's text
+        run.text = re.sub(r"\bhttp://[^\s]+", lambda match: process_url(match, run.text), run.text)
 
 
 
-import re
-
-def remove_url_underlining(text, line_number):
+def remove_url_underlining(runs, line_number):
     """
     Ensures that web addresses/URLs in the text are not underlined.
     Logs any changes made to the `global_logs`.
     Args:
-        text (str): The text content of a paragraph.
+        runs (list): A list of runs (segments of text in the document).
         line_number (int): The line number of the paragraph in the document.
-    Returns:
-        str: The text with URLs processed (underlining removed).
     """
-    global global_logs
     url_pattern = r'(https?://[^\s]+)'
-    words = text.split()
-    modified_words = []
-    for word in words:
-        if re.match(url_pattern, word):
-            modified_words.append(word)  # Keep the URL unchanged
-            global_logs.append(
-                f"[remove_url_underlining] Line {line_number}: Removed underlining from URL '{word}'"
-            )
-        else:
-            modified_words.append(word)
-    return " ".join(modified_words)
+
+    for run in runs:
+        # Split the run's text into words and process each word
+        words = run.text.split()
+        modified_words = []
+        
+        for word in words:
+            if re.match(url_pattern, word):
+                modified_words.append(word)  # Keep the URL unchanged
+                global_logs.append(
+                    f"[remove_url_underlining] Line {line_number}: Removed underlining from URL '{word}'"
+                )
+            else:
+                modified_words.append(word)
+        
+        # Update the run's text in place
+        run.text = " ".join(modified_words)
+
 
 
 
@@ -158,10 +178,16 @@ def process_doc_function4(payload: dict, doc: Document, doc_id):
     """
     line_number = 1
     for para in doc.paragraphs:
-        para.text = remove_url_underlining(para.text, line_number)
-        para.text = clean_web_addresses(para.text)
-        para.text = remove_concluding_slashes_from_urls(para.text, line_number)
-        para.text = process_url_add_http(para.text)
-        para.text = process_url_remove_http(para.text)
+        # para.text = remove_url_underlining(para.text, line_number)
+        # para.text = clean_web_addresses(para.text)
+        # para.text = remove_concluding_slashes_from_urls(para.text, line_number)
+        # para.text = process_url_add_http(para.text)
+        # para.text = process_url_remove_http(para.text)
+        clean_web_addresses(para.runs)
+        remove_concluding_slashes_from_urls(para.runs, line_number)
+        process_url_add_http(para.runs)
+        process_url_remove_http(para.runs)
+        remove_url_underlining(para.runs, line_number)
+
        
     write_to_log(doc_id)
