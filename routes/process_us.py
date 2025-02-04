@@ -23,7 +23,8 @@ from process_module.punctuation import process_doc_function1
 from process_module.NumberAndScientificUnit import process_doc_function2
 from process_module.hyphen import process_doc_function3
 from process_module.formatting import process_doc_function4
-# from process_module.chapters import process_doc_function6
+from process_module.chapters import process_doc_function6
+from process_module.heading import process_doc_function7
 
 router = APIRouter()
 
@@ -895,7 +896,7 @@ def write_to_log(doc_id):
     os.makedirs(output_dir, exist_ok=True)
     log_file_path = os.path.join(output_dir, 'global_logs.txt')
 
-    with open(log_file_path, 'a', encoding='utf-8') as log_file:
+    with open(log_file_path, 'w', encoding='utf-8') as log_file:
         log_file.write("\n".join(global_logs))
 
     global_logs = []
@@ -1902,15 +1903,18 @@ async def process_file(token_request: TokenRequest, doc_id: int = Query(...)):
         doc = docx.Document(file_path)
 
         curly_to_straight(doc)
+        highlight_and_correct(doc)
+        write_to_log(doc_id)
         
         process_doc_function1(payload, doc, doc_id)
         process_doc_function2(payload, doc, doc_id)
         process_doc_function3(payload, doc, doc_id)
         process_doc_function4(payload, doc, doc_id)
-        # process_doc_function6(payload, doc, doc_id)
+        process_doc_function6(payload, doc, doc_id)
+        process_doc_function7(payload, doc, doc_id)
         
-        highlight_and_correct(doc)
         straight_to_curly(doc)
+        
         doc.save(output_path)
 
         cursor.execute("SELECT final_doc_id FROM final_document WHERE row_doc_id = %s", (doc_id,))
@@ -1928,7 +1932,7 @@ async def process_file(token_request: TokenRequest, doc_id: int = Query(...)):
             logging.info('New file processed and inserted into final_document.')
 
         conn.commit()
-        write_to_log(doc_id)
+        # write_to_log(doc_id)
         logging.info(f"Processed file stored at: {output_path}")
         return {"success": True, "message": f"File processed and stored at {output_path}"}
 

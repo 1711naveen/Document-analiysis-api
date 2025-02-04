@@ -824,7 +824,7 @@ def process_doc_function2(payload: dict, doc: Document, doc_id):
         # para.text = spell_out_number_and_unit_with_rules(para.text,line_number)
         
         remove_unnecessary_apostrophes(para.runs, line_number)
-        replace_fold_phrases(para.runs, line_number)
+        # replace_fold_phrases(para.runs, line_number)
         remove_space_between_degree_and_direction(para.runs, line_number)
         enforce_lowercase_units(para.runs, line_number)
         precede_decimal_with_zero(para.runs, line_number)
@@ -833,7 +833,7 @@ def process_doc_function2(payload: dict, doc: Document, doc_id):
         remove_spaces_from_four_digit_numbers(para.runs, line_number)
         convert_decimal_to_baseline(para.runs, line_number)
         correct_scientific_unit_symbols(para.runs)
-        spell_out_number_and_unit_with_rules(para.runs, line_number)
+        # spell_out_number_and_unit_with_rules(para.runs, line_number)
         format_dates(para.runs, line_number)
         format_ellipses_in_series(para.runs)
         correct_units_in_ranges_with_logging(para.runs)

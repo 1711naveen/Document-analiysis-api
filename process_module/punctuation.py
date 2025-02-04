@@ -799,7 +799,7 @@ def write_to_log(doc_id):
     output_dir = os.path.join('output', str(doc_id))
     os.makedirs(output_dir, exist_ok=True)
     log_file_path = os.path.join(output_dir, 'global_logs.txt')
-    with open(log_file_path, 'w', encoding='utf-8') as log_file:
+    with open(log_file_path, 'a', encoding='utf-8') as log_file:
         log_file.write("\n".join(global_logs))
     global_logs = []
     
