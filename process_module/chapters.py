@@ -70,4 +70,5 @@ def process_doc_function6(payload: dict, doc: Document, doc_id):
             correct_chapter_numbering(para.runs, chapter_counter)
             format_chapter_title(para.runs)
         
+        
     write_to_log(doc_id)

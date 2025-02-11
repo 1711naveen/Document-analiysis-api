@@ -1,0 +1,57 @@
+
+Start Time: 2025-02-11 18:25:09.009885
+End Time: 2025-02-11 18:25:46.864500
+Analysis completed in 37.85 seconds.
+
+
+FileName: test_document.docx
+
+
+Line 2: 1990's -> No suggestions available
+Line 2: '90s -> Suggestions: laos
+Line 2: 90s, -> Suggestions: laos
+Line 4: 3-fold -> Suggestions: fold, 3 fold
+Line 4: 20-fold -> Suggestions: fold
+Line 6: º -> Suggestions: e, s, i, a, n, r, t, o, l, c, d, u, g, m, p
+Line 6: º -> Suggestions: e, s, i, a, n, r, t, o, l, c, d, u, g, m, p
+Line 8: Error4: -> Suggestions: error, errors, error 4, europe
+Line 24: hz. -> Suggestions: Hz, h, z, he, hi, ha, hr, ht, ho, oz, hl, hd, dz, hg, hm, chad
+Line 24: resistence -> Suggestions: resistance, Resistencia, Resistance, persistence, insistence
+Line 26: BCE -> Suggestions: be, bice, bee, ice, ace, bye, Ice, i.e., niue
+Line 26: BCE. -> Suggestions: be, bice, bee, ice, ace, bye, Ice, i.e., niue
+Line 30: gapping -> Suggestions: gaping, gasping, sapping, napping, rapping, tapping, lapping, capping, mapping, gypping, yapping, gawping, zapping, gap ping, gap-ping
+Line 30: Hz, -> Suggestions: Hz, h, z, he, hi, ha, hr, ht, ho, oz, hl, hd, dz, hg, hm, chad
+Line 30: Hz -> Suggestions: Hz, h, z, he, hi, ha, hr, ht, ho, oz, hl, hd, dz, hg, hm, chad
+Line 30: GHz. -> Suggestions: gaz, GHz, ghana, guam, chad
+Line 34: January -> Suggestions: January, vanuatu, hungary
+Line 38: event—originally -> Suggestions: event originally, event-originally, aboriginally
+Line 38: January—was -> Suggestions: January
+Line 40: high-speed -> Suggestions: high speed, high-speed, highs peed, highs-peed, highlighted
+Line 40: Paris-Lyon -> Suggestions: parishioner
+Line 44: url -> Suggestions: URL, curl, purl, hurl, burl, furl, Burl, lur, urn, iran, iraq, guam, mali, peru, nauru, cuba
+Line 44: url -> Suggestions: URL, curl, purl, hurl, burl, furl, Burl, lur, urn, iran, iraq, guam, mali, peru, nauru, cuba
+Line 44: <https://google.com> -> No suggestions available
+Line 44: https://google.com. -> No suggestions available
+Line 46: url -> Suggestions: URL, curl, purl, hurl, burl, furl, Burl, lur, urn, iran, iraq, guam, mali, peru, nauru, cuba
+Line 46: url -> Suggestions: URL, curl, purl, hurl, burl, furl, Burl, lur, urn, iran, iraq, guam, mali, peru, nauru, cuba
+Line 46: https://google.com/ -> No suggestions available
+Line 48: urls -> Suggestions: curls, purls, hurls, burls, furls, urns, urus, URLs, iran, iraq, laos, mali
+Line 48: https://google.com -> No suggestions available
+Line 84: Ther -> Suggestions: rhet, thee, the, ter, her, there, ether, their, other, therm, Uther, sher, tier, thar, then, togo, peru, i.e., niger, chad
+Line 84: Develpment -> Suggestions: development, envelopment, devolvement
+Line 86: tehnical -> Suggestions: technical, Alicante
+Line 86: (IITs), -> Suggestions: its, sits, nits, tits, dits, gits, pits, hits, bits, fits, kits, wits, zits, i its, ii ts, iran, iraq, i.e., laos, haiti, niue, fiji
+Line 86: (IISc), -> Suggestions: disc, misc, fisc, Wisc, ii sc, ii-sc, iran, iraq, i.e., niue, fiji
+Line 86: (IIMs), -> Suggestions: isms, sims, aims, rims, dims, hims, Sims, ii ms, ii-ms, imams, iran, iraq, i.e., laos, niue, fiji
+Line 86: transfrmation -> Suggestions: transformation, Transfiguration, transfiguration, transmigration, transmutation
+Line 92: MODRN -> Suggestions: morn, modern, mourn, Modred, oman, jordan, sudan
+Line 94: interational -> Suggestions: international, International, interrogational, interpretational, interjectional
+Line 94: dominnce, -> Suggestions: dominance, dominie, dominica
+Line 104: INTERNATION -> Suggestions: inter nation, inter-nation, internat ion, internat-ion, international, International, internalization, interlunation
+Line 104: WAFARE -> Suggestions: warfare, wayfarer, freeware, Ware, ware, qatar
+Line 120: Chaptr -> Suggestions: chapter, chap tr, chap-tr, chapiter, chad, haiti
+Line 120: Regonal -> Suggestions: regnal, regional, Reginald
+Line 122: War-era -> Suggestions: war era, war-era, ware, Ware, warfare, wagerer, aruba
+Line 124: ethni, -> Suggestions: ethnic, estonia, yemeni
+Line 126: cross-border -> Suggestions: cross border, cross-border, crossbred
+Line 126: long-lasting -> Suggestions: long lasting, long-lasting, longstanding, lastingness, lasting, gloating

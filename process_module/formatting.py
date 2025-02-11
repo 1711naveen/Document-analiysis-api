@@ -2,16 +2,10 @@ import re
 from docx import Document
 import os
 from urllib.parse import urlparse
-
+from docx.opc.constants import RELATIONSHIP_TYPE as RT
 
 # Global logs to keep track of changes
 global_logs = []
-
-
-import re
-
-global_logs = []
-
 
 
 def clean_web_addresses(runs):
@@ -37,30 +31,68 @@ def clean_web_addresses(runs):
 
 
 
-def remove_concluding_slashes_from_urls(runs, line_number):
-    """
-    Removes the concluding slash from URLs in the runs (e.g., "https://example.com/" -> "https://example.com").
-    Args:
-        runs (list): A list of runs (segments of text in the document).
-        line_number (int): Line number where the change occurs.
-    """
-    pattern = r"(https?://[^\s/]+(?:/[^\s/]+)*)/"
+
+def remove_concluding_slashes_from_urls(document):
+    """Update hyperlink targets and visible text (including in tables)."""
+    rels = document.part.rels
+    hyperlink_rels = {rel_id: rel for rel_id, rel in rels.items() if rel.reltype == RT.HYPERLINK}
+
+    global global_logs
+    for rel_id, rel in hyperlink_rels.items():
+        original_url = rel._target
+        if not original_url.endswith('/'):
+            continue
+
+        updated_url = original_url.rstrip('/')
+        rel._target = updated_url  # Update target URL
+        global_logs.append(f"Updated target: {original_url} -> {updated_url}")
+
+        # Update visible text in paragraphs and tables
+        for element in document.element.body:
+            # Process paragraphs
+            if element.tag.endswith('p'):
+                for run in element.xpath('.//w:r'):
+                    text = run.xpath('.//w:t')
+                    if text and text[0].text == original_url:
+                        text[0].text = updated_url
+                        global_logs.append(f"Updated paragraph text: {original_url} -> {updated_url}")
+
+            # Process tables
+            elif element.tag.endswith('tbl'):
+                for cell in element.xpath('.//w:tc'):
+                    for run in cell.xpath('.//w:r'):
+                        text = run.xpath('.//w:t')
+                        if text and text[0].text == original_url:
+                            text[0].text = updated_url
+                            global_logs.append(f"Updated table text: {original_url} -> {updated_url}")
+
+
+
+
+# def remove_concluding_slashes_from_urls(runs, line_number):
+#     """
+#     Removes the concluding slash from URLs in the runs (e.g., "https://example.com/" -> "https://example.com").
+#     Args:
+#         runs (list): A list of runs (segments of text in the document).
+#         line_number (int): Line number where the change occurs.
+#     """
+#     pattern = r"(https?://[^\s/]+(?:/[^\s/]+)*)/"
     
-    for run in runs:
-        matches = re.finditer(pattern, run.text)
-        updated_text = run.text
+#     for run in runs:
+#         matches = re.finditer(pattern, run.text)
+#         updated_text = run.text
         
-        for match in matches:
-            original_text = match.group(0)
-            updated_text_url = match.group(1)  # URL without the concluding slash (e.g., "https://example.com")
-            updated_text = updated_text.replace(original_text, updated_text_url)
+#         for match in matches:
+#             original_text = match.group(0)
+#             updated_text_url = match.group(1)  # URL without the concluding slash (e.g., "https://example.com")
+#             updated_text = updated_text.replace(original_text, updated_text_url)
             
-            # Log the change
-            global_logs.append(
-                f"[remove_concluding_slashes_from_urls] Line {line_number}: '{original_text}' -> '{updated_text_url}'"
-            )
-        # Update the run's text in place
-        run.text = updated_text
+#             # Log the change
+#             global_logs.append(
+#                 f"[remove_concluding_slashes_from_urls] Line {line_number}: '{original_text}' -> '{updated_text_url}'"
+#             )
+#         # Update the run's text in place
+#         run.text = updated_text
 
 
 
@@ -126,34 +158,63 @@ def process_url_remove_http(runs):
 
 
 
-def remove_url_underlining(runs, line_number):
-    """
-    Ensures that web addresses/URLs in the text are not underlined.
-    Logs any changes made to the `global_logs`.
-    Args:
-        runs (list): A list of runs (segments of text in the document).
-        line_number (int): The line number of the paragraph in the document.
-    """
-    url_pattern = r'(https?://[^\s]+)'
+# def remove_url_underlining(runs, line_number):
+#     """
+#     Ensures that web addresses/URLs in the text are not underlined.
+#     Logs any changes made to the `global_logs`.
+#     Args:
+#         runs (list): A list of runs (segments of text in the document).
+#         line_number (int): The line number of the paragraph in the document.
+#     """
+#     url_pattern = r'(https?://[^\s]+)'
 
-    for run in runs:
-        # Split the run's text into words and process each word
-        words = run.text.split()
-        modified_words = []
+#     for run in runs:
+#         # Split the run's text into words and process each word
+#         words = run.text.split()
+#         modified_words = []
         
-        for word in words:
-            if re.match(url_pattern, word):
-                modified_words.append(word)  # Keep the URL unchanged
-                global_logs.append(
-                    f"[remove_url_underlining] Line {line_number}: Removed underlining from URL '{word}'"
-                )
-            else:
-                modified_words.append(word)
+#         for word in words:
+#             if re.match(url_pattern, word):
+#                 modified_words.append(word)  # Keep the URL unchanged
+#                 global_logs.append(
+#                     f"[remove_url_underlining] Line {line_number}: Removed underlining from URL '{word}'"
+#                 )
+#             else:
+#                 modified_words.append(word)
         
-        # Update the run's text in place
-        run.text = " ".join(modified_words)
+#         # Update the run's text in place
+#         run.text = " ".join(modified_words)
 
-
+def remove_hyperlinks_underline(document):
+    # Process main document paragraphs
+    for para in document.paragraphs:
+        for hyperlink in para.hyperlinks:
+            for run in hyperlink.runs:
+                run.font.underline = False
+    
+    # Process tables
+    for table in document.tables:
+        for row in table.rows:
+            for cell in row.cells:
+                for para in cell.paragraphs:
+                    for hyperlink in para.hyperlinks:
+                        for run in hyperlink.runs:
+                            run.font.underline = False
+    
+    # Process headers and footers
+    for section in document.sections:
+        # Process headers
+        header = section.header
+        for para in header.paragraphs:
+            for hyperlink in para.hyperlinks:
+                for run in hyperlink.runs:
+                    run.font.underline = False
+        # Process footers
+        footer = section.footer
+        for para in footer.paragraphs:
+            for hyperlink in para.hyperlinks:
+                for run in hyperlink.runs:
+                    run.font.underline = False
 
 
 def write_to_log(doc_id):
@@ -177,17 +238,13 @@ def process_doc_function4(payload: dict, doc: Document, doc_id):
     and highlighting specific words.
     """
     line_number = 1
+    remove_concluding_slashes_from_urls(doc)
+    remove_hyperlinks_underline(doc)
     for para in doc.paragraphs:
-        # para.text = remove_url_underlining(para.text, line_number)
-        # para.text = clean_web_addresses(para.text)
-        # para.text = remove_concluding_slashes_from_urls(para.text, line_number)
-        # para.text = process_url_add_http(para.text)
-        # para.text = process_url_remove_http(para.text)
         clean_web_addresses(para.runs)
-        remove_concluding_slashes_from_urls(para.runs, line_number)
         process_url_add_http(para.runs)
         process_url_remove_http(para.runs)
-        remove_url_underlining(para.runs, line_number)
+        # remove_url_underlining(para.runs, line_number)
 
        
     write_to_log(doc_id)

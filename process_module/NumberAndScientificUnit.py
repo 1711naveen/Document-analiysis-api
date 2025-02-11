@@ -39,15 +39,11 @@ def remove_unnecessary_apostrophes(runs, line_number):
         current_index += len(run.text)
 
 
-# twofold not two-fold hyphenate with numeral for numbers greater than nine, e.g. 10-fold. 
-import re
-from word2number import w2n
-from num2words import num2words
 
+# twofold not two-fold hyphenate with numeral for numbers greater than nine, e.g. 10-fold. 
 def replace_fold_phrases(runs, line_number):
     """
     Replaces phrases with '-fold' to ensure correct formatting based on the number preceding it.
-
     Args:
         runs (list): List of Word paragraph runs to preserve formatting.
         line_number (int): Line number for logging.
@@ -113,7 +109,7 @@ def remove_space_between_degree_and_direction(runs, line_number):
 
     def log_replacement(match):
         original_text = match.group(0)
-        updated_text = match.group(1) + "º" + match.group(2)  # Ensuring º is used consistently
+        updated_text = match.group(1) + "°" + match.group(2)  # Ensuring ° is used consistently
         global_logs.append(
             f"[remove_space_between_degree_and_direction] Line {line_number}: '{original_text}' -> '{updated_text}'"
         )
@@ -134,7 +130,6 @@ def remove_space_between_degree_and_direction(runs, line_number):
 def enforce_lowercase_units(runs, line_number):
     """
     Ensures units like Km, L, Gm, etc., are correctly formatted in lowercase.
-    
     Args:
         runs (list): List of Word paragraph runs to preserve formatting.
         line_number (int): Line number for logging.
@@ -184,12 +179,9 @@ def enforce_lowercase_units(runs, line_number):
 
 # Done
 # [precede_decimal_with_zero] Line 22: '.76' -> '0.76'
-import re
-
 def precede_decimal_with_zero(runs, line_number):
     """
     Ensures that decimals without leading zeros are preceded by '0' (e.g., '.5' → '0.5').
-    
     Args:
         runs (list): List of Word paragraph runs to preserve formatting.
         line_number (int): Line number for logging.
@@ -329,7 +321,7 @@ def convert_decimal_to_baseline(runs, line_number):
     global global_logs
     # Regular expression to find '•' between numbers
     pattern = r'(?<=\d)\xB7(?=\d)'
-
+    
     # Iterate through each run in the paragraph
     for run in runs:
         original_text = run.text
@@ -380,7 +372,7 @@ def correct_scientific_unit_symbols(runs):
 
     def process_unit(match):
         original = match.group(0)
-        unit = match.group(2).lower()  # Capture the unit (second group)
+        unit = match.group(2).lower()
         modified = f"{match.group(1)}{units.get(unit, match.group(2))}"  # Replace with capitalized unit if in dictionary
         if original != modified:
             global_logs.append(
@@ -403,6 +395,8 @@ def correct_scientific_unit_symbols(runs):
             run.text = updated_text
 
 
+
+# Spell out numbers below 10 unless used in conjunction with a unit of measurement in the text
 def spell_out_number_and_unit_with_rules(runs, line_number):
     global global_logs
     unit_pattern = r"(\d+)\s+([a-zA-Z]+)"
@@ -414,20 +408,23 @@ def spell_out_number_and_unit_with_rules(runs, line_number):
         modified_words = words[:]
         
         for i, word in enumerate(words):
-            # Handle number followed by unit
+             
             if re.match(unit_pattern, " ".join(words[i:i+2])):
                 continue  # Skip since it's already formatted correctly
-            # Spell out numbers less than 10
-            elif re.match(number_pattern, word):
-                number = int(word)
-                if number < 10:
-                    modified_words[i] = num2words(number, to="cardinal")
+             
+            if re.match(number_pattern, word):
+                try:
+                    number = int(word)
+                    if number < 10:
+                        modified_words[i] = num2words(number, to="cardinal")
+                except ValueError:
+                    # If it's not a valid number, just continue without modifying
+                    continue
         
         modified_text = " ".join(modified_words)
         if original_text != modified_text:
             global_logs.append(f"[spell_out_number_and_unit_with_rules] Line {line_number}: '{original_text}' -> '{modified_text}'")
             run.text = modified_text
-
 
 
 # Done
@@ -603,6 +600,8 @@ def use_numerals_with_percent(runs):
             run.text = modified_text
 
 
+
+
 def correct_preposition_usage(runs):
     """
     Corrects preposition usage for date ranges (e.g., "from 2000-2010" -> "from 2000 to 2010").
@@ -686,6 +685,7 @@ def convert_currency_to_symbols(runs, line_number):
 
     original_text = "".join(run.text for run in runs)
     modified_text = original_text
+    print(modified_text)
 
     # Apply each currency replacement pattern
     for pattern, replacement in currency_patterns.items():
@@ -705,7 +705,6 @@ def convert_currency_to_symbols(runs, line_number):
 
 
 from datetime import datetime
-import re
 from word2number import w2n
 
 def process_string_years(input_string):
@@ -752,7 +751,6 @@ def process_string_years(input_string):
     for pattern in date_patterns:
         input_string = re.sub(pattern, reformat_date, input_string)
     return input_string
-
 
 def process_string_ratio(input_string):
     def replace_ratio(match):
@@ -802,47 +800,32 @@ def write_to_log(doc_id):
 
 def process_doc_function2(payload: dict, doc: Document, doc_id):
     line_number = 1
-    for para in doc.paragraphs:
-        # para.text = convert_currency_to_symbols(para.text, line_number)
-        # para.text = remove_unnecessary_apostrophes(para.text, line_number)
-        # para.text = replace_fold_phrases(para.text)
-        # para.text = use_numerals_with_percent(para.text)
-        # para.text = remove_space_between_degree_and_direction(para.text,line_number)
-        # para.text = enforce_lowercase_units(para.text,line_number)
-        # para.text = adjust_ratios(para.text)
-        # para.text = remove_commas_from_numbers(para.text,line_number)
-        # para.text = remove_spaces_from_four_digit_numbers(para.text,line_number)
-        # para.text = convert_decimal_to_baseline(para.text,line_number)
-        # para.text = correct_scientific_unit_symbols(para.text)
-        # para.text = format_dates(para.text, line_number)
-        # para.text = format_ellipses_in_series(para.text)
-        # para.text = correct_units_in_ranges_with_logging(para.text)
-        # para.text = correct_scientific_units_with_logging(para.text)
-        # para.text = correct_preposition_usage(para.text)
-        # para.text = correct_unit_spacing(para.text)
-        # para.text = process_text(para.text)
-        # para.text = spell_out_number_and_unit_with_rules(para.text,line_number)
-        
+    for para in doc.paragraphs:        
+        # working
         remove_unnecessary_apostrophes(para.runs, line_number)
         # replace_fold_phrases(para.runs, line_number)
         remove_space_between_degree_and_direction(para.runs, line_number)
-        enforce_lowercase_units(para.runs, line_number)
+        # enforce_lowercase_units(para.runs, line_number)
         precede_decimal_with_zero(para.runs, line_number)
         adjust_ratios(para.runs, line_number)
         remove_commas_from_numbers(para.runs, line_number)
         remove_spaces_from_four_digit_numbers(para.runs, line_number)
-        convert_decimal_to_baseline(para.runs, line_number)
-        correct_scientific_unit_symbols(para.runs)
+        # convert_decimal_to_baseline(para.runs, line_number)not working
+        # correct_scientific_unit_symbols(para.runs)
         # spell_out_number_and_unit_with_rules(para.runs, line_number)
         format_dates(para.runs, line_number)
-        format_ellipses_in_series(para.runs)
-        correct_units_in_ranges_with_logging(para.runs)
-        correct_scientific_units_with_logging(para.runs)
-        use_numerals_with_percent(para.runs)
+        # format_ellipses_in_series(para.runs)
+        # correct_units_in_ranges_with_logging(para.runs)
+        # correct_scientific_units_with_logging(para.runs)
+        # use_numerals_with_percent(para.runs) not working
         correct_preposition_usage(para.runs)
         correct_unit_spacing(para.runs)
         convert_currency_to_symbols(para.runs, line_number)
         process_text(para.runs)
+        
+        # paragraph_text = " ".join([run.text for run in para.runs])
+        # para.clear()
+        # para.add_run(paragraph_text)
 
         line_number += 1
         

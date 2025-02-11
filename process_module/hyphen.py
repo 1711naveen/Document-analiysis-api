@@ -2,7 +2,6 @@ import re
 from docx import Document
 import os
 
-
 global_logs = []
 
 
@@ -29,6 +28,7 @@ def replace_dashes(runs, line_number):
 
         # Update the run text
         run.text = modified_text
+
 
 
 def format_hyphen_to_en_dash(runs, line_number):
@@ -86,8 +86,8 @@ def process_doc_function3(payload: dict, doc: Document, doc_id):
     """
     line_number = 1
     for para in doc.paragraphs:
-        replace_dashes(para.runs, line_number)
         format_hyphen_to_en_dash(para.runs, line_number)
+        replace_dashes(para.runs, line_number)
         
     write_to_log(doc_id)
 

@@ -16,6 +16,15 @@ import logging
 import roman
 from roman import fromRoman
 from urllib.parse import urlparse
+from pydantic import BaseModel, RootModel
+from jose import JWTError, jwt
+from process_module.punctuation import process_doc_function1
+from process_module.NumberAndScientificUnit import process_doc_function2
+from process_module.hyphen import process_doc_function3
+from process_module.formatting import process_doc_function4
+from process_module.chapters import process_doc_function6
+
+
 
 router = APIRouter()
 
@@ -1755,6 +1764,19 @@ def process_string(text):
     return pattern.sub(replace_match, text)
 
 
+
+
+def curly_to_straight(doc):
+    for para in doc.paragraphs:
+        para.text = replace_curly_quotes_with_straight(para.text)
+        
+
+        
+def staright_to_curly(doc):
+    for para in doc.paragraphs:
+        para.text = replace_straight_quotes_with_curly(para.text)
+
+
 def highlight_and_correct(doc, doc_id):
     chapter_counter = [0]
     line_number = 1
@@ -1921,8 +1943,6 @@ def clean_word1(word):
 
 
 
-
-
 # Helper function to extract text from docx file
 def extract_text_from_docx(file_path):
     try:
@@ -1935,9 +1955,22 @@ def extract_text_from_docx(file_path):
 
 
 
+SECRET_KEY = "Naveen"
+ALGORITHM = "HS256"
+ACCESS_TOKEN_EXPIRE_MINUTES = 600
+
+
+class TokenRequest(BaseModel):
+    token: str
+
+
 @router.get("/process_uk")
-async def process_file(doc_id: int = Query(...)):
+async def process_file(token_request: TokenRequest, doc_id: int = Query(...)):
     try:
+        payload = jwt.decode(token_request.token, SECRET_KEY, algorithms=[ALGORITHM])
+        print("Decoded Token Data:", payload)
+        # global global_logs
+        
         # Connect to the database
         conn = get_db_connection()
         if conn is None:
@@ -2022,9 +2055,24 @@ async def process_file(doc_id: int = Query(...)):
 
         output_path = os.path.join(output_dir, f"processed_{os.path.basename(file_path)}")
 
+        # doc = docx.Document(file_path)
+        # highlight_and_correct(doc,doc_id)
+        # doc.save(output_path)
+        
+        
         doc = docx.Document(file_path)
-        highlight_and_correct(doc,doc_id)
-        doc.save(output_path)
+        curly_to_straight(doc)
+        
+        process_doc_function1(payload, doc, doc_id)
+        process_doc_function2(payload, doc, doc_id)
+        process_doc_function3(payload, doc, doc_id)
+        process_doc_function4(payload, doc, doc_id)
+        process_doc_function6(payload, doc, doc_id)
+        
+        highlight_and_correct(doc)
+        staright_to_curly(doc)
+        doc.save(output_path)        
+        
 
         cursor.execute("SELECT final_doc_id FROM final_document WHERE row_doc_id = %s", (doc_id,))
         existing_rows = cursor.fetchall()
@@ -2047,6 +2095,5 @@ async def process_file(doc_id: int = Query(...)):
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
-
 
 

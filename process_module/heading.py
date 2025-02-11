@@ -34,6 +34,8 @@ def remove_trailing_period_from_runs(runs):
 def remove_dot_afternumber(runs):
     return runs
 
+
+
 def update_heading_runs(runs):
     """
     Updates the text of the runs to title case while preserving formatting.
@@ -77,14 +79,13 @@ def write_to_log(doc_id):
     with open(log_file_path, 'a', encoding='utf-8') as log_file:
         log_file.write("\n".join(global_logs) + "\n")
     global_logs = []
-    
 
 
-def process_doc_function7(payload: dict, doc: Document, doc_id):
-    
+
+def process_doc_function7(payload: dict, doc: Document, doc_id):    
     for para in doc.paragraphs:
         update_heading_runs(para.runs)
-        remove_trailing_period_from_runs(para.runs)
-        remove_single_number_period(para.runs)
+        # remove_trailing_period_from_runs(para.runs)
+        # remove_single_number_period(para.runs)
         
     write_to_log(doc_id)
