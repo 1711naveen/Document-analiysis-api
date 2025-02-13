@@ -147,7 +147,7 @@ def enforce_lowercase_units(runs, line_number):
         (r"(\d+)\s*(T)(g)", 'T', 't'),
         (r"(\d+)\s*(L)\b", 'L', 'l'),
         (r"(\d+)\s*(M)\b", 'M', 'm'),
-        (r"(\d+)\s*(kg|mg|g|cm|m|km|l|s|h|min)", r"\1 \2", None)
+        # (r"(\d+)\s*(kg|mg|g|cm|m|km|l|s|h|min)", r"\1 \2", None)
     ]
 
     # Apply patterns
@@ -358,22 +358,16 @@ def correct_scientific_unit_symbols(runs):
         "v": "V",
         "a": "A",
         "c": "C",
-        "lm": "lm",
-        "lx": "lx",
         "t": "T",
         "ohm": "Ω",
         "s": "S",
         "k": "K",
-        "cd": "cd",
-        "mol": "mol",
-        "rad": "rad",
-        "sr": "sr"
     }
 
     def process_unit(match):
         original = match.group(0)
         unit = match.group(2).lower()
-        modified = f"{match.group(1)}{units.get(unit, match.group(2))}"  # Replace with capitalized unit if in dictionary
+        modified = f"{match.group(1)} {units.get(unit, match.group(2))}"
         if original != modified:
             global_logs.append(
                 f"[correct_scientific_unit_symbols] '{original}' -> '{modified}'"
@@ -381,7 +375,9 @@ def correct_scientific_unit_symbols(runs):
         return modified
 
     # Create a regex pattern to match numbers followed by units
-    pattern = r"\b(\d+\s*)(%s)\b" % "|".join(re.escape(unit) for unit in units.keys())
+    # pattern = r"\b(\d+\s*)(%s)\b" % "|".join(re.escape(unit) for unit in units.keys())
+    pattern = r"\b(\d+)\s+(%s)\b" % "|".join(re.escape(unit) for unit in units.keys())
+
 
     # Iterate through each run in the paragraph
     for run in runs:
@@ -396,7 +392,8 @@ def correct_scientific_unit_symbols(runs):
 
 
 
-# Spell out numbers below 10 unless used in conjunction with a unit of measurement in the text
+# Spell out numbers below 10 unless used in conjunction with a unit of measurement in the text(2.15)
+# now working because it is converting number to words
 def spell_out_number_and_unit_with_rules(runs, line_number):
     global global_logs
     unit_pattern = r"(\d+)\s+([a-zA-Z]+)"
@@ -425,6 +422,7 @@ def spell_out_number_and_unit_with_rules(runs, line_number):
         if original_text != modified_text:
             global_logs.append(f"[spell_out_number_and_unit_with_rules] Line {line_number}: '{original_text}' -> '{modified_text}'")
             run.text = modified_text
+
 
 
 # Done
@@ -504,7 +502,7 @@ def format_ellipses_in_series(runs):
             run.text = modified_text
 
 
-
+# Do not repeat the unit in ranges. For example: from 10 to 20 cm not from(2.27)
 def correct_units_in_ranges_with_logging(runs):
     global global_logs
     unit_symbols = ['cm', 'm', 'kg', 's', 'A', 'K', 'mol', 'cd', '%']
@@ -531,6 +529,7 @@ def correct_units_in_ranges_with_logging(runs):
             run.text = modified_text
 
 
+# 24 kg not 24 kgs, kg.s or kg's (2.8)
 def correct_scientific_units_with_logging(runs):
     global global_logs
     unit_symbols = ['kg', 'm', 's', 'A', 'K', 'mol', 'cd', 'Hz', 'N', 'Pa', 'J', 'W', 'C', 'V', 'F', 'Ω', 'ohm', 'S', 'T', 'H', 'lm', 'lx', 'Bq', 'Gy', 'Sv', 'kat']
@@ -685,7 +684,6 @@ def convert_currency_to_symbols(runs, line_number):
 
     original_text = "".join(run.text for run in runs)
     modified_text = original_text
-    print(modified_text)
 
     # Apply each currency replacement pattern
     for pattern, replacement in currency_patterns.items():
@@ -800,28 +798,28 @@ def write_to_log(doc_id):
 
 def process_doc_function2(payload: dict, doc: Document, doc_id):
     line_number = 1
-    for para in doc.paragraphs:        
+    for para in doc.paragraphs:
         # working
         remove_unnecessary_apostrophes(para.runs, line_number)
-        # replace_fold_phrases(para.runs, line_number)
+        replace_fold_phrases(para.runs, line_number)
         remove_space_between_degree_and_direction(para.runs, line_number)
-        # enforce_lowercase_units(para.runs, line_number)
+        enforce_lowercase_units(para.runs, line_number)
         precede_decimal_with_zero(para.runs, line_number)
         adjust_ratios(para.runs, line_number)
         remove_commas_from_numbers(para.runs, line_number)
         remove_spaces_from_four_digit_numbers(para.runs, line_number)
         # convert_decimal_to_baseline(para.runs, line_number)not working
-        # correct_scientific_unit_symbols(para.runs)
+        correct_scientific_unit_symbols(para.runs)
         # spell_out_number_and_unit_with_rules(para.runs, line_number)
         format_dates(para.runs, line_number)
         # format_ellipses_in_series(para.runs)
-        # correct_units_in_ranges_with_logging(para.runs)
-        # correct_scientific_units_with_logging(para.runs)
+        correct_units_in_ranges_with_logging(para.runs)
+        correct_scientific_units_with_logging(para.runs)
         # use_numerals_with_percent(para.runs) not working
         correct_preposition_usage(para.runs)
         correct_unit_spacing(para.runs)
         convert_currency_to_symbols(para.runs, line_number)
-        process_text(para.runs)
+        # process_text(para.runs)
         
         # paragraph_text = " ".join([run.text for run in para.runs])
         # para.clear()

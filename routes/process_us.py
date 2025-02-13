@@ -1909,11 +1909,11 @@ async def process_file(token_request: TokenRequest, doc_id: int = Query(...)):
         curly_to_straight(doc)
         # highlight_and_correct(doc)
         write_to_log(doc_id)
-        # process_doc_function1(payload, doc, doc_id)
+        process_doc_function1(payload, doc, doc_id)
         # process_doc_function2(payload, doc, doc_id)
         # process_doc_function3(payload, doc, doc_id)
         # process_doc_function4(payload, doc, doc_id) # to test
-        process_doc_function6(payload, doc, doc_id)
+        # process_doc_function6(payload, doc, doc_id)
         # process_doc_function7(payload, doc, doc_id)
         
         straight_to_curly(doc)

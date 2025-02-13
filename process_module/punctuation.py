@@ -3,7 +3,7 @@ from docx import Document
 import os
 from db_config import get_db_connection
 from datetime import datetime
-
+from docx.text.run import Run
 
 # Global logs to keep track of changes
 global_logs = []
@@ -65,6 +65,45 @@ def apply_abbreviation_mapping(runs, abbreviation_dict, line_number):
 
 
 # Converts century notation like '21st' to 'the twenty-first century'
+# def convert_century_in_runs(runs, line_number_offset):
+#     """
+#     Converts century notation like '21st' to 'the twenty-first century'
+#     and logs the changes with line numbers.
+
+#     :param runs: List of Run objects in the paragraph.
+#     :param line_number_offset: The starting line number for this paragraph.
+#     :return: None (modifies runs in place).
+#     """
+#     global global_logs  # Global log to record changes
+
+#     for run in runs:
+#         words = run.text.split()  # Split the run's text into words
+#         updated_words = []
+
+#         for word in words:
+#             match = re.match(r"(\d+)(st|nd|rd|th)$", word)  # Match century notation
+#             if match:
+#                 num = int(match.group(1))
+#                 if num in century_map:
+#                     # Original and converted word
+#                     original_word = match.group(0)
+#                     converted_word = f"the {century_map[num]}"
+                    
+#                     # Log the change with the actual line number
+#                     global_logs.append(
+#                         f"[convert century] Line {line_number_offset}: {original_word} -> {converted_word}"
+#                     )
+                    
+#                     # Replace the word in the run
+#                     word = converted_word
+            
+#             updated_words.append(word)
+        
+#         # Rebuild the run's text with updated words
+#         run.text = ' '.join(updated_words)
+
+
+
 def convert_century_in_runs(runs, line_number_offset):
     """
     Converts century notation like '21st' to 'the twenty-first century'
@@ -74,40 +113,67 @@ def convert_century_in_runs(runs, line_number_offset):
     :param line_number_offset: The starting line number for this paragraph.
     :return: None (modifies runs in place).
     """
-    global global_logs  # Global log to record changes
-
     for run in runs:
-        words = run.text.split()  # Split the run's text into words
-        updated_words = []
-
-        for word in words:
-            match = re.match(r"(\d+)(st|nd|rd|th)$", word)  # Match century notation
-            if match:
-                num = int(match.group(1))
-                if num in century_map:
-                    # Original and converted word
-                    original_word = match.group(0)
-                    converted_word = f"the {century_map[num]} century"
-                    
-                    # Log the change with the actual line number
-                    global_logs.append(
-                        f"[convert century] Line {line_number_offset}: {original_word} -> {converted_word}"
-                    )
-                    
-                    # Replace the word in the run
-                    word = converted_word
-            
-            updated_words.append(word)
+        new_text = run.text  # Store the original text
         
-        # Rebuild the run's text with updated words
-        run.text = ' '.join(updated_words)
+        # Match century notation within the text
+        matches = re.finditer(r"(\d+)(st|nd|rd|th)\b", run.text)
+        for match in matches:
+            num = int(match.group(1))
+            if num in century_map:
+                original_word = match.group(0)
+                converted_word = f"the {century_map[num]}"
+                
+                # Log the change
+                global_logs.append(
+                    f"[convert century] Line {line_number_offset}: {original_word} -> {converted_word}"
+                )
+                
+                # Replace occurrences in the text
+                new_text = new_text.replace(original_word, converted_word)
+        
+        # Update run text
+        run.text = new_text
+
+
+
+# change italics of latin word to roman
+# def set_latinisms_to_roman_in_runs(runs, line_number, latinisms=None):
+#     """
+#     Converts specific Latinisms from italic to roman text in a paragraph.
+#     Logs changes to the global_log, including line number and original italicized Latinism.
+
+#     :param runs: List of Run objects in the paragraph.
+#     :param line_number: The line number for logging purposes.
+#     :param latinisms: List of Latinisms to convert (defaults to common Latinisms).
+#     :return: None (modifies runs in place).
+#     """
+#     if latinisms is None:
+#         latinisms = [
+#             "i.e.", "e.g.", "via", "vice versa", "etc.", "a posteriori", 
+#             "a priori", "et al.", "cf.", "c."
+#         ]
+#     global global_logs
+
+#     for run in runs:
+#         for lat in latinisms:
+#             if lat in run.text:
+#                 # Log the change
+#                 global_logs.append(
+#                     f"[set_latinisms_to_roman] Line {line_number}: '{lat}' -> '{lat}'"
+#                 )
+                
+#                 # Remove italic formatting for the Latinism
+#                 run.text = run.text.replace(lat, lat)
+#                 run.font.italic = False  # Set the font to non-italic
+
 
 
 # change italics of latin word to roman
 def set_latinisms_to_roman_in_runs(runs, line_number, latinisms=None):
     """
     Converts specific Latinisms from italic to roman text in a paragraph.
-    Logs changes to the global_log, including line number and original italicized Latinism.
+    Logs changes to the global_logs, including line number and original italicized Latinism.
 
     :param runs: List of Run objects in the paragraph.
     :param line_number: The line number for logging purposes.
@@ -116,22 +182,57 @@ def set_latinisms_to_roman_in_runs(runs, line_number, latinisms=None):
     """
     if latinisms is None:
         latinisms = [
-            "i.e.", "e.g.", "via", "vice versa", "etc.", "a posteriori", 
+            "i.e.", "e.g.", "via", "vice versa", "etc.", "a posteriori",
             "a priori", "et al.", "cf.", "c."
         ]
-    global global_logs
 
+    global global_logs
+    parent = runs[0]._parent if runs else None  # Get the parent paragraph
+
+    if not parent:
+        return  # Exit if no runs
+
+    new_runs = []
+    
     for run in runs:
+        text = run.text
+        italic_status = run.font.italic  # Store original italic setting
+        modified = False
+
+        # Process Latinisms
         for lat in latinisms:
-            if lat in run.text:
+            if lat in text:
+                modified = True
+                parts = re.split(f"({re.escape(lat)})", text)
+
+                for i, part in enumerate(parts):
+                    if part:
+                        new_run = parent.add_run(part)  # Add new run to the paragraph
+                        if i % 2 == 0:
+                            new_run.font.italic = italic_status  # Keep original formatting
+                        else:
+                            new_run.font.italic = False  # Ensure Latinism is non-italic
+                        new_runs.append(new_run)
+
                 # Log the change
-                global_logs.append(
-                    f"[set_latinisms_to_roman] Line {line_number}: '{lat}' -> '{lat}'"
-                )
-                
-                # Remove italic formatting for the Latinism
-                run.text = run.text.replace(lat, lat)
-                run.font.italic = False  # Set the font to non-italic
+                global_logs.append(f"[set_latinisms_to_roman] Line {line_number}: '{lat}' -> '{lat}'")
+
+                break  # Stop processing after first match to avoid duplication
+
+        if not modified:
+            new_runs.append(run)
+
+    # Remove old runs
+    for run in runs:
+        run.text = ""
+
+    # Append new runs
+    for new_run in new_runs:
+        parent._element.append(new_run._element)
+
+
+
+
 
 
 # make symbols for copyright only once
@@ -816,27 +917,27 @@ def process_doc_function1(payload: dict, doc: Document, doc_id):
     
     replaced_units = set()
     
-    for para in doc.paragraphs:    
+    for para in doc.paragraphs:
         convert_century_in_runs(para.runs, line_number)
         set_latinisms_to_roman_in_runs(para.runs, line_number)
-        process_symbols_mark_in_runs(para.runs, line_number)
-        apply_remove_italics_see_rule_in_runs(para.runs)
-        set_number_to_no_in_runs(para.runs, line_number)
-        format_titles_us_english_with_logging_in_runs(para.runs, line_number)
-        enforce_am_pm_in_runs(para.runs, line_number)
-        enforce_serial_comma_in_runs(para.runs)
-        rename_section_in_runs(para.runs)
-        replace_ampersand_in_runs(para.runs, line_number)
-        correct_possessive_names_in_runs(para.runs, line_number)
-        units_with_bracket_in_runs(para.runs, replaced_units)
-        remove_and_in_runs(para.runs, line_number)
-        remove_quotation_in_runs(para.runs, line_number)
-        correct_acronyms_in_runs(para.runs, line_number)
-        enforce_eg_rule_with_logging_in_runs(para.runs, line_number)
-        enforce_ie_rule_with_logging_in_runs(para.runs, line_number)
-        standardize_etc_in_runs(para.runs, line_number)
-        insert_thin_space_between_number_and_unit_in_runs(para.runs, line_number)
-        process_paragraph(para.runs, line_number)
+        # process_symbols_mark_in_runs(para.runs, line_number)
+        # apply_remove_italics_see_rule_in_runs(para.runs)
+        # set_number_to_no_in_runs(para.runs, line_number)
+        # format_titles_us_english_with_logging_in_runs(para.runs, line_number)
+        # enforce_am_pm_in_runs(para.runs, line_number)
+        # enforce_serial_comma_in_runs(para.runs)
+        # rename_section_in_runs(para.runs)
+        # replace_ampersand_in_runs(para.runs, line_number)
+        # correct_possessive_names_in_runs(para.runs, line_number)
+        # units_with_bracket_in_runs(para.runs, replaced_units)
+        # remove_and_in_runs(para.runs, line_number)
+        # remove_quotation_in_runs(para.runs, line_number)
+        # correct_acronyms_in_runs(para.runs, line_number)
+        # enforce_eg_rule_with_logging_in_runs(para.runs, line_number)
+        # enforce_ie_rule_with_logging_in_runs(para.runs, line_number)
+        # standardize_etc_in_runs(para.runs, line_number)
+        # insert_thin_space_between_number_and_unit_in_runs(para.runs, line_number)
+        # process_paragraph(para.runs, line_number)
         line_number += 1
 
     write_to_log(doc_id)
