@@ -78,7 +78,6 @@ async def upload_file(
             # Get admin ID from email
             cursor.execute("SELECT admin_id FROM admins WHERE admin_email = %s", (email,))
             admin_row = cursor.fetchone()
-            print(admin_row)
             if not admin_row:
                 raise HTTPException(status_code=404, detail="Admin not found")
 

@@ -4,6 +4,7 @@ from num2words import num2words
 from word2number import w2n
 import os
 from datetime import datetime
+from pathlib import Path
 
 global_logs = []
 
@@ -781,22 +782,34 @@ def process_text(runs):
 
 
 
-def write_to_log(doc_id):
-    """
-    Writes the global logs to a log file. If the file already exists, it appends to it.
-    :param doc_id: The document ID used to determine the log file's directory.
-    """
+# def write_to_log(doc_id):
+#     """
+#     Writes the global logs to a log file. If the file already exists, it appends to it.
+#     :param doc_id: The document ID used to determine the log file's directory.
+#     """
+#     global global_logs
+#     output_dir = os.path.join('output', str(doc_id))
+#     os.makedirs(output_dir, exist_ok=True)
+#     log_file_path = os.path.join(output_dir, 'global_logs.txt')
+#     with open(log_file_path, 'a', encoding='utf-8') as log_file:
+#         log_file.write("\n".join(global_logs) + "\n")
+#     global_logs = []
+
+
+def write_to_log(doc_id, user):
     global global_logs
-    output_dir = os.path.join('output', str(doc_id))
-    os.makedirs(output_dir, exist_ok=True)
-    log_file_path = os.path.join(output_dir, 'global_logs.txt')
+    # output_dir = os.path.join('output', str(doc_id))
+    current_date = datetime.now().strftime("%Y-%m-%d")
+    output_path_file = Path(os.getcwd()) / 'output' / user / current_date / str(doc_id) / 'text'
+    os.makedirs(output_path_file, exist_ok=True)
+    
+    log_file_path = os.path.join(output_path_file, 'global_logs.txt')
     with open(log_file_path, 'a', encoding='utf-8') as log_file:
-        log_file.write("\n".join(global_logs) + "\n")
+        log_file.write("\n".join(global_logs))
     global_logs = []
 
 
-
-def process_doc_function2(payload: dict, doc: Document, doc_id):
+def process_doc_function2(payload: dict, doc: Document, doc_id,user):
     line_number = 1
     for para in doc.paragraphs:
         # working
@@ -827,4 +840,4 @@ def process_doc_function2(payload: dict, doc: Document, doc_id):
 
         line_number += 1
         
-    write_to_log(doc_id)
+    write_to_log(doc_id,user)

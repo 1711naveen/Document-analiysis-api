@@ -889,12 +889,15 @@ def correct_scientific_units_with_logging(text):
 
 
 
-def write_to_log(doc_id):
+def write_to_log(doc_id, user):
     global global_logs
+    current_date = datetime.now().strftime("%Y-%m-%d")
+    output_path_file = Path(os.getcwd()) / 'output' / user / current_date / str(doc_id) / 'text' 
+    # dir_path = output_path_file.parent
 
-    output_dir = os.path.join('output', str(doc_id))
-    os.makedirs(output_dir, exist_ok=True)
-    log_file_path = os.path.join(output_dir, 'global_logs.txt')
+    # output_dir = os.path.join('output', str(doc_id))
+    os.makedirs(output_path_file, exist_ok=True)
+    log_file_path = os.path.join(output_path_file, 'global_logs.txt')
 
     with open(log_file_path, 'w', encoding='utf-8') as log_file:
         log_file.write("\n".join(global_logs))
@@ -1856,6 +1859,11 @@ async def process_file(token_request: TokenRequest, doc_id: int = Query(...)):
         cursor = conn.cursor()
         cursor.execute("SELECT * FROM row_document WHERE row_doc_id = %s", (doc_id,))
         rows = cursor.fetchone()
+        user_id=rows[5]
+        cursor.execute("SELECT admin_name from admins where admin_id = %s",(user_id,))
+        user = cursor.fetchone()
+        print(user)
+        print(user_id)
 
         if not rows:
             raise HTTPException(status_code=404, detail="Document not found")
@@ -1891,30 +1899,30 @@ async def process_file(token_request: TokenRequest, doc_id: int = Query(...)):
 
         global_logs.insert(0, time_log)
 
-        document_name = rows[1].replace('.docx', '')
         log_filename = f"log_main.txt"
-        
-        output_path_file = Path(os.getcwd()) / 'output' / str(doc_id) / log_filename
+        current_date = datetime.now().strftime("%Y-%m-%d")
+        output_path_file = Path(os.getcwd()) / 'output' / user[0] / current_date / str(doc_id) / 'doc' / log_filename
         dir_path = output_path_file.parent
+        print(dir_path)
 
         dir_path.mkdir(parents=True, exist_ok=True)
         
         output_dir = os.path.join("output", str(doc_id))
         os.makedirs(output_dir, exist_ok=True)
 
-        output_path = os.path.join(output_dir, f"processed_{os.path.basename(file_path)}")
+        output_path = os.path.join(dir_path, f"processed_{os.path.basename(file_path)}")
 
         doc = docx.Document(file_path)
 
         curly_to_straight(doc)
         # highlight_and_correct(doc)
-        write_to_log(doc_id)
-        process_doc_function1(payload, doc, doc_id)
-        # process_doc_function2(payload, doc, doc_id)
-        # process_doc_function3(payload, doc, doc_id)
-        # process_doc_function4(payload, doc, doc_id) # to test
-        # process_doc_function6(payload, doc, doc_id)
-        # process_doc_function7(payload, doc, doc_id)
+        write_to_log(doc_id, user[0])
+        process_doc_function1(payload, doc, doc_id, user[0])
+        # process_doc_function2(payload, doc, doc_id, user[0])
+        # process_doc_function3(payload, doc, doc_id, user[0])
+        # process_doc_function4(payload, doc, doc_id, user[0]) # to test
+        # # process_doc_function6(payload, doc, doc_id, user[0])
+        # process_doc_function7(payload, doc, doc_id, user[0])
         
         straight_to_curly(doc)
         
@@ -1926,7 +1934,7 @@ async def process_file(token_request: TokenRequest, doc_id: int = Query(...)):
         if existing_rows:
             logging.info('File already processed in final_document. Skipping insert.')
         else:
-            folder_url = f'/output/{doc_id}/'
+            folder_url = f'/output/{user[0]}/{current_date}/{doc_id}/'
             cursor.execute(
                 '''INSERT INTO final_document (row_doc_id, user_id, final_doc_size, final_doc_url, status, creation_date)
                 VALUES (%s, %s, %s, %s, %s, NOW())''',
