@@ -99,7 +99,7 @@ def write_to_log(doc_id, user):
     
 
 
-def process_doc_function3(payload: dict, doc: Document, doc_id):
+def process_doc_function3(payload: dict, doc: Document, doc_id, user):
     """
     This function processes the document by converting century notations
     and highlighting specific words.
@@ -109,5 +109,5 @@ def process_doc_function3(payload: dict, doc: Document, doc_id):
         format_hyphen_to_en_dash(para.runs, line_number)
         replace_dashes(para.runs, line_number)
         
-    write_to_log(doc_id)
+    write_to_log(doc_id, user)
 

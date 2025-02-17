@@ -1730,95 +1730,129 @@ def straight_to_curly(doc):
 
 # def highlight_and_correct(doc):
 #     """
-#     This function highlights incorrectly spelled words in a Word document by changing their font color to red.
-#     Words enclosed in single or double quotes are ignored.
+#     Highlights incorrectly spelled words in a Word document by changing their font color to red.
+#     Formatting of the document remains unchanged.
 #     Args:
 #         doc: The Word document object (from python-docx).
 #         us_dict: A spell-checking dictionary object (e.g., from the `pyspellchecker` library).
 #     """
 #     for para in doc.paragraphs:
-#         formatted_runs = []
-
 #         for run in para.runs:
 #             words = run.text.split()
-#             for i, word in enumerate(words):
-#                 original_word = word 
+#             updated_text = []
+#             for word in words:
+#                 original_word = word
 #                 punctuation = ""
 
 #                 # Separate trailing punctuation (if any)
-#                 if word[-1] in ",.?!:;\"'()[]{}":
+#                 if word and word[-1] in ",.?!:;\"'()[]{}":
 #                     punctuation = word[-1]
 #                     word = word[:-1]
 
 #                 # Ignore words fully enclosed in single or double quotes
 #                 if (word.startswith('"') and word.endswith('"')) or (word.startswith("'") and word.endswith("'")):
-#                     formatted_runs.append((original_word, None))
+#                     updated_text.append(original_word)
 #                 # Ignore empty words
 #                 elif not word.strip():
-#                     formatted_runs.append((original_word, None))
+#                     updated_text.append(original_word)
 #                 # Check spelling and mark incorrect words in red
 #                 elif not us_dict.check(word.lower()):
-#                     formatted_runs.append((word, RGBColor(255, 0, 0)))  # Highlight misspelled word
+#                     updated_text.append(word)
+#                     run.font.color.rgb = RGBColor(255, 0, 0)  # Highlight misspelled word
 #                 else:
-#                     formatted_runs.append((word, None))  # Correct word
+#                     updated_text.append(word)  # Correct word remains unchanged
 
 #                 # Add punctuation back to the word, if it had any
 #                 if punctuation:
-#                     formatted_runs.append((punctuation, None))
+#                     updated_text.append(punctuation)
 
-#                 # Add a space after the word unless it's the last one
-#                 if i < len(words) - 1:
-#                     formatted_runs.append((" ", None))
+#             # Preserve formatting by updating text in place
+#             run.text = " ".join(updated_text)
 
-#         # Clear the paragraph's text and rebuild it with formatted runs
-#         para.clear()  # Clear existing paragraph content
 
-#         for text, color in formatted_runs:
-#             new_run = para.add_run(text)  # Add new text to the paragraph
-#             if color:  # If a color is specified, apply it
-#                 new_run.font.color.rgb = color
 
+import re
+from docx.shared import RGBColor
+
+def copy_run_format(source_run, target_run):
+    """
+    Copy basic formatting properties from source_run to target_run.
+    """
+    target_run.bold = source_run.bold
+    target_run.italic = source_run.italic
+    target_run.underline = source_run.underline
+    target_run.font.size = source_run.font.size
+    target_run.font.name = source_run.font.name
+    target_run.style = source_run.style
 
 def highlight_and_correct(doc):
     """
-    Highlights incorrectly spelled words in a Word document by changing their font color to red.
-    Formatting of the document remains unchanged.
+    Processes each paragraph and its runs in the Word document.
+    Splits each run's text into tokens (words and whitespace) so that only
+    misspelled words are highlighted in red, while preserving spacing and formatting.
+    
     Args:
-        doc: The Word document object (from python-docx).
-        us_dict: A spell-checking dictionary object (e.g., from the `pyspellchecker` library).
+        doc: A python-docx Document object.
+        us_dict: A spell-checking dictionary (e.g., from pyspellchecker) with a .check() method.
     """
     for para in doc.paragraphs:
+        new_tokens = []  # List to hold tuples: (token_text, formatting, highlight_flag)
+        
+        # Process each run in the paragraph.
         for run in para.runs:
-            words = run.text.split()
-            updated_text = []
-            for word in words:
-                original_word = word
-                punctuation = ""
+            text = run.text
+            if not text:
+                continue
+            # Split text into tokens where whitespace is preserved.
+            tokens = re.split(r'(\s+)', text)
+            for token in tokens:
+                if token == "":
+                    continue
+                # If token is purely whitespace, just add it.
+                if token.isspace():
+                    new_tokens.append((token, run, None))
+                    continue
 
-                # Separate trailing punctuation (if any)
-                if word and word[-1] in ",.?!:;\"'()[]{}":
-                    punctuation = word[-1]
-                    word = word[:-1]
+                # If token is fully enclosed in matching quotes, do not check.
+                if len(token) >= 2 and ((token.startswith('"') and token.endswith('"')) or
+                                        (token.startswith("'") and token.endswith("'"))):
+                    new_tokens.append((token, run, None))
+                    continue
 
-                # Ignore words fully enclosed in single or double quotes
-                if (word.startswith('"') and word.endswith('"')) or (word.startswith("'") and word.endswith("'")):
-                    updated_text.append(original_word)
-                # Ignore empty words
-                elif not word.strip():
-                    updated_text.append(original_word)
-                # Check spelling and mark incorrect words in red
-                elif not us_dict.check(word.lower()):
-                    updated_text.append(word)
-                    run.font.color.rgb = RGBColor(255, 0, 0)  # Highlight misspelled word
+                # Check for trailing punctuation (only checking a limited set).
+                trailing_punct = ""
+                if token and token[-1] in ",.?!:;":
+                    trailing_punct = token[-1]
+                    token_main = token[:-1]
                 else:
-                    updated_text.append(word)  # Correct word remains unchanged
+                    token_main = token
 
-                # Add punctuation back to the word, if it had any
-                if punctuation:
-                    updated_text.append(punctuation)
+                # Check the word using the spell-check dictionary.
+                if token_main and not us_dict.check(token_main.lower()):
+                    # Mark the word as misspelled.
+                    new_tokens.append((token_main, run, 'red'))
+                else:
+                    new_tokens.append((token_main, run, None))
 
-            # Preserve formatting by updating text in place
-            run.text = " ".join(updated_text)
+                # Append any trailing punctuation as a separate token (without spell-check).
+                if trailing_punct:
+                    new_tokens.append((trailing_punct, run, None))
+
+        # Remove all runs from the paragraph.
+        p_element = para._element
+        for r in list(para.runs):
+            p_element.remove(r._element)
+        
+        # Rebuild the paragraph by adding new runs in order.
+        for token_text, orig_run, highlight in new_tokens:
+            new_run = para.add_run(token_text)
+            copy_run_format(orig_run, new_run)
+            if highlight == 'red':
+                new_run.font.color.rgb = RGBColor(255, 0, 0)
+    return doc
+
+
+
 
 
 def clean_word1(word):
@@ -1920,8 +1954,8 @@ async def process_file(token_request: TokenRequest, doc_id: int = Query(...)):
         process_doc_function1(payload, doc, doc_id, user[0])
         # process_doc_function2(payload, doc, doc_id, user[0])
         # process_doc_function3(payload, doc, doc_id, user[0])
-        # process_doc_function4(payload, doc, doc_id, user[0]) # to test
-        # # process_doc_function6(payload, doc, doc_id, user[0])
+        # process_doc_function4(payload, doc, doc_id, user[0])
+        # process_doc_function6(payload, doc, doc_id, user[0])
         # process_doc_function7(payload, doc, doc_id, user[0])
         
         straight_to_curly(doc)

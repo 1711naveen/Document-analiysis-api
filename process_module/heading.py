@@ -3,7 +3,8 @@ from docx import Document
 import os
 import roman
 from word2number import w2n
-
+from pathlib import Path
+from datetime import datetime
 
 global_logs = []
 
@@ -67,25 +68,41 @@ def remove_single_number_period(runs):
 
 
 
-def write_to_log(doc_id):
-    """
-    Writes the global logs to a log file. If the file already exists, it appends to it.
-    :param doc_id: The document ID used to determine the log file's directory.
-    """
+# def write_to_log(doc_id):
+#     """
+#     Writes the global logs to a log file. If the file already exists, it appends to it.
+#     :param doc_id: The document ID used to determine the log file's directory.
+#     """
+#     global global_logs
+#     output_dir = os.path.join('output', str(doc_id))
+#     os.makedirs(output_dir, exist_ok=True)
+#     log_file_path = os.path.join(output_dir, 'global_logs.txt')
+#     with open(log_file_path, 'a', encoding='utf-8') as log_file:
+#         log_file.write("\n".join(global_logs) + "\n")
+#     global_logs = []
+
+
+def write_to_log(doc_id, user):
     global global_logs
-    output_dir = os.path.join('output', str(doc_id))
-    os.makedirs(output_dir, exist_ok=True)
-    log_file_path = os.path.join(output_dir, 'global_logs.txt')
-    with open(log_file_path, 'a', encoding='utf-8') as log_file:
-        log_file.write("\n".join(global_logs) + "\n")
+    current_date = datetime.now().strftime("%Y-%m-%d")
+    output_path_file = Path(os.getcwd()) / 'output' / user / current_date / str(doc_id) / 'text' 
+    # dir_path = output_path_file.parent
+
+    # output_dir = os.path.join('output', str(doc_id))
+    os.makedirs(output_path_file, exist_ok=True)
+    log_file_path = os.path.join(output_path_file, 'global_logs.txt')
+
+    with open(log_file_path, 'w', encoding='utf-8') as log_file:
+        log_file.write("\n".join(global_logs))
+
     global_logs = []
 
 
 
-def process_doc_function7(payload: dict, doc: Document, doc_id):    
+def process_doc_function7(payload: dict, doc: Document, doc_id, user):    
     for para in doc.paragraphs:
         update_heading_runs(para.runs)
         # remove_trailing_period_from_runs(para.runs)
         # remove_single_number_period(para.runs)
         
-    write_to_log(doc_id)
+    write_to_log(doc_id, user)

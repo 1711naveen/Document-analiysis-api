@@ -1,0 +1,120 @@
+
+Start Time: 2025-02-17 11:08:28.925465
+End Time: 2025-02-17 11:08:59.258818
+Analysis completed in 30.33 seconds.
+
+
+FileName: test_document.docx
+
+
+Line 6: 1990's -> No suggestions available
+Line 6: '90s -> Suggestions: laos
+Line 6: 90s, -> Suggestions: laos
+Line 8: 3-fold -> Suggestions: fold, 3 fold
+Line 8: 20-fold -> Suggestions: fold
+Line 10: º -> Suggestions: e, s, i, a, n, r, t, o, l, c, d, u, g, m, p
+Line 10: º -> Suggestions: e, s, i, a, n, r, t, o, l, c, d, u, g, m, p
+Line 12: Error4: -> Suggestions: error, errors, error 4, europe
+Line 28: hz. -> Suggestions: Hz, h, z, he, hi, ha, hr, ht, ho, oz, hl, hd, dz, hg, hm, chad
+Line 28: resistence -> Suggestions: resistance, Resistencia, Resistance, persistence, insistence
+Line 30: BCE -> Suggestions: be, bice, bee, ice, ace, bye, Ice, i.e., niue
+Line 30: BCE. -> Suggestions: be, bice, bee, ice, ace, bye, Ice, i.e., niue
+Line 34: gapping -> Suggestions: gaping, gasping, sapping, napping, rapping, tapping, lapping, capping, mapping, gypping, yapping, gawping, zapping, gap ping, gap-ping
+Line 34: Hz, -> Suggestions: Hz, h, z, he, hi, ha, hr, ht, ho, oz, hl, hd, dz, hg, hm, chad
+Line 34: Hz -> Suggestions: Hz, h, z, he, hi, ha, hr, ht, ho, oz, hl, hd, dz, hg, hm, chad
+Line 34: GHz. -> Suggestions: gaz, GHz, ghana, guam, chad
+Line 38: January -> Suggestions: January, vanuatu, hungary
+Line 42: 10-fold -> Suggestions: fold
+Line 46: twenty-fold -> Suggestions: twenty fold, twenty-fold, twelvefold
+Line 48: 100-fold -> Suggestions: folderol
+Line 52: hz. -> Suggestions: Hz, h, z, he, hi, ha, hr, ht, ho, oz, hl, hd, dz, hg, hm, chad
+Line 56: 10cm -> Suggestions: guam
+Line 56: 20cm. -> Suggestions: guam
+Line 56: 5kg -> Suggestions: kg, pkg, bkg, 5 kg, e.g., togo
+Line 56: 10kg. -> No suggestions available
+Line 56: 2m–4m. -> Suggestions: oman, guam
+Line 60: event—originally -> Suggestions: event originally, event-originally, aboriginally
+Line 60: January—was -> Suggestions: January
+Line 62: high-speed -> Suggestions: high speed, high-speed, highs peed, highs-peed, highlighted
+Line 62: Paris-Lyon -> Suggestions: parishioner
+Line 66: url -> Suggestions: URL, curl, purl, hurl, burl, furl, Burl, lur, urn, iran, iraq, guam, mali, peru, nauru, cuba
+Line 66: url -> Suggestions: URL, curl, purl, hurl, burl, furl, Burl, lur, urn, iran, iraq, guam, mali, peru, nauru, cuba
+Line 66: <https://google.com> -> No suggestions available
+Line 66: https://google.com. -> No suggestions available
+Line 68: url -> Suggestions: URL, curl, purl, hurl, burl, furl, Burl, lur, urn, iran, iraq, guam, mali, peru, nauru, cuba
+Line 68: url -> Suggestions: URL, curl, purl, hurl, burl, furl, Burl, lur, urn, iran, iraq, guam, mali, peru, nauru, cuba
+Line 68: https://google.com/ -> No suggestions available
+Line 70: urls -> Suggestions: curls, purls, hurls, burls, furls, urns, urus, URLs, iran, iraq, laos, mali
+Line 70: https://google.com -> No suggestions available
+Line 92: Latinisms -> Suggestions: Latinism, Latinists, Latinist, actinisms
+Line 92: Latinisms -> Suggestions: Latinism, Latinists, Latinist, actinisms
+Line 96: Cross-references(Except -> Suggestions: noninterference
+Line 100: Contractions(1.23) -> Suggestions: contraction
+Line 124: latin -> Suggestions: lateen, Latin, lati, lain, latino, satin, matin, lapin, patin, la tin, la-tin, lat in, lat-in, lati n, latvia
+Line 124: i.e., -> Suggestions: IE, ai, i, e, ire, tie, lie, ice, die, gie, pie, hie, fie, vie, Lie, i.e., niue
+Line 124: e.g., -> Suggestions: Eg, eh, e, g, eng, neg, erg, reg, ego, leg, deg, egg, meg, peg, beg, e.g.
+Line 138: Johnson -> Suggestions: Johnson, john son, john-son, johns on, johns-on
+Line 138: Parker -> Suggestions: Parker, parer, sparker, parser, porker, larker, packer, parked, darker, marker, barker, Barker, park er, park-er, turkey
+Line 138: Adams -> Suggestions: Adams, dams, madams, Edams, a dams, laos, udemy, guam, panama, bahamas, Udemy
+Line 140: eg -> Suggestions: Eg, eh, e, g, eng, neg, erg, reg, ego, leg, deg, egg, meg, peg, beg, e.g.
+Line 140: eg -> Suggestions: Eg, eh, e, g, eng, neg, erg, reg, ego, leg, deg, egg, meg, peg, beg, e.g.
+Line 140: eg, -> Suggestions: Eg, eh, e, g, eng, neg, erg, reg, ego, leg, deg, egg, meg, peg, beg, e.g.
+Line 140: e.g.. -> Suggestions: Eg, eh, e, g, eng, neg, erg, reg, ego, leg, deg, egg, meg, peg, beg, e.g.
+Line 140: e.g..., -> Suggestions: Eg, eh, e, g, eng, neg, erg, reg, ego, leg, deg, egg, meg, peg, beg, e.g.
+Line 140: e.g, -> Suggestions: Eg, eh, e, g, eng, neg, erg, reg, ego, leg, deg, egg, meg, peg, beg, e.g.
+Line 142: ie -> Suggestions: IE, ai, i, e, ire, tie, lie, ice, die, gie, pie, hie, fie, vie, Lie, i.e., niue
+Line 142: ie -> Suggestions: IE, ai, i, e, ire, tie, lie, ice, die, gie, pie, hie, fie, vie, Lie, i.e., niue
+Line 142: ie, -> Suggestions: IE, ai, i, e, ire, tie, lie, ice, die, gie, pie, hie, fie, vie, Lie, i.e., niue
+Line 142: i.e.. -> Suggestions: IE, ai, i, e, ire, tie, lie, ice, die, gie, pie, hie, fie, vie, Lie, i.e., niue
+Line 142: i.e..., -> Suggestions: IE, ai, i, e, ire, tie, lie, ice, die, gie, pie, hie, fie, vie, Lie, i.e., niue
+Line 142: i.e,,. -> Suggestions: IE, ai, i, e, ire, tie, lie, ice, die, gie, pie, hie, fie, vie, Lie, i.e., niue
+Line 142: I.E -> Suggestions: IE, ai, i, e, ire, tie, lie, ice, die, gie, pie, hie, fie, vie, Lie, i.e., niue
+Line 142: i.e, -> Suggestions: IE, ai, i, e, ire, tie, lie, ice, die, gie, pie, hie, fie, vie, Lie, i.e., niue
+Line 144: Paris, -> Suggestions: pairs, Paris, pars, paries, parish, parvis, pares, peris, saris, paras, naris, parrs, parts, pavis, parks, palau, peru, asia, laos, mali, spain, syria
+Line 144: London -> Suggestions: London, jordan, congo
+Line 144: Rome. -> Suggestions: more, Rome, tome, rime, rom, roe, romeo, omer, rose, some, rote, role, come, rode, dome, oman, europe, yemen, niue, togo
+Line 166: Ther -> Suggestions: rhet, thee, the, ter, her, there, ether, their, other, therm, Uther, sher, tier, thar, then, togo, peru, i.e., niger, chad
+Line 166: Develpment -> Suggestions: development, envelopment, devolvement
+Line 168: tehnical -> Suggestions: technical, Alicante
+Line 168: (IITs), -> Suggestions: its, sits, nits, tits, dits, gits, pits, hits, bits, fits, kits, wits, zits, i its, ii ts, iran, iraq, i.e., laos, haiti, niue, fiji
+Line 168: (IISc), -> Suggestions: disc, misc, fisc, Wisc, ii sc, ii-sc, iran, iraq, i.e., niue, fiji
+Line 168: (IIMs), -> Suggestions: isms, sims, aims, rims, dims, hims, Sims, ii ms, ii-ms, imams, iran, iraq, i.e., laos, niue, fiji
+Line 168: transfrmation -> Suggestions: transformation, Transfiguration, transfiguration, transmigration, transmutation
+Line 174: MODRN -> Suggestions: morn, modern, mourn, Modred, oman, jordan, sudan
+Line 176: interational -> Suggestions: international, International, interrogational, interpretational, interjectional
+Line 176: dominnce, -> Suggestions: dominance, dominie, dominica
+Line 186: INTERNATION -> Suggestions: inter nation, inter-nation, internat ion, internat-ion, international, International, internalization, interlunation
+Line 186: WAFARE -> Suggestions: warfare, wayfarer, freeware, Ware, ware, qatar
+Line 202: Chaptr -> Suggestions: chapter, chap tr, chap-tr, chapiter, chad, haiti
+Line 202: Regonal -> Suggestions: regnal, regional, Reginald
+Line 204: War-era -> Suggestions: war era, war-era, ware, Ware, warfare, wagerer, aruba
+Line 206: ethni, -> Suggestions: ethnic, estonia, yemeni
+Line 208: cross-border -> Suggestions: cross border, cross-border, crossbred
+Line 208: long-lasting -> Suggestions: long lasting, long-lasting, longstanding, lastingness, lasting, gloating[shorten title] Line 47: ms -> Ms.
+[convert century] Line 62: 21st -> the twenty-first
+[convert century] Line 62: 18th -> the eighteenth
+[convert century] Line 62: 19th -> the nineteenth
+[set_latinisms_to_roman] Line 63: 'i.e.' -> 'i.e.'
+[set_latinisms_to_roman] Line 63: 'e.g.' -> 'e.g.'
+[set_latinisms_to_roman] Line 63: 'vice versa' -> 'vice versa'
+[process_symbols_in_doc] Line 64: Removed duplicate symbols ['℠']
+[process_symbols_in_doc] Line 66: Removed duplicate symbols ['℠', '℠', '℠', '℠']
+[set_number_to_no] Line 67: 'Number 5' -> 'No. 5'
+[set_number_to_no] Line 67: 'number 10' -> 'no. 10'
+[set_number_to_no] Line 67: 'Number 42' -> 'No. 42'
+[shorten title] Line 68: ms -> Ms.
+[replace_ampersand] Line 68: 'checking & rule' -> 'checking and rule'
+[replace_ampersand] Line 68: 'design & development' -> 'design and development'
+[replace_ampersand] Line 68: 'salt & pepper' -> 'salt and pepper'
+[am pm change] Line 69: '10 am' -> '10 a.m.'
+[am pm change] Line 69: '3 PM' -> '3 p.m.'
+[am pm change] Line 69: '6 a.m' -> '6 a.m.'
+[am pm change] Line 69: '5 P.M' -> '5 p.m.'
+[shorten title] Line 70: Doctor -> Dr.
+[shorten title] Line 70: Mister -> Mr.
+[shorten title] Line 70: Misses -> Mrs.
+[shorten title] Line 70: Professor -> Professor
+[shorten title] Line 70: ms -> Ms.
+[shorten title] Line 70: Saint -> St
+[shorten title] Line 85: Ms -> Ms.
+[shorten title] Line 105: ms -> Ms.

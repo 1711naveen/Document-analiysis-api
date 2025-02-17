@@ -52,7 +52,7 @@ def fetch_abbreviation_mappings():
 def apply_abbreviation_mapping(runs, abbreviation_dict, line_number):
     global global_logs
     for run in runs:
-        words = run.text.split()  # Split the run's text into words
+        words = run.text.split()
         updated_words = []
         
         for word in words:
@@ -1016,7 +1016,7 @@ def process_doc_function1(payload: dict, doc: Document, doc_id, user):
     abbreviation_dict = fetch_abbreviation_mappings()
     
     replaced_units = set()
-    
+    print(payload)
     for para in doc.paragraphs:
         convert_century_in_runs(para.runs, line_number)
         set_latinisms_to_roman_in_runs(para.runs, line_number)
@@ -1025,18 +1025,18 @@ def process_doc_function1(payload: dict, doc: Document, doc_id, user):
         set_number_to_no_in_runs(para.runs, line_number)
         format_titles_us_english_with_logging_in_runs(para.runs, line_number)
         enforce_am_pm_in_runs(para.runs, line_number)
-        # enforce_serial_comma_in_runs(para.runs)
+        enforce_serial_comma_in_runs(para.runs)
         # rename_section_in_runs(para.runs)
         replace_ampersand_in_runs(para.runs, line_number)
         # correct_possessive_names_in_runs(para.runs, line_number)
         # units_with_bracket_in_runs(para.runs, replaced_units)
         # remove_and_in_runs(para.runs, line_number)
         # remove_quotation_in_runs(para.runs, line_number)
-        correct_acronyms_in_runs(para.runs, line_number)
-        enforce_eg_rule_with_logging_in_runs(para.runs, line_number)
-        enforce_ie_rule_with_logging_in_runs(para.runs, line_number)
-        standardize_etc_in_runs(para.runs, line_number)
-        insert_thin_space_between_number_and_unit_in_runs(para.runs, line_number)
+        # correct_acronyms_in_runs(para.runs, line_number)
+        # enforce_eg_rule_with_logging_in_runs(para.runs, line_number)
+        # enforce_ie_rule_with_logging_in_runs(para.runs, line_number)
+        # standardize_etc_in_runs(para.runs, line_number)
+        # insert_thin_space_between_number_and_unit_in_runs(para.runs, line_number)
         # process_paragraph(para.runs, line_number)
         line_number += 1
 
