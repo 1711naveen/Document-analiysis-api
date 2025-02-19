@@ -48,21 +48,49 @@ def fetch_abbreviation_mappings():
     conn.close()
     return {row[0]: row[1] for row in mappings}
 
-# change long form to shor form abbrevaited form
+# change long form to short form abbrevaited form
+# def apply_abbreviation_mapping(runs, abbreviation_dict, line_number):
+#     global global_logs
+#     for run in runs:
+#         words = run.text.split()
+#         updated_words = []
+        
+#         for word in words:
+#             updated_word = abbreviation_dict.get(word, word)
+#             if word != updated_word:
+#                 global_logs.append(f"[apply_abbreviation_mapping] Line {line_number}: '{word}' -> '{updated_word}'")
+#             updated_words.append(updated_word)
+        
+#         # Join the updated words and reassign it to the run's text
+#         run.text = ' '.join(updated_words)
+
+
 def apply_abbreviation_mapping(runs, abbreviation_dict, line_number):
     global global_logs
+
     for run in runs:
-        words = run.text.split()
-        updated_words = []
-        
-        for word in words:
-            updated_word = abbreviation_dict.get(word, word)
-            if word != updated_word:
-                global_logs.append(f"[apply_abbreviation_mapping] Line {line_number}: '{word}' -> '{updated_word}'")
-            updated_words.append(updated_word)
-        
-        # Join the updated words and reassign it to the run's text
-        run.text = ' '.join(updated_words)
+        original_text = run.text
+
+        def replace_match(match):
+            word = match.group(0)  # Extract matched word
+            stripped_word = word.rstrip('.,')  # Remove trailing punctuation
+            
+            updated_word = abbreviation_dict.get(stripped_word, stripped_word)  # Find replacement
+            
+            if stripped_word != updated_word:
+                global_logs.append(f"[apply_abbreviation_mapping] Line {line_number}: '{stripped_word}' -> '{updated_word}'")
+
+            # Preserve punctuation
+            return updated_word + word[len(stripped_word):]
+
+        # Use regex to match full words with optional punctuation
+        pattern = r'\b[\w]+\b'
+        updated_text = re.sub(pattern, replace_match, original_text)
+
+        # Assign the corrected text back
+        run.text = updated_text
+
+
 
 
 
@@ -124,7 +152,7 @@ def convert_century_in_runs(runs, line_number_offset):
             num = int(match.group(1))
             if num in century_map:
                 original_word = match.group(0)
-                converted_word = f"the {century_map[num]}"
+                converted_word = f" {century_map[num]}"
                 
                 # Log the change
                 global_logs.append(
@@ -429,6 +457,8 @@ def enforce_am_pm_in_runs(runs, line_num):
 
     # Define pattern to match different variations of am/pm
     pattern = r'\b(1[0-2]|0?[1-9])\s?(am|a\.m|pm|p\.m)\b'
+    # pattern = r'\b(1[0-2]|0?[1-9])\s?(AM|PM|A\.M\.|P\.M\.|Am|Pm|A\.m\.|P\.m\.|a\.m\.|p\.m\.|am|pm|AM\,)\.?\b'
+
 
     def replace_am_pm(match):
         time_value, period = match.groups()
@@ -451,6 +481,29 @@ def enforce_am_pm_in_runs(runs, line_num):
 
 # apples, pears, and bananas
 # apples, pears, or bananas
+# def enforce_serial_comma_in_runs(runs):
+#     """
+#     Ensures the use of the serial comma (Oxford comma) in lists.
+#     Modifies the runs in place.
+
+#     :param runs: List of Run objects in the paragraph.
+#     :return: None (modifies runs in place).
+#     """
+#     for run in runs:
+#         # Add a comma before "and" or "or" in lists
+#         run.text = re.sub(
+#             r'([^,]+), ([^,]+) (or) ([^,]+)',
+#             r'\1, \2, \3 \4',
+#             run.text
+#         )
+#         # Explicitly handle cases where "and" does not get the serial comma
+#         run.text = re.sub(
+#             r'([^,]+), ([^,]+) (and) ([^,]+)',
+#             r'\1, \2, \3 \4',
+#             run.text
+#         )
+
+
 def enforce_serial_comma_in_runs(runs):
     """
     Ensures the use of the serial comma (Oxford comma) in lists.
@@ -460,16 +513,16 @@ def enforce_serial_comma_in_runs(runs):
     :return: None (modifies runs in place).
     """
     for run in runs:
-        # Add a comma before "and" or "or" in lists
+        # Add a comma before "and" or "or" in lists only when necessary
         run.text = re.sub(
-            r'([^,]+), ([^,]+) (or) ([^,]+)',
-            r'\1, \2, \3 \4',
+            r'([^,]+), ([^,]+) (and|or) ([^,]+)',
+            r'\1, \2, \3 \4',  # Adding a comma before 'and' or 'or'
             run.text
         )
-        # Explicitly handle cases where "and" does not get the serial comma
+        # Fix the case for when "and" and "or" are at the end
         run.text = re.sub(
-            r'([^,]+), ([^,]+) (and) ([^,]+)',
-            r'\1, \2, \3 \4',
+            r'([^,]+) (and|or) ([^,]+)',
+            r'\1, \2 \3',
             run.text
         )
 
@@ -613,7 +666,7 @@ def remove_quotation_in_runs(runs, line_number):
     """
     global global_logs
 
-    pattern = r"([A-Z]+)'"
+    pattern = r"([A-Z]+)[’']"
 
     def process_quotation_removal(match):
         original = match.group(0)
@@ -628,10 +681,14 @@ def remove_quotation_in_runs(runs, line_number):
         run.text = re.sub(pattern, process_quotation_removal, run.text)
         
         
+
+
+
+
 def correct_acronyms_in_runs(runs, line_number):
     """
-    Removes periods from acronyms (e.g., 'U.S.A.' becomes 'USA').
-    Modifies the runs in place and logs changes.
+    Removes periods from acronyms (e.g., 'U.S.A.' becomes 'USA') using regex substitution.
+    Modifies the runs in place and logs changes without altering original spacing.
 
     :param runs: List of Run objects in the paragraph.
     :param line_number: The line number for logging.
@@ -640,26 +697,143 @@ def correct_acronyms_in_runs(runs, line_number):
     global global_logs
 
     for run in runs:
-        words = run.text.split()
-        corrected_words = []
-        for word in words:
-            original_word = word
-            if re.match(r"([a-z]\.){2,}[a-z]\.?", word):
-                word = word.replace(".", "")
-            elif re.match(r"([A-Z]\.){2,}[A-Z]\.?", word):
-                word = word.replace(".", "")
-            if word != original_word:
-                global_logs.append(
-                    f"[correct_acronyms] Line {line_number}: '{original_word}' -> '{word}'"
-                )
-            corrected_words.append(word)
-        run.text = " ".join(corrected_words)
+        original_text = run.text
+
+        # Function to replace acronyms and log changes
+        def replace_acronym(match, is_upper):
+            original = match.group()
+            # Check if the acronym matches the correct pattern (either upper or lower case)
+            if is_upper:
+                if not re.fullmatch(r"([A-Z]\.){2,}[A-Z]\.?", original):
+                    return original
+            else:
+                if not re.fullmatch(r"([a-z]\.){2,}[a-z]\.?", original):
+                    return original
+            replaced = original.replace(".", "")
+            global_logs.append(
+                f"[correct_acronyms] Line {line_number}: '{original}' -> '{replaced}'"
+            )
+            return replaced
+
+        # Process uppercase acronyms as standalone words
+        processed_text = re.sub(
+            r"\b([A-Z]\.){2,}[A-Z]\.?\b",
+            lambda m: replace_acronym(m, True),
+            original_text
+        )
+
+        # Process lowercase acronyms as standalone words
+        processed_text = re.sub(
+            r"\b([a-z]\.){2,}[a-z]\.?\b",
+            lambda m: replace_acronym(m, False),
+            processed_text
+        )
+
+        if processed_text != original_text:
+            run.text = processed_text
+
+
 
 
 # changes eg to e.g.
+
+def enforce_eg_rule_with_logging_in_runs(runs, line_number):
+    global global_logs
+
+    for run in runs:
+        original_text = run.text
+
+        # Step 1: Replace "eg," (with a comma) directly with "e.g."
+        new_text = re.sub(r'\beg,\b', 'e.g.', original_text, flags=re.IGNORECASE)  
+
+        # Step 2: Replace standalone "eg" (without a comma) with "e.g."
+        new_text = re.sub(r'\beg\b', 'e.g.', new_text, flags=re.IGNORECASE)
+
+        # Step 3: Fix extra periods like "e.g.." or "e.g..."
+        new_text = re.sub(r'e\.g\.\.+', 'e.g.', new_text)
+
+        # Step 4: Remove any trailing comma after "e.g." (e.g., "e.g.," -> "e.g.")
+        new_text = re.sub(r'e\.g\.,', 'e.g.', new_text)
+
+        # Log changes if any updates were made
+        if new_text != original_text:
+            global_logs.append(
+                f"[e.g. correction] Line {line_number}: '{original_text.strip()}' -> '{new_text.strip()}'"
+            )
+        
+        # Update the run's text
+        run.text = new_text
+        
 # def enforce_eg_rule_with_logging_in_runs(runs, line_number):
 #     """
 #     Ensures consistent formatting for 'e.g.' in the paragraph and logs changes.
+#     It normalizes different variants (like "eg", "eg," or "e.g,") into "e.g.",
+#     fixes extra periods (e.g. "e.g..", "e.g...") and finally removes a trailing
+#     comma if present (converting "e.g.," into "e.g.").
+    
+#     Modifies the runs in place.
+
+#     :param runs: List of Run objects in the paragraph.
+#     :param line_number: The line number for logging.
+#     :return: None (modifies runs in place).
+#     """
+#     global global_logs
+
+#     for run in runs:
+#         original_text = run.text
+#         # Step 1: Normalize "eg" or incorrect "e.g" variants to "e.g."
+#         new_text = re.sub(r'\beg,\b', 'e.g.', original_text, flags=re.IGNORECASE)  # Handle "eg,"
+#         new_text = re.sub(r'\beg\b', 'e.g.', new_text, flags=re.IGNORECASE)
+#         new_text = re.sub(r'e\.g,', 'e.g.', new_text)  # Handle incorrect "e.g,"
+
+#         # Step 2: Fix extra periods like "e.g.." or "e.g..."
+#         new_text = re.sub(r'e\.g\.\.+', 'e.g.', new_text)
+
+#         # Step 3: Remove a trailing comma after "e.g." (i.e. change "e.g.," to "e.g.")
+#         new_text = re.sub(r'e\.g\.,', 'e.g.', new_text)
+
+#         # Log changes if any
+#         if new_text != original_text:
+#             global_logs.append(
+#                 f"[e.g. correction] Line {line_number}: '{original_text.strip()}' -> '{new_text.strip()}'"
+#             )
+        
+#         # Update the run's text
+#         run.text = new_text
+
+
+def enforce_ie_rule_with_logging_in_runs(runs, line_number):
+    global global_logs
+
+    for run in runs:
+        original_text = run.text
+
+        # Step 1: Replace "ie," (with a comma) directly with "i.e."
+        new_text = re.sub(r'\bie,\b', 'i.e.', original_text, flags=re.IGNORECASE)  
+
+        # Step 2: Replace standalone "ie" (without a comma) with "i.e."
+        new_text = re.sub(r'\bie\b', 'i.e.', new_text, flags=re.IGNORECASE)
+
+        # Step 3: Fix extra periods like "i.e.." or "i.e..."
+        new_text = re.sub(r'i\.e\.\.+', 'i.e.', new_text)
+
+        # Step 4: Remove any trailing comma after "i.e." (i.e., "i.e.," -> "i.e.")
+        new_text = re.sub(r'i\.e\.,', 'i.e.', new_text)
+
+        # Log changes if any updates were made
+        if new_text != original_text:
+            global_logs.append(
+                f"[i.e. correction] Line {line_number}: '{original_text.strip()}' -> '{new_text.strip()}'"
+            )
+        
+        # Update the run's text
+        run.text = new_text
+
+
+
+# def enforce_ie_rule_with_logging_in_runs(runs, line_number):
+#     """
+#     Ensures consistent formatting for 'i.e.' in the paragraph and logs changes.
 #     Modifies the runs in place.
 
 #     :param runs: List of Run objects in the paragraph.
@@ -671,108 +845,28 @@ def correct_acronyms_in_runs(runs, line_number):
 #     for run in runs:
 #         original_text = run.text
 
-#         # Step 1: Match "eg" or "e.g." with optional surrounding spaces and punctuation
-#         new_text = re.sub(r'\beg\b', 'e.g.', run.text, flags=re.IGNORECASE)
-#         new_text = re.sub(r'\beg,\b', 'e.g.', new_text, flags=re.IGNORECASE)  # Handle "eg,"
+#         # Step 1: Match "ie" or "i.e." with optional surrounding spaces and punctuation
+#         new_text = re.sub(r'\bie\b', 'i.e.', run.text, flags=re.IGNORECASE)  # Handle standalone "ie"
+#         new_text = re.sub(r'\bie,\b', 'i.e.', new_text, flags=re.IGNORECASE)  # Handle "ie,"
 
-#         # Step 2: Fix extra periods like `e.g..` or `e.g...,` and ensure proper punctuation
+#         # Step 2: Fix extra periods like `i.e..` or `i.e...,` and ensure proper punctuation
 #         new_text = re.sub(r'\.([.,])', r'\1', new_text)  # Removes an extra period before a comma or period
-#         new_text = re.sub(r'\.\.+', '.', new_text)  # Ensures only one period after e.g.
+#         new_text = re.sub(r'\.\.+', '.', new_text)  # Ensures only one period after i.e.
 
-#         # Step 3: Remove comma if e.g... is followed by it (e.g..., -> e.g.)
-#         new_text = re.sub(r'e\.g\.,', 'e.g.', new_text)
-
-#         # Step 4: Change e.g, to e.g.
-#         new_text = re.sub(r'e\.g,', 'e.g.', new_text)
+#         # Step 3: Remove comma if i.e... is followed by it (i.e..., -> i.e.)
+#         new_text = re.sub(r'i\.e\.,', 'i.e.', new_text)
+        
+#         # Step 4: Change i.e, to i.e.
+#         new_text = re.sub(r'i\.e,', 'i.e.', new_text)
 
 #         # Log changes if the text is updated
 #         if new_text != original_text:
 #             global_logs.append(
-#                 f"[e.g. correction] Line {line_number}: '{original_text.strip()}' -> '{new_text.strip()}'"
+#                 f"[i.e. correction] Line {line_number}: '{original_text.strip()}' -> '{new_text.strip()}'"
 #             )
         
 #         # Update the run's text
 #         run.text = new_text
-
-
-
-import re
-
-def enforce_eg_rule_with_logging_in_runs(runs, line_number):
-    """
-    Ensures consistent formatting for 'e.g.' in the paragraph and logs changes.
-    Modifies the runs in place.
-
-    :param runs: List of Run objects in the paragraph.
-    :param line_number: The line number for logging.
-    :return: None (modifies runs in place).
-    """
-    global global_logs
-
-    for run in runs:
-        original_text = run.text
-
-        # Step 1: Normalize "eg" or incorrect "e.g" variants to "e.g."
-        new_text = re.sub(r'\beg\b', 'e.g.', original_text, flags=re.IGNORECASE)
-        new_text = re.sub(r'\beg,\b', 'e.g.', new_text, flags=re.IGNORECASE)  # Handle "eg,"
-        new_text = re.sub(r'e\.g,', 'e.g.', new_text)  # Handle incorrect "e.g,"
-
-        # Step 2: Fix extra periods like `e.g..` or `e.g...,`
-        new_text = re.sub(r'e\.g\.\.+', 'e.g.', new_text)  # Reduces multiple dots to one
-
-        # Step 3: Remove extra periods before a comma (e.g.., -> e.g.,)
-        new_text = re.sub(r'e\.g\.\,', 'e.g.,', new_text)  
-
-        # Step 4: Log changes if the text is updated
-        if new_text != original_text:
-            global_logs.append(
-                f"[e.g. correction] Line {line_number}: '{original_text.strip()}' -> '{new_text.strip()}'"
-            )
-        
-        # Update the run's text
-        run.text = new_text
-
-
-
-
-
-
-def enforce_ie_rule_with_logging_in_runs(runs, line_number):
-    """
-    Ensures consistent formatting for 'i.e.' in the paragraph and logs changes.
-    Modifies the runs in place.
-
-    :param runs: List of Run objects in the paragraph.
-    :param line_number: The line number for logging.
-    :return: None (modifies runs in place).
-    """
-    global global_logs
-
-    for run in runs:
-        original_text = run.text
-
-        # Step 1: Match "ie" or "i.e." with optional surrounding spaces and punctuation
-        new_text = re.sub(r'\bie\b', 'i.e.', run.text, flags=re.IGNORECASE)  # Handle standalone "ie"
-        new_text = re.sub(r'\bie,\b', 'i.e.', new_text, flags=re.IGNORECASE)  # Handle "ie,"
-
-        # Step 2: Fix extra periods like `i.e..` or `i.e...,` and ensure proper punctuation
-        new_text = re.sub(r'\.([.,])', r'\1', new_text)  # Removes an extra period before a comma or period
-        new_text = re.sub(r'\.\.+', '.', new_text)  # Ensures only one period after i.e.
-
-        # Step 3: Remove comma if i.e... is followed by it (i.e..., -> i.e.)
-        new_text = re.sub(r'i\.e\.,', 'i.e.', new_text)
-        
-        # Step 4: Change i.e, to i.e.
-        new_text = re.sub(r'i\.e,', 'i.e.', new_text)
-
-        # Log changes if the text is updated
-        if new_text != original_text:
-            global_logs.append(
-                f"[i.e. correction] Line {line_number}: '{original_text.strip()}' -> '{new_text.strip()}'"
-            )
-        
-        # Update the run's text
-        run.text = new_text
 
         
         
@@ -836,6 +930,7 @@ def insert_thin_space_between_number_and_unit_in_runs(runs, line_number):
     for i, run in enumerate(runs):
         run.text = updated_text[current_index : current_index + len(run.text)]
         current_index += len(run.text)
+
 
 import re
 import spacy
@@ -1007,6 +1102,22 @@ def write_to_log(doc_id, user):
 
 
 
+def move_punctuation_inside_quotes(runs, line_number_offset):
+    # reposition_pattern = re.compile(r'([‘“"])(.*?)(["’”])([?!])')
+    reposition_pattern = re.compile(r'([‘“"\'])(.*?)(["’”\'])([?!])')
+    def reposition_replacer(match):
+        opening_quote = match.group(1)
+        content = match.group(2)
+        closing_quote = match.group(3)
+        punctuation = match.group(4)
+        return f"{opening_quote}{content}{punctuation}{closing_quote}"
+    
+    for run in runs:
+        run.text = reposition_pattern.sub(reposition_replacer, run.text)
+        run.text = re.sub(r'(?<=[?!][’”"\'])\.', '', run.text)
+
+
+
 def process_doc_function1(payload: dict, doc: Document, doc_id, user):
     """
     This function processes the document by converting century notations
@@ -1016,8 +1127,9 @@ def process_doc_function1(payload: dict, doc: Document, doc_id, user):
     abbreviation_dict = fetch_abbreviation_mappings()
     
     replaced_units = set()
-    print(payload)
     for para in doc.paragraphs:
+        move_punctuation_inside_quotes(para.runs, line_number)
+        apply_abbreviation_mapping(para.runs, abbreviation_dict, line_number)
         convert_century_in_runs(para.runs, line_number)
         set_latinisms_to_roman_in_runs(para.runs, line_number)
         process_symbols_mark_in_runs(para.runs, line_number)
@@ -1026,18 +1138,19 @@ def process_doc_function1(payload: dict, doc: Document, doc_id, user):
         format_titles_us_english_with_logging_in_runs(para.runs, line_number)
         enforce_am_pm_in_runs(para.runs, line_number)
         enforce_serial_comma_in_runs(para.runs)
-        # rename_section_in_runs(para.runs)
+        if(payload["2"] == False):
+            rename_section_in_runs(para.runs)
         replace_ampersand_in_runs(para.runs, line_number)
-        # correct_possessive_names_in_runs(para.runs, line_number)
-        # units_with_bracket_in_runs(para.runs, replaced_units)
-        # remove_and_in_runs(para.runs, line_number)
-        # remove_quotation_in_runs(para.runs, line_number)
-        # correct_acronyms_in_runs(para.runs, line_number)
-        # enforce_eg_rule_with_logging_in_runs(para.runs, line_number)
-        # enforce_ie_rule_with_logging_in_runs(para.runs, line_number)
-        # standardize_etc_in_runs(para.runs, line_number)
+        correct_possessive_names_in_runs(para.runs, line_number)
+        # units_with_bracket_in_runs(para.runs, replaced_units)# not working
+        remove_and_in_runs(para.runs, line_number)
+        remove_quotation_in_runs(para.runs, line_number)#not working
+        correct_acronyms_in_runs(para.runs, line_number)
+        enforce_eg_rule_with_logging_in_runs(para.runs, line_number)
+        enforce_ie_rule_with_logging_in_runs(para.runs, line_number)
+        standardize_etc_in_runs(para.runs, line_number)
         # insert_thin_space_between_number_and_unit_in_runs(para.runs, line_number)
-        # process_paragraph(para.runs, line_number)
+        process_paragraph(para.runs, line_number)
         line_number += 1
 
     write_to_log(doc_id, user)

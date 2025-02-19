@@ -1,7 +1,7 @@
 
-Start Time: 2025-02-17 11:08:28.925465
-End Time: 2025-02-17 11:08:59.258818
-Analysis completed in 30.33 seconds.
+Start Time: 2025-02-17 19:10:44.560213
+End Time: 2025-02-17 19:11:26.728490
+Analysis completed in 42.17 seconds.
 
 
 FileName: test_document.docx
@@ -73,30 +73,69 @@ Line 142: i.e, -> Suggestions: IE, ai, i, e, ire, tie, lie, ice, die, gie, pie, 
 Line 144: Paris, -> Suggestions: pairs, Paris, pars, paries, parish, parvis, pares, peris, saris, paras, naris, parrs, parts, pavis, parks, palau, peru, asia, laos, mali, spain, syria
 Line 144: London -> Suggestions: London, jordan, congo
 Line 144: Rome. -> Suggestions: more, Rome, tome, rime, rom, roe, romeo, omer, rose, some, rote, role, come, rode, dome, oman, europe, yemen, niue, togo
-Line 166: Ther -> Suggestions: rhet, thee, the, ter, her, there, ether, their, other, therm, Uther, sher, tier, thar, then, togo, peru, i.e., niger, chad
-Line 166: Develpment -> Suggestions: development, envelopment, devolvement
-Line 168: tehnical -> Suggestions: technical, Alicante
-Line 168: (IITs), -> Suggestions: its, sits, nits, tits, dits, gits, pits, hits, bits, fits, kits, wits, zits, i its, ii ts, iran, iraq, i.e., laos, haiti, niue, fiji
-Line 168: (IISc), -> Suggestions: disc, misc, fisc, Wisc, ii sc, ii-sc, iran, iraq, i.e., niue, fiji
-Line 168: (IIMs), -> Suggestions: isms, sims, aims, rims, dims, hims, Sims, ii ms, ii-ms, imams, iran, iraq, i.e., laos, niue, fiji
-Line 168: transfrmation -> Suggestions: transformation, Transfiguration, transfiguration, transmigration, transmutation
-Line 174: MODRN -> Suggestions: morn, modern, mourn, Modred, oman, jordan, sudan
-Line 176: interational -> Suggestions: international, International, interrogational, interpretational, interjectional
-Line 176: dominnce, -> Suggestions: dominance, dominie, dominica
-Line 186: INTERNATION -> Suggestions: inter nation, inter-nation, internat ion, internat-ion, international, International, internalization, interlunation
-Line 186: WAFARE -> Suggestions: warfare, wayfarer, freeware, Ware, ware, qatar
-Line 202: Chaptr -> Suggestions: chapter, chap tr, chap-tr, chapiter, chad, haiti
-Line 202: Regonal -> Suggestions: regnal, regional, Reginald
-Line 204: War-era -> Suggestions: war era, war-era, ware, Ware, warfare, wagerer, aruba
-Line 206: ethni, -> Suggestions: ethnic, estonia, yemeni
-Line 208: cross-border -> Suggestions: cross border, cross-border, crossbred
-Line 208: long-lasting -> Suggestions: long lasting, long-lasting, longstanding, lastingness, lasting, gloating[shorten title] Line 47: ms -> Ms.
-[convert century] Line 62: 21st -> the twenty-first
-[convert century] Line 62: 18th -> the eighteenth
-[convert century] Line 62: 19th -> the nineteenth
+Line 148: James' -> Suggestions: James, hames, jams, sames, names, tames, lames, jades, dames, games, japes, jambs, jakes, jam's, ja mes, japan, laos, samoa, yemen
+Line 148: Chris' -> Suggestions: kris, Chris, chis, chrism, chile, china, chad, cocos, cyprus, syria
+Line 152: Alice -> Suggestions: Alice, slice, alive, lice, malice, amice, alike, a lice, al ice, al-ice, africa, asia, niue, mali, belize, chile
+Line 152: Sarah -> Suggestions: Sarah, saran, surah, samoa, sudan, syria, syrian, iran, iraq, asia, japan, palau, qatar
+Line 152: Microsoft -> Suggestions: Microsoft, micro soft, micro-soft, micros oft, micros-oft
+Line 154: U.S.A. -> Suggestions: USA, us, Susa, use, usu, Asa, us a, asia, cuba
+Line 154: I.B.M. -> Suggestions: IBM, ib, ism, ib m, iran, iraq, i.e., libya, guam, niue, cuba, fiji
+Line 154: U.N.E.S.C.O. -> Suggestions: UNESCO, Enesco
+Line 154: U.K. -> Suggestions: UK, u, k, auk, yuk, us, ut, ck, dk, um, mk, up, pk, uh, bk, guam, niue, cuba
+Line 154: F.B.I. -> Suggestions: FBI, fib, bi, obi, f bi, fiji
+Line 156: eg -> Suggestions: Eg, eh, e, g, eng, neg, erg, reg, ego, leg, deg, egg, meg, peg, beg, e.g.
+Line 156: eg, -> Suggestions: Eg, eh, e, g, eng, neg, erg, reg, ego, leg, deg, egg, meg, peg, beg, e.g.
+Line 156: e.g, -> Suggestions: Eg, eh, e, g, eng, neg, erg, reg, ego, leg, deg, egg, meg, peg, beg, e.g.
+Line 156: USA -> Suggestions: USA, us, Susa, use, usu, Asa, us a, asia, cuba
+Line 156: e.g.., -> Suggestions: Eg, eh, e, g, eng, neg, erg, reg, ego, leg, deg, egg, meg, peg, beg, e.g.
+Line 156: e.g..., -> Suggestions: Eg, eh, e, g, eng, neg, erg, reg, ego, leg, deg, egg, meg, peg, beg, e.g.
+Line 158: ie -> Suggestions: IE, ai, i, e, ire, tie, lie, ice, die, gie, pie, hie, fie, vie, Lie, i.e., niue
+Line 158: USA -> Suggestions: USA, us, Susa, use, usu, Asa, us a, asia, cuba
+Line 158: ie, -> Suggestions: IE, ai, i, e, ire, tie, lie, ice, die, gie, pie, hie, fie, vie, Lie, i.e., niue
+Line 158: i.e.., -> Suggestions: IE, ai, i, e, ire, tie, lie, ice, die, gie, pie, hie, fie, vie, Lie, i.e., niue
+Line 158: i.e..., -> Suggestions: IE, ai, i, e, ire, tie, lie, ice, die, gie, pie, hie, fie, vie, Lie, i.e., niue
+Line 158: i.e,, -> Suggestions: IE, ai, i, e, ire, tie, lie, ice, die, gie, pie, hie, fie, vie, Lie, i.e., niue
+Line 160: cetera. -> Suggestions: cerate, terrace, Terceira, Terrance
+Line 160: cetera. -> Suggestions: cerate, terrace, Terceira, Terrance
+Line 160: Paris, -> Suggestions: pairs, Paris, pars, paries, parish, parvis, pares, peris, saris, paras, naris, parrs, parts, pavis, parks, palau, peru, asia, laos, mali, spain, syria
+Line 160: London, -> Suggestions: London, jordan, congo
+Line 162: 10meters. -> Suggestions: telemeters
+Line 162: 50kg. -> No suggestions available
+Line 162: 30C. -> No suggestions available
+Line 162: 100m. -> Suggestions: guam
+Line 162: 200Pa. -> No suggestions available
+Line 164: e.g. -> Suggestions: Eg, eh, e, g, eng, neg, erg, reg, ego, leg, deg, egg, meg, peg, beg, e.g.
+Line 164: i.e. -> Suggestions: IE, ai, i, e, ire, tie, lie, ice, die, gie, pie, hie, fie, vie, Lie, i.e., niue
+Line 164: e.g. -> Suggestions: Eg, eh, e, g, eng, neg, erg, reg, ego, leg, deg, egg, meg, peg, beg, e.g.
+Line 164: i.e. -> Suggestions: IE, ai, i, e, ire, tie, lie, ice, die, gie, pie, hie, fie, vie, Lie, i.e., niue
+Line 164: e.g. -> Suggestions: Eg, eh, e, g, eng, neg, erg, reg, ego, leg, deg, egg, meg, peg, beg, e.g.
+Line 168: 14-Mar-23. -> No suggestions available
+Line 186: Ther -> Suggestions: rhet, thee, the, ter, her, there, ether, their, other, therm, Uther, sher, tier, thar, then, togo, peru, i.e., niger, chad
+Line 186: Develpment -> Suggestions: development, envelopment, devolvement
+Line 188: tehnical -> Suggestions: technical, Alicante
+Line 188: (IITs), -> Suggestions: its, sits, nits, tits, dits, gits, pits, hits, bits, fits, kits, wits, zits, i its, ii ts, iran, iraq, i.e., laos, haiti, niue, fiji
+Line 188: (IISc), -> Suggestions: disc, misc, fisc, Wisc, ii sc, ii-sc, iran, iraq, i.e., niue, fiji
+Line 188: (IIMs), -> Suggestions: isms, sims, aims, rims, dims, hims, Sims, ii ms, ii-ms, imams, iran, iraq, i.e., laos, niue, fiji
+Line 188: transfrmation -> Suggestions: transformation, Transfiguration, transfiguration, transmigration, transmutation
+Line 194: MODRN -> Suggestions: morn, modern, mourn, Modred, oman, jordan, sudan
+Line 196: interational -> Suggestions: international, International, interrogational, interpretational, interjectional
+Line 196: dominnce, -> Suggestions: dominance, dominie, dominica
+Line 206: INTERNATION -> Suggestions: inter nation, inter-nation, internat ion, internat-ion, international, International, internalization, interlunation
+Line 206: WAFARE -> Suggestions: warfare, wayfarer, freeware, Ware, ware, qatar
+Line 222: Chaptr -> Suggestions: chapter, chap tr, chap-tr, chapiter, chad, haiti
+Line 222: Regonal -> Suggestions: regnal, regional, Reginald
+Line 224: War-era -> Suggestions: war era, war-era, ware, Ware, warfare, wagerer, aruba
+Line 226: ethni, -> Suggestions: ethnic, estonia, yemeni
+Line 228: cross-border -> Suggestions: cross border, cross-border, crossbred
+Line 228: long-lasting -> Suggestions: long lasting, long-lasting, longstanding, lastingness, lasting, gloating[shorten title] Line 47: ms -> Ms.
+[i.e. correction] Line 52: 'Punctuation: Time (a.m., and p.m. – lower case with periods)' -> 'Punctuation: Time (a.m, and p.m. – lower case with periods)'
+[convert century] Line 62: 21st ->  twenty-first
+[convert century] Line 62: 18th ->  eighteenth
+[convert century] Line 62: 19th ->  nineteenth
 [set_latinisms_to_roman] Line 63: 'i.e.' -> 'i.e.'
 [set_latinisms_to_roman] Line 63: 'e.g.' -> 'e.g.'
 [set_latinisms_to_roman] Line 63: 'vice versa' -> 'vice versa'
+[process_paragraph] Line 63: Replaced space before 'i.e.' with ':'
 [process_symbols_in_doc] Line 64: Removed duplicate symbols ['℠']
 [process_symbols_in_doc] Line 66: Removed duplicate symbols ['℠', '℠', '℠', '℠']
 [set_number_to_no] Line 67: 'Number 5' -> 'No. 5'
@@ -110,11 +149,122 @@ Line 208: long-lasting -> Suggestions: long lasting, long-lasting, longstanding,
 [am pm change] Line 69: '3 PM' -> '3 p.m.'
 [am pm change] Line 69: '6 a.m' -> '6 a.m.'
 [am pm change] Line 69: '5 P.M' -> '5 p.m.'
+[i.e. correction] Line 69: 'a.m.. The office close' -> 'a.m. The office close'
 [shorten title] Line 70: Doctor -> Dr.
 [shorten title] Line 70: Mister -> Mr.
 [shorten title] Line 70: Misses -> Mrs.
 [shorten title] Line 70: Professor -> Professor
 [shorten title] Line 70: ms -> Ms.
 [shorten title] Line 70: Saint -> St
-[shorten title] Line 85: Ms -> Ms.
-[shorten title] Line 105: ms -> Ms.
+[e.g. correction] Line 71: 'eg' -> 'e.g.'
+[e.g. correction] Line 71: 'eg' -> 'e.g.'
+[e.g. correction] Line 71: 'eg' -> 'e.g.'
+[i.e. correction] Line 71: '..' -> '.'
+[i.e. correction] Line 71: '..., which needs fixing. Even' -> '., which needs fixing. Even'
+[process_paragraph] Line 71: Added comma before 'e.g.'
+[i.e. correction] Line 72: 'ie' -> 'i.e.'
+[i.e. correction] Line 72: 'ie' -> 'i.e.'
+[i.e. correction] Line 72: 'ie' -> 'i.e.'
+[i.e. correction] Line 72: '..' -> '.'
+[i.e. correction] Line 72: '..., really?' -> '., really?'
+[process_paragraph] Line 72: Replaced space before 'i.e.' with ':'
+[shorten title] Line 75: miss -> Miss.
+[remove_and] Line 77: 'Alice and Bob' -> 'Alice & Bob'
+[remove_and] Line 77: 'John and Sarah' -> 'John & Sarah'
+[remove_and] Line 77: 'Math and Science' -> 'Math & Science'
+[remove_and] Line 77: 'Google and Microsoft' -> 'Google & Microsoft'
+[correct_acronyms] Line 78: 'U.S.A' -> 'USA'
+[correct_acronyms] Line 78: 'I.B.M' -> 'IBM'
+[correct_acronyms] Line 78: 'U.N.E.S.C.O' -> 'UNESCO'
+[correct_acronyms] Line 78: 'F.B.I' -> 'FBI'
+[set_latinisms_to_roman] Line 79: 'e.g.' -> 'e.g.'
+[e.g. correction] Line 79: 'eg' -> 'e.g.'
+[e.g. correction] Line 79: 'eg' -> 'e.g.'
+[i.e. correction] Line 79: '., hammers, and screwdrivers. Popular sports include' -> ', hammers, and screwdrivers. Popular sports include'
+[i.e. correction] Line 79: '..., football, and basketball.' -> '., football, and basketball.'
+[process_paragraph] Line 79: Added comma before 'e.g.'
+[process_paragraph] Line 79: Added comma before 'e.g.'
+[process_paragraph] Line 79: Added comma before 'e.g.'
+[process_paragraph] Line 79: Added comma before 'e.g.'
+[set_latinisms_to_roman] Line 80: 'i.e.' -> 'i.e.'
+[i.e. correction] Line 80: 'ie' -> 'i.e.'
+[i.e. correction] Line 80: 'ie' -> 'i.e.'
+[i.e. correction] Line 80: '., espresso. She loves tropical fruits,' -> ', espresso. She loves tropical fruits,'
+[i.e. correction] Line 80: '..., mangoes, and pineapples. This task requires precision,' -> '., mangoes, and pineapples. This task requires precision,'
+[process_paragraph] Line 80: Replaced space before 'i.e.' with ':'
+[process_paragraph] Line 80: Replaced space before 'i.e.' with ':'
+[process_paragraph] Line 80: Replaced space before 'i.e.' with ':'
+[process_paragraph] Line 80: Replaced space before 'i.e.' with ':'
+[set_latinisms_to_roman] Line 81: 'etc.' -> 'etc.'
+[correct_acronyms] Line 81: 'e.t.c' -> 'etc'
+[i.e. correction] Line 81: '., and more. They went to multiple cities like Paris, London,' -> ', and more. They went to multiple cities like Paris, London,'
+[etc. correction] Line 81: 'etc' -> 'etc.'
+[etc. correction] Line 81: 'et cetera' -> 'etc.'
+[etc. correction] Line 81: 'et cetera' -> 'etc.'
+[etc. correction] Line 81: 'etc' -> 'etc.'
+[etc. correction] Line 81: 'etc' -> 'etc.'
+[set_latinisms_to_roman] Line 83: 'e.g.' -> 'e.g.'
+[set_latinisms_to_roman] Line 83: 'i.e.' -> 'i.e.'
+[process_paragraph] Line 83: Added comma before 'e.g.'
+[process_paragraph] Line 83: Replaced space before 'i.e.' with ':'
+[process_paragraph] Line 83: Replaced space before 'i.e.' with ':'
+[process_paragraph] Line 83: Added comma before 'e.g.'
+[i.e. correction] Line 84: '... ....' -> '. .'
+[i.e. correction] Line 84: '... .' -> '. .'
+[i.e. correction] Line 84: 'People shared great ideas.... I can't wait for the next one.' -> 'People shared great ideas. I can't wait for the next one.'
+[apply_abbreviation_mapping] Line 87: 'Incorporated' -> 'Inc'
+[apply_abbreviation_mapping] Line 87: 'Company' -> 'Comp'
+[i.e. correction] Line 94: '..' -> '.'
+[shorten title] Line 95: Ms -> Ms.
+[shorten title] Line 115: ms -> Ms.[apostrophes change] Line 4: 'Error 1: The 1990's style was iconic. People loved the '90s trends. His 1'st win was special. Back in 90s, life was different.' -> 'Error 1: The 1990s style was iconic. People loved the 90s trends. His 1st win was special. Back in 90s, life was different.'
+[replace_fold_phrases] Line 5: '3-fold' -> 'threefold'
+[replace_fold_phrases] Line 5: 'two-fold' -> 'twofold'
+[replace_fold_phrases] Line 5: 'ten-fold' -> '10-fold'
+[remove_space_between_degree_and_direction] Line 6: '30 º N' -> '30°N'
+[remove_space_between_degree_and_direction] Line 6: '45 º S' -> '45°S'
+[enforce_lowercase_units] Line 7: '5 Km' -> '5 km'
+[enforce_lowercase_units] Line 7: '2 Gm' -> '2 gm'
+[enforce_lowercase_units] Line 7: '50 Mg' -> '50 mg'
+[enforce_lowercase_units] Line 7: '1 L' -> '1 l'
+[precede_decimal_with_zero] Line 8: '.5' -> '0.5'
+[precede_decimal_with_zero] Line 8: '.76' -> '0.76'
+[precede_decimal_with_zero] Line 8: '.31' -> '0.31'
+[adjust_ratios] Line 9: '1:2' -> '1 : 2'
+[process_symbols_in_doc] Line 10: '1,000' -> '1 000'
+[process_symbols_in_doc] Line 10: '2,000,000' -> '2 000 000'
+[process_symbols_in_doc] Line 10: '45,334,556' -> '45 334 556'
+[process_symbols_in_doc] Line 10: '1 000' -> '1000'
+[process_symbols_in_doc] Line 10: '2 000' -> '2000'
+[process_symbols_in_doc] Line 11: '1 000' -> '1000'
+[process_symbols_in_doc] Line 11: '2 000' -> '2000'
+[correct_scientific_unit_symbols] '10 n' -> '10 N'
+[correct_scientific_unit_symbols] '50 w' -> '50 W'
+[correct_scientific_unit_symbols] '60 ohm' -> '60 Ω'
+[format_dates] Line 16: '457 BCE' -> '457 bce'
+[format_dates] Line 16: '65 BCE' -> '65 bce'
+[correct_preposition_usage] 'from 2000-2010' -> 'from 2000 to 2010'
+[correct_unit_spacing] '100 MB' -> '100MB'
+[correct_unit_spacing] '210 Hz' -> '210Hz'
+[correct_unit_spacing] '320 Hz' -> '320Hz'
+[correct_unit_spacing] '56 GHz' -> '56GHz'
+[convert_currency_to_symbols] Line 19: 'Error 16: This line is for checking currency conversion 45 dollars, 767 pounds, and 87 euros.' -> 'Error 16: This line is for checking currency conversion $45 , £767 , and €87 .'
+[replace_fold_phrases] Line 21: 'three-fold' -> 'threefold'
+[replace_fold_phrases] Line 23: 'five-fold' -> 'fivefold'
+[replace_fold_phrases] Line 24: 'twenty-fold' -> '20-fold'
+[enforce_lowercase_units] Line 26: '5 Km' -> '5 km'
+[enforce_lowercase_units] Line 26: '10 Gm' -> '10 gm'
+[enforce_lowercase_units] Line 26: '15 Mg' -> '15 mg'
+[enforce_lowercase_units] Line 26: '2 L' -> '2 l'
+[enforce_lowercase_units] Line 26: '30 M' -> '30 m'
+[correct_scientific_unit_symbols] '12 v' -> '12 V'
+[correct_scientific_unit_symbols] '20 n' -> '20 N'
+[correct_scientific_unit_symbols] '100 w' -> '100 W'
+[correct_scientific_unit_symbols] '10 ohm' -> '10 Ω'
+[correct_scientific_unit_symbols] '273 k' -> '273 K'
+[correct_scientific_unit_symbols] '5 t' -> '5 T'
+[correct_scientific_unit_symbols] '1 s' -> '1 S'
+[enforce_lowercase_units] Line 28: '2 L' -> '2 l'
+[correct_units_in_ranges_with_logging]: 'Error 26: This is sample test case for changing ranges. The temperature varied from 10cm to 20cm. The mass ranged from 5kg - 10kg. The length is between 2m–4m.' -> 'Error 26: This is sample test case for changing ranges. The temperature varied from 10 to 20 cm. The mass ranged from 5 - 10 kg. The length is between 2 – 4 m.'
+[correct_scientific_unit_symbols] '10 a' -> '10 A'
+[adjust_ratios] Line 85: '5 : 7' -> '5 : 7'
+[adjust_ratios] Line 85: '8 : 3' -> '8 : 3'

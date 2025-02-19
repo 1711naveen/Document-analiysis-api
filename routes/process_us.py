@@ -1896,8 +1896,6 @@ async def process_file(token_request: TokenRequest, doc_id: int = Query(...)):
         user_id=rows[5]
         cursor.execute("SELECT admin_name from admins where admin_id = %s",(user_id,))
         user = cursor.fetchone()
-        print(user)
-        print(user_id)
 
         if not rows:
             raise HTTPException(status_code=404, detail="Document not found")
@@ -1952,10 +1950,10 @@ async def process_file(token_request: TokenRequest, doc_id: int = Query(...)):
         # highlight_and_correct(doc)
         write_to_log(doc_id, user[0])
         process_doc_function1(payload, doc, doc_id, user[0])
-        # process_doc_function2(payload, doc, doc_id, user[0])
-        # process_doc_function3(payload, doc, doc_id, user[0])
-        # process_doc_function4(payload, doc, doc_id, user[0])
-        # process_doc_function6(payload, doc, doc_id, user[0])
+        process_doc_function2(payload, doc, doc_id, user[0])
+        process_doc_function3(payload, doc, doc_id, user[0])
+        process_doc_function4(payload, doc, doc_id, user[0])
+        process_doc_function6(payload, doc, doc_id, user[0])
         # process_doc_function7(payload, doc, doc_id, user[0])
         
         straight_to_curly(doc)
@@ -1969,12 +1967,13 @@ async def process_file(token_request: TokenRequest, doc_id: int = Query(...)):
             logging.info('File already processed in final_document. Skipping insert.')
         else:
             folder_url = f'/output/{user[0]}/{current_date}/{doc_id}/'
+            
             cursor.execute(
                 '''INSERT INTO final_document (row_doc_id, user_id, final_doc_size, final_doc_url, status, creation_date)
                 VALUES (%s, %s, %s, %s, %s, NOW())''',
                 (doc_id, rows[1], rows[2], folder_url, rows[7])
             )
-            logging.info('New file processed and inserted into final_document.')
+            logging.info('New file processed and inserted into final_document.') 
 
         conn.commit()
         # write_to_log(doc_id)

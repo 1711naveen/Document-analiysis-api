@@ -313,6 +313,84 @@ def remove_spaces_from_four_digit_numbers(runs, line_number):
 
 
 
+def format_large_numbers(runs, line_number):
+    """
+    For numbers (including years) with five or more digits (either side of 
+    the decimal point), insert a thin space (\u2009) between every third digit.
+    Logs the changes to the global_log, including line number and the change.
+    """
+    global global_logs
+    thin_space = "\u2009"  # Unicode thin space
+
+    # Regular expression to match numbers with at least five digits in a row
+    pattern = r'(\d{5,}|\d+\.\d{5,})'
+
+    # Collect full paragraph text from runs
+    full_text = "".join(run.text for run in runs)
+    original_text = full_text
+
+    def add_thin_spaces(match):
+        number = match.group(0)
+        if '.' in number:
+            # Split integer and decimal parts
+            integer_part, decimal_part = number.split('.')
+            formatted_integer = re.sub(r'(\d)(?=(\d{3})+$)', fr'\1{thin_space}', integer_part)
+            formatted_decimal = re.sub(r'(\d{3})(?=\d)', fr'\1{thin_space}', decimal_part)
+            return f"{formatted_integer}.{formatted_decimal}"
+        else:
+            # Format whole numbers
+            return re.sub(r'(\d)(?=(\d{3})+$)', fr'\1{thin_space}', number)
+
+    # Replace occurrences
+    updated_text = re.sub(pattern, add_thin_spaces, full_text)
+
+    # Only proceed if there's a change
+    if updated_text != original_text:
+        # Clear all runs
+        for run in runs:
+            run.text = ""
+
+        # Assign new text to the first run
+        if runs:
+            runs[0].text = updated_text
+
+        # Log the change
+        global_logs.append(
+            f"[format_large_numbers] Line {line_number}: '{original_text}' -> '{updated_text}'"
+        )
+
+
+
+# def convert_decimal_to_baseline(runs, line_number):
+#     """
+#     Converts any non-standard decimal separator (•) to a standard decimal point (.)
+#     only when both sides are numeric, in the runs of a paragraph.
+#     Logs the changes to the global_log, including line number and the change.
+#     """
+#     global global_logs
+#     # Regular expression to find '•' between numbers
+#     pattern = r'(?<=\d)\xB7(?=\d)'
+    
+#     # Iterate through each run in the paragraph
+#     for run in runs:
+#         original_text = run.text
+#         changes = []
+
+#         # Find all occurrences of '•' that are between digits and replace with '.'
+#         updated_text = re.sub(pattern, '.', original_text)
+
+#         # Update the run's text if changes were made
+#         if updated_text != original_text:
+#             run.text = updated_text
+#             changes.append((original_text, updated_text))
+
+#         # Log individual changes
+#         for original, updated in changes:
+#             global_logs.append(
+#                 f"[convert_decimal_to_baseline] Line {line_number}: '{original}' -> '{updated}'"
+#             )
+
+
 def convert_decimal_to_baseline(runs, line_number):
     """
     Converts any non-standard decimal separator (•) to a standard decimal point (.)
@@ -320,27 +398,34 @@ def convert_decimal_to_baseline(runs, line_number):
     Logs the changes to the global_log, including line number and the change.
     """
     global global_logs
-    # Regular expression to find '•' between numbers
-    pattern = r'(?<=\d)\xB7(?=\d)'
     
-    # Iterate through each run in the paragraph
-    for run in runs:
-        original_text = run.text
-        changes = []
+    # Regular expression to find '•' or '·' between numbers
+    pattern = r'(?<=\d)[•·](?=\d)'  
 
-        # Find all occurrences of '•' that are between digits and replace with '.'
-        updated_text = re.sub(pattern, '.', original_text)
+    # Collect full paragraph text from runs
+    full_text = "".join(run.text for run in runs)
+    
+    # Store original text for comparison
+    original_text = full_text
 
-        # Update the run's text if changes were made
-        if updated_text != original_text:
-            run.text = updated_text
-            changes.append((original_text, updated_text))
+    # Replace occurrences
+    updated_text = re.sub(pattern, '.', full_text)
 
-        # Log individual changes
-        for original, updated in changes:
-            global_logs.append(
-                f"[convert_decimal_to_baseline] Line {line_number}: '{original}' -> '{updated}'"
-            )
+    # Only proceed if there's a change
+    if updated_text != original_text:
+        # Clear all runs
+        for run in runs:
+            run.text = ""
+
+        # Assign new text to the first run
+        if runs:
+            runs[0].text = updated_text
+
+        # Log the change
+        global_logs.append(
+            f"[convert_decimal_to_baseline] Line {line_number}: '{original_text}' -> '{updated_text}'"
+        )
+
 
 
 def correct_scientific_unit_symbols(runs):
@@ -467,40 +552,61 @@ def format_dates(runs, line_number):
 
 
 
+# def format_ellipses_in_series(runs):
+#     """
+#     Formats ellipses in a series and ensures proper grammar.
+#     1. Ensures ellipses use exactly three dots ('...') with no spaces between them.
+#     2. Replaces more than three dots (e.g., '.....') with exactly three dots ('...').
+#     3. Removes spaces in improperly spaced ellipses (e.g., '. . .' becomes '...').
+#     4. Capitalizes the first word after the ellipses if it starts a new sentence.
+#     5. Ensures no period follows the ellipses at the end of an incomplete sentence.
+#     """
+#     for run in runs:
+#         original_text = run.text
+#         modified_text = original_text
+
+#         # Replace more than three dots with exactly three dots
+#         modified_text = re.sub(r"\.{4,}", "...", modified_text)
+
+#         # Replace improperly spaced ellipses with '...'
+#         modified_text = re.sub(r"\.\s*\.\s*\.", "...", modified_text)
+
+#         # Ensure capitalization of the first word after ellipses if it starts a sentence
+#         def capitalize_after_ellipsis(match):
+#             ellipsis = match.group(1)
+#             following_text = match.group(2).strip()
+#             # Capitalize the first letter of the following word
+#             return f"{ellipsis} {following_text.capitalize()}"
+
+#         # Matches ellipses followed by text that starts a new sentence
+#         modified_text = re.sub(r"(\.\.\.)(\s+[a-z])", capitalize_after_ellipsis, modified_text)
+        
+#         # Ensure no period follows ellipses at the end of an incomplete sentence
+#         modified_text = re.sub(r"(\.\.\.)\.", r"\1", modified_text)
+        
+#         if original_text != modified_text:
+#             run.text = modified_text
+
+
+
 def format_ellipses_in_series(runs):
     """
-    Formats ellipses in a series and ensures proper grammar.
-    1. Ensures ellipses use exactly three dots ('...') with no spaces between them.
-    2. Replaces more than three dots (e.g., '.....') with exactly three dots ('...').
-    3. Removes spaces in improperly spaced ellipses (e.g., '. . .' becomes '...').
-    4. Capitalizes the first word after the ellipses if it starts a new sentence.
-    5. Ensures no period follows the ellipses at the end of an incomplete sentence.
+    Formats dots between numbers in a series and ensures proper grammar.
+    1. Replaces dots between numbers with exactly three dots ('...') if there are two or more dots.
+    2. Handles various spacing between dots like `. . .`, `. ...`, `.... ..`, etc.
     """
     for run in runs:
         original_text = run.text
         modified_text = original_text
 
-        # Replace more than three dots with exactly three dots
-        modified_text = re.sub(r"\.{4,}", "...", modified_text)
+        pattern = r"(\d+),\s*((?:\.\s*){2,})\s*(\d+)"
 
-        # Replace improperly spaced ellipses with '...'
-        modified_text = re.sub(r"\.\s*\.\s*\.", "...", modified_text)
+        modified_text = re.sub(pattern, lambda m: f"{m.group(1)}, ... {m.group(3)}", modified_text)
 
-        # Ensure capitalization of the first word after ellipses if it starts a sentence
-        def capitalize_after_ellipsis(match):
-            ellipsis = match.group(1)
-            following_text = match.group(2).strip()
-            # Capitalize the first letter of the following word
-            return f"{ellipsis} {following_text.capitalize()}"
-
-        # Matches ellipses followed by text that starts a new sentence
-        modified_text = re.sub(r"(\.\.\.)(\s+[a-z])", capitalize_after_ellipsis, modified_text)
-        
-        # Ensure no period follows ellipses at the end of an incomplete sentence
-        modified_text = re.sub(r"(\.\.\.)\.", r"\1", modified_text)
-        
         if original_text != modified_text:
             run.text = modified_text
+
+
 
 
 # Do not repeat the unit in ranges. For example: from 10 to 20 cm not from(2.27)
@@ -533,7 +639,7 @@ def correct_units_in_ranges_with_logging(runs):
 # 24 kg not 24 kgs, kg.s or kg's (2.8)
 def correct_scientific_units_with_logging(runs):
     global global_logs
-    unit_symbols = ['kg', 'm', 's', 'A', 'K', 'mol', 'cd', 'Hz', 'N', 'Pa', 'J', 'W', 'C', 'V', 'F', 'Ω', 'ohm', 'S', 'T', 'H', 'lm', 'lx', 'Bq', 'Gy', 'Sv', 'kat']
+    unit_symbols = ['kg', 'm', 'A', 'K', 'mol', 'cd', 'Hz', 'N', 'Pa', 'J', 'W', 'C', 'V', 'F', 'Ω', 'ohm', 'S', 'T']
     pattern = rf"\b(\d+)\s*({'|'.join(re.escape(unit) for unit in unit_symbols)})\s*(s|'s|\.s)?\b"
     
     for run in runs:
@@ -555,47 +661,58 @@ def correct_scientific_units_with_logging(runs):
             run.text = new_text
 
 
+
+
+
 def use_numerals_with_percent(runs):
     global global_logs
 
     for run in runs:
         original_text = run.text
         modified_text = original_text
-        
+
         def replace_spelled_out_percent(match):
-            word = match.group(1)
+            words_before = match.group(1)
+            number_word = match.group(2)
+            percent_word = match.group(3)
+
             try:
-                num = w2n.word_to_num(word.lower())
-                modified = f"{num}%"
+                num = w2n.word_to_num(number_word.lower())
+                modified = f"{words_before}{num}%"
                 global_logs.append(
-                    f"[numerals with percent] '{word} percent' -> '{modified}'"
+                    f"[numerals with percent] '{match.group(0)}' -> '{modified}'"
                 )
                 return modified
             except ValueError:
                 return match.group(0)
         
+        # Fix for spelled-out numbers
         modified_text = re.sub(
-            r"\b([a-zA-Z\s\-]+)\s?(percent|per cent|percentage)\b",
+            r"(\b.*?\s)([a-zA-Z\-]+)\s(percent|per cent|percentage)\b",
             replace_spelled_out_percent,
             modified_text,
             flags=re.IGNORECASE,
         )
-        
+
         def replace_numerical_percent(match):
-            number = match.group(1)
-            modified = f"{number}%"
+            words_before = match.group(1)
+            number = match.group(2)
+            percent_word = match.group(3)
+
+            modified = f"{words_before}{number}%"
             global_logs.append(
                 f"[numerals with percent] '{match.group(0)}' -> '{modified}'"
             )
             return modified
-        
+
+        # Fix for numbers written numerically
         modified_text = re.sub(
-            r"(\d+)\s?(percent|per cent|percentage)\b",
+            r"(\b.*?\s)(\d+)\s(percent|per cent|percentage)\b",
             replace_numerical_percent,
             modified_text,
             flags=re.IGNORECASE,
         )
-        
+
         if modified_text != original_text:
             run.text = modified_text
 
@@ -812,7 +929,6 @@ def write_to_log(doc_id, user):
 def process_doc_function2(payload: dict, doc: Document, doc_id,user):
     line_number = 1
     for para in doc.paragraphs:
-        # working
         remove_unnecessary_apostrophes(para.runs, line_number)
         replace_fold_phrases(para.runs, line_number)
         remove_space_between_degree_and_direction(para.runs, line_number)
@@ -821,18 +937,19 @@ def process_doc_function2(payload: dict, doc: Document, doc_id,user):
         adjust_ratios(para.runs, line_number)
         remove_commas_from_numbers(para.runs, line_number)
         remove_spaces_from_four_digit_numbers(para.runs, line_number)
-        # convert_decimal_to_baseline(para.runs, line_number)not working
+        convert_decimal_to_baseline(para.runs, line_number)
+        format_large_numbers(para.runs, line_number)
         correct_scientific_unit_symbols(para.runs)
         # spell_out_number_and_unit_with_rules(para.runs, line_number)
         format_dates(para.runs, line_number)
-        # format_ellipses_in_series(para.runs)
+        format_ellipses_in_series(para.runs)
         correct_units_in_ranges_with_logging(para.runs)
-        correct_scientific_units_with_logging(para.runs)
-        # use_numerals_with_percent(para.runs) not working
+        correct_scientific_units_with_logging(para.runs)# spacing between number and unit problem
+        use_numerals_with_percent(para.runs) #not working
         correct_preposition_usage(para.runs)
         correct_unit_spacing(para.runs)
         convert_currency_to_symbols(para.runs, line_number)
-        # process_text(para.runs)
+        process_text(para.runs)
         
         # paragraph_text = " ".join([run.text for run in para.runs])
         # para.clear()

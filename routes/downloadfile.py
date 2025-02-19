@@ -64,6 +64,7 @@ async def download_file(id: str, folder: str, file: str):
     date = datetime.now().strftime("%Y-%m-%d")
     base_path = os.path.join(os.getcwd(), "output", "Admin", date, id, folder)
     file_path = os.path.join(base_path, file)
+    print(file_path)
 
     try:
         # Check if the file exists
