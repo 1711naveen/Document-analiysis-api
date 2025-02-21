@@ -32,8 +32,6 @@ def clean_web_addresses(runs):
         run.text = re.sub(r"<(https?://[^\s<>]+)>", lambda match: process_web_address(match, run.text), run.text)
 
 
-
-
 def remove_concluding_slashes_from_urls(document):
     """Update hyperlink targets and visible text (including in tables)."""
     rels = document.part.rels
@@ -69,32 +67,51 @@ def remove_concluding_slashes_from_urls(document):
                             global_logs.append(f"Updated table text: {original_url} -> {updated_url}")
 
 
+def drop_https(document):
+    """
+    Update hyperlink targets and visible text (including in tables) according to the rule:
+    - If the URL points only to a domain (i.e. path is '' or '/' with no query or fragment),
+      drop the scheme (http:// or https://) so that only the domain remains.
+    - Otherwise, leave the URL unchanged.
+    """
+    # Get all hyperlink relationships from the document
+    rels = document.part.rels
+    hyperlink_rels = {rel_id: rel for rel_id, rel in rels.items() if rel.reltype == RT.HYPERLINK}
 
+    global global_logs
+    for rel_id, rel in hyperlink_rels.items():
+        original_url = rel._target  # using the internal attribute to access the target
+        parsed = urlparse(original_url)
 
-# def remove_concluding_slashes_from_urls(runs, line_number):
-#     """
-#     Removes the concluding slash from URLs in the runs (e.g., "https://example.com/" -> "https://example.com").
-#     Args:
-#         runs (list): A list of runs (segments of text in the document).
-#         line_number (int): Line number where the change occurs.
-#     """
-#     pattern = r"(https?://[^\s/]+(?:/[^\s/]+)*)/"
-    
-#     for run in runs:
-#         matches = re.finditer(pattern, run.text)
-#         updated_text = run.text
-        
-#         for match in matches:
-#             original_text = match.group(0)
-#             updated_text_url = match.group(1)  # URL without the concluding slash (e.g., "https://example.com")
-#             updated_text = updated_text.replace(original_text, updated_text_url)
-            
-#             # Log the change
-#             global_logs.append(
-#                 f"[remove_concluding_slashes_from_urls] Line {line_number}: '{original_text}' -> '{updated_text_url}'"
-#             )
-#         # Update the run's text in place
-#         run.text = updated_text
+        # Determine if URL is a bare domain (no path beyond "/" and no query/fragment)
+        if parsed.path in ['', '/'] and not parsed.query and not parsed.fragment:
+            new_url = parsed.netloc  # drop scheme, e.g. "http://example.com" -> "example.com"
+        else:
+            new_url = original_url
+
+        # Only update if the URL has changed
+        if new_url != original_url:
+            # Update the hyperlink relationship target
+            rel._target = new_url
+            global_logs.append(f"Updated target: {original_url} -> {new_url}")
+
+            # Update visible text in paragraphs and tables if it exactly matches the original URL
+            for element in document.element.body:
+                # Process paragraphs
+                if element.tag.endswith('p'):
+                    for run in element.xpath('.//w:r'):
+                        text_elems = run.xpath('.//w:t')
+                        if text_elems and text_elems[0].text == original_url:
+                            text_elems[0].text = new_url
+                            global_logs.append(f"Updated paragraph text: {original_url} -> {new_url}")
+                # Process tables
+                elif element.tag.endswith('tbl'):
+                    for cell in element.xpath('.//w:tc'):
+                        for run in cell.xpath('.//w:r'):
+                            text_elems = run.xpath('.//w:t')
+                            if text_elems and text_elems[0].text == original_url:
+                                text_elems[0].text = new_url
+                                global_logs.append(f"Updated table text: {original_url} -> {new_url}")
 
 
 
@@ -244,7 +261,7 @@ def write_to_log(doc_id, user):
     os.makedirs(output_path_file, exist_ok=True)
     log_file_path = os.path.join(output_path_file, 'global_logs.txt')
 
-    with open(log_file_path, 'w', encoding='utf-8') as log_file:
+    with open(log_file_path, 'a', encoding='utf-8') as log_file:
         log_file.write("\n".join(global_logs))
 
     global_logs = []
@@ -257,6 +274,7 @@ def process_doc_function4(payload: dict, doc: Document, doc_id,user):
     and highlighting specific words.
     """
     line_number = 1
+    drop_https(doc)
     remove_concluding_slashes_from_urls(doc)
     remove_hyperlinks_underline(doc)
     for para in doc.paragraphs:

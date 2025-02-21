@@ -1716,11 +1716,6 @@ def curly_to_straight(doc):
             
 
 
-
-# def staright_to_curly(doc):
-#     for para in doc.paragraphs:
-#         para.text = replace_straight_quotes_with_curly(para.text)
-
 def straight_to_curly(doc):
     for para in doc.paragraphs:
         for run in para.runs:
@@ -1893,6 +1888,7 @@ async def process_file(token_request: TokenRequest, doc_id: int = Query(...)):
         cursor = conn.cursor()
         cursor.execute("SELECT * FROM row_document WHERE row_doc_id = %s", (doc_id,))
         rows = cursor.fetchone()
+        print(rows)
         user_id=rows[5]
         cursor.execute("SELECT admin_name from admins where admin_id = %s",(user_id,))
         user = cursor.fetchone()
@@ -1946,17 +1942,17 @@ async def process_file(token_request: TokenRequest, doc_id: int = Query(...)):
 
         doc = docx.Document(file_path)
 
-        curly_to_straight(doc)
-        # highlight_and_correct(doc)
+        # curly_to_straight(doc)
+        highlight_and_correct(doc)
         write_to_log(doc_id, user[0])
         process_doc_function1(payload, doc, doc_id, user[0])
-        process_doc_function2(payload, doc, doc_id, user[0])
-        process_doc_function3(payload, doc, doc_id, user[0])
-        process_doc_function4(payload, doc, doc_id, user[0])
-        process_doc_function6(payload, doc, doc_id, user[0])
+        # process_doc_function2(payload, doc, doc_id, user[0])
+        # process_doc_function3(payload, doc, doc_id, user[0])
+        # process_doc_function4(payload, doc, doc_id, user[0])
+        # process_doc_function6(payload, doc, doc_id, user[0])
         # process_doc_function7(payload, doc, doc_id, user[0])
         
-        straight_to_curly(doc)
+        # straight_to_curly(doc)
         
         doc.save(output_path)
 
@@ -1971,11 +1967,13 @@ async def process_file(token_request: TokenRequest, doc_id: int = Query(...)):
             cursor.execute(
                 '''INSERT INTO final_document (row_doc_id, user_id, final_doc_size, final_doc_url, status, creation_date)
                 VALUES (%s, %s, %s, %s, %s, NOW())''',
-                (doc_id, rows[1], rows[2], folder_url, rows[7])
+                (doc_id, user_id, rows[3], folder_url, rows[7])
             )
             logging.info('New file processed and inserted into final_document.') 
 
         conn.commit()
+        
+        
         # write_to_log(doc_id)
         logging.info(f"Processed file stored at: {output_path}")
         return {"success": True, "message": f"File processed and stored at {output_path}"}

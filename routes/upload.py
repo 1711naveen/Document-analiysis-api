@@ -25,6 +25,7 @@ async def upload_file(
     try:
         payload = jwt.decode(token.credentials, SECRET_KEY, algorithms=["HS256"])
         email = payload.get("email")
+        print(email)
     except jwt.JWTError:
         raise HTTPException(status_code=401, detail="Invalid token")
 
@@ -34,11 +35,14 @@ async def upload_file(
 
     # Save file to disk
     upload_dir = "files"
+    print(upload_dir)
     os.makedirs(upload_dir, exist_ok=True)
     file_path = os.path.join(upload_dir, file.filename)
     with open(file_path, "wb") as f:
         shutil.copyfileobj(file.file, f)
         
+    full_file_path = os.path.abspath(file_path)    
+    
     # Extract metadata from the Word document
     try:
         with ZipFile(file_path, "r") as zip_file:
@@ -90,7 +94,7 @@ async def upload_file(
                 (row_doc_name, row_doc_type, row_doc_size, user_id, row_doc_url, status, creation_date, pages, characters, words)
                 VALUES (%s, %s, %s, %s, %s, %s, NOW(), %s, %s, %s)
                 """,
-                (file.filename, "application/vnd.openxmlformats-officedocument.wordprocessingml.document", file.size, admin_id, f"/files/{file.filename}", "active", pages, characters, word_count)
+                (file.filename, "application/vnd.openxmlformats-officedocument.wordprocessingml.document", file.size, admin_id, full_file_path, 1, pages, characters, word_count)
             )
             connection.commit()
 
@@ -102,7 +106,8 @@ async def upload_file(
         raise HTTPException(status_code=500, detail=f"Database error: {str(e)}")
     finally:
         connection.close()
-
+        
+        
     # Return success response
     return JSONResponse(
         {

@@ -69,9 +69,10 @@ async def download_file(id: str, folder: str, file: str):
     try:
         # Check if the file exists
         if os.path.exists(file_path):
+            media_type = "text/plain" if folder == "text" else "application/octet-stream"
             return FileResponse(
                 file_path,
-                media_type="application/octet-stream",
+                media_type=media_type,
                 filename=file,
             )
         else:

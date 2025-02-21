@@ -474,9 +474,8 @@ def enforce_am_pm_in_runs(runs, line_num):
     remaining_text = corrected_text
     for run in runs:
         run_length = len(run.text)
-        run.text = remaining_text[:run_length]  # Assign portion of text
-        remaining_text = remaining_text[run_length:]  # Reduce remaining text
-
+        run.text = remaining_text[:run_length]
+        remaining_text = remaining_text[run_length:]
 
 
 # apples, pears, and bananas
@@ -1117,6 +1116,99 @@ def move_punctuation_inside_quotes(runs, line_number_offset):
         run.text = re.sub(r'(?<=[?!][’”"\'])\.', '', run.text)
 
 
+def single_to_double_quotes(runs):
+    single_quote_index = -1  # Store the index of the first single quote
+    single_quote_run = -1  # Store the run index of the first single quote
+
+    for i, run in enumerate(runs):
+        text = run.text
+
+        # Find exact index of `'` and `.'` in the text
+        if single_quote_index == -1:  # Store first occurrence only
+            single_quote_index = text.find("‘")
+            if single_quote_index != -1:
+                single_quote_run = i  # Store the run where it occurred
+
+        dot_single_quote_index = text.find(".’")
+
+        if dot_single_quote_index != -1 and single_quote_index != -1:
+            # Replace single quote `'` with `"` at single_quote_index
+            runs[single_quote_run].text = (
+                runs[single_quote_run].text[:single_quote_index] + '“' +
+                runs[single_quote_run].text[single_quote_index + 1:]
+            )
+
+            # Replace `.'` with `."` in the current run
+            runs[i].text = (
+                text[:dot_single_quote_index] + '.”' + text[dot_single_quote_index + 2:]
+            )
+
+            # Reset tracking variables
+            single_quote_index = -1
+            single_quote_run = -1
+
+
+
+def elide_consecutive_references(runs):
+    """
+    Processes a list of Word document runs and converts consecutive figure, table, or equation references
+    into an elided range format.
+    
+    For example, this converts:
+       "Figures 1.1, 1.2, 1.3, 1.4 and 1.5"
+    into:
+       "Figures 1.1–1.5"
+    """
+    if not runs:  # Check if runs list is empty
+        return  
+
+    # Matches references like "Figures 1.1, 1.2, 1.3, 1.4 and 1.5"
+    pattern = r"\b(Figures|Tables|Equations|Parts|Figure) ((?:\d+\.\d+(?:, | and )?)+)"
+
+    # Collect text from runs
+    full_text = "".join(run.text for run in runs)
+
+    def replace_match(match):
+        prefix = match.group(1)  # e.g., 'Figures'
+        numbers = re.split(r", | and ", match.group(2))  # e.g., ["1.1", "1.2", "1.3", "1.4", "1.5"]
+        processed_numbers = []
+
+        # Convert numbers into tuples (major, minor), e.g. (1, 1)
+        parsed_numbers = [tuple(map(int, num.split("."))) for num in numbers]
+
+        # Identify consecutive ranges
+        start = parsed_numbers[0]
+        end = start
+
+        for i in range(1, len(parsed_numbers)):
+            # Check if the current number is consecutive to the previous
+            if parsed_numbers[i][0] == end[0] and parsed_numbers[i][1] == end[1] + 1:
+                end = parsed_numbers[i]  # Extend range
+            else:
+                # Append previous range
+                if start == end:
+                    processed_numbers.append(f"{start[0]}.{start[1]}")
+                else:
+                    processed_numbers.append(f"{start[0]}.{start[1]}–{end[0]}.{end[1]}")
+                start = end = parsed_numbers[i]
+
+        # Append the last identified range
+        if start == end:
+            processed_numbers.append(f"{start[0]}.{start[1]}")
+        else:
+            processed_numbers.append(f"{start[0]}.{start[1]}–{end[0]}.{end[1]}")
+
+        return f"{prefix} {', '.join(processed_numbers)}"
+
+    # Replace text in the full_text
+    new_text = re.sub(pattern, replace_match, full_text)
+
+    # Update the runs: place the new_text in the first run and clear the others
+    runs[0].text = new_text
+    for i in range(1, len(runs)):
+        runs[i].text = ""
+
+
 
 def process_doc_function1(payload: dict, doc: Document, doc_id, user):
     """
@@ -1128,6 +1220,8 @@ def process_doc_function1(payload: dict, doc: Document, doc_id, user):
     
     replaced_units = set()
     for para in doc.paragraphs:
+        # elide_consecutive_references(para.runs)
+        # single_to_double_quotes(para.runs)
         move_punctuation_inside_quotes(para.runs, line_number)
         apply_abbreviation_mapping(para.runs, abbreviation_dict, line_number)
         convert_century_in_runs(para.runs, line_number)
