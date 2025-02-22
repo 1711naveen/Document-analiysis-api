@@ -77,6 +77,7 @@ def get_file_data_from_database(final_doc_id: str):
         result = cursor.fetchone()
         conn.close()
         return result
+    
     except Exception as e:
         logging.error(f"Database error: {e}")
         return None

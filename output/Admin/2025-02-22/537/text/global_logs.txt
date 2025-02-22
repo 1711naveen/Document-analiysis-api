@@ -1,0 +1,73 @@
+
+Start Time: 2025-02-22 10:46:09.422550
+End Time: 2025-02-22 10:46:37.405621
+Analysis completed in 27.98 seconds.
+
+
+FileName: For Testing (1).docx
+
+
+Line 20: Cross-references -> Suggestions: cross references, cross-references, preferences, references, conferences, concrescence
+Line 134: Arabic -> Suggestions: Arabic, aruba, brazil
+Line 136: Quran -> Suggestions: Quran, quean, buran, furan, Duran, qu ran, qu-ran, iran, sudan
+Line 136: Islam, -> Suggestions: Islam, slam, i slam, is lam, is-lam, isl am, isl-am, israel, iran, iraq, italy, guam, asia, palau
+Line 176: Rawls' -> Suggestions: awls, trawls, crawls, drawls, brawls, rails, pawls, bawls, yawls, raw's, r awls, raw ls, raw-ls, scrawl, laos, mali
+Line 190: ABC’s -> Suggestions: abs, cabs, abas, arcs, ab cs, ab-cs, ABCs, asia, laos, gabon, cocos
+Line 200: U.S.A -> Suggestions: USA, us, Susa, use, usu, Asa, us a, asia, cuba
+Line 258: no3 -> Suggestions: no, nos, non, nor, not, nod, nog, nom, nob, now, no 3, niue, laos, togo
+Line 270: M.B.A, -> Suggestions: MBA, mb, ma, aba, moa, mb a, cuba
+Line 286: BCE, -> Suggestions: be, bice, bee, ice, ace, bye, Ice, i.e., niue
+Line 286: CE -> Suggestions: Ce, cw, cr, c, e, ice, ace, cen, cue, Ice, cs, ca, ae, ne, re, cuba, chile, chad, i.e., peru, niue
+Line 296: BCE, -> Suggestions: be, bice, bee, ice, ace, bye, Ice, i.e., niue
+Line 304: Latinisms -> Suggestions: Latinism, Latinists, Latinist, actinisms
+Line 312: Latinisms -> Suggestions: Latinism, Latinists, Latinist, actinisms
+Line 316: vitro -> Suggestions: nitro, vitriol
+Line 322: eg, -> Suggestions: Eg, eh, e, g, eng, neg, erg, reg, ego, leg, deg, egg, meg, peg, beg, e.g.
+Line 326: ie., -> Suggestions: IE, ai, i, e, ire, tie, lie, ice, die, gie, pie, hie, fie, vie, Lie, i.e., niue
+Line 332: e.g. -> Suggestions: Eg, eh, e, g, eng, neg, erg, reg, ego, leg, deg, egg, meg, peg, beg, e.g.
+Line 338: e.g., -> Suggestions: Eg, eh, e, g, eng, neg, erg, reg, ego, leg, deg, egg, meg, peg, beg, e.g.
+Line 350: i.e. -> Suggestions: IE, ai, i, e, ire, tie, lie, ice, die, gie, pie, hie, fie, vie, Lie, i.e., niue
+Line 352: i.e., -> Suggestions: IE, ai, i, e, ire, tie, lie, ice, die, gie, pie, hie, fie, vie, Lie, i.e., niue
+Line 358: e.g. -> Suggestions: Eg, eh, e, g, eng, neg, erg, reg, ego, leg, deg, egg, meg, peg, beg, e.g.
+Line 358: i.e. -> Suggestions: IE, ai, i, e, ire, tie, lie, ice, die, gie, pie, hie, fie, vie, Lie, i.e., niue
+Line 362: i.e., -> Suggestions: IE, ai, i, e, ire, tie, lie, ice, die, gie, pie, hie, fie, vie, Lie, i.e., niue
+Line 396: Cross-references -> Suggestions: cross references, cross-references, preferences, references, conferences, concrescence
+Line 400: Johnson -> Suggestions: Johnson, john son, john-son, johns on, johns-on
+Line 414: Cross-references -> Suggestions: cross references, cross-references, preferences, references, conferences, concrescence
+Line 428: 2.13a -> Suggestions: asia, cuba
+Line 440: don't -> Suggestions: font, dint, don, dot, don't, done, dent, dons, dost, doit, dona, dolt, cont, dunt, dong, congo, tonga, togo
+Line 450: 1940’s -> No suggestions available
+Line 460: company's -> Suggestions: company, company's, company s, companions
+Line 460: 10-fold -> Suggestions: fold
+Line 472: one:four, -> Suggestions: one four, one-four, Fourneyron, fourgon
+Line 522: kgs, -> Suggestions: kg, ks, gs, kegs, kos, k gs, kg s, laos, e.g., togo
+Line 542: 2.13b -> No suggestions available
+Line 544: (maths) -> Suggestions: math, mats, mates, meths, moths, oaths, laths, paths, baths, myths, mat's, math s, Athamas, mali, malta, laos, qatar
+Line 566: two-and-a-half -> Suggestions: twohanded
+Line 588: bakery's -> Suggestions: bakery, bakers, bakery's, baker's, bakery s, baker, Baker
+Line 598: 1000-piece -> Suggestions: neckpiece
+Line 606: 1000-piece -> Suggestions: neckpiece
+Line 662: 10cm–15cm -> No suggestions available
+Line 680: 3rdoption -> Suggestions: 3rd option, 3rd-option, readoption
+Line 680: 1stperson -> Suggestions: 1st person, 1st-person, Peterson
+Line 694: firstchapter -> Suggestions: first chapter, first-chapter, subchapter
+Line 694: secondin -> Suggestions: seconding, second in, second-in, second, secundine[convert century] Line 23: 20th ->  twentieth
+[remove_quotation] Line 27: 'I'' -> 'I'
+[remove_quotation] Line 53: 'ABC’' -> 'ABC'
+[correct_acronyms] Line 56: 'U.S.A' -> 'USA'
+[correct_acronyms] Line 57: 'b.p.m' -> 'bpm'
+[apply_abbreviation_mapping] Line 64: 'Inc' -> 'Inc.'
+[correct_acronyms] Line 69: 'M.B.A' -> 'MBA'
+[e.g. correction] Line 85: 'eg' -> 'e.g.'
+[i.e. correction] Line 87: 'ie' -> 'i.e.'
+[process_paragraph] Line 87: Replaced space before 'i.e.' with ':'
+[set_latinisms_to_roman] Line 89: 'e.g.' -> 'e.g.'
+[set_latinisms_to_roman] Line 94: 'i.e.' -> 'i.e.'
+[process_paragraph] Line 94: Replaced space before 'i.e.' with ':'
+[set_latinisms_to_roman] Line 97: 'i.e.' -> 'i.e.'
+[process_paragraph] Line 97: Replaced space before 'i.e.' with ':'
+[etc. correction] Line 101: 'etc' -> 'etc.'
+[set_latinisms_to_roman] Line 110: 'etc.' -> 'etc.'
+[etc. correction] Line 110: 'etc' -> 'etc.'
+[shorten title] Line 156: ms -> Ms.
+[shorten title] Line 180: ms -> Ms.
