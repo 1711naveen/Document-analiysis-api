@@ -1,7 +1,7 @@
 
-Start Time: 2025-02-25 11:10:49.394719
-End Time: 2025-02-25 11:11:20.256754
-Analysis completed in 30.86 seconds.
+Start Time: 2025-02-25 11:31:34.398920
+End Time: 2025-02-25 11:32:32.014825
+Analysis completed in 57.62 seconds.
 
 
 FileName: sample document 2.docx
