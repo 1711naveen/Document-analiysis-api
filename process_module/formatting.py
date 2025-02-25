@@ -280,7 +280,7 @@ def process_doc_function4(payload: dict, doc: Document, doc_id,user):
     for para in doc.paragraphs:
         clean_web_addresses(para.runs)
         process_url_add_http(para.runs)
-        process_url_remove_http(para.runs)
+        # process_url_remove_http(para.runs)
         # remove_url_underlining(para.runs, line_number)
 
        

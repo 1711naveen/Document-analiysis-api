@@ -67,21 +67,6 @@ def remove_single_number_period(runs):
             first_run.text = first_run.text.replace(match.group(1) + ".", match.group(1), 1)
 
 
-
-# def write_to_log(doc_id):
-#     """
-#     Writes the global logs to a log file. If the file already exists, it appends to it.
-#     :param doc_id: The document ID used to determine the log file's directory.
-#     """
-#     global global_logs
-#     output_dir = os.path.join('output', str(doc_id))
-#     os.makedirs(output_dir, exist_ok=True)
-#     log_file_path = os.path.join(output_dir, 'global_logs.txt')
-#     with open(log_file_path, 'a', encoding='utf-8') as log_file:
-#         log_file.write("\n".join(global_logs) + "\n")
-#     global_logs = []
-
-
 def write_to_log(doc_id, user):
     global global_logs
     current_date = datetime.now().strftime("%Y-%m-%d")

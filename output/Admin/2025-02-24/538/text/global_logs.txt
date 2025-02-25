@@ -1,0 +1,105 @@
+
+Start Time: 2025-02-24 18:33:35.236472
+End Time: 2025-02-24 18:34:10.507224
+Analysis completed in 35.27 seconds.
+
+
+FileName: sample document 2.docx
+
+
+Line 14: Mann–Whitney -> Suggestions: Whitney
+Line 24: 3.7Soft -> Suggestions: soft
+Line 26: well-being -> Suggestions: well being, well-being, welling, belling
+Line 26: prio- -> Suggestions: pro, prion, prior, primo, trio, prig, prim, brio, priv, Prior, peru, iran, iraq, asia, spain, syria, togo
+Line 28: -rity. -> Suggestions: rit, ritzy, rite, city, rimy, pity, City, rit y, italy, iran, iraq, libya, haiti, niue, fiji
+Line 32: 3.8Style: -> Suggestions: style
+Line 34: system—Block -> Suggestions: system block, system-block, systematology
+Line 40: 3.9a -> Suggestions: iran, iraq, oman, asia, guam, cuba, chad
+Line 46: brother—who -> Suggestions: brother who, brother-who, brotherhood, brother, otherwhere
+Line 46: York—loves -> Suggestions: york loves, york-loves, Yorkshires
+Line 56: 4.2a -> Suggestions: iran, iraq, oman, asia, guam, cuba, chad
+Line 56: addresses/URLs -> Suggestions: addressees, addressee, addressed
+Line 58: https://www.gog.com/en/games/new. -> No suggestions available
+Line 62: 4.2b -> Suggestions: cuba
+Line 64: <https://www.example.com\>. -> Suggestions: counterexample
+Line 68: 4.2c -> No suggestions available
+Line 70: https://www.example.com. -> Suggestions: counterexample
+Line 74: 4.2d -> Suggestions: 42nd, chad
+Line 74: URLs -> Suggestions: curls, purls, hurls, burls, furls, urns, urus, URLs, iran, iraq, laos, mali
+Line 78: 4.2e: -> Suggestions: i.e., niue
+Line 78: addresses/URLs -> Suggestions: addressees, addressee, addressed
+Line 82: https://example.com; -> Suggestions: counterexample
+Line 82: trojan -> Suggestions: Trojan, taiwan, oman, iran
+Line 86: 4.2f -> No suggestions available
+Line 86: addresses/URLs -> Suggestions: addressees, addressee, addressed
+Line 90: www.example.com/about-us -> Suggestions: counterexamples
+Line 94: addresses/URLs -> Suggestions: addressees, addressee, addressed
+Line 98: https://www.Google.com -> No suggestions available
+Line 102: addresses/URLs -> Suggestions: addressees, addressee, addressed
+Line 104: https://www.example.com/about-us/ -> No suggestions available
+Line 120: subparts -> Suggestions: sub parts, sub-parts, subpar ts, subpar-ts, subpar
+Line 136: Open-loop -> Suggestions: open loop, open-loop, Penelope, envelope
+Line 136: closed-loop -> Suggestions: closed loop, closed-loop, closefisted
+Line 138: Open-Loop -> Suggestions: open loop, open-loop, Penelope, envelope
+Line 138: Closed-Loop -> Suggestions: closed loop, closed-loop, closefisted
+Line 142: 5.3Style: -> Suggestions: style
+Line 144: Open-Loop -> Suggestions: open loop, open-loop, Penelope, envelope
+Line 144: Closed-Loop -> Suggestions: closed loop, closed-loop, closefisted
+Line 146: 5.4Style: -> Suggestions: style
+Line 146: Cross-references -> Suggestions: cross references, cross-references, preferences, references, conferences, concrescence
+Line 176: Object-Oriented -> Suggestions: object oriented, object-oriented, objectiveness
+Line 200: Machine-Learning -> Suggestions: machine learning, machine-learning, Machiavellianism
+Line 200: Deep-learning -> Suggestions: deep learning, deep-learning, learning's
+Line 212: Programming?Definition -> Suggestions: programming definition, programming-definition, multiprogramming
+Line 212: ImportanceHistory -> Suggestions: importance history, importance-history, importance
+Line 214: ProgrammingVariables -> Suggestions: programming variables, programming-variables, programmables
+Line 214: TypesControl -> Suggestions: types control, types-control, controllership
+Line 216: ParadigmsProcedural -> Suggestions: paradigms procedural, paradigms-procedural, procedural
+Line 216: ProgrammingObject-Oriented -> Suggestions: multiprogramming
+Line 218: ProgramWriting -> Suggestions: program writing, program-writing, programming, programing
+Line 218: World!"Running -> Suggestions: world running, world-running, worldling
+Line 220: ProgrammingIntegrated -> Suggestions: programming integrated, programming-integrated, multiprogramming
+Line 220: (IDEs)Choosing -> Suggestions: ides choosing, ides-choosing, homeschooling, choosiness
+Line 264: 8.3a -> Suggestions: iran, iraq, oman, asia, guam, cuba, chad
+Line 272: 8.3b -> Suggestions: cuba
+Line 286: 8.9a -> Suggestions: iran, iraq, oman, asia, guam, cuba, chad
+Line 288: Year-over-year -> Suggestions: yesteryear, overweary
+Line 290: 8.9b -> Suggestions: cuba
+Line 290: Uncaptioned -> Suggestions: captioned, unconditioned, unsanctioned, ineducation
+Line 294: Cross-reference -> Suggestions: cross reference, cross-reference, subconference
+Line 324: America -> Suggestions: America, africa
+Line 474: 9.11a -> Suggestions: asia, cuba
+Line 488: America -> Suggestions: America, africa
+Line 504: 9.11b -> No suggestions available
+Line 522: A1 -> Suggestions: a, 1, ae, as, ai, aa, an, ar, at, al, ac, ad, am, ah, ab, asia, iran, iraq, laos, oman, guam, mali, chad
+Line 528: stock3 -> Suggestions: stock, stocks, stocky, stock 3, Stockton
+Line 536: stock2 -> Suggestions: stock, stocks, stocky, stock 2, Stockton
+Line 546: Notes:1 -> Suggestions: notes, notes 1, note's
+Line 546: ³ -> Suggestions: e, s, i, a, n, r, t, o, l, c, d, u, g, m, p
+Line 618: Cross-reference -> Suggestions: cross reference, cross-reference, subconference
+Line 626: End-of-Chapter -> Suggestions: subchapter
+Line 634: America. -> Suggestions: America, africa
+Line 640: techniques¹." -> Suggestions: techniques, technique
+Line 642: Footnote:¹ -> Suggestions: footnote, footnotes, footnoted, footstone
+Line 642: America. -> Suggestions: America, africa
+Line 648: Thomas -> Suggestions: Thomas, tho mas, tho-mas, oman, bahamas
+Line 648: Newcomen -> Suggestions: Newcomen, newcomer
+Line 650: Footnote:¹ -> Suggestions: footnote, footnotes, footnoted, footstone
+Line 650: Thomas -> Suggestions: Thomas, tho mas, tho-mas, oman, bahamas
+Line 650: Newcomen's -> Suggestions: newcomers, Newcomen, newcomer, newswomen
+Line 650: James -> Suggestions: James, hames, jams, sames, names, tames, lames, jades, dames, games, japes, jambs, jakes, jam's, ja mes, japan, laos, samoa, yemen
+Line 656: techniques.¹" -> Suggestions: techniques, technique
+Line 658: Footnote:¹ -> Suggestions: footnote, footnotes, footnoted, footstone
+Line 658: America -> Suggestions: America, africa
+Line 664: techniques.¹" -> Suggestions: techniques, technique
+Line 666: Footnote:¹ -> Suggestions: footnote, footnotes, footnoted, footstone
+Line 666: America. -> Suggestions: America, africaUpdated target: https://example.com -> example.com
+Updated paragraph text: https://example.com -> example.com
+Updated target: https://www.example.com -> www.example.com
+Updated paragraph text: https://www.example.com -> www.example.com
+Updated target: https://www.Google.com -> www.Google.com
+Updated paragraph text: https://www.Google.com -> www.Google.com
+Updated target: https://www.example.com/about-us/ -> https://www.example.com/about-us
+Updated paragraph text: https://www.example.com/about-us/ -> https://www.example.com/about-us
+[clean_web_addresses] Line 1: '<https://www.example.com\>' -> 'https://www.example.com\'
+[process_url_add_http] Line 1: 'www.example.com\.' -> 'http://www.example.com\.'

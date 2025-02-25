@@ -10,6 +10,7 @@ from pathlib import Path
 global_logs = []
 seen_symbols = set()
 
+
 # A map of numbers to century strings
 century_map = {
     1: "first",
@@ -591,43 +592,6 @@ def correct_possessive_names_in_runs(runs, line_number):
 
 
 
-# change the unis to short form only first time in full form in brackets
-def units_with_bracket_in_runs(runs, replaced_units):
-    """
-    Replaces units with their full names and appends the abbreviated form in brackets.
-    Modifies the runs in place.
-
-    :param runs: List of Run objects in the paragraph.
-    :param replaced_units: Set of units that have already been replaced.
-    :return: None (modifies runs in place).
-    """
-    units = {
-        "s": "seconds",
-        "m": "meter",
-        "kg": "kilogram",
-        "A": "ampere",
-        "K": "kelvin",
-        "mol": "mole",
-        "cd": "candela"
-    }
-
-    def replace(match):
-        number = match.group(1)
-        unit = match.group(2)
-        
-        if unit not in replaced_units:
-            replaced_units.add(unit)
-            full_unit = units.get(unit, unit)
-            return f"{number} {full_unit} ({unit})"
-        else:
-            return f"{number} {unit}"
-
-    pattern = r"(\d+)\s?([a-zA-Z]+)"
-
-    for run in runs:
-        run.text = re.sub(pattern, replace, run.text)
-
-
 def remove_and_in_runs(runs, line_number):
     """
     Replaces 'and' between two capitalized words with an ampersand (&).
@@ -901,7 +865,7 @@ def standardize_etc_in_runs(runs, line_number):
 
 def insert_thin_space_between_number_and_unit_in_runs(runs, line_number):
     global global_logs
-    thin_space = '\u2009'  # Unicode for thin space
+    thin_space = '\u2009'
 
     # Get full paragraph text
     full_text = "".join(run.text for run in runs)
@@ -1209,6 +1173,38 @@ def elide_consecutive_references(runs):
         runs[i].text = ""
 
 
+def units_with_bracket(runs, used_units):
+    units = {
+        "s": "second",
+        "m": "meter",
+        "kg": "kilogram",
+        "A": "ampere",
+        "K": "kelvin",
+        "mol": "mole",
+        "cd": "candela"
+    }
+    
+    pattern = r'\b(\d+(?:\.\d+)?)\s+(' + '|'.join(re.escape(unit) for unit in units.keys()) + r')\b'
+    
+    for run in runs:
+        def replace_unit(match):
+            number = match.group(1)
+            unit = match.group(2)
+            if unit in used_units:
+                return match.group(0)  # If already replaced, return the original "number unit"
+            else:
+                used_units.add(unit)
+                full_form = units[unit]
+                # Append an "s" to the full form if needed (except for "mol" or if already plural)
+                if unit != "mol" and not full_form.endswith("s"):
+                    full_form += "s"
+                replacement = f"{number} {full_form} ({unit.lower()})"
+                global_logs.append(f"Unit {unit} replaced with {replacement}")
+                return replacement
+
+        run.text = re.sub(pattern, replace_unit, run.text)
+
+
 
 def process_doc_function1(payload: dict, doc: Document, doc_id, user):
     """
@@ -1217,11 +1213,16 @@ def process_doc_function1(payload: dict, doc: Document, doc_id, user):
     """
     line_number = 1
     abbreviation_dict = fetch_abbreviation_mappings()
+    used_units = set()
     
     replaced_units = set()
+
     for para in doc.paragraphs:
-        # elide_consecutive_references(para.runs)
-        # single_to_double_quotes(para.runs)
+        if para.style.name.startswith("Heading") and para.text.strip().startswith("Chapter"):
+            used_units = set()
+        # insert_thin_space_between_number_and_unit_in_runs(para.runs, line_number)
+        elide_consecutive_references(para.runs)
+        single_to_double_quotes(para.runs)
         move_punctuation_inside_quotes(para.runs, line_number)
         apply_abbreviation_mapping(para.runs, abbreviation_dict, line_number)
         convert_century_in_runs(para.runs, line_number)
@@ -1236,9 +1237,9 @@ def process_doc_function1(payload: dict, doc: Document, doc_id, user):
             rename_section_in_runs(para.runs)
         replace_ampersand_in_runs(para.runs, line_number)
         correct_possessive_names_in_runs(para.runs, line_number)
-        # units_with_bracket_in_runs(para.runs, replaced_units)# not working
+        units_with_bracket(para.runs, used_units)
         remove_and_in_runs(para.runs, line_number)
-        remove_quotation_in_runs(para.runs, line_number)#not working
+        remove_quotation_in_runs(para.runs, line_number)
         correct_acronyms_in_runs(para.runs, line_number)
         enforce_eg_rule_with_logging_in_runs(para.runs, line_number)
         enforce_ie_rule_with_logging_in_runs(para.runs, line_number)
@@ -1248,6 +1249,4 @@ def process_doc_function1(payload: dict, doc: Document, doc_id, user):
         line_number += 1
 
     write_to_log(doc_id, user)
-    
-    
     

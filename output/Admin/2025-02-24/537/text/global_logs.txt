@@ -1,0 +1,162 @@
+
+Start Time: 2025-02-24 15:38:57.193687
+End Time: 2025-02-24 15:39:19.620258
+Analysis completed in 22.43 seconds.
+
+
+FileName: For Testing (1).docx
+
+
+Line 20: Cross-references -> Suggestions: cross references, cross-references, preferences, references, conferences, concrescence
+Line 134: Arabic -> Suggestions: Arabic, aruba, brazil
+Line 136: Quran -> Suggestions: Quran, quean, buran, furan, Duran, qu ran, qu-ran, iran, sudan
+Line 136: Islam, -> Suggestions: Islam, slam, i slam, is lam, is-lam, isl am, isl-am, israel, iran, iraq, italy, guam, asia, palau
+Line 176: Rawls' -> Suggestions: awls, trawls, crawls, drawls, brawls, rails, pawls, bawls, yawls, raw's, r awls, raw ls, raw-ls, scrawl, laos, mali
+Line 190: ABC’s -> Suggestions: abs, cabs, abas, arcs, ab cs, ab-cs, ABCs, asia, laos, gabon, cocos
+Line 200: U.S.A -> Suggestions: USA, us, Susa, use, usu, Asa, us a, asia, cuba
+Line 264: no3 -> Suggestions: no, nos, non, nor, not, nod, nog, nom, nob, now, no 3, niue, laos, togo
+Line 276: M.B.A, -> Suggestions: MBA, mb, ma, aba, moa, mb a, cuba
+Line 292: BCE, -> Suggestions: be, bice, bee, ice, ace, bye, Ice, i.e., niue
+Line 292: CE -> Suggestions: Ce, cw, cr, c, e, ice, ace, cen, cue, Ice, cs, ca, ae, ne, re, cuba, chile, chad, i.e., peru, niue
+Line 302: BCE, -> Suggestions: be, bice, bee, ice, ace, bye, Ice, i.e., niue
+Line 310: Latinisms -> Suggestions: Latinism, Latinists, Latinist, actinisms
+Line 318: Latinisms -> Suggestions: Latinism, Latinists, Latinist, actinisms
+Line 322: vitro -> Suggestions: nitro, vitriol
+Line 328: eg, -> Suggestions: Eg, eh, e, g, eng, neg, erg, reg, ego, leg, deg, egg, meg, peg, beg, e.g.
+Line 332: ie., -> Suggestions: IE, ai, i, e, ire, tie, lie, ice, die, gie, pie, hie, fie, vie, Lie, i.e., niue
+Line 338: e.g. -> Suggestions: Eg, eh, e, g, eng, neg, erg, reg, ego, leg, deg, egg, meg, peg, beg, e.g.
+Line 344: e.g., -> Suggestions: Eg, eh, e, g, eng, neg, erg, reg, ego, leg, deg, egg, meg, peg, beg, e.g.
+Line 356: i.e. -> Suggestions: IE, ai, i, e, ire, tie, lie, ice, die, gie, pie, hie, fie, vie, Lie, i.e., niue
+Line 358: i.e., -> Suggestions: IE, ai, i, e, ire, tie, lie, ice, die, gie, pie, hie, fie, vie, Lie, i.e., niue
+Line 364: e.g. -> Suggestions: Eg, eh, e, g, eng, neg, erg, reg, ego, leg, deg, egg, meg, peg, beg, e.g.
+Line 364: i.e. -> Suggestions: IE, ai, i, e, ire, tie, lie, ice, die, gie, pie, hie, fie, vie, Lie, i.e., niue
+Line 368: i.e., -> Suggestions: IE, ai, i, e, ire, tie, lie, ice, die, gie, pie, hie, fie, vie, Lie, i.e., niue
+Line 402: Cross-references -> Suggestions: cross references, cross-references, preferences, references, conferences, concrescence
+Line 406: Johnson -> Suggestions: Johnson, john son, john-son, johns on, johns-on
+Line 420: Cross-references -> Suggestions: cross references, cross-references, preferences, references, conferences, concrescence
+Line 434: 2.13a -> Suggestions: asia, cuba
+Line 446: don't -> Suggestions: font, dint, don, dot, don't, done, dent, dons, dost, doit, dona, dolt, cont, dunt, dong, congo, tonga, togo
+Line 456: 1940’s -> No suggestions available
+Line 466: company's -> Suggestions: company, company's, company s, companions
+Line 466: 10-fold -> Suggestions: fold
+Line 478: one:four, -> Suggestions: one four, one-four, Fourneyron, fourgon
+Line 528: kgs, -> Suggestions: kg, ks, gs, kegs, kos, k gs, kg s, laos, e.g., togo
+Line 548: 2.13b -> No suggestions available
+Line 550: (maths) -> Suggestions: math, mats, mates, meths, moths, oaths, laths, paths, baths, myths, mat's, math s, Athamas, mali, malta, laos, qatar
+Line 572: two-and-a-half -> Suggestions: twohanded
+Line 594: bakery's -> Suggestions: bakery, bakers, bakery's, baker's, bakery s, baker, Baker
+Line 604: 1000-piece -> Suggestions: neckpiece
+Line 612: 1000-piece -> Suggestions: neckpiece
+Line 668: 10cm–15cm -> No suggestions available
+Line 686: 3rdoption -> Suggestions: 3rd option, 3rd-option, readoption
+Line 686: 1stperson -> Suggestions: 1st person, 1st-person, Peterson
+Line 700: firstchapter -> Suggestions: first chapter, first-chapter, subchapter
+Line 700: secondin -> Suggestions: seconding, second in, second-in, second, secundine[insert_thin_space_between_number_and_unit] Line 12: '4 and' -> '4 and'
+[insert_thin_space_between_number_and_unit] Line 12: '5 illustrate' -> '5 illustrate'
+[insert_thin_space_between_number_and_unit] Line 23: '20th' -> '20 th'
+[remove_quotation] Line 26: 'I'' -> 'I'
+[remove_quotation] Line 27: 'I'' -> 'I'
+[remove_quotation] Line 53: 'ABC’' -> 'ABC'
+[correct_acronyms] Line 56: 'U.S.A' -> 'USA'
+[insert_thin_space_between_number_and_unit] Line 57: '120 b' -> '120 b'
+[correct_acronyms] Line 57: 'b.p.m' -> 'bpm'
+[insert_thin_space_between_number_and_unit] Line 60: '30 am' -> '30 am'
+[insert_thin_space_between_number_and_unit] Line 63: '5 m' -> '5 m'
+[insert_thin_space_between_number_and_unit] Line 63: '2 s' -> '2 s'
+[insert_thin_space_between_number_and_unit] Line 63: '10 kg' -> '10 kg'
+[insert_thin_space_between_number_and_unit] Line 63: '2 A' -> '2 A'
+[insert_thin_space_between_number_and_unit] Line 63: '300 K' -> '300 K'
+[insert_thin_space_between_number_and_unit] Line 63: '3 mol' -> '3 mol'
+[insert_thin_space_between_number_and_unit] Line 63: '50 cd' -> '50 cd'
+[insert_thin_space_between_number_and_unit] Line 63: '10 m' -> '10 m'
+[insert_thin_space_between_number_and_unit] Line 63: '5 m' -> '5 m'
+[insert_thin_space_between_number_and_unit] Line 63: '2 s' -> '2 s'
+[insert_thin_space_between_number_and_unit] Line 63: '10 kg' -> '10 kg'
+[insert_thin_space_between_number_and_unit] Line 63: '2 A' -> '2 A'
+Unit m replaced with 5 meters (m)
+Unit s replaced with 2 seconds (s)
+Unit kg replaced with 10 kilograms (kg)
+Unit A replaced with 2 amperes (a)
+Unit K replaced with 300 kelvins (k)
+Unit mol replaced with 3 mole (mol)
+Unit cd replaced with 50 candelas (cd)
+[apply_abbreviation_mapping] Line 67: 'Inc' -> 'Inc.'
+[insert_thin_space_between_number_and_unit] Line 70: '3 on' -> '3 on'
+[correct_acronyms] Line 72: 'M.B.A' -> 'MBA'
+[insert_thin_space_between_number_and_unit] Line 79: '500 BCE' -> '500 BCE'
+[set_latinisms_to_roman] Line 82: 'vice versa' -> 'vice versa'
+[e.g. correction] Line 88: 'You should eat more fruits, and vegetables, eg, apples, carrots, and spinach, for a healthier diet.' -> 'You should eat more fruits, and vegetables, e.g. apples, carrots, and spinach, for a healthier diet.'
+[i.e. correction] Line 90: 'The team focuses on specific tasks, ie., improving customer service, and increasing product quality.' -> 'The team focuses on specific tasks, i.e. improving customer service, and increasing product quality.'
+[process_paragraph] Line 90: Replaced space before 'i.e.' with ':'
+[set_latinisms_to_roman] Line 92: 'e.g.' -> 'e.g.'
+[set_latinisms_to_roman] Line 97: 'i.e.' -> 'i.e.'
+[process_paragraph] Line 97: Replaced space before 'i.e.' with ':'
+[set_latinisms_to_roman] Line 100: 'i.e.' -> 'i.e.'
+[process_paragraph] Line 100: Replaced space before 'i.e.' with ':'
+[set_latinisms_to_roman] Line 104: 'etc.' -> 'etc.'
+[etc. correction] Line 104: 'etc' -> 'etc.'
+[replace_ampersand] Line 107: 'novels &poetry' -> 'novels and poetry'
+[insert_thin_space_between_number_and_unit] Line 108: '25 percent' -> '25 percent'
+[insert_thin_space_between_number_and_unit] Line 111: '4 of' -> '4 of'
+[set_latinisms_to_roman] Line 113: 'etc.' -> 'etc.'
+[etc. correction] Line 113: 'etc' -> 'etc.'
+[insert_thin_space_between_number_and_unit] Line 142: '5 kg' -> '5 kg'
+[insert_thin_space_between_number_and_unit] Line 144: '45 kgs' -> '45 kgs'
+[insert_thin_space_between_number_and_unit] Line 145: '15 Kg' -> '15 Kg'
+[insert_thin_space_between_number_and_unit] Line 146: '10 Km' -> '10 Km'
+[insert_thin_space_between_number_and_unit] Line 147: '200 j' -> '200 j'
+[insert_thin_space_between_number_and_unit] Line 150: '1 to' -> '1 to'
+[insert_thin_space_between_number_and_unit] Line 152: '5 children' -> '5 children'
+[insert_thin_space_between_number_and_unit] Line 156: '2 million' -> '2 million'
+[insert_thin_space_between_number_and_unit] Line 159: '4 kilograms' -> '4 kilograms'
+[shorten title] Line 159: ms -> Ms.
+[insert_thin_space_between_number_and_unit] Line 161: '000 for' -> '000 for'
+[insert_thin_space_between_number_and_unit] Line 163: '000 for' -> '000 for'
+[insert_thin_space_between_number_and_unit] Line 166: '10000 participants' -> '10000 participants'
+[insert_thin_space_between_number_and_unit] Line 169: '5 weeks' -> '5 weeks'
+[insert_thin_space_between_number_and_unit] Line 172: '86 cups' -> '86 cups'
+[insert_thin_space_between_number_and_unit] Line 174: '66 provide' -> '66 provide'
+[insert_thin_space_between_number_and_unit] Line 177: '74 helped' -> '74 helped'
+[insert_thin_space_between_number_and_unit] Line 180: '10cm' -> '10 cm'
+[insert_thin_space_between_number_and_unit] Line 180: '15cm' -> '15 cm'
+[insert_thin_space_between_number_and_unit] Line 183: '3rdoption' -> '3 rdoption'
+[insert_thin_space_between_number_and_unit] Line 183: '1stperson' -> '1 stperson'
+[shorten title] Line 183: ms -> Ms.
+[insert_thin_space_between_number_and_unit] Line 198: '1200 dollars' -> '1200 dollars'
+[insert_thin_space_between_number_and_unit] Line 199: '50 pounds' -> '50 pounds'
+[insert_thin_space_between_number_and_unit] Line 200: '75 euros' -> '75 euros'[adjust_ratios] Line 60: '6:3' -> '6 : 3'
+[correct_scientific_unit_symbols] '2 s' -> '2 S'
+[correct_scientific_unit_symbols] '2 A' -> '2 A'
+[correct_units_in_ranges_with_logging]: 'The length measured 5 meters (m) in 2 seconds (s), and the mass was 10 kilograms (kg). The current was 2 amperes (a), and the temperature reached 300 kelvins (k). Substance measured 3 mole (mol), and luminous intensity was 50 candelas (cd). Another 10 m were recorded. The length measured 5 m in 2 S, and the mass was 10 kg. The current was 2 A' -> 'The length measured 5 meters (m) in 2 seconds (s), and the mass was 10 kilograms (kg). The current was 2 amperes (a), and the temperature reached 300 kelvins (k). Substance measured 3 mole (mol), and luminous intensity was 50 candelas (cd). Another 10 m were recorded. The length measured 5 m in 2 S, and the mass was 10 kg. The current was 2 A'
+[unit correction] 'The length measured 5 meters (m) in 2 seconds (s), and the mass was 10 kilograms (kg). The current was 2 amperes (a), and the temperature reached 300 kelvins (k). Substance measured 3 mole (mol), and luminous intensity was 50 candelas (cd). Another 10 m were recorded. The length measured 5 m in 2 S, and the mass was 10 kg. The current was 2 A' -> 'The length measured 5 meters (m) in 2 seconds (s), and the mass was 10 kilograms (kg). The current was 2 amperes (a), and the temperature reached 300 kelvins (k). Substance measured 3 mole (mol), and luminous intensity was 50 candelas (cd). Another 10 mwere recorded. The length measured 5 min 2 S, and the mass was 10 kg. The current was 2 A'
+[format_dates] Line 79: '500 BCE' -> '500 bce'
+[numerals with percent] 'The discount on the shoes is 25 percent' -> 'The discount on the shoes is 25%'
+[replace_fold_phrases] Line 127: 'two-fold' -> 'twofold'
+[numerals with percent] 'The company reported a five percent' -> 'The company reported a 5%'
+[remove_space_between_degree_and_direction] Line 141: '45 °S' -> '45°S'
+[correct_units_in_ranges_with_logging]: 'The package weighs 5 kg., making it easy to' -> 'The package weighs 5 kg., making it easy to'
+[unit correction] 'The suitcase weighed 45 kgs, making it difficult to lift without assistance.' -> 'The suitcase weighed 45 kg, making it difficult to lift without assistance.'
+[enforce_lowercase_units] Line 145: '15 Kg' -> '15 kg'
+[correct_units_in_ranges_with_logging]: 'The Bag weighed 15 kg, making it difficult to lift without assistance.' -> 'The Bag weighed 15 kg, making it difficult to lift without assistance.'
+[enforce_lowercase_units] Line 146: '10 Km' -> '10 km'
+[correct_scientific_unit_symbols] '200 j' -> '200 J'
+[process_symbols_in_doc] Line 161: '1,000' -> '1 000'
+[process_symbols_in_doc] Line 161: '1 000' -> '1000'
+[process_symbols_in_doc] Line 163: '2 000' -> '2000'
+[format_large_numbers] Line 166: 'The marathon had over 10000 participants, making it one of the largest events of the' -> 'The marathon had over 10 000 participants, making it one of the largest events of the'
+[convert_decimal_to_baseline] Line 169: 'The project is expected to take 4·5 weeks to complete, with all tasks scheduled' -> 'The project is expected to take 4.5 weeks to complete, with all tasks scheduled'
+[precede_decimal_with_zero] Line 172: '.86' -> '0.86'
+[correct_units_in_ranges_with_logging]: 'buried 10 cm–15 cm deep in the soi' -> 'buried 10 – 15 cm deep in the soi'
+[adjust_ratios] Line 191: '4:8' -> '4 : 8'
+[convert_currency_to_symbols] Line 198: '·The laptop costs 1200 dollars, which is a great deal for its specifications.' -> '·The laptop costs $1200 , which is a great deal for its specifications.'
+[convert_currency_to_symbols] Line 199: '·She spent 50 pounds on groceries this week.' -> '·She spent £50  on groceries this week.'
+[convert_currency_to_symbols] Line 200: '·The concert tickets were priced at 75 euros each.' -> '·The concert tickets were priced at €75  each.'Line 1: 'The company's profits increased 10-fold over the past year, while customer satisfaction improved twofold after the new service was introduced.' -> 'The company's profits increased 10 – fold over the past year, while customer satisfaction improved twofold after the new service was introduced.'
+Line 1: 'carry on the plane as carry-on luggage.' -> 'carry on the plane as carry – on luggage.'
+Line 1: '2 million years ago, early hominids started to walk upright, marking a significant step in human evolution. Around two-and-a-half million years ago, early human ancestors began to develop tools, and adapt to their environments.' -> '2 million years ago, early hominids started to walk upright, marking a significant step in human evolution. Around two – and-a – half million years ago, early human ancestors began to develop tools, and adapt to their environments.'
+[replace_dashes_with_logging] Line 1: '-' -> '–'
+Line 1: '
+She completed the 1000-piece puzzle in just two days, impressing everyone with her patience.' -> '
+She completed the 1000 – piece puzzle in just two days, impressing everyone with her patience.'
+Line 1: '
+She completed the 1000-piece puzzle in just two days, impressing everyone with her' -> '
+She completed the 1000 – piece puzzle in just two days, impressing everyone with her'
