@@ -1,0 +1,10 @@
+
+Start Time: 2025-03-03 13:20:13.182970
+End Time: 2025-03-03 13:20:13.975920
+Analysis completed in 0.79 seconds.
+
+
+FileName: testing.docx
+
+
+Line 0: Range(kg) -> Suggestions: range kg, range-kg, ranger, range, Ranger

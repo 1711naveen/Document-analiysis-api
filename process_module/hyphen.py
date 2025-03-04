@@ -64,22 +64,16 @@ def format_hyphen_to_en_dash(runs, line_number):
         # Update the run text
         run.text = updated_text
 
-                
 
-# def write_to_log(doc_id):
-#     """
-#     Writes the global logs to a log file. If the file already exists, it appends to it.
-#     :param doc_id: The document ID used to determine the log file's directory.
-#     """
-#     global global_logs
-#     output_dir = os.path.join('output', str(doc_id))
-#     os.makedirs(output_dir, exist_ok=True)
-#     log_file_path = os.path.join(output_dir, 'global_logs.txt')
-#     with open(log_file_path, 'a', encoding='utf-8') as log_file:
-#         log_file.write("\n".join(global_logs) + "\n")
-#     global_logs = []
-
-
+def remove_double_dash(runs):
+    full_text = ''.join(run.text for run in runs)
+    processed_text = re.sub(r'(\w)--(\w)', r'\1\2', full_text)
+    processed_text = re.sub(r'(\w+)-\n-(\w+)', r'\1\2', processed_text)
+    for run in runs:
+        run.text = ''
+    if runs:
+        runs[0].text = processed_text
+        
 
 
 def write_to_log(doc_id, user):
@@ -106,6 +100,7 @@ def process_doc_function3(payload: dict, doc: Document, doc_id, user):
     """
     line_number = 1
     for para in doc.paragraphs:
+        remove_double_dash(para.runs)
         format_hyphen_to_en_dash(para.runs, line_number)
         replace_dashes(para.runs, line_number)
         

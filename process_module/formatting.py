@@ -114,39 +114,39 @@ def drop_https(document):
                                 global_logs.append(f"Updated table text: {original_url} -> {new_url}")
 
 
+# this add http before www if it is point to a page
+# def process_url_add_http(runs):
+#     """
+#     Adjusts URLs in the input text based on the given rules:
+#     1. If a URL starts with 'www.' but doesn't have 'http://', prepend 'http://'.
+#     2. If a URL already starts with 'http://', remove 'http://'.
+#     Args:
+#         runs (list): A list of runs (segments of text in the document).
+#     """
+#     def add_http_prefix(match, text):
+#         original = match.group(0)
+#         modified = f"http://{match.group(1)}"
+#         if original != modified:
+#             line_number = text[:match.start()].count('\n') + 1
+#             global_logs.append(
+#                 f"[process_url_add_http] Line {line_number}: '{original}' -> '{modified}'"
+#             )
+#         return modified
 
-def process_url_add_http(runs):
-    """
-    Adjusts URLs in the input text based on the given rules:
-    1. If a URL starts with 'www.' but doesn't have 'http://', prepend 'http://'.
-    2. If a URL already starts with 'http://', remove 'http://'.
-    Args:
-        runs (list): A list of runs (segments of text in the document).
-    """
-    def add_http_prefix(match, text):
-        original = match.group(0)
-        modified = f"http://{match.group(1)}"
-        if original != modified:
-            line_number = text[:match.start()].count('\n') + 1
-            global_logs.append(
-                f"[process_url_add_http] Line {line_number}: '{original}' -> '{modified}'"
-            )
-        return modified
+#     def remove_http_prefix(match, text):
+#         original = match.group(0)
+#         modified = match.group(1)
+#         if original != modified:
+#             line_number = text[:match.start()].count('\n') + 1
+#             global_logs.append(
+#                 f"[process_url_add_http] Line {line_number}: '{original}' -> '{modified}'"
+#             )
+#         return modified
 
-    def remove_http_prefix(match, text):
-        original = match.group(0)
-        modified = match.group(1)
-        if original != modified:
-            line_number = text[:match.start()].count('\n') + 1
-            global_logs.append(
-                f"[process_url_add_http] Line {line_number}: '{original}' -> '{modified}'"
-            )
-        return modified
-
-    for run in runs:
-        # Apply the changes in place to each run's text
-        run.text = re.sub(r"\bhttp://(www\.\S+)", lambda match: remove_http_prefix(match, run.text), run.text)
-        run.text = re.sub(r"\b(www\.\S+)", lambda match: add_http_prefix(match, run.text), run.text)
+#     for run in runs:
+#         # Apply the changes in place to each run's text
+#         # run.text = re.sub(r"\bhttp://(www\.\S+)", lambda match: remove_http_prefix(match, run.text), run.text)
+#         run.text = re.sub(r"\b(www\.\S+)", lambda match: add_http_prefix(match, run.text), run.text)
 
 
 
@@ -177,32 +177,7 @@ def process_url_remove_http(runs):
 
 
 
-# def remove_url_underlining(runs, line_number):
-#     """
-#     Ensures that web addresses/URLs in the text are not underlined.
-#     Logs any changes made to the `global_logs`.
-#     Args:
-#         runs (list): A list of runs (segments of text in the document).
-#         line_number (int): The line number of the paragraph in the document.
-#     """
-#     url_pattern = r'(https?://[^\s]+)'
 
-#     for run in runs:
-#         # Split the run's text into words and process each word
-#         words = run.text.split()
-#         modified_words = []
-        
-#         for word in words:
-#             if re.match(url_pattern, word):
-#                 modified_words.append(word)  # Keep the URL unchanged
-#                 global_logs.append(
-#                     f"[remove_url_underlining] Line {line_number}: Removed underlining from URL '{word}'"
-#                 )
-#             else:
-#                 modified_words.append(word)
-        
-#         # Update the run's text in place
-#         run.text = " ".join(modified_words)
 
 def remove_hyperlinks_underline(document):
     # Process main document paragraphs
@@ -236,18 +211,130 @@ def remove_hyperlinks_underline(document):
                     run.font.underline = False
 
 
-# def write_to_log(doc_id):
-#     """
-#     Writes the global logs to a log file. If the file already exists, it appends to it.
-#     :param doc_id: The document ID used to determine the log file's directory.
-#     """
-#     global global_logs
-#     output_dir = os.path.join('output', str(doc_id))
-#     os.makedirs(output_dir, exist_ok=True)
-#     log_file_path = os.path.join(output_dir, 'global_logs.txt')
-#     with open(log_file_path, 'a', encoding='utf-8') as log_file:
-#         log_file.write("\n".join(global_logs) + "\n")
-#     global_logs = []
+
+
+def process_url_add_http(document):
+    """
+    Add http:// to URLs missing schemes in hyperlink targets and their visible text
+    """
+    # Get all hyperlink relationships
+    rels = document.part.rels
+    hyperlink_rels = {rel_id: rel for rel_id, rel in rels.items() if rel.reltype == RT.HYPERLINK}
+
+    processed_urls = {}  # Track original -> new URLs
+
+    # 1. Process hyperlink targets
+    for rel_id, rel in hyperlink_rels.items():
+        original_url = rel._target
+        parsed = urlparse(original_url)
+        processed_urls[original_url] = original_url
+        
+        if not parsed.scheme:
+            new_url = f'http://{original_url}'
+            rel._target = new_url
+            processed_urls[original_url] = new_url
+            
+        # print(processed_urls)
+
+    # 2. Process visible hyperlink text
+    for element in document.element.body:
+        # Process hyperlinks in paragraphs
+        if element.tag.endswith('p'):
+            for hyperlink in element.xpath('.//w:hyperlink'):
+                # Get text runs within the hyperlink
+                for run in hyperlink.xpath('.//w:r'):
+                    text_elems = run.xpath('.//w:t')
+                    if text_elems:
+                        current_text = text_elems[0].text
+                        # print(current_text)
+                        # Only modify if text matches original URL
+                        # if current_text in processed_urls:
+                        text_elems[0].text = processed_urls[original_url]
+
+        # Process hyperlinks in tables
+        elif element.tag.endswith('tbl'):
+            for cell in element.xpath('.//w:tc'):
+                for hyperlink in cell.xpath('.//w:hyperlink'):
+                    for run in hyperlink.xpath('.//w:r'):
+                        text_elems = run.xpath('.//w:t')
+                        if text_elems:
+                            current_text = text_elems[0].text
+                            if current_text in processed_urls:
+                                text_elems[0].text = processed_urls[current_text]
+
+    return document
+
+# Wrapper to maintain your interface
+# def process_url_add_http_runs(runs):
+#     if runs:
+#         paragraph = runs[0]._parent
+#         document = paragraph.part.document
+#         process_url_add_http(document)
+
+
+
+def format_urls_in_paragraph(para):
+    """
+    Format URLs in paragraph runs to match the paragraph's base font.
+    Handles both plain-text URLs and hyperlink URLs.
+    """
+    # Regex pattern for URL detection (improved)
+    url_pattern = re.compile(
+        r'(https?://|www\.)[\w\-\.]+\.[a-zA-Z]{2,}(/\S*)?',
+        re.IGNORECASE
+    )
+
+    # Get paragraph's base font properties
+    base_font = {
+        'name': para.style.font.name,
+        'size': para.style.font.size,
+        'bold': para.style.font.bold,
+        'italic': para.style.font.italic,
+        'color': para.style.font.color.rgb if para.style.font.color else None
+    }
+
+    # Process plain-text URLs in runs
+    full_text = ''.join(run.text for run in para.runs)
+    url_matches = list(url_pattern.finditer(full_text))
+
+    if url_matches:
+        current_pos = 0
+        for run in para.runs:
+            run_text = run.text
+            run_length = len(run_text)
+            run_start = current_pos
+            run_end = current_pos + run_length
+
+            # Check if this run overlaps with any URL match
+            for match in url_matches:
+                url_start, url_end = match.start(), match.end()
+                if run_start < url_end and url_start < run_end:
+                    # Apply base font formatting to the entire run
+                    run.font.name = base_font['name']
+                    if base_font['size']:
+                        run.font.size = base_font['size']
+                    run.font.bold = base_font['bold']
+                    run.font.italic = base_font['italic']
+                    if base_font['color']:
+                        run.font.color.rgb = base_font['color']
+                    break  # Format once per run
+
+            current_pos = run_end
+
+    # Process hyperlinks (ensure display text matches base font)
+    hyperlinks = para.hyperlinks
+    for hyperlink in hyperlinks:
+        if hyperlink.text:
+            # Format hyperlink display text
+            for run in hyperlink.runs:
+                run.font.name = base_font['name']
+                if base_font['size']:
+                    run.font.size = base_font['size']
+                run.font.bold = base_font['bold']
+                run.font.italic = base_font['italic']
+                if base_font['color']:
+                    run.font.color.rgb = base_font['color']
+
 
 
 
@@ -255,9 +342,6 @@ def write_to_log(doc_id, user):
     global global_logs
     current_date = datetime.now().strftime("%Y-%m-%d")
     output_path_file = Path(os.getcwd()) / 'output' / user / current_date / str(doc_id) / 'text' 
-    # dir_path = output_path_file.parent
-
-    # output_dir = os.path.join('output', str(doc_id))
     os.makedirs(output_path_file, exist_ok=True)
     log_file_path = os.path.join(output_path_file, 'global_logs.txt')
 
@@ -277,9 +361,11 @@ def process_doc_function4(payload: dict, doc: Document, doc_id,user):
     drop_https(doc)
     remove_concluding_slashes_from_urls(doc)
     remove_hyperlinks_underline(doc)
+    # process_url_add_http(doc)
     for para in doc.paragraphs:
+        format_urls_in_paragraph(para)
         clean_web_addresses(para.runs)
-        process_url_add_http(para.runs)
+        # process_url_add_http_runs(para.runs)
         # process_url_remove_http(para.runs)
         # remove_url_underlining(para.runs, line_number)
 

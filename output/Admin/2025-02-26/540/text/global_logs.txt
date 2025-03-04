@@ -1,0 +1,10 @@
+
+Start Time: 2025-02-26 12:57:41.970364
+End Time: 2025-02-26 12:57:42.598321
+Analysis completed in 0.63 seconds.
+
+
+FileName: sample document 21.docx
+
+
+Line 4: Object-Oriented -> Suggestions: object oriented, object-oriented, objectiveness

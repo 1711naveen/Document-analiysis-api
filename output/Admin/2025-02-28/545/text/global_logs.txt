@@ -1,0 +1,124 @@
+
+Start Time: 2025-02-28 18:23:39.260526
+End Time: 2025-02-28 18:25:37.040031
+Analysis completed in 117.78 seconds.
+
+
+FileName: SampleforTesting_2.docx
+
+
+Line 22: Mann–Whitney -> Suggestions: Whitney
+Line 32: 3.7Soft -> Suggestions: soft
+Line 34: well-being -> Suggestions: well being, well-being, welling, belling
+Line 34: prio- -> Suggestions: pro, prion, prior, primo, trio, prig, prim, brio, priv, Prior, peru, iran, iraq, asia, spain, syria, togo
+Line 36: -rity. -> Suggestions: rit, ritzy, rite, city, rimy, pity, City, rit y, italy, iran, iraq, libya, haiti, niue, fiji
+Line 38: well-being -> Suggestions: well being, well-being, welling, belling
+Line 44: 3.8Style: -> Suggestions: style
+Line 46: system—Block -> Suggestions: system block, system-block, systematology
+Line 52: 3.9a -> Suggestions: iran, iraq, oman, asia, guam, cuba, chad
+Line 58: brother—who -> Suggestions: brother who, brother-who, brotherhood, brother, otherwhere
+Line 58: York—loves -> Suggestions: york loves, york-loves, Yorkshires
+Line 66: 4.2a -> Suggestions: iran, iraq, oman, asia, guam, cuba, chad
+Line 66: addresses/URLs -> Suggestions: addressees, addressee, addressed
+Line 68: https://www.gog.com/en/games/new. -> No suggestions available
+Line 72: 4.2b -> Suggestions: cuba
+Line 74: <https://www.example.com\>. -> Suggestions: counterexample
+Line 78: 4.2c -> No suggestions available
+Line 80: https://www.example.com. -> Suggestions: counterexample
+Line 82: https://www.example.com. -> Suggestions: counterexample
+Line 86: 4.2d -> Suggestions: 42nd, chad
+Line 86: URLs -> Suggestions: curls, purls, hurls, burls, furls, urns, urus, URLs, iran, iraq, laos, mali
+Line 90: 4.2e: -> Suggestions: i.e., niue
+Line 90: addresses/URLs -> Suggestions: addressees, addressee, addressed
+Line 94: https://example.com; -> Suggestions: counterexample
+Line 94: trojan -> Suggestions: Trojan, taiwan, oman, iran
+Line 98: 4.2f -> No suggestions available
+Line 98: addresses/URLs -> Suggestions: addressees, addressee, addressed
+Line 102: www.example.com/about-us -> Suggestions: counterexamples
+Line 106: addresses/URLs -> Suggestions: addressees, addressee, addressed
+Line 110: https://www.Google.com -> No suggestions available
+Line 114: addresses/URLs -> Suggestions: addressees, addressee, addressed
+Line 116: https://www.example.com/about-us/ -> No suggestions available
+Line 124: subparts -> Suggestions: sub parts, sub-parts, subpar ts, subpar-ts, subpar
+Line 140: Open-loop -> Suggestions: open loop, open-loop, Penelope, envelope
+Line 140: closed-loop -> Suggestions: closed loop, closed-loop, closefisted
+Line 142: Open-Loop -> Suggestions: open loop, open-loop, Penelope, envelope
+Line 142: Closed-Loop -> Suggestions: closed loop, closed-loop, closefisted
+Line 146: 5.3Style: -> Suggestions: style
+Line 148: Open-Loop -> Suggestions: open loop, open-loop, Penelope, envelope
+Line 148: Closed-Loop -> Suggestions: closed loop, closed-loop, closefisted
+Line 150: 5.4Style: -> Suggestions: style
+Line 150: Cross-references -> Suggestions: cross references, cross-references, preferences, references, conferences, concrescence
+Line 194: Object-Oriented -> Suggestions: object oriented, object-oriented, objectiveness
+Line 224: Machine-Learning -> Suggestions: machine learning, machine-learning, Machiavellianism
+Line 224: Deep-learning -> Suggestions: deep learning, deep-learning, learning's
+Line 240: Programming?Definition -> Suggestions: programming definition, programming-definition, multiprogramming
+Line 240: ImportanceHistory -> Suggestions: importance history, importance-history, importance
+Line 242: ProgrammingVariables -> Suggestions: programming variables, programming-variables, programmables
+Line 242: TypesControl -> Suggestions: types control, types-control, controllership
+Line 244: ParadigmsProcedural -> Suggestions: paradigms procedural, paradigms-procedural, procedural
+Line 244: ProgrammingObject-Oriented -> Suggestions: multiprogramming
+Line 246: ProgramWriting -> Suggestions: program writing, program-writing, programming, programing
+Line 246: World!"Running -> Suggestions: world running, world-running, worldling
+Line 248: ProgrammingIntegrated -> Suggestions: programming integrated, programming-integrated, multiprogramming
+Line 248: (IDEs)Choosing -> Suggestions: ides choosing, ides-choosing, homeschooling, choosiness
+Line 294: 8.3a -> Suggestions: iran, iraq, oman, asia, guam, cuba, chad
+Line 302: 8.3b -> Suggestions: cuba
+Line 316: 8.9a -> Suggestions: iran, iraq, oman, asia, guam, cuba, chad
+Line 318: Year-over-year -> Suggestions: yesteryear, overweary
+Line 320: 8.9b -> Suggestions: cuba
+Line 320: Uncaptioned -> Suggestions: captioned, unconditioned, unsanctioned, ineducation
+Line 324: Cross-reference -> Suggestions: cross reference, cross-reference, subconference
+Line 358: America -> Suggestions: America, africa
+Line 508: 9.11a -> Suggestions: asia, cuba
+Line 522: America -> Suggestions: America, africa
+Line 538: 9.11b -> No suggestions available
+Line 556: A1 -> Suggestions: a, 1, ae, as, ai, aa, an, ar, at, al, ac, ad, am, ah, ab, asia, iran, iraq, laos, oman, guam, mali, chad
+Line 562: stock3 -> Suggestions: stock, stocks, stocky, stock 3, Stockton
+Line 570: stock2 -> Suggestions: stock, stocks, stocky, stock 2, Stockton
+Line 580: Notes:1 -> Suggestions: notes, notes 1, note's
+Line 580: ³ -> Suggestions: e, s, i, a, n, r, t, o, l, c, d, u, g, m, p
+Line 652: Cross-reference -> Suggestions: cross reference, cross-reference, subconference
+Line 658: Endnotes -> Suggestions: endnote, end notes, end-notes, endnote s, endorses
+Line 662: End-of-Chapter -> Suggestions: subchapter
+Line 670: America. -> Suggestions: America, africa
+Line 676: techniques¹." -> Suggestions: techniques, technique
+Line 678: Footnote:¹ -> Suggestions: footnote, footnotes, footnoted, footstone
+Line 678: America. -> Suggestions: America, africa
+Line 684: Thomas -> Suggestions: Thomas, tho mas, tho-mas, oman, bahamas
+Line 684: Newcomen -> Suggestions: Newcomen, newcomer
+Line 686: Footnote:¹ -> Suggestions: footnote, footnotes, footnoted, footstone
+Line 686: Thomas -> Suggestions: Thomas, tho mas, tho-mas, oman, bahamas
+Line 686: Newcomen's -> Suggestions: newcomers, Newcomen, newcomer, newswomen
+Line 686: James -> Suggestions: James, hames, jams, sames, names, tames, lames, jades, dames, games, japes, jambs, jakes, jam's, ja mes, japan, laos, samoa, yemen
+Line 692: techniques.¹" -> Suggestions: techniques, technique
+Line 694: Footnote:¹ -> Suggestions: footnote, footnotes, footnoted, footstone
+Line 694: America -> Suggestions: America, africa
+Line 700: techniques.¹" -> Suggestions: techniques, technique
+Line 702: Footnote:¹ -> Suggestions: footnote, footnotes, footnoted, footstone
+Line 702: America. -> Suggestions: America, africa[shorten title] Line 15: ms -> Ms.
+[shorten title] Line 24: ms -> Ms.
+[shorten title] Line 71: ms -> Ms.
+[shorten title] Line 72: ms -> Ms.
+[shorten title] Line 75: ms -> Ms.
+[apply_abbreviation_mapping] Line 90: 'Inc' -> 'Inc.'
+[shorten title] Line 99: ms -> Ms.
+[shorten title] Line 123: ms -> Ms.
+[convert century] Line 224: 18th ->  eighteenth
+[convert century] Line 228: 18th ->  eighteenth
+[convert century] Line 236: 18th ->  eighteenth
+[convert century] Line 240: 18th ->  eighteenth[adjust_ratios] Line 28: '0:0' -> '0 : 0'
+[adjust_ratios] Line 28: '2:0' -> '2 : 0'
+[adjust_ratios] Line 28: '2:0' -> '2 : 0'
+[adjust_ratios] Line 28: '4:0' -> '4 : 0'
+[adjust_ratios] Line 59: '0:0' -> '0 : 0'
+[precede_decimal_with_zero] Line 231: '.1' -> '0.1'Updated target: https://example.com -> example.com
+Updated paragraph text: https://example.com -> example.com
+Updated target: https://www.example.com -> www.example.com
+Updated paragraph text: https://www.example.com -> www.example.com
+Updated paragraph text: https://www.example.com -> www.example.com
+Updated target: https://www.Google.com -> www.Google.com
+Updated paragraph text: https://www.Google.com -> www.Google.com
+Updated target: https://www.example.com/about-us/ -> https://www.example.com/about-us
+Updated paragraph text: https://www.example.com/about-us/ -> https://www.example.com/about-us
+[clean_web_addresses] Line 1: '<https://www.example.com\>' -> 'https://www.example.com\'

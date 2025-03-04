@@ -1,7 +1,7 @@
 
-Start Time: 2025-02-25 11:31:34.398920
-End Time: 2025-02-25 11:32:32.014825
-Analysis completed in 57.62 seconds.
+Start Time: 2025-02-25 17:14:38.609072
+End Time: 2025-02-25 17:15:14.070520
+Analysis completed in 35.46 seconds.
 
 
 FileName: sample document 2.docx
@@ -47,58 +47,91 @@ Line 144: Open-Loop -> Suggestions: open loop, open-loop, Penelope, envelope
 Line 144: Closed-Loop -> Suggestions: closed loop, closed-loop, closefisted
 Line 146: 5.4Style: -> Suggestions: style
 Line 146: Cross-references -> Suggestions: cross references, cross-references, preferences, references, conferences, concrescence
-Line 176: Object-Oriented -> Suggestions: object oriented, object-oriented, objectiveness
-Line 200: Machine-Learning -> Suggestions: machine learning, machine-learning, Machiavellianism
-Line 200: Deep-learning -> Suggestions: deep learning, deep-learning, learning's
-Line 212: Programming?Definition -> Suggestions: programming definition, programming-definition, multiprogramming
-Line 212: ImportanceHistory -> Suggestions: importance history, importance-history, importance
-Line 214: ProgrammingVariables -> Suggestions: programming variables, programming-variables, programmables
-Line 214: TypesControl -> Suggestions: types control, types-control, controllership
-Line 216: ParadigmsProcedural -> Suggestions: paradigms procedural, paradigms-procedural, procedural
-Line 216: ProgrammingObject-Oriented -> Suggestions: multiprogramming
-Line 218: ProgramWriting -> Suggestions: program writing, program-writing, programming, programing
-Line 218: World!"Running -> Suggestions: world running, world-running, worldling
-Line 220: ProgrammingIntegrated -> Suggestions: programming integrated, programming-integrated, multiprogramming
-Line 220: (IDEs)Choosing -> Suggestions: ides choosing, ides-choosing, homeschooling, choosiness
-Line 264: 8.3a -> Suggestions: iran, iraq, oman, asia, guam, cuba, chad
-Line 272: 8.3b -> Suggestions: cuba
-Line 286: 8.9a -> Suggestions: iran, iraq, oman, asia, guam, cuba, chad
-Line 288: Year-over-year -> Suggestions: yesteryear, overweary
-Line 290: 8.9b -> Suggestions: cuba
-Line 290: Uncaptioned -> Suggestions: captioned, unconditioned, unsanctioned, ineducation
-Line 294: Cross-reference -> Suggestions: cross reference, cross-reference, subconference
-Line 324: America -> Suggestions: America, africa
-Line 474: 9.11a -> Suggestions: asia, cuba
-Line 488: America -> Suggestions: America, africa
-Line 504: 9.11b -> No suggestions available
-Line 522: A1 -> Suggestions: a, 1, ae, as, ai, aa, an, ar, at, al, ac, ad, am, ah, ab, asia, iran, iraq, laos, oman, guam, mali, chad
-Line 528: stock3 -> Suggestions: stock, stocks, stocky, stock 3, Stockton
-Line 536: stock2 -> Suggestions: stock, stocks, stocky, stock 2, Stockton
-Line 546: Notes:1 -> Suggestions: notes, notes 1, note's
-Line 546: ³ -> Suggestions: e, s, i, a, n, r, t, o, l, c, d, u, g, m, p
-Line 618: Cross-reference -> Suggestions: cross reference, cross-reference, subconference
-Line 626: End-of-Chapter -> Suggestions: subchapter
-Line 634: America. -> Suggestions: America, africa
-Line 640: techniques¹." -> Suggestions: techniques, technique
-Line 642: Footnote:¹ -> Suggestions: footnote, footnotes, footnoted, footstone
-Line 642: America. -> Suggestions: America, africa
-Line 648: Thomas -> Suggestions: Thomas, tho mas, tho-mas, oman, bahamas
-Line 648: Newcomen -> Suggestions: Newcomen, newcomer
-Line 650: Footnote:¹ -> Suggestions: footnote, footnotes, footnoted, footstone
-Line 650: Thomas -> Suggestions: Thomas, tho mas, tho-mas, oman, bahamas
-Line 650: Newcomen's -> Suggestions: newcomers, Newcomen, newcomer, newswomen
-Line 650: James -> Suggestions: James, hames, jams, sames, names, tames, lames, jades, dames, games, japes, jambs, jakes, jam's, ja mes, japan, laos, samoa, yemen
-Line 656: techniques.¹" -> Suggestions: techniques, technique
-Line 658: Footnote:¹ -> Suggestions: footnote, footnotes, footnoted, footstone
-Line 658: America -> Suggestions: America, africa
-Line 664: techniques.¹" -> Suggestions: techniques, technique
-Line 666: Footnote:¹ -> Suggestions: footnote, footnotes, footnoted, footstone
-Line 666: America. -> Suggestions: America, africa[adjust_ratios] Line 22: '0:0' -> '0 : 0'
+Line 182: Object-Oriented -> Suggestions: object oriented, object-oriented, objectiveness
+Line 206: Machine-Learning -> Suggestions: machine learning, machine-learning, Machiavellianism
+Line 206: Deep-learning -> Suggestions: deep learning, deep-learning, learning's
+Line 218: Programming?Definition -> Suggestions: programming definition, programming-definition, multiprogramming
+Line 218: ImportanceHistory -> Suggestions: importance history, importance-history, importance
+Line 220: ProgrammingVariables -> Suggestions: programming variables, programming-variables, programmables
+Line 220: TypesControl -> Suggestions: types control, types-control, controllership
+Line 222: ParadigmsProcedural -> Suggestions: paradigms procedural, paradigms-procedural, procedural
+Line 222: ProgrammingObject-Oriented -> Suggestions: multiprogramming
+Line 224: ProgramWriting -> Suggestions: program writing, program-writing, programming, programing
+Line 224: World!"Running -> Suggestions: world running, world-running, worldling
+Line 226: ProgrammingIntegrated -> Suggestions: programming integrated, programming-integrated, multiprogramming
+Line 226: (IDEs)Choosing -> Suggestions: ides choosing, ides-choosing, homeschooling, choosiness
+Line 270: 8.3a -> Suggestions: iran, iraq, oman, asia, guam, cuba, chad
+Line 278: 8.3b -> Suggestions: cuba
+Line 292: 8.9a -> Suggestions: iran, iraq, oman, asia, guam, cuba, chad
+Line 294: Year-over-year -> Suggestions: yesteryear, overweary
+Line 296: 8.9b -> Suggestions: cuba
+Line 296: Uncaptioned -> Suggestions: captioned, unconditioned, unsanctioned, ineducation
+Line 300: Cross-reference -> Suggestions: cross reference, cross-reference, subconference
+Line 330: America -> Suggestions: America, africa
+Line 480: 9.11a -> Suggestions: asia, cuba
+Line 494: America -> Suggestions: America, africa
+Line 510: 9.11b -> No suggestions available
+Line 528: A1 -> Suggestions: a, 1, ae, as, ai, aa, an, ar, at, al, ac, ad, am, ah, ab, asia, iran, iraq, laos, oman, guam, mali, chad
+Line 534: stock3 -> Suggestions: stock, stocks, stocky, stock 3, Stockton
+Line 542: stock2 -> Suggestions: stock, stocks, stocky, stock 2, Stockton
+Line 552: Notes:1 -> Suggestions: notes, notes 1, note's
+Line 552: ³ -> Suggestions: e, s, i, a, n, r, t, o, l, c, d, u, g, m, p
+Line 624: Cross-reference -> Suggestions: cross reference, cross-reference, subconference
+Line 632: End-of-Chapter -> Suggestions: subchapter
+Line 640: America. -> Suggestions: America, africa
+Line 646: techniques¹." -> Suggestions: techniques, technique
+Line 648: Footnote:¹ -> Suggestions: footnote, footnotes, footnoted, footstone
+Line 648: America. -> Suggestions: America, africa
+Line 654: Thomas -> Suggestions: Thomas, tho mas, tho-mas, oman, bahamas
+Line 654: Newcomen -> Suggestions: Newcomen, newcomer
+Line 656: Footnote:¹ -> Suggestions: footnote, footnotes, footnoted, footstone
+Line 656: Thomas -> Suggestions: Thomas, tho mas, tho-mas, oman, bahamas
+Line 656: Newcomen's -> Suggestions: newcomers, Newcomen, newcomer, newswomen
+Line 656: James -> Suggestions: James, hames, jams, sames, names, tames, lames, jades, dames, games, japes, jambs, jakes, jam's, ja mes, japan, laos, samoa, yemen
+Line 662: techniques.¹" -> Suggestions: techniques, technique
+Line 664: Footnote:¹ -> Suggestions: footnote, footnotes, footnoted, footstone
+Line 664: America -> Suggestions: America, africa
+Line 670: techniques.¹" -> Suggestions: techniques, technique
+Line 672: Footnote:¹ -> Suggestions: footnote, footnotes, footnoted, footstone
+Line 672: America. -> Suggestions: America, africa[shorten title] Line 11: ms -> Ms.
+[shorten title] Line 18: ms -> Ms.
+[shorten title] Line 69: ms -> Ms.
+[shorten title] Line 70: ms -> Ms.
+[shorten title] Line 73: ms -> Ms.
+[apply_abbreviation_mapping] Line 89: 'Inc' -> 'Inc.'
+[shorten title] Line 93: ms -> Ms.
+[shorten title] Line 112: ms -> Ms.
+[convert century] Line 209: 18th ->  eighteenth
+[convert century] Line 213: 18th ->  eighteenth
+[convert century] Line 221: 18th ->  eighteenth
+[convert century] Line 225: 18th ->  eighteenth[adjust_ratios] Line 22: '0:0' -> '0 : 0'
 [adjust_ratios] Line 22: '2:0' -> '2 : 0'
 [adjust_ratios] Line 22: '2:0' -> '2 : 0'
 [adjust_ratios] Line 22: '4:0' -> '4 : 0'
 [adjust_ratios] Line 53: '0:0' -> '0 : 0'
-[precede_decimal_with_zero] Line 213: '.1' -> '0.1'Updated target: https://example.com -> example.com
+[precede_decimal_with_zero] Line 216: '.1' -> '0.1'Line 1: 'Incorrect : The Mann–Whitney U test is a non-parametric statistical test that compares the distribution of a continuous variable between two groups.' -> 'Incorrect : The Mann–Whitney U test is a non – parametric statistical test that compares the distribution of a continuous variable between two groups.'
+Line 1: 'Incorrect : The well-being of the employees is our top ' -> 'Incorrect : The well – being of the employees is our top '
+[replace_dashes_with_logging] Line 1: '-' -> '–'
+[replace_dashes_with_logging] Line 1: '-' -> '–'
+[replace_dashes_with_logging] Line 1: '—' -> '–'
+[replace_dashes_with_logging] Line 1: '—' -> '–'
+[replace_dashes_with_logging] Line 1: '—' -> '–'
+Line 1: 'Incorrect : Open-loop, and closed-loop systems' -> 'Incorrect : Open – loop, and closed – loop systems'
+Line 1: 'Incorrect : Open-Loop ' -> 'Incorrect : Open – Loop '
+Line 1: ' Closed-Loop Systems' -> ' Closed – Loop Systems'
+Line 1: '    Incorrect : Open-Loop, and Closed-Loop Systems.' -> '    Incorrect : Open – Loop, and Closed – Loop Systems.'
+Line 1: 'Style : Cross-references to parts' -> 'Style : Cross – references to parts'
+Line 1: ': Object-Oriented Programming Concepts' -> ': Object – Oriented Programming Concepts'
+Line 1: 'Chapter 3: Advances In Machine-Learning And Deep-learning Techniques through JAVA' -> 'Chapter 3: Advances In Machine – Learning And Deep – learning Techniques through JAVA'
+Line 1: '
+Object-Oriented Programming' -> '
+Object – Oriented Programming'
+Line 1: ' Year-over-year growth in 2024, showing the most significant increase in market performance.' -> ' Year – over-year growth in 2024, showing the most significant increase in market performance.'
+[replace_dashes_with_logging] Line 1: '-' -> '–'
+Line 1: '8.11 Cross-reference to figures' -> '8.11 Cross – reference to figures'
+Line 1: '9.19 Cross-reference to tables' -> '9.19 Cross – reference to tables'
+Line 1: '10.2 End-of-Chapter notes' -> '10.2 End – of-Chapter notes'
+[replace_dashes_with_logging] Line 1: '-' -> '–'Updated target: https://example.com -> example.com
 Updated paragraph text: https://example.com -> example.com
 Updated target: https://www.example.com -> www.example.com
 Updated paragraph text: https://www.example.com -> www.example.com

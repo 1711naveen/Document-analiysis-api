@@ -1218,10 +1218,11 @@ def process_doc_function1(payload: dict, doc: Document, doc_id, user):
     replaced_units = set()
 
     for para in doc.paragraphs:
-        if para.style.name.startswith("Heading") and para.text.strip().startswith("Chapter"):
-            used_units = set()
+        # if para.style.name.startswith("Heading") and para.text.strip().startswith("Chapter"):
+        #     used_units = set()
         # insert_thin_space_between_number_and_unit_in_runs(para.runs, line_number)
-        elide_consecutive_references(para.runs)
+        # elide_consecutive_references(para.runs)
+        
         single_to_double_quotes(para.runs)
         move_punctuation_inside_quotes(para.runs, line_number)
         apply_abbreviation_mapping(para.runs, abbreviation_dict, line_number)
@@ -1244,7 +1245,6 @@ def process_doc_function1(payload: dict, doc: Document, doc_id, user):
         enforce_eg_rule_with_logging_in_runs(para.runs, line_number)
         enforce_ie_rule_with_logging_in_runs(para.runs, line_number)
         standardize_etc_in_runs(para.runs, line_number)
-        # insert_thin_space_between_number_and_unit_in_runs(para.runs, line_number)
         process_paragraph(para.runs, line_number)
         line_number += 1
 

@@ -25,6 +25,8 @@ from process_module.hyphen import process_doc_function3
 from process_module.formatting import process_doc_function4
 from process_module.chapters import process_doc_function6
 from process_module.heading import process_doc_function7
+from process_module.figures import process_doc_function8
+from process_module.tables import process_doc_function9
 
 router = APIRouter()
 
@@ -1945,13 +1947,14 @@ async def process_file(token_request: TokenRequest, doc_id: int = Query(...)):
         curly_to_straight(doc)
         # highlight_and_correct(doc)
         write_to_log(doc_id, user[0])
-        # process_doc_function1(payload, doc, doc_id, user[0])
+        process_doc_function1(payload, doc, doc_id, user[0])
         process_doc_function2(payload, doc, doc_id, user[0])
         # process_doc_function3(payload, doc, doc_id, user[0])
-        # process_doc_function6(payload, doc, doc_id, user[0])
+        process_doc_function6(payload, doc, doc_id, user[0])
         # process_doc_function7(payload, doc, doc_id, user[0])
+        process_doc_function8(payload, doc, doc_id, user[0])
+        process_doc_function9(payload, doc, doc_id, user[0])
         process_doc_function4(payload, doc, doc_id, user[0])
-        print("i have given interview on 26th november 2024 after giving 2 round of online assesment but ui havent heard back i wnat ot know status or as help how to write")
         straight_to_curly(doc)
         
         doc.save(output_path)
@@ -1979,6 +1982,7 @@ async def process_file(token_request: TokenRequest, doc_id: int = Query(...)):
         return {"success": True, "message": f"File processed and stored at {output_path}"}
 
     except Exception as e:
+        print(e)
         raise HTTPException(status_code=500, detail=str(e))
 
 
