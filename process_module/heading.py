@@ -32,11 +32,6 @@ def remove_trailing_period_from_runs(runs):
 
 
 
-def remove_dot_afternumber(runs):
-    return runs
-
-
-
 def update_heading_runs(runs):
     """
     Updates the text of the runs to title case while preserving formatting.
@@ -91,39 +86,76 @@ def process_heading_titles_case(doc):
             para.text = new_text
 
 
-def remove_dot_in_heading_runs(runs):
+import re
+
+def remove_dot_in_heading_runs(para):
     """
-    Processes a list of runs (from a heading paragraph) and removes the period (full stop)
+    Processes a paragraph's runs (if the paragraph is a heading) and removes the period (full stop)
     after the section number at the beginning of the text. This change is applied only if the 
     heading does NOT start with 'tables', 'figures', or 'chapters' (case insensitive).
-    
-    The regex looks for a section numbering pattern at the very beginning of the text,
+
+    The regex looks for a numbering pattern at the very beginning of the text,
     for example: "1. Introduction" or "1.2. Overview". It removes the period after the number.
+    
+    This function only processes paragraphs that have a heading style.
     """
-    if not runs:
+    # Check if the paragraph style name indicates a heading.
+    # Adjust this condition if your heading styles have a different naming convention.
+    if not para.style.name.startswith("Heading"):
         return
 
-    # Combine all run texts to form the complete heading text
-    full_text = ''.join(run.text for run in runs)
+    # Combine all run texts to form the complete heading text.
+    full_text = ''.join(run.text for run in para.runs)
 
     # If the text (after stripping whitespace) starts with any of the exempt words, do nothing.
     if full_text.lstrip().lower().startswith(('tables', 'figures', 'chapters')):
         return
 
     # Regex pattern: Look for a numbering pattern at the beginning of the text followed by a dot and a space.
-    # E.g., "1. " or "1.2. " etc.
+    # For example: "1. " or "1.2. " etc.
     pattern = re.compile(r'^(\d+(?:\.\d+)*)(\.)\s')
-    # Substitute the match by removing the dot: "1. " -> "1 "
+    # Substitute the match by removing the dot: e.g., "1. " becomes "1 "
     new_text = pattern.sub(r'\1 ', full_text)
 
     # Update the runs with the new text.
     offset = 0
-    for run in runs:
+    for run in para.runs:
         run_length = len(run.text)
         run.text = new_text[offset: offset + run_length]
         offset += run_length
 
 
+def remove_trailing_period_from_heading(para):
+    """
+    For a heading paragraph, remove the trailing period (full stop) if present,
+    unless the heading starts with "tables", "figures", or "chapter" (case insensitive).
+    
+    This function checks the paragraph style to ensure that only headings are processed.
+    It then examines the combined text of all runs. If the heading ends with a period,
+    the period is removed from the last run that contains text.
+    
+    Args:
+        para: A paragraph object (e.g., from python‑docx) that has a 'style' attribute and a 'runs' list.
+    """
+    # Process only if paragraph style indicates a heading.
+    if not para.style.name.lower().startswith("heading"):
+        return
+
+    # Combine all run texts to form the complete heading text.
+    full_text = ''.join(run.text for run in para.runs)
+    
+    # Do not process headings that start with exempt words.
+    if full_text.lstrip().lower().startswith(('tables', 'figures', 'chapter')):
+        return
+
+    # If the combined text ends with a period (ignoring trailing whitespace), remove it.
+    if full_text.rstrip().endswith('.'):
+        # Iterate over runs in reverse order to find the last run that contains text.
+        for run in reversed(para.runs):
+            if run.text.strip():
+                # Remove a trailing period from the run, preserving any trailing whitespace.
+                run.text = re.sub(r'\.(\s*)$', r'\1', run.text)
+                break
 
 
 
@@ -144,13 +176,11 @@ def write_to_log(doc_id, user):
 
 
 
-def process_doc_function7(payload: dict, doc: Document, doc_id, user):    
+def process_doc_function7(payload: dict, doc: Document, doc_id, user):
+    process_heading_titles_case(doc)
     for para in doc.paragraphs:
-        update_heading_runs(para.runs)
-        process_heading_titles_case(doc)
-        for para in doc.paragraphs:
-            remove_dot_in_heading_runs(para.runs)
-        # remove_trailing_period_from_runs(para.runs)
-        # remove_single_number_period(para.runs)
+        # update_heading_runs(para.runs) #This function is of no use
+        remove_dot_in_heading_runs(para)
+        remove_trailing_period_from_heading(para)
         
     write_to_log(doc_id, user)

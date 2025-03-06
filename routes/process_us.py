@@ -1947,11 +1947,11 @@ async def process_file(token_request: TokenRequest, doc_id: int = Query(...)):
         curly_to_straight(doc)
         # highlight_and_correct(doc)
         write_to_log(doc_id, user[0])
-        process_doc_function1(payload, doc, doc_id, user[0])
-        process_doc_function2(payload, doc, doc_id, user[0])
-        # process_doc_function3(payload, doc, doc_id, user[0])
+        # process_doc_function1(payload, doc, doc_id, user[0])
+        # process_doc_function2(payload, doc, doc_id, user[0])
+        process_doc_function3(payload, doc, doc_id, user[0])
         process_doc_function6(payload, doc, doc_id, user[0])
-        # process_doc_function7(payload, doc, doc_id, user[0])
+        process_doc_function7(payload, doc, doc_id, user[0])
         process_doc_function8(payload, doc, doc_id, user[0])
         process_doc_function9(payload, doc, doc_id, user[0])
         process_doc_function4(payload, doc, doc_id, user[0])
@@ -2032,8 +2032,9 @@ async def use_token(token_request: TokenRequest):
 
 
 
-
-
+@router.get("/greet")
+def say_hello():
+    return {"success":True, "data":"Hello World!"}
 
 
 

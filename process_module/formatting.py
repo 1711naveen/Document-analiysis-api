@@ -114,41 +114,6 @@ def drop_https(document):
                                 global_logs.append(f"Updated table text: {original_url} -> {new_url}")
 
 
-# this add http before www if it is point to a page
-# def process_url_add_http(runs):
-#     """
-#     Adjusts URLs in the input text based on the given rules:
-#     1. If a URL starts with 'www.' but doesn't have 'http://', prepend 'http://'.
-#     2. If a URL already starts with 'http://', remove 'http://'.
-#     Args:
-#         runs (list): A list of runs (segments of text in the document).
-#     """
-#     def add_http_prefix(match, text):
-#         original = match.group(0)
-#         modified = f"http://{match.group(1)}"
-#         if original != modified:
-#             line_number = text[:match.start()].count('\n') + 1
-#             global_logs.append(
-#                 f"[process_url_add_http] Line {line_number}: '{original}' -> '{modified}'"
-#             )
-#         return modified
-
-#     def remove_http_prefix(match, text):
-#         original = match.group(0)
-#         modified = match.group(1)
-#         if original != modified:
-#             line_number = text[:match.start()].count('\n') + 1
-#             global_logs.append(
-#                 f"[process_url_add_http] Line {line_number}: '{original}' -> '{modified}'"
-#             )
-#         return modified
-
-#     for run in runs:
-#         # Apply the changes in place to each run's text
-#         # run.text = re.sub(r"\bhttp://(www\.\S+)", lambda match: remove_http_prefix(match, run.text), run.text)
-#         run.text = re.sub(r"\b(www\.\S+)", lambda match: add_http_prefix(match, run.text), run.text)
-
-
 
 def process_url_remove_http(runs):
     """
@@ -211,65 +176,6 @@ def remove_hyperlinks_underline(document):
                     run.font.underline = False
 
 
-
-
-def process_url_add_http(document):
-    """
-    Add http:// to URLs missing schemes in hyperlink targets and their visible text
-    """
-    # Get all hyperlink relationships
-    rels = document.part.rels
-    hyperlink_rels = {rel_id: rel for rel_id, rel in rels.items() if rel.reltype == RT.HYPERLINK}
-
-    processed_urls = {}  # Track original -> new URLs
-
-    # 1. Process hyperlink targets
-    for rel_id, rel in hyperlink_rels.items():
-        original_url = rel._target
-        parsed = urlparse(original_url)
-        processed_urls[original_url] = original_url
-        
-        if not parsed.scheme:
-            new_url = f'http://{original_url}'
-            rel._target = new_url
-            processed_urls[original_url] = new_url
-            
-        # print(processed_urls)
-
-    # 2. Process visible hyperlink text
-    for element in document.element.body:
-        # Process hyperlinks in paragraphs
-        if element.tag.endswith('p'):
-            for hyperlink in element.xpath('.//w:hyperlink'):
-                # Get text runs within the hyperlink
-                for run in hyperlink.xpath('.//w:r'):
-                    text_elems = run.xpath('.//w:t')
-                    if text_elems:
-                        current_text = text_elems[0].text
-                        # print(current_text)
-                        # Only modify if text matches original URL
-                        # if current_text in processed_urls:
-                        text_elems[0].text = processed_urls[original_url]
-
-        # Process hyperlinks in tables
-        elif element.tag.endswith('tbl'):
-            for cell in element.xpath('.//w:tc'):
-                for hyperlink in cell.xpath('.//w:hyperlink'):
-                    for run in hyperlink.xpath('.//w:r'):
-                        text_elems = run.xpath('.//w:t')
-                        if text_elems:
-                            current_text = text_elems[0].text
-                            if current_text in processed_urls:
-                                text_elems[0].text = processed_urls[current_text]
-
-    return document
-
-# Wrapper to maintain your interface
-# def process_url_add_http_runs(runs):
-#     if runs:
-#         paragraph = runs[0]._parent
-#         document = paragraph.part.document
-#         process_url_add_http(document)
 
 
 
@@ -336,7 +242,15 @@ def format_urls_in_paragraph(para):
                     run.font.color.rgb = base_font['color']
 
 
-
+def add_http_to_urls(document):
+    pattern = re.compile(r'(?<!http://)(?<!https://)(www\.[^\s]+)')
+    
+    for para in document.paragraphs:
+        # Assuming each paragraph has a 'hyperlinks' property containing hyperlink objects
+        for hyperlink in para.hyperlinks:
+            for run in hyperlink.runs:
+                # Replace occurrences of 'www.' URLs without scheme with the proper prefix.
+                run.text = pattern.sub(r'http://\1', run.text)
 
 def write_to_log(doc_id, user):
     global global_logs
@@ -361,13 +275,10 @@ def process_doc_function4(payload: dict, doc: Document, doc_id,user):
     drop_https(doc)
     remove_concluding_slashes_from_urls(doc)
     remove_hyperlinks_underline(doc)
-    # process_url_add_http(doc)
+    add_http_to_urls(doc)
     for para in doc.paragraphs:
-        format_urls_in_paragraph(para)
+    #     format_urls_in_paragraph(para)
         clean_web_addresses(para.runs)
-        # process_url_add_http_runs(para.runs)
-        # process_url_remove_http(para.runs)
-        # remove_url_underlining(para.runs, line_number)
 
        
     write_to_log(doc_id,user)
