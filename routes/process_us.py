@@ -2048,7 +2048,9 @@ async def use_token(token_request: TokenRequest):
 
 
 
-
+@router.get("/greet")
+def say_hello():
+    return {"success":True, "data":"Hello World!"}
 
 
 
