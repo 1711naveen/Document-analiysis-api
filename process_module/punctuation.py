@@ -1184,6 +1184,7 @@ def units_with_bracket(runs, used_units):
         "cd": "candela"
     }
     
+    
     pattern = r'\b(\d+(?:\.\d+)?)\s+(' + '|'.join(re.escape(unit) for unit in units.keys()) + r')\b'
     
     for run in runs:

@@ -1,0 +1,159 @@
+
+Start Time: 2025-03-10 12:28:07.797852
+End Time: 2025-03-10 12:29:09.721778
+Analysis completed in 61.92 seconds.
+
+
+FileName: Automation (Error).docx
+
+
+Line 2: subparts -> Suggestions: sub parts, sub-parts, subpar ts, subpar-ts, subpar
+Line 10: Subpart -> Suggestions: subpar, sub part, sub-part, subpar t
+Line 10: StrategyIn -> Suggestions: strategy in, strategy-in, strategy, strategist, intrastate
+Line 12: Subpart -> Suggestions: subpar, sub part, sub-part, subpar t
+Line 12: StrategyThis -> Suggestions: strategy this, strategy-this, strategists, strategist, strategy
+Line 12: subpart -> Suggestions: subpar, sub part, sub-part, subpar t
+Line 12: modern-day -> Suggestions: modern day, modern-day, modernity
+Line 14: Subpart -> Suggestions: subpar, sub part, sub-part, subpar t
+Line 14: StrategyThis -> Suggestions: strategy this, strategy-this, strategists, strategist, strategy
+Line 20: Subpart -> Suggestions: subpar, sub part, sub-part, subpar t
+Line 20: VisionIn -> Suggestions: visioning, vision in, vision-in, vision, incision, nonionising
+Line 20: subpart, -> Suggestions: subpar, sub part, sub-part, subpar t
+Line 22: Subpart -> Suggestions: subpar, sub part, sub-part, subpar t
+Line 22: GoalsThis -> Suggestions: goals this, goals-this, goalmouths
+Line 22: Time-bound -> Suggestions: time bound, time-bound, hidebound
+Line 24: Subpart -> Suggestions: subpar, sub part, sub-part, subpar t
+Line 24: ManagementHere, -> Suggestions: management here, management-here, management
+Line 32: Subpart -> Suggestions: subpar, sub part, sub-part, subpar t
+Line 32: ExecutionThis -> Suggestions: execution this, execution-this, executioner, execution
+Line 32: subpart -> Suggestions: subpar, sub part, sub-part, subpar t
+Line 34: Subpart -> Suggestions: subpar, sub part, sub-part, subpar t
+Line 34: ProgressWe -> Suggestions: progress we, progress-we, progress, prowess
+Line 34: long-term -> Suggestions: long term, long-term, longtime
+Line 36: Subpart -> Suggestions: subpar, sub part, sub-part, subpar t
+Line 36: ManagementThis -> Suggestions: management this, management-this, mismanagement, managements, management
+Line 36: organization.For -> Suggestions: organization for, organization-for, organizational, organization, organisational, organisation
+Line 50: Subpart -> Suggestions: subpar, sub part, sub-part, subpar t
+Line 50: StrategyIn -> Suggestions: strategy in, strategy-in, strategy, strategist, intrastate
+Line 52: Subpart -> Suggestions: subpar, sub part, sub-part, subpar t
+Line 52: strategyThis -> Suggestions: strategy this, strategy-this, strategists, strategist, strategy
+Line 52: subpart -> Suggestions: subpar, sub part, sub-part, subpar t
+Line 52: modern-day -> Suggestions: modern day, modern-day, modernity
+Line 54: Subpart -> Suggestions: subpar, sub part, sub-part, subpar t
+Line 54: StrategyThis -> Suggestions: strategy this, strategy-this, strategists, strategist, strategy
+Line 60: Subpart -> Suggestions: subpar, sub part, sub-part, subpar t
+Line 60: visionIn -> Suggestions: visioning, vision in, vision-in, vision, incision, nonionising
+Line 60: subpart, -> Suggestions: subpar, sub part, sub-part, subpar t
+Line 62: Subpart -> Suggestions: subpar, sub part, sub-part, subpar t
+Line 62: GoalsThis -> Suggestions: goals this, goals-this, goalmouths
+Line 62: Time-bound -> Suggestions: time bound, time-bound, hidebound
+Line 64: Subpart -> Suggestions: subpar, sub part, sub-part, subpar t
+Line 64: ManagementHere, -> Suggestions: management here, management-here, management
+Line 72: Subpart -> Suggestions: subpar, sub part, sub-part, subpar t
+Line 72: executionThis -> Suggestions: execution this, execution-this, executioner, execution
+Line 72: subpart -> Suggestions: subpar, sub part, sub-part, subpar t
+Line 74: Subpart -> Suggestions: subpar, sub part, sub-part, subpar t
+Line 74: ProgressWe -> Suggestions: progress we, progress-we, progress, prowess
+Line 74: long-term -> Suggestions: long term, long-term, longtime
+Line 76: Subpart -> Suggestions: subpar, sub part, sub-part, subpar t
+Line 76: ManagementThis -> Suggestions: management this, management-this, mismanagement, managements, management
+Line 76: organization.For -> Suggestions: organization for, organization-for, organizational, organization, organisational, organisation
+Line 90: Subpart -> Suggestions: subpar, sub part, sub-part, subpar t
+Line 90: Strategy.In -> Suggestions: strategy in, strategy-in, strategy, strategist, intrastate
+Line 92: Subpart -> Suggestions: subpar, sub part, sub-part, subpar t
+Line 92: Strategy.This -> Suggestions: strategy this, strategy-this, strategists, strategist, strategy
+Line 92: subpart -> Suggestions: subpar, sub part, sub-part, subpar t
+Line 92: modern-day -> Suggestions: modern day, modern-day, modernity
+Line 94: Subpart -> Suggestions: subpar, sub part, sub-part, subpar t
+Line 94: Strategy.This -> Suggestions: strategy this, strategy-this, strategists, strategist, strategy
+Line 100: Subpart -> Suggestions: subpar, sub part, sub-part, subpar t
+Line 100: Vision.In -> Suggestions: visioning, vision in, vision-in, vision, incision, nonionising
+Line 100: subpart, -> Suggestions: subpar, sub part, sub-part, subpar t
+Line 102: Subpart -> Suggestions: subpar, sub part, sub-part, subpar t
+Line 102: Goals.This -> Suggestions: goals this, goals-this, goalmouths
+Line 102: Time-bound -> Suggestions: time bound, time-bound, hidebound
+Line 104: Subpart -> Suggestions: subpar, sub part, sub-part, subpar t
+Line 104: Management.Here, -> Suggestions: management here, management-here, management
+Line 112: Subpart -> Suggestions: subpar, sub part, sub-part, subpar t
+Line 112: Execution.This -> Suggestions: execution this, execution-this, executioner, execution
+Line 112: subpart -> Suggestions: subpar, sub part, sub-part, subpar t
+Line 114: Subpart -> Suggestions: subpar, sub part, sub-part, subpar t
+Line 114: Progress.We -> Suggestions: progress we, progress-we, progress, prowess
+Line 114: long-term -> Suggestions: long term, long-term, longtime
+Line 116: Subpart -> Suggestions: subpar, sub part, sub-part, subpar t
+Line 116: Management.This -> Suggestions: management this, management-this, mismanagement, managements, management
+Line 116: organization.For -> Suggestions: organization for, organization-for, organizational, organization, organisational, organisation
+Line 124: Cross-references -> Suggestions: cross references, cross-references, preferences, references, conferences, concrescence
+Line 130: Subpart -> Suggestions: subpar, sub part, sub-part, subpar t
+Line 130: StrategyIn -> Suggestions: strategy in, strategy-in, strategy, strategist, intrastate
+Line 132: Subpart -> Suggestions: subpar, sub part, sub-part, subpar t
+Line 132: StrategyThis -> Suggestions: strategy this, strategy-this, strategists, strategist, strategy
+Line 132: subpart -> Suggestions: subpar, sub part, sub-part, subpar t
+Line 132: modern-day -> Suggestions: modern day, modern-day, modernity
+Line 134: Subpart -> Suggestions: subpar, sub part, sub-part, subpar t
+Line 134: StrategyThis -> Suggestions: strategy this, strategy-this, strategists, strategist, strategy
+Line 140: Subpart -> Suggestions: subpar, sub part, sub-part, subpar t
+Line 140: VisionIn -> Suggestions: visioning, vision in, vision-in, vision, incision, nonionising
+Line 140: subpart, -> Suggestions: subpar, sub part, sub-part, subpar t
+Line 142: Subpart -> Suggestions: subpar, sub part, sub-part, subpar t
+Line 142: GoalsThis -> Suggestions: goals this, goals-this, goalmouths
+Line 142: Time-bound -> Suggestions: time bound, time-bound, hidebound
+Line 144: Subpart -> Suggestions: subpar, sub part, sub-part, subpar t
+Line 144: ManagementHere, -> Suggestions: management here, management-here, management
+Line 152: Subpart -> Suggestions: subpar, sub part, sub-part, subpar t
+Line 152: ExecutionThis -> Suggestions: execution this, execution-this, executioner, execution
+Line 152: subpart -> Suggestions: subpar, sub part, sub-part, subpar t
+Line 154: Subpart -> Suggestions: subpar, sub part, sub-part, subpar t
+Line 154: ProgressWe -> Suggestions: progress we, progress-we, progress, prowess
+Line 154: long-term -> Suggestions: long term, long-term, longtime
+Line 156: Subpart -> Suggestions: subpar, sub part, sub-part, subpar t
+Line 156: ManagementThis -> Suggestions: management this, management-this, mismanagement, managements, management
+Line 156: organization.For -> Suggestions: organization for, organization-for, organizational, organization, organisational, organisation[shorten title] Line 9: miss -> Miss.
+[shorten title] Line 9: Miss -> Miss.
+[remove_and] Line 15: 'Plans and Execution' -> 'Plans & Execution'
+[remove_and] Line 17: 'Leadership and Change' -> 'Leadership & Change'
+[shorten title] Line 27: miss -> Miss.
+[remove_and] Line 35: 'Leadership and Change' -> 'Leadership & Change'
+[shorten title] Line 45: miss -> Miss.
+[shorten title] Line 45: Miss -> Miss.
+[remove_and] Line 51: 'Plans and Execution' -> 'Plans & Execution'
+[remove_and] Line 53: 'Leadership and Change' -> 'Leadership & Change'
+[shorten title] Line 63: miss -> Miss.
+[shorten title] Line 63: Miss -> Miss.
+[remove_and] Line 69: 'Plans and Execution' -> 'Plans & Execution'
+[remove_and] Line 71: 'Leadership and Change' -> 'Leadership & Change'Line 1: 'Subpart B : History, and Evolution of Business Strategy
+This subpart explores the historical development of business strategy over the years, from early business models to modern-day strategic approaches.' -> 'Subpart B : History, and Evolution of Business Strategy
+This subpart explores the historical development of business strategy over the years, from early business models to modern – day strategic approaches.'
+Line 1: 'Subpart B : Setting SMART Goals
+This section outlines the importance of setting Specific, Measurable, Achievable, Relevant, and Time-bound goals as part of the strategic planning process.' -> 'Subpart B : Setting SMART Goals
+This section outlines the importance of setting Specific, Measurable, Achievable, Relevant, and Time – bound goals as part of the strategic planning process.'
+Line 1: 'Subpart B : Monitoring Since Beginning, and Evaluating Strategic Progress
+We will discuss the importance of tracking progress, measuring performance, and adjusting strategies as necessary to ensure the long-term success of a business.' -> 'Subpart B : Monitoring Since Beginning, and Evaluating Strategic Progress
+We will discuss the importance of tracking progress, measuring performance, and adjusting strategies as necessary to ensure the long – term success of a business.'
+Line 1: 'Subpart B : History, and evolution of business strategy
+This subpart explores the historical development of business strategy over the years, from early business models to modern-day strategic approaches.' -> 'Subpart B : History, and evolution of business strategy
+This subpart explores the historical development of business strategy over the years, from early business models to modern – day strategic approaches.'
+Line 1: 'Subpart B : Setting SMART Goals
+This section outlines the importance of setting Specific, Measurable, Achievable, Relevant, and Time-bound goals as part of the strategic planning process.' -> 'Subpart B : Setting SMART Goals
+This section outlines the importance of setting Specific, Measurable, Achievable, Relevant, and Time – bound goals as part of the strategic planning process.'
+Line 1: 'Subpart B : Monitoring since beginning, and evaluating Strategic Progress
+We will discuss the importance of tracking progress, measuring performance, and adjusting strategies as necessary to ensure the long-term success of a business.' -> 'Subpart B : Monitoring since beginning, and evaluating Strategic Progress
+We will discuss the importance of tracking progress, measuring performance, and adjusting strategies as necessary to ensure the long – term success of a business.'
+Line 1: 'Subpart B : History, and Evolution of Business Strategy.
+ This subpart explores the historical development of business strategy over the years, from early business models to modern-day strategic approaches' -> 'Subpart B : History, and Evolution of Business Strategy.
+ This subpart explores the historical development of business strategy over the years, from early business models to modern – day strategic approaches'
+Line 1: 'Subpart B : Setting SMART Goals.
+ This section outlines the importance of setting Specific, Measurable, Achievable, Relevant, and Time-bound goals as part of the strategic planning process' -> 'Subpart B : Setting SMART Goals.
+ This section outlines the importance of setting Specific, Measurable, Achievable, Relevant, and Time – bound goals as part of the strategic planning process'
+Line 1: 'Subpart B : Monitoring Since Beginning, and Evaluating Strategic Progress.
+ We will discuss the importance of tracking progress, measuring performance, and adjusting strategies as necessary to ensure the long-term success of a business' -> 'Subpart B : Monitoring Since Beginning, and Evaluating Strategic Progress.
+ We will discuss the importance of tracking progress, measuring performance, and adjusting strategies as necessary to ensure the long – term success of a business'
+Line 1: 'Subpart B : History, and Evolution of Business Strategy
+This subpart explores the historical development of business strategy over the years, from early business models to modern-day strategic approaches.' -> 'Subpart B : History, and Evolution of Business Strategy
+This subpart explores the historical development of business strategy over the years, from early business models to modern – day strategic approaches.'
+Line 1: 'Subpart B : Setting SMART Goals
+This section outlines the importance of setting Specific, Measurable, Achievable, Relevant, and Time-bound goals as part of the strategic planning process.' -> 'Subpart B : Setting SMART Goals
+This section outlines the importance of setting Specific, Measurable, Achievable, Relevant, and Time – bound goals as part of the strategic planning process.'
+Line 1: 'Subpart B : Monitoring Since Beginning, and Evaluating Strategic Progress
+We will discuss the importance of tracking progress, measuring performance, and adjusting strategies as necessary to ensure the long-term success of a business.' -> 'Subpart B : Monitoring Since Beginning, and Evaluating Strategic Progress
+We will discuss the importance of tracking progress, measuring performance, and adjusting strategies as necessary to ensure the long – term success of a business.'

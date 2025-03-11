@@ -22,7 +22,11 @@ from process_module.punctuation import process_doc_function1
 from process_module.NumberAndScientificUnit import process_doc_function2
 from process_module.hyphen import process_doc_function3
 from process_module.formatting import process_doc_function4
+from process_module.parts import process_doc_function5
 from process_module.chapters import process_doc_function6
+from process_module.heading import process_doc_function7
+from process_module.figures import process_doc_function8
+from process_module.tables import process_doc_function9
 
 
 
@@ -193,24 +197,20 @@ def clean_word(word):
 def replace_curly_quotes_with_straight(text):
     return text.replace("“", '"').replace("”", '"').replace("‘", "'").replace("’", "'")
 
+
+
+
 def replace_straight_quotes_with_curly(text):
     # Replace straight double quotes with opening and closing curly quotes
     text = re.sub(r'(^|[\s([{])"', r'\1“', text)  # Opening double quotes
-    text = re.sub(r'"', r'”', text)  # Closing double quotes
+    text = re.sub(r'"', r'”', text)
     
     # Replace straight single quotes with opening and closing curly quotes
     text = re.sub(r"(^|[\s([{])'", r'\1‘', text)  # Opening single quotes
     text = re.sub(r"'", r'’', text)  # Closing single quotes
     
     text = re.sub(r"([a-zA-Z]+)'([a-zA-Z]+)", r"\1‘\2", text)  # Curly starting single quote after word
-    
     return text
-
-
-
-
-
-
 
 # Done
 def correct_acronyms(text, line_number):
@@ -998,18 +998,23 @@ def correct_scientific_units_with_logging(text, doc_id):
         
     return "\n".join(updated_lines)
 
-def write_to_log(doc_id):
-    global global_logs
 
-    output_dir = os.path.join('output', str(doc_id))
-    os.makedirs(output_dir, exist_ok=True)
-    log_file_path = os.path.join(output_dir, 'global_logs.txt')
+
+
+def write_to_log(doc_id, user):
+    global global_logs
+    current_date = datetime.now().strftime("%Y-%m-%d")
+    output_path_file = Path(os.getcwd()) / 'output' / user / current_date / str(doc_id) / 'text' 
+    # dir_path = output_path_file.parent
+
+    # output_dir = os.path.join('output', str(doc_id))
+    os.makedirs(output_path_file, exist_ok=True)
+    log_file_path = os.path.join(output_path_file, 'global_logs.txt')
 
     with open(log_file_path, 'w', encoding='utf-8') as log_file:
         log_file.write("\n".join(global_logs))
 
     global_logs = []
-
 
 
 
@@ -1771,10 +1776,11 @@ def curly_to_straight(doc):
         para.text = replace_curly_quotes_with_straight(para.text)
         
 
-        
-def staright_to_curly(doc):
+
+def straight_to_curly(doc):
     for para in doc.paragraphs:
-        para.text = replace_straight_quotes_with_curly(para.text)
+        for run in para.runs:
+            run.text = replace_straight_quotes_with_curly(run.text)
 
 
 def highlight_and_correct(doc, doc_id):
@@ -1964,7 +1970,7 @@ class TokenRequest(BaseModel):
     token: str
 
 
-@router.get("/process_uk")
+@router.post("/process_uk")
 async def process_file(token_request: TokenRequest, doc_id: int = Query(...)):
     try:
         payload = jwt.decode(token_request.token, SECRET_KEY, algorithms=[ALGORITHM])
@@ -1979,6 +1985,10 @@ async def process_file(token_request: TokenRequest, doc_id: int = Query(...)):
         cursor = conn.cursor()
         cursor.execute("SELECT * FROM row_document WHERE row_doc_id = %s", (doc_id,))
         rows = cursor.fetchone()
+        print(rows)
+        user_id=rows[5]
+        cursor.execute("SELECT admin_name from admins where admin_id = %s",(user_id,))
+        user = cursor.fetchone()
 
         if not rows:
             raise HTTPException(status_code=404, detail="Document not found")
@@ -2022,38 +2032,21 @@ async def process_file(token_request: TokenRequest, doc_id: int = Query(...)):
         global_logs.insert(0, time_log)
 
         # Define the log filename based on the document ID and name
-        document_name = rows[1].replace('.docx', '')
         log_filename = f"log_main.txt"
-        
-        # Define output path for the log file inside a directory based on doc_id
-        output_path_file = Path(os.getcwd()) / 'output' / str(doc_id) / log_filename
+        current_date = datetime.now().strftime("%Y-%m-%d")
+        output_path_file = Path(os.getcwd()) / 'output' / user[0] / current_date / str(doc_id) / 'doc' / log_filename
         dir_path = output_path_file.parent
+        print(dir_path)
 
         # Ensure the output directory exists
         dir_path.mkdir(parents=True, exist_ok=True)
 
-        # try:
-        #     # Read existing content of the log file if exists
-        #     if output_path_file.exists():
-        #         with open(output_path_file, "r", encoding="utf-8") as log_file:
-        #             existing_content = log_file.read()
-        #         with open(output_path_file, "w", encoding="utf-8") as log_file:
-        #             log_file.write(''.join(global_logs) + existing_content)
-        #     else:
-        #         # If the file doesn't exist, create it with the new log data
-        #         with open(output_path_file, "w", encoding="utf-8") as log_file:
-        #             log_file.write(''.join(global_logs))
-
-        # except FileNotFoundError:
-        #     # If the log file does not exist at all, create a new one
-        #     with open(output_path_file, "w", encoding="utf-8") as log_file:
-        #         log_file.write(''.join(global_logs))
 
 
-        output_dir = os.path.join("output", str(doc_id))
-        os.makedirs(output_dir, exist_ok=True)
+        # output_dir = os.path.join("output", str(doc_id))
+        # os.makedirs(output_dir, exist_ok=True)
 
-        output_path = os.path.join(output_dir, f"processed_{os.path.basename(file_path)}")
+        output_path = os.path.join(dir_path, f"processed_{os.path.basename(file_path)}")
 
         # doc = docx.Document(file_path)
         # highlight_and_correct(doc,doc_id)
@@ -2062,16 +2055,19 @@ async def process_file(token_request: TokenRequest, doc_id: int = Query(...)):
         
         doc = docx.Document(file_path)
         curly_to_straight(doc)
-        
-        process_doc_function1(payload, doc, doc_id)
-        process_doc_function2(payload, doc, doc_id)
-        process_doc_function3(payload, doc, doc_id)
-        process_doc_function4(payload, doc, doc_id)
-        process_doc_function6(payload, doc, doc_id)
-        
-        highlight_and_correct(doc)
-        staright_to_curly(doc)
-        doc.save(output_path)        
+        # highlight_and_correct(doc)
+        write_to_log(doc_id, user[0])
+        process_doc_function1(payload, doc, doc_id, user[0])
+        process_doc_function2(payload, doc, doc_id, user[0])
+        process_doc_function3(payload, doc, doc_id, user[0])
+        process_doc_function5(payload, doc, doc_id, user[0])
+        process_doc_function6(payload, doc, doc_id, user[0])
+        process_doc_function7(payload, doc, doc_id, user[0])
+        process_doc_function8(payload, doc, doc_id, user[0])
+        process_doc_function9(payload, doc, doc_id, user[0])
+        process_doc_function4(payload, doc, doc_id, user[0])
+        straight_to_curly(doc)
+        doc.save(output_path)
         
 
         cursor.execute("SELECT final_doc_id FROM final_document WHERE row_doc_id = %s", (doc_id,))
@@ -2080,16 +2076,17 @@ async def process_file(token_request: TokenRequest, doc_id: int = Query(...)):
         if existing_rows:
             logging.info('File already processed in final_document. Skipping insert.')
         else:
-            folder_url = f'/output/{doc_id}/'
+            folder_url = f'/output/{user[0]}/{current_date}/{doc_id}/'
             cursor.execute(
                 '''INSERT INTO final_document (row_doc_id, user_id, final_doc_size, final_doc_url, status, creation_date)
                 VALUES (%s, %s, %s, %s, %s, NOW())''',
-                (doc_id, rows[1], rows[2], folder_url, rows[7])
+                (doc_id, user_id, rows[3], folder_url, rows[7])
             )
             logging.info('New file processed and inserted into final_document.')
 
         conn.commit()
-        write_to_log(doc_id)
+        
+        # write_to_log(doc_id)
         logging.info(f"Processed file stored at: {output_path}")
         return {"success": True, "message": f"File processed and stored at {output_path}"}
 

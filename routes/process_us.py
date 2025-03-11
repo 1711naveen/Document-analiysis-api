@@ -23,6 +23,7 @@ from process_module.punctuation import process_doc_function1
 from process_module.NumberAndScientificUnit import process_doc_function2
 from process_module.hyphen import process_doc_function3
 from process_module.formatting import process_doc_function4
+from process_module.parts import process_doc_function5
 from process_module.chapters import process_doc_function6
 from process_module.heading import process_doc_function7
 from process_module.figures import process_doc_function8
@@ -191,8 +192,7 @@ def clean_word(word):
 # def clean_word(word):
 #     return word
 
-    
-    
+
 
 def replace_straight_quotes_with_curly(text):
     # Replace straight double quotes with opening and closing curly quotes
@@ -1937,8 +1937,8 @@ async def process_file(token_request: TokenRequest, doc_id: int = Query(...)):
 
         dir_path.mkdir(parents=True, exist_ok=True)
         
-        output_dir = os.path.join("output", str(doc_id))
-        os.makedirs(output_dir, exist_ok=True)
+        # output_dir = os.path.join("output", str(doc_id))
+        # os.makedirs(output_dir, exist_ok=True)
 
         output_path = os.path.join(dir_path, f"processed_{os.path.basename(file_path)}")
 
@@ -1947,9 +1947,10 @@ async def process_file(token_request: TokenRequest, doc_id: int = Query(...)):
         curly_to_straight(doc)
         # highlight_and_correct(doc)
         write_to_log(doc_id, user[0])
-        # process_doc_function1(payload, doc, doc_id, user[0])
-        # process_doc_function2(payload, doc, doc_id, user[0])
+        process_doc_function1(payload, doc, doc_id, user[0])
+        process_doc_function2(payload, doc, doc_id, user[0])
         process_doc_function3(payload, doc, doc_id, user[0])
+        process_doc_function5(payload, doc, doc_id, user[0])
         process_doc_function6(payload, doc, doc_id, user[0])
         process_doc_function7(payload, doc, doc_id, user[0])
         process_doc_function8(payload, doc, doc_id, user[0])
